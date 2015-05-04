@@ -1,0 +1,82 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Recordings" => "Recordings",
+"Record Name" => "Nombre de Grabación",
+"Record" => "Grabar",
+"Insert the Recording Name" => "Inserte el Nombre de la Grabación",
+"The recording couldn't be realized" => "La grabación no pudo ser realizada",
+"The recording was saved" => "La grabación fue guardada",
+"To continue: record a message then click on save" => "Para continuar: garbe un mensaje luego de click sobre Guardar",
+"Recording File" => "Archivo de Grabación",
+"Destiny directory couldn't be created" => "Directorio destino no pudo ser creado",
+"File Upload" => "Subir Archivo",
+"ERROR" => "ERROR",
+"You don't have extension number associated with user" => "El usuario actual no tiene un número de extensión asociado a él. Puede asociar un número de extensión a su usuario haciendo click <a href=\"javascript: openWindow('index.php?menu=userlist&amp;action=edit_userExtension&amp;rawmode=yes');\">aquí</a>",
+"The call couldn't be realized" => "La llamada no pudo ser realizada",
+"Error copying the file" => "Error copiando el archivo",
+"Message" => "Mensaje",
+"Possible file upload attack" => "Possible file upload attack",
+"contact_admin" => "No hay número de extensión asociado con el usuario actual. Por favor contáctese con el administrador para que le asigne una extensión",
+"You can start your recording after you hear a beep in your phone. Once you have finished recording you must press the # key and then hangup" => "Usted puede iniciar la grabación después de escuchar un pitido en su teléfono. Una vez que usted haya terminado la grabación, usted debe presionar la tecla # y luego colgar",
+"You do not need to add an extension to the record name" => "No es necesario agregar una extensión al nombre de la grabación",
+"It's necesary you create a new organization so you can create new Recording" => "Es necesario crear una organización para crear una nueva Grabación",
+"Are you sure you want to delete?" => "¿Está seguro que desea eliminar?",
+"You are not authorized to perform this action" => "No esta autorizado para realizar esta acción",
+"The Recordings were deleted successfully" => "Las grabaciones fueron eliminadas satisfactoriamente",
+"You must select at least one record" => "Debe seleccionar al menos una grabación",
+"Filename's length must be max 50 characters" => "El nombre del archivo no puede ser mayor a 50 caracteres",
+"Already exists a file with same filename" => "Ya existe un archivo con el mismo nombre",
+"Destiny directory couldn't be created" => "Directorio destino no pudo ser creado",
+"Record Saved Successfully" => "Grabación guardada correctamente",
+"The record couldn't be saved " => "La grabación no pudo ser guardada ",
+"The record couldn't be realized " => "La grabación no pudo ser realizada ",
+"Insert the Recording Name." => "Ingrese el nombre de la grabación",
+"System" => "Sistema",
+"Checking Name..." => "Verificando Nombre...",
+"Dialing..." => "Marcando...",
+"This Record Name already exists." => "Este nombre ya existe.",
+"Record was saved succesfully." => "Grabación guardada correctamente.",
+"Record was canceled." => "Grabación cancelada",
+"Hang up." => "Hang up.",
+"File size exceeds the limit. "=>"El tamaño de archivo excede el límite ",
+"RE_organization" => "Escoge la organización",
+"RE_attachfile" => "Permite subir archivo de grabacion",
+"Add Recording" => "Agregar Grabación",
+"Recording List" => "Lista de Grabaciones",
+"Recordings" => "Grabaciones",
+"Recording List" => "Lista de Grabación",
+"Name" => "Nombre",
+"Organization" => "Organización",
+"all" => "Todas",
+"Recordings List" => "Lista de Grabación",
+"-- Any (To the system) --" => "Cualquiera (para el sistema)",
+);
+?>

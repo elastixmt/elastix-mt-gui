@@ -1,0 +1,483 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: dhcpconfig.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+require_once 'Console/Getopt.php';
+
+load_default_timezone();
+
+// Parse command-line options
+$opt = Console_Getopt::getopt($argv, '', array(
+    'dumpconfig', // Dump DHCP configuration
+    'refresh',  // Rewrites /etc/dhcpd.conf from current config and network.db
+    'config',   // Configurate DHCP options
+    'start',    // Start DHCP service and mark as autostart
+    'stop',     // Stop DHCP service and remove from autostart
+    //'restart',  // Restart DHCP service
+    
+    // DHCP configuration options
+    'ip-start=',    // Start of IP range
+    'ip-end=',      // End of IP range
+    'lease-time=',  // Lease time 
+    'dns1=',        // DNS 1 (optional)
+    'dns2=',        // DNS 2 (optional)
+    'gateway=',     // Network gateway (optional)
+    'wins=',        // New hostname (optional)
+    'phonesonly',   // If specified, restrict DHCP to known phones only
+));
+if (PEAR::isError($opt)) error_exit($opt->getMessage()."\n");
+validateOptions($opt);
+foreach ($opt[0] as $option) switch ($option[0]) {
+case '--dumpconfig':
+    exit(action_dumpconfig($opt) ? 0 : 1);
+case '--refresh':
+    exit(action_refresh($opt) ? 0 : 1);
+case '--config':
+    exit(action_configuration($opt) ? 0 : 1);
+case '--start':
+    exit(action_start($opt) ? 0 : 1);
+case '--stop':
+    exit(action_stop($opt) ? 0 : 1);
+}
+error_exit("No action specified (--config or --start or --stop)\n");
+
+function error_exit($sMsg, $errorcode = 1)
+{
+    fwrite(STDERR, $sMsg);
+    exit($errorcode);
+}
+
+function load_default_timezone()
+{
+    $sDefaultTimezone = @date_default_timezone_get();
+    if ($sDefaultTimezone == 'UTC') {
+        $sDefaultTimezone = 'America/New_York';
+        if (file_exists('/etc/sysconfig/clock')) {
+            foreach (file('/etc/sysconfig/clock') as $s) {
+                $regs = NULL;
+                if (preg_match('/^ZONE\s*=\s*"(.+)"/', $s, $regs)) {
+                    $sDefaultTimezone = $regs[1];
+                }
+            }
+        }
+    }
+    date_default_timezone_set($sDefaultTimezone);
+}
+
+// Parse and validate known command-line options
+function validateOptions($opt)
+{
+    foreach ($opt[0] as $option) switch ($option[0]) {
+    case '--lease-time':
+        if (!ctype_digit($option[1]))
+            error_exit('Option '.$option[0].": Invalid lease time\n");
+        break;
+    case '--dns1':
+    case '--dns2':
+    case '--gateway':
+    case '--wins':
+    case '--ip-start':
+    case '--ip-end':
+        $regs = NULL;
+        if (!preg_match('/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/', $option[1], $regs))
+            error_exit('Option '.$option[0].": Invalid IP address\n");
+        for ($i = 1; $i <= 4; $i++) if ($regs[$i] > 255)
+            error_exit('Option '.$option[0].": Invalid IP address\n");
+        break;
+    }
+}
+
+// Dump configuration
+function action_dumpconfig($opt)
+{
+    if (file_exists('/etc/dhcp/dhcpd.conf')) {
+        readfile('/etc/dhcp/dhcpd.conf');
+        return TRUE;
+    } elseif (file_exists('/etc/dhcpd.conf')) {
+        readfile('/etc/dhcpd.conf');
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
+// Execute DNS configuration. Returns TRUE on success
+function action_configuration($opt)
+{
+    $bExito = TRUE;
+
+    $sIpStart = $sIpEnd = $iLeaseTime = $sGateway = $sDNS1 = $sDNS2 = $sWINS = NULL;
+    $bPhonesOnly = FALSE;
+    foreach ($opt[0] as $option) switch ($option[0]) {
+    case '--ip-start':
+        $sIpStart = $option[1];
+        break;
+    case '--ip-end':
+        $sIpEnd = $option[1];
+        break;
+    case '--lease-time':
+        $iLeaseTime = $option[1];
+        break;
+    case '--gateway':
+        $sGateway = $option[1];
+        break;
+    case '--dns1':
+        $sDNS1 = $option[1];
+        break;
+    case '--dns2':
+        $sDNS2 = $option[1];
+        break;
+    case '--wins':
+        $sWINS = $option[1];
+        break;
+    case '--phonesonly':
+        $bPhonesOnly = TRUE;
+    	break;
+    }
+    
+    // Check required parameters
+    if ($bExito && is_null($sIpStart)) {
+        $bExito = FALSE;
+        fprintf(STDERR, "ERR: start of IP range must be specified\n");
+    }
+    if ($bExito && is_null($sIpEnd)) {
+        $bExito = FALSE;
+        fprintf(STDERR, "ERR: end of IP range must be specified\n");
+    }
+    if ($bExito && is_null($iLeaseTime)) {
+        $bExito = FALSE;
+        fprintf(STDERR, "ERR: lease time must be specified\n");
+    }
+    if (is_null($sDNS1) && !is_null($sDNS2)) {
+        $bExito = FALSE;
+        fprintf(STDERR, "ERR: DNS 2 requires DNS 1 to be set\n");
+    }
+
+    if ($bExito) {
+        $bExito = configureDHCP($sIpStart, $sIpEnd, $iLeaseTime, $sGateway, 
+            $sDNS1, $sDNS2, $sWINS, $bPhonesOnly);
+    }
+    return $bExito;
+}
+
+// Write out DHCP configuration from requested parameters. Return TRUE on success
+function configureDHCP($sIpStart, $sIpEnd, $iLeaseTime, $sGateway = NULL, 
+    $sDNS1 = NULL, $sDNS2 = NULL, $sWINS = NULL, $bPhonesOnly = FALSE)
+{
+    $bExito = TRUE;
+
+    // Fix reversed start and end
+    if ((explode(".", $sIpStart) > explode(".", $sIpEnd))) {
+        $t = $sIpStart; $sIpStart = $sIpEnd; $sIpEnd = $t;
+    }
+
+    // Optional and derived parameters
+    $sConfigWINS = $sConfigDNS = $sConfigGateway = '';
+    if (!is_null($sGateway))
+        $sConfigGateway = "\toption routers\t\t\t{$sGateway};\n";
+    if (!is_null($sWINS))
+        $sConfigWINS = "\toption netbios-name-servers\t{$sWINS};\n";
+    $dnsList = array();
+    if (!is_null($sDNS1)) $dnsList[] = $sDNS1;
+    if (!is_null($sDNS2)) $dnsList[] = $sDNS2;
+    if (count($dnsList) > 0)
+        $sConfigDNS .= "\toption domain-name-servers\t".implode(', ', $dnsList).";\n";
+
+    // Get timezone offset
+    $sTimezoneOffset = date("Z");
+    $sTimezoneName = date_default_timezone_get();
+
+    // Find out hostname
+    $output = NULL;
+    exec('/bin/hostname', $output);
+    $sHostname = $output[0];
+
+    // Figure out a domain for the hostname
+    $sDomain = array_pop(explode('.', $sHostname, 2));
+    
+    /* There might be multiple interfaces on the machine. The configuration
+     * file must be built with the subnet/mask information of the interface
+     * that contains the required IP range */
+    $sIpAddress = $sNetwork = $sNetmask = NULL;
+    foreach (listIpAddresses() as $addrInfo) {
+        $sNetwork_start = construir_ip_red($sIpStart, $addrInfo['netmask']);
+        $sNetwork_end   = construir_ip_red($sIpEnd, $addrInfo['netmask']);
+        if ($addrInfo['network'] == $sNetwork_start && $addrInfo['network'] == $sNetwork_end) {
+            $sNetwork = $addrInfo['network'];
+            $sNetmask = $addrInfo['netmask'];
+            $sIpAddress = $addrInfo['ipaddr'];
+            break;
+        }
+    }
+    if (is_null($sIpAddress)) {
+        $bExito = FALSE;
+        fprintf(STDERR, "ERR: start or end IPs are outside range on all configured interfaces\n");
+    } else {
+        // Query all configured fixed IPs for DHCP
+        $ipsInsideNet = array();
+        $ipsOutsideNet = array();
+
+        // network.db exists in Elastix 2.0 only
+        if (file_exists('/var/www/db/network.db')) {
+            try {
+                $conn = new PDO('sqlite:/var/www/db/network.db');
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $sth = $conn->query('SELECT hostname, ipaddress, macaddress FROM dhcp_conf ORDER BY ipaddress');
+                $ips = $sth->fetchAll(PDO::FETCH_ASSOC);
+                
+                // Classify IPs on whether they are inside or outside subnet
+                foreach ($ips as $ip) {
+                    if (construir_ip_red($ip['ipaddress'], $sNetmask) == $sNetwork)
+                        $ipsInsideNet[] = $ip;
+                    else $ipsOutsideNet[] = $ip;
+                }
+                $conn = NULL;
+            } catch (PDOException $e) {            
+                $bExito = FALSE;
+                fprintf(STDERR, "ERR: failed to query fixed IPs for DHCP - %s\n", $e->getMessage());
+            }
+        }
+
+        $sMacClass = '';
+        $sMacAllow = '';
+        if ($bExito && $bPhonesOnly) {
+            try {
+                $conn = new PDO('sqlite:/var/www/db/endpoint.db');
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $sth = $conn->query('SELECT mac.value FROM mac ORDER BY mac.value');
+                $macs = $sth->fetchAll(PDO::FETCH_COLUMN);
+                if (count($macs) > 0) {
+                    $sMacAllow = 'allow members of "elastix-known-phones";';
+                    $sMacClass = "class \"elastix-known-phones\" {\n".
+                        "\tmatch if substring(hardware,1,3) = ".
+                        implode("\n\t\tor substring(hardware,1,3) = ", $macs).";\n}";
+                }
+                $conn = NULL;
+            } catch (PDOException $e) {
+                $bExito = FALSE;
+                fprintf(STDERR, "ERR: failed to query known phone MAC prefixes - %s\n", $e->getMessage());
+            }
+        }
+
+        if ($bExito) {
+            $sConfigIPs_inside = $sConfigIPs_outside = '';
+            foreach ($ipsInsideNet as $ip) {
+                $sConfigIPs_inside .= "\n".
+                    "\thost {$ip['hostname']} {\n".
+                    "\t\thardware ethernet {$ip['macaddress']};\n".
+                    "\t\tfixed-address {$ip['ipaddress']};\n".
+                    "\t}\n";
+            }
+            foreach ($ipsOutsideNet as $ip) {
+                $sConfigIPs_outside .= "\n".
+                    "host {$ip['hostname']} {\n".
+                    "\thardware ethernet {$ip['macaddress']};\n".
+                    "\tfixed-address {$ip['ipaddress']};\n".
+                    "}\n";
+            }
+
+            $sPlantilla = <<<PLANTILLA_DHCP
+ddns-update-style interim;
+ignore client-updates;
+
+# The following option tells Cisco phones the address of the TFTP server
+option cisco-tftp-server code 150 = ip-address;
+
+# The following option tells Polycom phones the URL of the boot server
+#option polycom-boot-server code 160 = string;
+
+$sMacClass
+subnet $sNetwork netmask $sNetmask {
+$sConfigGateway
+
+	option subnet-mask		$sNetmask;
+	option nis-domain		"$sDomain";
+	option domain-name		"$sDomain";
+$sConfigDNS
+	option time-offset		$sTimezoneOffset; # $sTimezoneName
+	option ntp-servers		$sIpAddress;
+	option tftp-server-name		"$sIpAddress";
+$sConfigWINS
+
+	option cisco-tftp-server	$sIpAddress;
+#	class "polycom-phones" {
+#		match if substring(hardware,1,3) = 00:04:f2;
+#		option polycom-boot-server	"tftp://$sIpAddress";
+#	}
+
+	pool {
+		range dynamic-bootp $sIpStart $sIpEnd;
+		$sMacAllow
+	}
+	default-lease-time $iLeaseTime;
+	max-lease-time 50000;
+$sConfigIPs_inside
+}
+$sConfigIPs_outside
+PLANTILLA_DHCP;
+            if (file_exists('/etc/dhcp/dhcpd.conf')) {
+                file_put_contents('/etc/dhcp/dhcpd.conf', $sPlantilla);
+            } else {
+                file_put_contents('/etc/dhcpd.conf', $sPlantilla);
+            }
+        }
+    }
+
+    // Restart dhcp service for changes to take effect
+    if ($bExito && is_dhcp_active()) {
+        $output = $ret = NULL;
+        exec('/sbin/service dhcpd restart', $output, $ret);
+        $bExito = ($ret == 0);
+    }
+
+    return $bExito;
+}
+
+// List IPv4/Netmask for all Ethernet interfaces
+function listIpAddresses()
+{
+    $iflist = array(); $if = NULL;
+    $output = NULL;
+    exec('/sbin/ip addr show', $output);
+    $bIsEther = FALSE;
+    $ip = NULL;
+    foreach ($output as $s) {
+        $regs = NULL;
+        if (preg_match('/^\d+:\s+(\w+):\s*<(.*)>/', $s, $regs)) {
+            $if = $regs[1];
+            $bIsEther = FALSE;
+        } elseif (strpos($s, 'link/ether') !== FALSE) {
+            $bIsEther = TRUE;
+        } elseif (preg_match('|\s*inet (\d+\.\d+\.\d+.\d+)/(\d+) brd (\d+\.\d+\.\d+.\d+).+\s((\w+)(:(\d+))?)\s*$|', trim($s), $regs)) {
+            // Calcular IP de máscara a partir de número de bits
+            $iMaskBits = $regs[2];
+            $iMask = (0xFFFFFFFF << (32 - $iMaskBits)) & 0xFFFFFFFF;
+            $sMaskIP = implode('.', array(
+                ($iMask >> 24) & 0xFF,
+                ($iMask >> 16) & 0xFF,
+                ($iMask >>  8) & 0xFF,
+                ($iMask      ) & 0xFF,
+            ));
+            if (!is_null($if) && !isset($iflist[$if])) { 
+                $iflist[$if] = array(
+                    'ipaddr'    =>  $regs[1],
+                    'broadcast' =>  $regs[3],
+                    'netmask'   =>  $sMaskIP,
+                    'network'   =>  construir_ip_red($regs[1], $sMaskIP),
+                );
+            }
+        }
+    }
+    return $iflist;
+}
+
+function construir_ip_red($ip, $mascara) 
+{    
+    $ip = explode(".", $ip);
+    $mascara = explode(".", $mascara);
+    for ($i = 0; $i < 4; $i++) $ip[$i] = (int)$ip[$i] & (int)$mascara[$i];    
+    return implode(".", $ip); 
+}
+
+// Starts DHCP and marks it for autostart. Returns TRUE on success.
+function action_start($opt)
+{
+    $output = $ret = NULL;
+	if (!is_dhcp_active()) {
+		exec('/sbin/service dhcpd start', $output, $ret);
+        if ($ret != 0) return FALSE;
+	}
+    exec('/sbin/chkconfig --level 235 dhcpd on', $output, $ret);
+    return ($ret == 0);
+}
+
+// Stops DHCP and removes it from autostart. Returns TRUE on success
+function action_stop($opt)
+{
+    $output = $ret = NULL;
+    if (is_dhcp_active()) {
+        exec('/sbin/service dhcpd stop', $output, $ret);
+        if ($ret != 0) return FALSE;
+    }
+    exec('/sbin/chkconfig --level 235 dhcpd off', $output, $ret);
+    return ($ret == 0);
+}
+
+// Check whether DHCP is running
+function is_dhcp_active()
+{
+    $output = $ret = NULL;
+    exec('/sbin/service dhcpd status > /dev/null 2>&1', $output, $ret);
+    return ($ret == 0);
+}
+
+// Refresh /etc/dhcpd.conf with fixed IPs from /var/www/db/network.db
+function action_refresh($opt)
+{
+    $bExito = TRUE;
+
+    $sIpStart = $sIpEnd = $iLeaseTime = $sGateway = $sDNS1 = $sDNS2 = $sWINS = NULL;
+    $bSeenSubnet = FALSE;
+    $bPhonesOnly = FALSE;
+    foreach (file('/etc/dhcpd.conf') as $s) {
+        $regs = NULL;
+        if (preg_match('/^\s*subnet\s+(\S+)\s+netmask\s+(\S+)/', $s, $regs)) {
+            if ($bSeenSubnet) {
+                $bExito = FALSE;
+                fprintf(STDERR, "ERR: cannot handle multiple subnets\n");
+            } else $bSeenSubnet = TRUE;
+        } elseif (preg_match('/^\s*option\s+routers\s+(\S+)\s*;/', $s, $regs)) {
+            $sGateway = $regs[1];
+        } elseif (preg_match('/^\s*option\s+netbios-name-servers\s+(\S+)\s*;/', $s, $regs)) {
+            $sWINS = $regs[1];
+        } elseif (preg_match('/^\s*option\s+domain-name-servers\s+(\S+)\s*;/', $s, $regs)) {
+            if (is_null($sDNS1))
+                $sDNS1 = $regs[1];
+            else $sDNS2 = $regs[1];
+        } elseif (preg_match('/^\s*range\s+dynamic-bootp\s+(\S+)\s+(\S+)\s*;/', $s, $regs)) {
+            $sIpStart = $regs[1];
+            $sIpEnd = $regs[2];
+        } elseif (preg_match('/^\s*default-lease-time\s+(\d+)/', $s, $regs)) {
+            $iLeaseTime = $regs[1];
+        } elseif (strpos($s, 'elastix-known-phones') !== FALSE) {
+            $bPhonesOnly = TRUE;
+        }
+        
+        if (!$bExito) break;
+    }
+    
+    if ($bExito) {
+        $bExito = configureDHCP($sIpStart, $sIpEnd, $iLeaseTime, $sGateway, 
+            $sDNS1, $sDNS2, $sWINS, $bPhonesOnly);
+    }
+    
+    return $bExito;    
+}
+?>

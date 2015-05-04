@@ -1,0 +1,11 @@
+insert into model (name,description,id_vendor,iax_support)values("C60","C60",(select id from vendor where name="Fanvil"),'1');
+insert into model (name,description,id_vendor,iax_support)values("C58/C58P","C58/C58P",(select id from vendor where name="Fanvil"),'1');
+insert into model (name,description,id_vendor,iax_support)values("C56/C56P","C56/C56P",(select id from vendor where name="Fanvil"),'0');
+insert into model (name,description,id_vendor,iax_support)values("821","snom821-SIP",(select id from vendor where name="Snom"),'0');
+insert into model (name,description,id_vendor,iax_support)values("m9","m9",(select id from vendor where name="Snom"),'0');
+update mac set value="7C:14:76" where value="7c:14:76";
+insert into vendor (name,description)values("Voptech","Voptel Technology Co., Ltd");
+insert into model (name,description,id_vendor,iax_support)values("VI2006","VI2006",(select id from vendor where name="Voptech"),'0');
+insert into mac (id_vendor,value,description)values((select id from vendor where name="Voptech"),"00:0E:30","Voptech VI2006");
+insert into model (name,description,id_vendor,iax_support)values("VI2007","VI2007",(select id from vendor where name="Voptech"),'1');
+insert into model (name,description,id_vendor,iax_support)values("VI2008","VI2008",(select id from vendor where name="Voptech"),'1');

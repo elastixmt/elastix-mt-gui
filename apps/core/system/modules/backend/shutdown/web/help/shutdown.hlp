@@ -1,0 +1,17 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>This option allows for the shutdown and rebooting of the telephone system. Upon choosing whichever of the two options, you will be prompted to confirm the desired option to execute.</p>
+
+<div><img src="../modules/{$node_id}/images/shutdown.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+</body>
+</html>

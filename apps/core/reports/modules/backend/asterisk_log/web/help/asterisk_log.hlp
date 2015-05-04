@@ -1,0 +1,43 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+<p align="Justify">La opción "Asterisk Logs" del módulo "Reports" nos permite visualizar
+el contenido del log del Asterisk para monitorear cada suceso.
+</p>
+<table class="inline">
+  <tr>
+    <th>Parámetro</th><th>Descripción</th>
+  </tr>
+  <tr>
+    <td>Date</td><td>Parámetro para buscar por una fecha dada el contenido del log</td>
+  </tr>
+  <tr>
+    <td>Search string</td><td>Parámetro utilizado para filtrar el contenido del log, este se    	muestra sombreado de un color amarrillo</td>
+  </tr>
+</table><br/>
+<div><img src="../modules/{$node_id}/images/asterisk_log.jpg" border="0"></div>
+<div>Figura 1</div><br/><br/>
+<table class="inline">
+  <tr>
+    <th>Columna</th><th>Descripción</th>
+  </tr>
+  <tr>
+    <td>Date</td><td>Nos indica la fecha del suceso.</td>
+  </tr>
+  <tr>
+    <td>Type</td><td>Nos indica de que tipo fué el suceso.</td>
+  </tr>
+  <tr>
+    <td>Source</td><td>Nos indica la fuente del suceso(Ubicación).</td>
+  </tr>
+  <tr>
+    <td>Message</td><td>Descripción del suceso.</td>
+  </tr>
+</table>
+
+</body>
+</html>

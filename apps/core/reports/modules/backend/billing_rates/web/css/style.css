@@ -1,0 +1,20 @@
+
+/* Tooltips */
+#tooltip {
+	position: absolute;
+	padding: 4px;
+	color: #FFF;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	display: none;
+	text-align: left;
+	background-color: #000;
+	opacity: 0.8;
+	-moz-opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+ 
+.tooltipTitle {
+	font-weight: bold;
+	color:#FF9900;
+}

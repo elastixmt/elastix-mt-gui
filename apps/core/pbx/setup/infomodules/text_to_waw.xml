@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="text_to_wav" name="Text to Wav" idParent="tools" type="module" link=""  order_no="4">
+		<permissions administrative="yes" organization_access="yes" >
+			<actions>
+				<action name="access">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

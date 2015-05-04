@@ -1,0 +1,25 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “File Editor” of the Menu “PBX” in Elastix lets us edit the files of the configuration of Elastix.</p>
+
+<div><img src="../modules/{$node_id}/images/file_editor.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>To edit a file, click on the file and the file will appear in edit mode:</p>
+
+<div><img src="../modules/{$node_id}/images/file_editor_users.jpg" border="0"></div>
+<div>Figure 2</div>
+<br />
+
+<p>Proceed to edit the file of configuration, and after it is complete, click on the “Saved” button to save the new configuration. To return without saving the changes, click on the “Back” button.</p>
+
+</body>
+</html>

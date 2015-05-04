@@ -1,0 +1,153 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com 											 |
+  |                                                                      |
+  | Translate bye: Erwan DESVERGNES - SDCI                               |
+  | erwan.desvergnes@SDCI.fr                                             |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+*/
+global $arrLangModule;
+$arrLangModule=array(
+"Are you sure you wish to delete backup (s)?" => "Are you sure you wish to delete backup (s)?",
+"Database" => "Database",
+"PDF" => "PDF",
+"Endpoint" => "Endpoint",
+"Asterisk" => "Asterisk",
+"All options (Fax)" => "All options (Fax)",
+"All options (Email)" => "All options (Email)",
+"All options (Endpoint)" => "All options (Endpoint)",
+"All options (Asterisk)" => "All options (Asterisk)",
+"DAHDI Configuration" => "DAHDI Configuration",
+"Others" => "Others",
+"All options (Others)" => "All options (Others)",
+"SugarCRM Database" => "SugarCRM Database",
+"VtigerCRM Database" => "VtigerCRM Database",
+"A2billing Database" => "A2billing Database",
+"Mysql Database" => "Mysql Database",
+"Menus and Permissions" => "Menus and Permissions",
+"This process could take several minutes" => "This process could take several minutes",
+"Mailbox" => "Mailbox",
+"(Heavy Content)" => "(Heavy Content)",
+"Upload" => "Upload",
+"File Upload" => "File Upload",
+"The backup file would have a tar extension" => "The backup file would have a tar extension",
+"Error copying the file" => "Error copying the file",
+"The file was copied correctly" => "The file was copied correctly",
+"Backup" => "Perform a Backup...",
+"Process" => "Procesi",
+"Restore" => "Restore",
+"Elastix Database" => "Elastix baza",
+"Sounds" => "Zvukovi",
+"Configuration Files" => "Konfiguracijske datoteke",
+"Monitors" => "Monitori",
+"tFTP" => "tFTP",
+"Email Acccounts" => "Računi e-pošte",
+"Choose an option to backup" => "Odabir jedne opcije za sigurnosnu kopiju",
+"Could not generate backup file" => "Nije moguće napraviti sigurnosnu kopiju",
+"Backup Complete!" => "Izrada sigurnosne kopije je završena!",
+"Choose an option to restore" => "Odabir jedne opcije za vraćanje u prijašnje stanje",
+"Backup file path can't be empty" => "Sigurnosna kopija nemože biti prazna",
+"File doesn't exist" => "Datoteka ne postoji",
+"Restore Complete!" => "Vraćanje u prijačnje stanje završeno!",
+"Backup File Location" => "Položaj datoteke sigurnosne kopije",
+"Select All options" => "Select All options",
+"Backup/Restore" => "Sigurnosna kopija/Prethodno stanje",
+"Backup List" => "Lista sigurnosnih kopija",
+"Name Backup" => "Naziv sigurnosne kopije",
+"Error when deleting backup file" => "Pogreška pri brisanju sigurnosne kopije",
+"There are not backup file selected" => "Nema odabrane sigurnosne kopije",
+"Action" => "Akcija",
+"Folder backup doesn't exist" => "Mapa za sigurnosnu kopiju ne postoji",
+"Flash Operator Panel Config Files" => "Flash Operator Panel Config Files",
+"Date" => "Datum",
+"Voicemails" => "Govorna pošta",
+"Fax" => "Fax",
+"Email" => "E-pošta",
+"Dahdi Configuration" => "Dahdi Configuration",
+"Cancel" => "Cancel",
+"Select all in this section" => "Select all in this section",
+"MOH" => "Music on Hold",
+"Others new" => "Others",
+"Calendar  Database" => "Calendar  Database",
+"Address Book Database" => "Address Book Database",
+"Conference  Database" => "Conference  Database",
+"FTP Backup" => "FTP Backup",
+"FTP Backup" => "FTP Backup",
+"Server FTP" => "Server FTP",
+"Port" => "Port",
+"User" => "User",
+"Password" => "Password",
+"Local" => "Local",
+"Server FTP" => "Server FTP",
+"Upload" => "Upload",
+"Download" => "Download",
+"Path Server FTP" => "Path Server FTP",
+"Error to connect" => "Please fill all fields to connect server",
+"Error Connection" => "Couldn't connect to server",
+"Error user_password" => "Couldn't connect with your user and password",
+"Error to save" => "Please fill all fields to save",
+"Error Drag Drop" => "Please Drag and Drop a file between lists",
+"Error to request" => "There was a problem with the connection",
+"Successfully uploaded" => "Successfully uploaded",
+"Problem uploading" => "There was a problem uploading",
+"Successfully written" => "Successfully written",
+"Problem downloading" => "There was a problem downloading",
+"TITLE" => "Please Drag and Drop a tar file between lists for uploading or downloading by FTP",
+"AUTOMATIC" => "Automatic Backup",
+"DAILY" => "Daily",
+"MONTHLY" => "Monthly",
+"WEEKLY" => "Weekly",
+"DISABLED" => "Disabled",
+"SUCCESSFUL" => "Successful Process",
+"Unabled write file" => "Unabled write file",
+"Unabled open file" => "Unabled open file",
+"EOP" => "EOP",
+"programs" => "Programs",
+"Warning" => "<b><font size='2' color='red'>WARNING:</font></b> Versions to restore are different. You could have any problem with the behavior of the programs after restoring. Press process to accept or cancel if not.",
+"local_version" => "Current",
+"external_version" => "Restore",
+"details" => "view details",
+"warning_details" => "Warning Details",
+"no_file_xml" => "<b><font size='2' color='red'>WARNING:</font></b> No Data versions in file Restore. You could have any problem with the behavior of the programs after restoring. Press process to accept or cancel if not.",
+"asterisk" => "Asterisk",
+"dahdi" => "DAHDI",
+"wanpipe-util" => "Wanpipe-Util",
+"freepbx" => "Freepbx",
+"elastix" => "Elastix",
+"Package" => "Package",
+"elastix-pbx" => "Elastix PBX",
+"elastix-email_admin" => "Elastix Email",
+"elastix-agenda" => "Elastix Agenda",
+"elastix-fax" => "Elastix Fax",
+"elastix-vtigercrm" => "Elastix VtigerCRM",
+"elastix-a2billing" => "Elastix A2billing",
+"elastix-sugarcrm-addon" => "Elastix SugarCRM",
+"Package not installed" => "Not installed",
+"Version" => "Version",
+"Please verify if the mysql password is the correct in /etc/elastix.conf (mysqlrootpwd)" => "Please verify if the mysql password is the correct in /etc/elastix.conf (mysqlrootpwd)",
+);
+?>

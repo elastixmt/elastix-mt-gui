@@ -1,0 +1,87 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Billing Rates" => "Billing Rates",
+"Prefix" => "Prefijo",
+"Rate" => "Tarifa",
+"Rate Offset" => "Tarifa de Conexión",
+"None" => "Nadie",
+"(by min)" => " (por min.)",
+"New Rate" => "Nueva Tarifa",
+"Edit Rate" => "Editar Tarifa",
+"View Rate" => "Ver Tarifa",
+"View" => "Ver",
+"Rates List" => "Listado de Tarifas",
+"Trunk" => "Troncal",
+"Name" => "Nombre",
+"Are you sure you wish to continue?" => "¿Está seguro que desea continuar?",
+"create_rate"=>"Crear Nueva Tarifa",
+"import_rate"=>"Importar Archivo",
+"Creation Date" => "Fecha de Creación",
+"Closing Date" => "Fecha de Cierre",
+"Default" => "Default",
+"New_rate" => "Nueva Tarifa",
+"CANCEL" => "Cancelar",
+"SAVE" => "Guardar",
+"REQUIRED_FIELD" => "Campos Requeridos",
+"EDIT" => "Editar",
+"DELETE" => "Eliminar",
+"Rate_offset" => "Rate offset",
+"Error_new" => "Error, para completar la creación de un nueva tarifa debe llenar todos los campos de texto",
+"Error_edit" => "Error, para completar la edición de un tarifa debe llenar todos los campos de texto",
+"error_name" => "Error, nombre de la tarifa ya existe",
+"File_error" => "Error al crear las tarifas desde el archivo enviado.",
+"Error on line" => "Error en linea",
+"Invalid_file_extension" => "<b>Invalido etension del archivo.-</b> Este deberia ser csv",
+"create_new_rate" => "Nueva tarifa ha sido creada",
+"edit_rate" => "Tarifa ha sido editada",
+"error_prefix" => "Prefijo ya existe con la misma troncal.",
+"error" => "Hubo un error mientras se escribia en la base de datos. Vuelva a ingresar correctamente los datos",
+"CONFIRM_CONTINUE" => "Esta seguro que desea eliminar esta tarifa?",
+"deleted" => "Tarifa ha sido eliminada correctamente",
+"deleted_error" => "Hubo un error mietras se estaba eliminando la tarifa de la base de datos. Por favor vuelva a intentar",
+"Hidden_Digits" => "Digitos Ocultos",
+"APPLY_CHANGES" => "Aplicar Cambios",
+"Validation Error" => "Error de Validación",
+"error_CVS" => "Hubo un error mientras se escribia en la base de datos. Revise si las columnas estan correctas en el archivo .csv",
+"by_min" => "(by min)",
+"alert_import" => "[!]File.csv[/!]&quot;Prefix&quot;,&quot;Name&quot;,&quot;Rate&quot;,&quot;Rate Offset&quot;,&quot;Hidden Digits&quot;,&quot;Trunk&quot;",
+"Date close" => "Fecha de Cierre",
+"Rate History" => "Historico de Tarifas",
+"Keep history of the current rate" => "Mantener el historico de la tarifa actual",
+"This option allow to create a new rate and keep the history of their rates, or if not only edit the current rate values." => "Esta opción permite modificar la tasa actual, manteniendo la historia de los diferentes valores que este índice ha adoptado a través del tiempo (bueno para el mantenimiento de registros que reflejen el valor real que la tasa tenía en un momento determinado).",
+"Status" => "Estado",
+"Obsolete" => "Obsoleto",
+"Current" => "Vigente",
+"File was imported successful" => "Archivo fue importado exitosamente",
+"Error rate name already exists in database or is duplicated in csv file" => "Error nombre de la tarifa ya existe en la base de datos o esta duplicada en el archivo csv",
+"The prefix already exists with the same Trunk in database or is duplicated in csv file" => "Prefijo ya existe con la misma troncal o esta duplicado en el archivo csv",
+);
+?>

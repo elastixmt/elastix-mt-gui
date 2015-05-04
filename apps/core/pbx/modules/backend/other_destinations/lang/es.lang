@@ -1,0 +1,50 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 3.0.0                                                |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.1 2014-03-12 Bruno Macias bmacias@elastix.org Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Other Destination Name"   => "Other Destination Name",
+"Dial Destination" => "Dial Destination",
+"Other Destination List" => "Other Destination List",
+"Error to obtain Other Destination" => "Error to obtain Other Destination",
+"ADD Other Destination" => "ADD Other Destination",
+"Invalid Other Destination ID" => "Invalid Other Destination ID",
+"Other Destination doesn't exist" => "Other Destination doesn't exist",
+"Other Destination" => "Other Destination",
+"Name" => "Name",
+"Other Destination has been created successfully" => "Other Destination has been created successfully",
+"Field 'Description' can't be empty" => "Field 'Description' can't be empty",
+"Field 'Dial Destination' can't be empty" => "Field 'Dial Destination' can't be empty",
+"Other Destination has been edited successfully" => "Other Destination has been edited successfully",
+"Other Destination can't be deleted." => "Other Destination can't be deleted.",
+"Other Destination was deleted successfully" => "Other Destination was deleted successfully",
+"Error creating dialplan for Other Destinations. " => "Error creating dialplan for Other Destinations. ", 
+"Feature Codes" => "Feature Codes",
+"Shortcut Apps" => "Shortcut Apps"
+);
+?>

@@ -1,0 +1,83 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  |                                                                      |
+  | Translate bye: Erwan DESVERGNES - SDCI                               |
+  | erwan.desvergnes@SDCI.fr                                             |
+  |                                                                      |                                               |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: br.lang,v 1.6 2007/09/05 00:36:42 afigueroa Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Extensions Batch" => "Lote de Ramais",
+"Batch of Extensions" => "Batch of Extensions",
+"Are you really sure you want to delete all the extensions in this server?" => "Are you really sure you want to delete all the extensions in this server?",
+"Invalid file extension.- It must be csv" => "Extensão inválida de arquivo. Deve ser um arquivo .csv",
+"Possible file upload attack. Filename" => "Possível ataque de upload. No arquivo",
+"Error" => "Erro",
+"Error updating Tech" => "Erro ao atualizar Tech",
+"Error updating Users" => "Erro ao atualizar Usuários",
+"Error updating Devices" => "Erro ao atualizar Dispositivos",
+"Error updating Voicemail" => "Erro ao atualizar Voicemail",
+"Error processing CallWaiting" => "Erro ao processar CallWaiting",
+"Total extension updated" => "Total de ramais atualizados",
+"Error, extension" => "Erro, no ramal",
+"repeat in lines" => "repetição nas linhas",
+"with" => "com",
+"The file is incorrect or empty" => "O arquivo está incorreto ou vazio",
+"Incomplete Columns" => "Colunas incompletas",
+"Verify the header" => "Verifique o cabeçalho",
+"At minimum there must be the columns" => "At minimum there must be the columns",
+"Can't exist a extension empty. Line" => "O campo de ramal não pode estar vazio. Linha",
+"Can't exist a secret empty. Line" => "O campo de senha não pode estar vazio. Linha",
+"Can't exist a display name empty. Line" => "O campo de nome não pode estar vazio. Linha",
+"Please read the lines in the footer" => "Por favor leia as linhas no rodapé",
+"Header File Extensions Batch" => "The first line must contains the name (or title) of the columns, and the file must have at minimum four columns: Display Name, User Extension, Secret, Tech. For more information about all the parameters supported, please read the online embedded help.",
+"About Update Extensions Batch" => "Se você carregar um arquivo com ramais que já existem, esses ramais serão atualizados",
+"There aren't extensions" => "Não são ramais",
+"Download Extensions" => "Download the current extensions in CSV format",
+"Error processing Database Family" => "Error processing Database Family",
+"Delete All Extensions" => "Delete All Extensions",
+"All extensions deletes" => "All extensions deletes",
+"Error to delete extensions" => "Error to delete extensions",
+"Unable to reload the changes" => "Unable to reload the changes",
+"Could not delete the database" => "Could not delete the database",
+"Could not delete the ASTERISK database" => "Could not delete the ASTERISK database",
+"Unable delete AMPUSER in database astDB" => "Unable delete AMPUSER in database astDB",
+"Unable delete DEVICE in database astDB" => "Unable delete DEVICE in database astDB",
+"Unable delete CW in database astDB" => "Unable delete CW in database astDB",
+"Unable delete CF in database astDB" => "Unable delete CF in database astDB",
+"Unable delete CFB in database astDB" => "Unable delete CFB in database astDB",
+"Unable delete CFU in database astDB" => "Unable delete CFU in database astDB",
+"File" => "File to Upload (*.csv)",
+"Message" => "Mensagem",
+"Save" => "Upload CSV File",
+"Error to insert or update Direct DID" => "Error to insert or update Direct DID",
+"Can't exist a technology empty. Line" => "Can't exist a technology empty. Line",
+"has a wrong tech in line" => "has a wrong tech in line",
+"Tech must be sip or iax" => "Tech must be sip or iax"
+);
+?>

@@ -1,0 +1,58 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: cn.lang,v 1.6 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Network Parameters" => "网络参数",
+"Device" => "设备",
+"Type" => "类型",
+"IP" => "IP地址",
+"Mask" => "子网掩码",
+"MAC Address" => "MAC地址",
+"HW Info" => "硬件信息",
+"Status" => "Status",
+"Ethernet Interfaces List" => "以太网接口列表",
+"Connected" => "已连接",
+"Not Connected" => "未连接",
+"Edit Interface" => "编辑界面",
+"Validation Error" => "确认出错",
+"The following fields contain errors" => "以下项目有误",
+"Host" => "主机",
+"Primary DNS" => "主要DNS地址",
+"Secondary DNS" => "次要DNS地址",
+"Default Gateway" => "默认网关",
+"IP Address" => "IP地址",
+"Network Mask" => "子网掩码",
+"Interface Type" => "接口类型",
+"Save" => "保存",
+"Edit Network Parameters" => "编辑网络参数",
+"Required field" => "必填项",
+"Apply changes" => "改变生效",
+"Are you sure you want to edit network parameters?" => "你确定要修改网络参数吗?",
+);
+?>

@@ -1,0 +1,53 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2008 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com 						                     |
+  |                                                                      |
+  | Translated by: Erwan DESVERGNES - SDCI                               |
+  | erwan.desvergnes@SDCI.fr                                             |
+  |   Revision 1.0-17 by Gregory BOUZINAC - GMixon                       | 
+  | greg@gmixon.com                                                      |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: fr.lang,v 1.8 2008/05/20 00:36:42 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Number" => "RG Number",
+"Name"   => "RG Name",
+"Strategy" => "Dial Strategy",
+"Ring Time" => "Ring Time",
+"Ignore CF" => "Ignore Call Forward",
+"Skip Busy Extensions" => "Skip Busy Extensions",
+"Default Destination" => "Default Destination",
+"Error to obtain Ring Groups" => "Error to obtain Ring Groups. ",
+"Create New Ring Group" => "Create New Ring Group",
+"Click here to reload dialplan" => "Click here to reload dialplan.",
+"Invalid Ring Group" => "Invalid Ring Group. ",
+"Field 'Name' can't be empty." => "Field 'Name' can't be empty.",
+"Ring Group has been created successfully" => "Ring Group has been created successfully. ",
+"You must select a destination for this ring_group." => "You must select a destination for this ring_group. ",
+"The Ring Group was deleted successfully" => "The Ring Group was deleted successfully. ",
+"Ring Group has been edited successfully" => "Ring Group has been edited successfully. ",
+);
+?>

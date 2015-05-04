@@ -1,0 +1,72 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.3.0-6                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2012-05-30 05:05:31 Sergio Broncano sbroncano@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Error" => "Error",
+"Line" => "Línea",
+"Required field" => "Campo requerido",
+"Extension" => "Extensión",
+"File" => "Archivo a Subir (*.csv)",
+"Download Endpoints" => "Download the current endpoints in CSV format",
+"Header File Batch Endpoint" => "La primera línea del archivo CSV subida debe contener el nombre (o título) de las columnas. Debe haber un mínimo de cuatro columnas: \"vendedor\", \"modelo\", \"MAC\" y \"Ext\". Para obtener información sobre todos los parámetros soportados, por favor lea la ayuda en línea integrada.",
+"Batch of Endpoint" => "Batch of Endpoints",
+"About Update Batch Endpoint" => "Si carga un archivo que incluye endpoints con las extensiones que ya están configurados, estas extensiones se sobrescribirán con los que están en el archivo csv.",
+"Save" => "Procesar Batch Endpoints",
+"Discover Endpoints in this Network" => "Configurar Endpoints en esta Subred",
+"Endpoint Batch" => "Endpoint Batch",
+"Validation Error" => "Error de Validación",
+"Invalid file extension.- It must be csv" => "Extensión de archivo no válido - Debe ser csv",
+"Possible file upload attack. Filename" => "Posible ataque de archivo. nombre de archivo",
+"Invalid Format Ip address" => "Formato de dirección IP No Válida",
+"has not been created." => "no ha sido creado.",
+"not supported." => "no soportado.",
+"Error, Technology Device (SIP/IAX) not supported on endpoint." => "Error, Tecnología de Dispositivo (SIP/IAX) no Soportada en endpoint.",
+"Endpoint wasn't founded in subnet." => "Endpoint no encontrado en la subred.",
+"Resume" => "Resumen",
+"Total endpoint processed" => "Total endpoint Procesados",
+"Invalid MAC Address" => "Dirección MAC No Válida",
+"Invalid Bridge" => "Bridge No Válido",
+"Invalid IP address" => "Dirección IP No Válida",
+"Mask is empty" => "Mask está Vacía",
+"Invalid Mask address" => "Dirección Mask No Válida",
+"Invalid GW address" => "GW No Válido",
+"Invalid DNS1 address" => "Dirección DNS1 No Válida",
+"Invalid DNS2 address" => "Dirección DNS2 No Válida",
+"Error get Data" => "Error al Obtener Datos",
+"Can't exist a vendor empty. Line" => "No puede existir un Vendor Vacío. En la Línea",
+"Can't exist a model empty. Line" => "No puede existir un Model Vacío. En la Línea",
+"Can't exist a mac name empty. Line" => "No puede existir una MAC Vacía. En la Línea",
+"Can't exist a ext empty. Line" => "No puede existir una Ext Vacía. En la Línea",
+"Please read the lines in the footer"=>"Por favor, lea las líneas en el pie de página",
+"Verify the header" => "Verifique que la cabecera",
+"At minimum there must be the columns" => "como mínimo debe haber las columnas",
+"Incomplete Columns" => "Incomplete Columns",
+"The file is incorrect or empty" => "The file is incorrect or empty",
+);
+?>

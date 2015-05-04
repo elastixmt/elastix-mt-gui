@@ -1,0 +1,241 @@
+#!/bin/bash
+######### Administration Menus and permission ###############
+#Install or Update sqlite3 database
+pathDB="/var/www/db"
+pathTmpDB="/usr/share/elastix/sqlite3/db"
+mkdir -p $pathTmpDB
+
+echo "#############################################"
+echo "#### Staring Verification SQLITE Changes ####"
+echo "#############################################"
+#Con ayuda de %config(noreplace) se crea .rpmnew si hubo cambios
+#Por el momneto me interesa estas tres bases si cambiaron.
+ls $pathDB/menu.db.rpmnew &>/dev/null
+modificadoPorUsuarioMenuDb=$?
+ls $pathDB/acl.db.rpmnew &>/dev/null
+modificadoPorUsuarioAclDb=$?
+ls $pathDB/fax.db.rpmnew &>/dev/null
+modificadoPorUsuarioFaxDb=$?
+
+mv $pathDB/*.rpmnew $pathTmpDB/ &>/dev/null
+
+elastix_version=$1
+echo "pre version elastix $elastix_version" 
+
+if [ "$elastix_version" \< "1.6" ]; then
+    #Update only menu.db and acl.db (tables acl_resource, acl_group)
+    #paso 1: repaldo de bases
+        cp $pathDB/menu.db $pathDB/menu_old.db
+        cp $pathDB/acl.db  $pathDB/acl_old.db
+        echo "End step 1, backup databases..."
+    if [ $modificadoPorUsuarioMenuDb -eq 0 ]; then
+        #paso 2: elimino menus viejos
+            sqlite3 $pathDB/menu.db "delete from menu where id='freepbx';"
+            echo "delete old menu freepbx." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='poper';"
+            echo "delete old menu poper." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='recordings';"
+            echo "delete old menu recordings." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='voicemails';"
+            echo "delete old menu voicemails." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='developer';"
+            echo "delete old menu developer." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='ari';"
+            echo "delete old menu ari." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='outgoingcalls';"
+            echo "delete old menu outgoingcalls." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='incomingcalls';"
+            echo "delete old menu incomingcalls." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='menuadmin';"
+            echo "delete old menu menuadmin." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='backup';"
+            echo "delete old menu backup." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='restore';"
+            echo "delete old menu restore." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='backuplist';"
+            echo "delete old menu backuplist." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='ports_details';"
+            echo "delete old menu ports_details." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='echo_canceller';"
+            echo "delete old menu echo_canceller." ;
+            sqlite3 $pathDB/menu.db "delete from menu where id='report_call';"
+            echo "delete old menu report_call." ;
+            sqlite3 $pathDB/acl.db  "delete from acl_group_permission where id_resource=(select id from acl_resource where name='freepbx');"
+            sqlite3 $pathDB/acl.db  "delete from acl_resource where name='freepbx';"
+            sqlite3 $pathDB/acl.db  "delete from acl_group_permission where id_resource=(select id from acl_resource where name='backup');"
+            sqlite3 $pathDB/acl.db  "delete from acl_resource where name='backup';"
+            sqlite3 $pathDB/acl.db  "delete from acl_group_permission where id_resource=(select id from acl_resource where name='restore');"
+            sqlite3 $pathDB/acl.db  "delete from acl_resource where name='restore';"
+            sqlite3 $pathDB/acl.db  "delete from acl_group_permission where id_resource=(select id from acl_resource where name='backuplist');"
+            sqlite3 $pathDB/acl.db  "delete from acl_resource where name='backuplist';"
+            sqlite3 $pathDB/acl.db  "delete from acl_group_permission where id_resource=(select id from acl_resource where name='ports_details');"
+            sqlite3 $pathDB/acl.db  "delete from acl_resource where name='ports_details';"
+            sqlite3 $pathDB/acl.db  "delete from acl_group_permission where id_resource=(select id from acl_resource where name='echo_canceller');"
+            sqlite3 $pathDB/acl.db  "delete from acl_resource where name='echo_canceller';"
+            sqlite3 $pathDB/acl.db  "delete from acl_group_permission where id_resource=(select id from acl_resource where name='report_call');"
+            sqlite3 $pathDB/acl.db  "delete from acl_resource where name='report_call';"
+            echo "End step 2, delete menus olds..."
+        
+        #paso 3: Insertar menus creados por usuarios, se inserta primero todos los menus nuevos y despues los del usuario.
+            sqlite3 $pathDB/menu.db "alter table menu rename to menu_old;"
+            sqlite3 $pathTmpDB/menu.db.rpmnew ".dump menu" > $pathTmpDB/menu.table
+            sqlite3 $pathDB/menu.db ".read $pathTmpDB/menu.table"
+            sqlite3 $pathDB/menu.db " select mo.id  from menu_old mo left join menu m on mo.id=m.id where m.id is null;" > $pathTmpDB/user_menu.data
+            
+            for i in `cat $pathTmpDB/user_menu.data`; do 
+                echo "insert row $i to table menu." ; 
+                sqlite3 $pathDB/menu.db "insert into menu select id,idParent,link,name,type from menu_old where id='$i';"
+            done
+            echo "End step 3, insert menus create for user..."
+        
+        #paso 4: Eliminar tabla menu_old creada temporalmente
+            sqlite3 $pathDB/menu.db "drop table menu_old;"
+            echo "End step 4, delete table temporalable menu_old..."
+    fi
+    if [ $modificadoPorUsuarioAclDb -eq 0 ]; then
+        #paso 5: Insertar permisos de nuevos menus al usuario administrador (tablas acl_resource y acl_group_permission) 
+            sqlite3 $pathTmpDB/acl.db.rpmnew "alter table acl_resource rename to acl_resource_new;"
+            sqlite3 $pathTmpDB/acl.db.rpmnew ".dump acl_resource_new" > $pathTmpDB/acl_resource_new.table
+            sqlite3 $pathDB/acl.db ".read $pathTmpDB/acl_resource_new.table"
+            sqlite3 $pathDB/acl.db " select arn.name  from acl_resource_new arn left join acl_resource ar on arn.name=ar.name where ar.name is null;" > $pathTmpDB/user_acl_resource.data
+            
+            for i in `cat $pathTmpDB/user_acl_resource.data`; do 
+                if [ `sqlite3 $pathDB/acl.db "select count(*) from acl_resource where name='$i';"` -eq 0 ]; then
+                    echo "insert row $i to table acl_resource." ; 
+                    sqlite3 $pathDB/acl.db "insert into acl_resource(name,description) select name,description from acl_resource_new where name='$i'; insert into acl_group_permission(id_action,id_group,id_resource) values (1,1,(select last_insert_rowid()))"
+                fi
+            done
+            echo "End step 5, insert permission new menus at user administrator..."
+        
+        #paso 6: Eliminar tabla acl_resource_new creada temporalmente
+            sqlite3 $pathDB/acl.db "drop table acl_resource_new;"
+            echo "End step 6, delete table temporalable acl_resource_new..."
+
+       #paso 7: En elastix 1.1 se agrego dos tablas a la base acl por lo tanto aumenta el numero de pasos y su enumeracion cambia.
+       #        Se agrega la tabla acl_profile_properties y la tabla acl_user_profile.
+            sqlite3 $pathDB/acl.db "select count(*) from acl_user_profile" &>/dev/null  
+            existeTableAclUserProfile=$?
+            sqlite3 $pathDB/acl.db "select count(*) from acl_profile_properties" &>/dev/null  
+            existeTableAclProfileProperties=$?
+            if [ $existeTableAclUserProfile -ne 0 ]; then
+                echo "Not exists table acl_user_profile."
+                sqlite3 $pathTmpDB/acl.db.rpmnew ".dump acl_user_profile" > $pathTmpDB/acl_user_profile.table
+                sqlite3 $pathDB/acl.db ".read $pathTmpDB/acl_user_profile.table"
+                echo "created table acl_user_profile."
+            fi
+            if [ $existeTableAclProfileProperties -ne 0 ]; then
+                echo "Not exists table acl_profile_properties."
+                sqlite3 $pathTmpDB/acl.db.rpmnew ".dump acl_profile_properties" > $pathTmpDB/acl_profile_properties.table
+                sqlite3 $pathDB/acl.db ".read $pathTmpDB/acl_profile_properties.table"
+                echo "created table acl_profile_properties."
+            fi
+            echo "End step 7, DataBase acl verification and tables complete..."
+    fi
+    if [ $modificadoPorUsuarioFaxDb -eq 0 ]; then
+        #paso 8: Ver si la base fax es la ultima
+            sqlite3 $pathDB/fax.db "select count(*) from fax" &>/dev/null  
+            existeTableFax=$?
+            sqlite3 $pathDB/fax.db "select count(*) from syslog" &>/dev/null  
+            existeTableSysLog=$?
+            sqlite3 $pathDB/fax.db "select count(*) from info_fax_recvq" &>/dev/null  
+            existeTableInfoFaxRecq=$?
+            sqlite3 $pathDB/fax.db "select count(*) from configuration_fax_mail" &>/dev/null  
+            existeTableConfigFaxMail=$?
+
+            if [ $existeTableFax -ne 0 ]; then
+                echo "Not exists table fax."
+                sqlite3 $pathTmpDB/fax.db.rpmnew ".dump fax" > $pathTmpDB/fax.table
+                sqlite3 $pathDB/fax.db ".read $pathTmpDB/fax.table"
+                echo "created table fax."
+            fi
+            if [ $existeTableSysLog -ne 0 ]; then
+                echo "Not exists table syslog."
+                sqlite3 $pathTmpDB/fax.db.rpmnew ".dump syslog" > $pathTmpDB/syslog.table
+                sqlite3 $pathDB/fax.db ".read $pathTmpDB/syslog.table"
+                echo "created table syslog."
+            fi
+            if [ $existeTableInfoFaxRecq -ne 0 ]; then
+                echo "Not exists table info_fax_recvq."
+                sqlite3 $pathTmpDB/fax.db.rpmnew ".dump info_fax_recvq" > $pathTmpDB/info_fax_recvq.table
+                sqlite3 $pathDB/fax.db ".read $pathTmpDB/info_fax_recvq.table"
+                echo "created table info_fax_recvq."
+            fi
+            if [ $existeTableConfigFaxMail -ne 0 ]; then
+                echo "Not exists table configuration_fax_mail"
+                sqlite3 $pathTmpDB/fax.db.rpmnew ".dump configuration_fax_mail" > $pathTmpDB/configuration_fax_mail.table
+                sqlite3 $pathDB/fax.db ".read $pathTmpDB/configuration_fax_mail.table"
+                echo "created table configuration_fax_mail"
+            fi
+            echo "End step 8, DataBase fax verification and tables complete..."
+    fi
+    #paso 9: Eliminar los temporales
+        rm -rf /usr/share/elastix/sqlite3/
+        echo "End step 9, delete path temporaly..."
+fi
+
+#paso 10: 
+# Validation for rate.db exists column trunk.
+sqlite3  $pathDB/rate.db "alter table rate add column trunk TEXT;" &>/dev/null  
+existeColumnTrunk=$?
+if [ $existeColumnTrunk -ne 0 ]; then
+    echo "End step 10, Column trunk in database rate.db exists."
+else
+    echo "End step 10, Column trunk in database rate.db added."
+fi
+
+#paso 11:
+# Validation for fax.db existeTableFax columns country_code and area_code
+sqlite3  $pathDB/fax.db "alter table fax add column country_code varchar(16);" &>/dev/null  
+existeColumnCountryCode=$?
+if [ $existeColumnCountryCode -ne 0 ]; then
+    echo "End step 11, Column country_code in database fax.db exists."
+else
+    echo "End step 11, Column country_code in database fax.db added."
+fi
+
+#paso 12:
+sqlite3  $pathDB/fax.db "alter table fax add column area_code varchar(16);" &>/dev/null  
+existeColumnAreaCode=$?
+if [ $existeColumnAreaCode -ne 0 ]; then
+    echo "End step 12, Column area_code in database fax.db exists."
+else
+    echo "End step 12, Column area_code in database fax.db added."
+fi
+
+#paso 13:
+#Validation for calendar.db
+sqlite3  $pathDB/calendar.db "alter table events add column call_to varchar(20);" &>/dev/null  
+existeColumnCalendarCallTo=$?
+if [ $existeColumnCalendarCallTo -ne 0 ]; then
+    echo "End step 13, Column call_to in database calendar.db exists."
+else
+    echo "End step 13, Column call_to in database calendar.db added."
+fi
+
+#paso 14:
+sqlite3  $pathDB/fax.db "alter table info_fax_recvq add column type varchar(3) default 'in';" &>/dev/null  
+existeColumnType=$?
+if [ $existeColumnType -ne 0 ]; then
+    echo "End step 14, Column type in database fax.db exists."
+else
+    echo "End step 14, Column type in database fax.db added."
+fi
+
+#paso 15:
+sqlite3  $pathDB/fax.db "alter table info_fax_recvq add column faxpath varchar(255) default '';" &>/dev/null  
+existeColumnType=$?
+if [ $existeColumnType -ne 0 ]; then
+    echo "End step 15, Column faxpath in database fax.db exists."
+else
+    echo "End step 15, Column faxpath in database fax.db added."
+fi
+
+#paso 16:
+sqlite3  $pathDB/menu.db "select count(*) from menu where id='email'" &>/dev/null
+existeMenuEmail=$?
+if [ $existeMenuEmail -eq 1 ]; then
+    sqlite3  $pathDB/menu.db "update menu set id='email_admin' where id='email';"
+    sqlite3  $pathDB/menu.db "update menu set idParent='email_admin' where idParent='email';"
+    echo "End step 16, Menu email was changed to email_admin."
+fi
+################## End Administration Menus and permission ##########################

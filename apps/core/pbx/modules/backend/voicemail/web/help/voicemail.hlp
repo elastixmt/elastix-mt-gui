@@ -1,0 +1,62 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “Voicemails” of the Menu “PBX” in Elastix lets us view a list with details of the voicemails for the extension of a connected user.</p>
+
+<div><img src="../modules/{$node_id}/images/voicemail.png" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>The report will change depending on the values of the filter:</p>
+
+<table class="inline">
+  <tr>
+    <th>Parameter</th><th>Description</th>
+  </tr>
+  <tr>
+    <td>Start Date</td><td>Start date for the selection of voicemails.</td>
+  </tr>
+  <tr>
+    <td>End Date</td><td>End date for the selection of voicemails.</td>
+  </tr>
+</table>
+<br/>
+<div><img src="../modules/{$node_id}/images/voicemail_config.png" border="0"></div>
+<div>Figure 2</div>
+<br/>
+<p>The user can only configure the "voicemail" if a user is assigned by Elastix's extension.</p>
+<table class="inline">
+  <tr>
+    <th>Parameter</th><th>Description</th>
+  </tr>
+  <tr>
+    <td>Email</td><td>The email address that voicemails are sent to.</td>
+  </tr>
+  <tr>
+    <td>Pager Email Address</td><td>Pager/mobile email address that short voicemail notifications are sent to.</td>
+  </tr>
+  <tr>
+    <td>Password</td><td>This is the password used to acess the voicemail system.</td>
+  </tr>
+
+  <tr>
+    <td>Email Attachment</td><td>Option to attach voicemails to email.</td>
+  </tr>
+  <tr>
+  <td>Play CID</td><td>Read back caller's telephone number prior to playing the incoming message, and just after announcing the date and time the message was left.</td>
+  </tr>
+  <tr>
+    <td>Play Envelope</td><td>Envelope controls whether or not the voicemail system will play the message envelope (date/time) before playing the voicemail message. This setting does not affect the operation of the envelope option in the advanced voicemail menu.</td>
+  </tr>
+  <tr>
+    <td>Delete Vmail</td><td>If set to "yes" the message will be deleted from the voicemailbox (after having been emailed). Provides functionality that allows a user to receive their voicemail via email alone, rather than having the voicemail able to be retrieved from the Webinterface or the Extension handset.</td>
+  </tr>
+</table>
+</body>
+</html>

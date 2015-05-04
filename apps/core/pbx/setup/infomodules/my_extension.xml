@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="my_extension" name="My Extension" idParent="mysettings" type="module" link=""  order_no="1">
+		<permissions administrative="no" organization_access="yes" >
+			<actions>
+				<action name="access|edit">
+					<groups>
+						<group id="2" name="administrator" desc="Administrator" />
+						<group id="3" name="supervisor" desc="supervisor" />
+						<group id="3" name="end_user" desc="End User" />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

@@ -1,0 +1,118 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: dhcpconfig.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+
+// Reporte de modelos para discos físicos
+$discosFisicos = array();
+$devDiscos = array();
+$listaDiscos = glob('/dev/[sh]d*');
+sort($listaDiscos);
+if (is_array($listaDiscos)) foreach ($listaDiscos as $sDisco) {
+    
+    // hdparm -i no funciona en particiones
+    $regs = NULL;
+    if (preg_match('|^(/dev/.+?)(\d+)$|', $sDisco, $regs)) {
+        // este dispositivo es una partición
+    
+        $sDiscoPart = $regs[1];
+        $sNumPart = $regs[2];
+        if (isset($devDiscos[$sDiscoPart]))
+            $devDiscos[$sDisco] = $devDiscos[$sDiscoPart];
+    } else {
+        // este dispositivo es un disco entero
+    
+        $output = NULL;
+        exec("/sbin/hdparm -i $sDisco", $output);
+        foreach ($output as $s) {
+            $s = trim($s);
+            $regs = NULL;
+            
+            // Model=VBOX HARDDISK, FwRev=1.0, SerialNo=VBeb45216e-cf79c7a3
+            if (preg_match('/Model=\s*(.+), FwRev/', $s, $regs)) {
+                $sModelo = $regs[1];
+                $devDiscos[$sDisco] = $sModelo;
+            }
+        }
+    }
+    
+    if (isset($devDiscos[$sDisco])) {
+        print "$sDisco {$devDiscos[$sDisco]}\n";
+
+        // stat() no me da la información de dev mayor/menor
+        $output2 = NULL;
+        exec("/usr/bin/stat $sDisco", $output2);
+        foreach ($output2 as $p) {
+            $p = trim($p);
+            $regs = NULL;
+            if (preg_match('/Device type:\s*([0-9a-fA-F]+,[0-9a-fA-F]+)/', $p, $regs)) {
+                list($iMajor, $iMinor) = sscanf($regs[1], '%x,%x');
+                $discosFisicos["$iMajor,$iMinor"] = $sModelo;
+            }
+        }
+    }
+}
+
+// Reporte de modelos para discos LVM
+$listaDiscos = glob('/dev/mapper/VolGroup*');
+if (is_array($listaDiscos)) foreach ($listaDiscos as $sDisco) {
+    $output = NULL;
+    exec("/sbin/dmsetup deps $sDisco", $output);
+    foreach ($output as $s) {        
+        $s = str_replace(' ', '', trim($s));
+        $regs = NULL;
+        print $sDisco;        
+        while (preg_match('/\((\d+,\d+)\)(.*)/', $s, $regs)) {
+            if (isset($discosFisicos[$regs[1]]))
+                print ' '.$discosFisicos[$regs[1]];
+            $s = $regs[2];
+        }
+        print "\n";
+    }
+}
+
+// Reporte de modelos para discos RAID (MD)
+foreach (file('/proc/mdstat', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $s) {
+    $regs = NULL;
+    if (preg_match('/^(md\d+)\s*:\s*(.+)/', $s, $regs)) {
+        $sDisco = '/dev/'.$regs[1];
+        print $sDisco;
+        $tokens = explode(' ', $regs[2]);
+        foreach ($tokens as $p) {
+            // sda1[0]
+            if (preg_match('/^(.+)\[\d+\]$/', $p, $regs)) {
+                $devPath = '/dev/'.$regs[1];
+                if (isset($devDiscos[$devPath])) print ' '.$devDiscos[$devPath];
+            }
+        }
+        print "\n";
+    }
+}
+?>

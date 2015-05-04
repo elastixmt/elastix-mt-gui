@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="applet_admin" name="Dashboard Applet Admin" idParent="sysdash" type="module" link=""  order_no="2">
+		<permissions administrative="yes" organization_access="yes" >
+			<actions>
+				<action name="access">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+				<action name="edit">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

@@ -1,0 +1,61 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Create New IVR"=>"Crear nuevo IVR",
+"Ivr Name"=>"Nombre IVR",
+"Timeout"=>"Timeout",
+"Enable Call Extensions" => "Llamar Extens Directamente",
+"# Loops"=> "# Repeticiones",
+"IVR_announcement" => "Announcement",
+"IVR_returnVM" => "Habilita/Deshabilita el VM return", 
+"IVR_enabledirectdial" => "Habilita/Deshabilita el marcado directo",
+"IVR_timeoutmessage" => "Muestra un mensaje cuando finaliza el tiempo de espera",
+"IVR_invalidmessage" => "Mensaje invalido",
+"Organization Domain" => "Dominio de la Organización",
+"Display Name" => "Nombre a visualizar",
+"Timeout" => "Tiempo de Espera",
+"Timeout Message" => "Mensaje de Tiempo de Espera",
+"Announcement" => "Anuncio",
+"Enable Direct Dial" => "Habilitar Marcado Directo",
+"Repeat Loops" => "Repetición Lazos",
+"Invalid Message" => "Mensaje Invalido",
+"Destine" => "Destino",
+"Exten" => "Extensión",
+"Option" => "Opción",
+"Return to IVR" => "Retornar a IVR",
+"Name" => "Nombre",
+"VM Return to IVR" => "VM retornar a IVR",
+"Ivrs List" => "Lista de IVR",
+"all" => "Todas",
+"None" => "Ninguna",
+"Yes" => "Si",
+"yes" => "si",
+);
+?>

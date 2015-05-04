@@ -1,0 +1,312 @@
+#!/bin/bash
+#  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+#  Codificación: UTF-8
+#  +----------------------------------------------------------------------+
+#  | Elastix version 1.6                                                  |
+#  | http://www.elastix.org                                               |
+#  +----------------------------------------------------------------------+
+#  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+#  +----------------------------------------------------------------------+
+#  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+#  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+#  | Guayaquil - Ecuador                                                  |
+#  | http://www.palosanto.com                                             |
+#  +----------------------------------------------------------------------+
+#  | The contents of this file are subject to the General Public License  |
+#  | (GPL) Version 2 (the "License"); you may not use this file except in |
+#  | compliance with the License. You may obtain a copy of the License at |
+#  | http://www.opensource.org/licenses/gpl-license.php                   |
+#  |                                                                      |
+#  | Software distributed under the License is distributed on an "AS IS"  |
+#  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+#  | the License for the specific language governing rights and           |
+#  | limitations under the License.                                       |
+#  +----------------------------------------------------------------------+
+#  | The Original Code is: Elastix Open Source.                           |
+#  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+#  +----------------------------------------------------------------------+
+
+# Script to automate detection and configuration of all telephony hardware on
+# this system. This script should modify the following files to include the
+# information on all the supported hardware:
+#   /etc/dahdi/system.conf
+#   /etc/asterisk/chan_dahdi.conf
+#   /etc/asterisk/dahdi-channels.conf
+# In addition, this script may optionally configure mISDN support.
+
+PATH=/sbin:/usr/sbin:/usr/local/sbin:$PATH
+export PATH
+
+enable_dahdi_genconf=true
+there_is_sangoma_card=false
+there_is_misdn_card=false
+overwrite_chan_dahdi=false
+null_redirect_verbose="&>/dev/null"
+
+# Check whether specified module is loaded, returns 0 on SUCCESS
+is_module_loaded()
+{
+    is_loaded=0;
+    /sbin/lsmod | /bin/grep -q -i "$1"
+    is_loaded=$?
+    return $is_loaded
+}
+
+# Check whether Asterisk is up and running, returns 0 on SUCCESS
+is_asterisk_loaded()
+{
+    is_loaded=0;
+    /sbin/service asterisk status  &>/dev/null
+    # The asterisk service will return 0 if the service is running
+    is_loaded=$?
+    return $is_loaded
+}
+
+# Display help information
+options_help()
+{
+    cat >&2 <<HELP_END
+Options:
+    -h: help
+    -m: enable detection of mISDN cards
+    -t: enable detection of Sangoma cards
+    -o: overwrite /etc/asterisk/chan_dahdi.conf instead of preserving it
+    -v: verbose output
+    -s: disable dahdi_genconf
+HELP_END
+}
+
+# Process all known command-line options
+while getopts 'hmtvos' arg
+do
+        case "$arg" in
+                h) options_help; exit 0;;
+                m) there_is_misdn_card=true;;
+                t) there_is_sangoma_card=true;;
+                v) null_redirect_verbose="";;
+                o) overwrite_chan_dahdi=true;;
+                s) enable_dahdi_genconf=false;;
+                *) echo >&2 "unknown parameter -$arg, Aborting"; options_help; exit 1;;
+        esac
+done
+
+# Reject any unknown command-line options
+shift $(( $OPTIND-1 ))
+if [ $# != 0 ]; then
+        echo >&2 "$0: too many parameters"
+        options_help
+        exit 1
+fi
+
+# Check for existence of /etc/init.d/wanrouter
+if [ ! -e /etc/init.d/wanrouter ] ; then
+	if [ -e /usr/sbin/wanrouter ] ; then
+		echo >&2 "$0: restoring missing link /etc/init.d/wanrouter"
+		ln -s /usr/sbin/wanrouter /etc/init.d/wanrouter
+	else
+		echo >&2 "$0: could not find /usr/sbin/wanrouter - disabling SANGOMA detection!"
+		there_is_sangoma_card=false
+	fi
+fi
+
+echo -e "HWDETECT: Starting card detection..."
+
+if is_asterisk_loaded ; then
+    echo -e "HWDETECT: Stopping Asterisk..."
+    if [ -e /usr/sbin/amportal ] ; then
+        eval "/usr/sbin/amportal stop  $null_redirect_verbose"
+    fi
+    eval "/sbin/service asterisk stop $null_redirect_verbose"
+fi
+
+if [ $? = 0 ] && is_module_loaded "wanpipe" ; then
+	echo -e "HWDETECT: Unloading Sangoma modules and stopping wanrouter..."
+	eval "/sbin/service wanrouter stop  $null_redirect_verbose"
+fi
+
+if [ $? = 0 ] && is_module_loaded "dahdi" ; then
+	echo -e "HWDETECT: Unloading dahdi modules..."
+	eval "/sbin/service dahdi stop  $null_redirect_verbose"
+fi
+
+if [ $? = 0 ]; then  #Is mISDN installed?
+        eval "/bin/rpm -q mISDN  $null_redirect_verbose"
+fi
+
+if [ $? = 0 ]; then # is installed.
+    if  [ $there_is_misdn_card = false ]; then
+        echo -e "HWDETECT: Stopping and deactivating mISDN service..."
+        eval "/sbin/service mISDN stop $null_redirect_verbose"
+        eval "/sbin/chkconfig --level 2345 mISDN off $null_redirect_verbose"
+    fi
+else # not installed
+        echo -e "HWDETECT: mISDN drivers is not installed..."
+fi
+
+# At this step, there should be no telephony modules loaded in the kernel
+if [ -e /proc/dahdi ] ; then
+	echo -e "HWDETECT: Retrying unloading of dahdi modules..."
+	eval "/sbin/service dahdi stop  $null_redirect_verbose"
+    if [ -e /proc/dahdi ] ; then
+        echo "HWDETECT: WARNING: could not unload all dahdi modules. Hardware detection might not work correctly.";
+    fi
+fi
+
+# Execute dahdi_genconf after stop asterisk, dahdi, wanroute, mISDN
+if [ $? = 0 ] && [ $enable_dahdi_genconf = true ]; then
+	echo -e "HWDETECT: Executing dahdi_genconf modules"
+	eval "/usr/sbin/dahdi_genconf -v modules $null_redirect_verbose"
+fi
+
+# Clean out previous dahdi configuration. TODO: back up configuration instead...
+rm -f /etc/dahdi/system.conf /etc/asterisk/dahdi-channels.conf
+if [ -e /etc/asterisk/chan_dahdi.conf ] ; then
+    cp /etc/asterisk/chan_dahdi.conf /etc/asterisk/chan_dahdi.conf.elastixsave
+    if [ $overwrite_chan_dahdi = true  ]; then
+        rm -f /etc/asterisk/chan_dahdi.conf
+    fi
+fi
+
+# Detect and configure Sangoma cards first. As an artifact of this detection,
+# Sangoma cards will appear before any other card in the spans. This matches the
+# order in which the drivers are loaded on system boot.
+if [ $? = 0 ] ; then
+    if [ $there_is_sangoma_card = true ]; then
+        # This step is supposed to create /etc/dahdi/system.conf, see next comment.
+    	echo -e "HWDETECT: Detecting Sangoma cards ..."
+    	rm -f /etc/wanpipe/wanpipe*.conf
+    	eval "/usr/sbin/wancfg_dahdi --silent --hw_dtmf=YES --zapata_auto_conf_file=/etc/asterisk/chan_dahdi.conf.wanpipe $null_redirect_verbose"
+    fi
+fi
+
+if [ ! -e /etc/dahdi/system.conf ] ; then
+    # This file must exist in order for dahdi service to work.
+    touch /etc/dahdi/system.conf
+fi
+
+# If a Sangoma card was configured, its corresponding module needs to be present
+# when detecting dahdi cards for configuration. This is because there is already
+# a (possibly partial) chan_dahdi.conf which specifies echo cancellers for spans.
+# The Sangoma modules should be loaded before other dahdi modules, otherwise
+# the configured span data might get assigned to a different card.
+if [ $? = 0 ] && [ $there_is_sangoma_card = true ] && ! is_module_loaded "wanpipe" ; then
+	echo -e "HWDETECT: Switching media type on digital spans as required..."
+	/usr/sbin/switch_wanpipe_media
+	echo -e "HWDETECT: Temporarily restarting wanrouter service..."
+	eval "/sbin/service wanrouter restart  $null_redirect_verbose"
+fi
+
+# To detect the rest of the dahdi cards, dahdi_genconf relies on the corresponding
+# module to be loaded first in the kernel, and reported in the /proc/dahdi/
+# directory. The easiest way to achieve this is to run "service dahdi start",
+# which modprobes all the modules, even if not configured yet. For this to work,
+# /etc/dahdi/system.conf must exist at this step.
+if [ $? = 0 ]; then
+	echo -e "HWDETECT: Probing for dahdi modules..."
+	eval "/sbin/service dahdi start $null_redirect_verbose"
+fi
+
+# Now, dahdi_genconf will detect all of the supported dahdi cards.
+#if [ $? = 0 ]; then
+	echo -e "HWDETECT: Generating configuration for detected dahdi cards..." 
+	eval "/usr/sbin/dahdi_genconf $null_redirect_verbose"
+#fi
+
+# Unload and reload Sangoma and dahdi in order to match the boot order.
+if [ $? = 0 ] && is_module_loaded "wanpipe" ; then
+	eval "/sbin/service wanrouter stop  $null_redirect_verbose"
+fi
+if [ $? = 0 ] && is_module_loaded "dahdi" ; then
+	eval "/sbin/service dahdi stop  $null_redirect_verbose"
+fi
+if [ $? = 0 ] && [ $there_is_sangoma_card = true ] && ! is_module_loaded "wanpipe" ; then
+	echo -e "HWDETECT: Restarting wanrouter service..."
+	eval "/sbin/service wanrouter restart  $null_redirect_verbose"
+fi
+if [ $? = 0 ]; then
+	echo -e "HWDETECT: Restarting dahdi service..."
+	eval "/sbin/service dahdi start  $null_redirect_verbose"
+fi
+
+# Configure mISDN cards which do not use dahdi services
+if [ $? = 0 ] && [ $there_is_misdn_card = true ]; then
+    echo -e "HWDETECT: Detecting mISDN cards ..."
+    eval "/sbin/service mISDN scan $null_redirect_verbose"
+	echo -e "HWDETECT: Configuring mISDN cards ..."
+	eval "/sbin/service mISDN config $null_redirect_verbose"
+	echo -e "HWDETECT: Restarting mISDN service..."
+	eval "/sbin/service mISDN start $null_redirect_verbose"
+	eval "/sbin/chkconfig --level 2345 mISDN on $null_redirect_verbose"
+fi
+
+if [ ! -e /etc/asterisk/chan_dahdi.conf ] ; then
+    cat <<DEFAULT_CHAN_DAHDI > /etc/asterisk/chan_dahdi.conf
+; Auto-generated by /usr/sbin/hardware_detector
+[trunkgroups]
+
+[channels]
+context=from-pstn
+signalling=fxs_ks
+rxwink=300              ; Atlas seems to use long (250ms) winks
+usecallerid=yes
+hidecallerid=no
+callwaiting=yes
+usecallingpres=yes
+callwaitingcallerid=yes
+threewaycalling=yes
+transfer=yes
+canpark=yes
+cancallforward=yes
+callreturn=yes
+echocancel=yes
+echocancelwhenbridged=no
+faxdetect=incoming
+echotraining=800
+rxgain=0.0
+txgain=0.0
+callgroup=1
+pickupgroup=1
+relaxdtmf=yes
+
+;Uncomment these lines if you have problems with the disconection of your analog lines
+;busydetect=yes
+;busycount=3
+
+
+immediate=no
+
+#include dahdi-channels.conf
+#include chan_dahdi_additional.conf
+DEFAULT_CHAN_DAHDI
+fi
+
+# The file chan_dahdi_additional.conf must exist, even if empty
+if [ ! -e /etc/asterisk/chan_dahdi_additional.conf ] ; then
+    touch /etc/asterisk/chan_dahdi_additional.conf
+    chown asterisk.asterisk /etc/asterisk/chan_dahdi_additional.conf
+fi
+
+# When detecting Sangoma cards, the wancfg_dahdi utility writes a chan_dahdi.conf
+# file that does not #include dahdi-channels.conf, nor chan_dahdi_additional.conf. 
+# This breaks non-Sangoma channels and FreePBX support unless fixed here.
+# This implementation is NOT removing the channel configurations found in 
+# chan_dahdi.conf and placed there by wancfg_dahdi, but it seems that the 
+# channel configuration is harmless as repeated by dahdi-channels.conf.
+if ! grep -q -i "dahdi-channels.conf" /etc/asterisk/chan_dahdi.conf ; then
+    echo -e "HWDETECT: Fixing broken chan_dahdi.conf by adding required #includes..."
+    echo "#include chan_dahdi_additional.conf" >> /etc/asterisk/chan_dahdi.conf
+    echo "#include dahdi-channels.conf" >> /etc/asterisk/chan_dahdi.conf
+fi
+
+if [ $? = 0 ]; then
+    echo -e "HWDETECT: Restarting asterisk service..."
+    if [ -e /usr/sbin/amportal ] ; then
+        eval "/usr/sbin/amportal restart  $null_redirect_verbose"
+    else
+    	eval "/sbin/service asterisk restart $null_redirect_verbose"
+    fi
+fi
+
+
+echo -e "HWDETECT: End of card detection."
+

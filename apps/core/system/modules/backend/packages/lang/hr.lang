@@ -1,0 +1,70 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com 											 |
+  |                                                                      |
+  | Translate bye: Erwan DESVERGNES - SDCI                               |
+  | erwan.desvergnes@SDCI.fr                                             |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+*/
+global $arrLangModule;
+$arrLangModule=array(
+"Updates" => "Nadogradnja",
+"Repositories" => "Repositories",
+"Package Name" => "Naziv paketa",
+"Package Info" => "O paketu",
+"Package Version" => "Verzija",
+"Package Installed" => "Instaliran",
+"Package Upgrade" => "Nadogradnja",
+"Package Delete" => "Ukloni",
+"Package Release" => "Izdanje",
+"Packages not Founds" => "Paket nijepronađen",
+"All Package" => "Svi",
+"Packages" => "Paketi",
+"Package Noninstalled" => "Ne instalirani",
+"Repositor not Found" => "Repozitorij nije pronaćen",
+"Package Search" => "Traženje",
+"Repositor Place" => "Repository",
+"Package Update" => "Nadogradnja paketa",
+"Updating Packages" => "Nadogradnje paketa",
+"Satisfactory Update" => "Zadovoljavajuća nadogradnja",
+"Choice" => "Odabir",
+"Updated" => "Nadograđen",
+"Install" => "Instaliran",
+"Repositories Update" => "Nadogradnja repozitorija",
+"Updating Repositories" => "Nadograđivanje repozitorija",
+"Satisfactory Install" => "Zadovoljavajuće instaliranje?",
+"Installing Package" => "Instaliranje paketa",
+"Updating for dependencies" => "Nadogradnja za ovisnosti",
+"Installing for dependencies" => "Instaliranje ovisnosti",
+"Installing" => "Instaliranje",
+"Total Packages" => "Ukupno paketa",
+"There is an action in process" => "Niti jedna aktivnost nije u tijeku",
+"Search" => "Pretraga",
+"Name" => "Ime",
+"Status" => "Status",
+);
+?>

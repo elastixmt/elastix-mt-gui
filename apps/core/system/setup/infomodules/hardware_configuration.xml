@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="hardware_configuration" name="Hardware Configuration" idParent="system" type="" link=""  order_no="3">
+		<permissions administrative="yes" organization_access="no" > 
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

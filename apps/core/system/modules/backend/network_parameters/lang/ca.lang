@@ -1,0 +1,62 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  |                                                                      |
+  | Translate bye:  Jaume Ponsa - Sistemes i Xarxes Informatiques Calidae|
+  |        (Caldes de Montbui, Barcelona)                                |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: ca.lang,v 1.5 2008/02/17 11:45:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Network Parameters" => "Parametres de xarxa",
+"Device" => "Perifèric",
+"Type" => "Tipus",
+"IP" => "IP",
+"Mask" => "Mascara",
+"MAC Address" => "Adreça MAC",
+"HW Info" => "Info HW",
+"Status" => "Estat",
+"Ethernet Interfaces List" => "Llistat de tarjes Ethernet",
+"Connected" => "Conectat",
+"Not Connected" => "No Conectat",
+"Edit Interface" => "Modificar Tarja",
+"Validation Error" => "Error de validació",
+"The following fields contain errors" => "Els següents camps contenen errors",
+"Host" => "Host",
+"Primary DNS" => "DNS primari",
+"Secondary DNS" => "DNS secundari",
+"Default Gateway" => "Porta d'enllaç",
+"IP Address" => "Adreça IP",
+"Network Mask" => "Mascara de xarxa",
+"Interface Type" => "Tipus d'Interfaç",
+"Save" => "Guardar",
+"Edit Network Parameters" => "Modificar els paràmetres de xarxa",
+"Required field" => "Camp requerit",
+"Apply changes" => "Guardar els canvis",
+"Are you sure you want to edit network parameters?" => "Estàs segur que vols editar els paràmetres de xarxa?",
+);
+?>

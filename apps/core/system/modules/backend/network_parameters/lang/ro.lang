@@ -1,0 +1,62 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificacion: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.1                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 22OC84-356                                |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  |                                                                      |
+  | Romanian Translation by: Narcis Magardician   LAST UPDATE 04/06/2008 |
+  | narcis@artelcom.ro                                                   |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: ro.lang,v 1.6 2009/03/05 00:36:42 aflores Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Network Parameters" => "Parametri Retea",
+"Device" => "Periferice",
+"Type" => "Tip",
+"IP" => "IP",
+"Mask" => "Masca Retea",
+"MAC Address" => "Adresa MAC",
+"HW Info" => "Informatii HW",
+"Status" => "Stare",
+"Ethernet Interfaces List" => "Lista interfetelor Ethernet",
+"Connected" => "Conectat",
+"Not Connected" => "Nu este Conectat",
+"Edit Interface" => "Modifica Interfata",
+"Validation Error" => "Eroare de validare",
+"The following fields contain errors" => "Urmatoarele campuri contin erori",
+"Host" => "Host",
+"Primary DNS" => "DNS Primar",
+"Secondary DNS" => "DNS Secundar",
+"Default Gateway" => "Gateway Implicit",
+"IP Address" => "Adresa IP",
+"Network Mask" => "Masca Retelei",
+"Interface Type" => "Tip Interfata",
+"Save" => "Salveaza",
+"Edit Network Parameters" => "Modificare parametri retea",
+"Required field" => "Camp Obligatoriu",
+"Apply changes" => "Aplica Modificarile",
+"Are you sure you want to edit network parameters?" => "Sunteti siguri ca vreti sa modificati parametrii retelei?",
+);
+?>

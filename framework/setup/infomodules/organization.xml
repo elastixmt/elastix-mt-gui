@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="organization" name="Organization" idParent="orgmgr" type="module" link=""  order_no="1">
+		<permissions administrative="yes" organization_access="yes" >
+			<actions>
+				<action name="access|access_DID">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+				<action name="edit_org">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+				<action name="edit_DID|create_org|delete_org|change_org_status">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

@@ -1,0 +1,22 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify">Este módulo se encarga de la activación y desactivación del módulo festival de asterisk.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event1.png" border="0"></div>
+        <div>Figure 1</div>
+        <br />
+        <p align="Justify">Para activar el módulo Festival de asterisk simplemente hay que dar click en el switch "On/Off", dejándolo en "On" y luego damos click en el botón "Save". En caso de que el archivo /usr/share/festival/festival.scm no tenga la configuraación adecuada, el módulo la colocará automáticamente.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event2.png" border="0"></div>
+        <div>Figure 2</div>
+        <br />
+        <p align="Justify">Si lo que queremos es desactivar Festival entonces debemos colocar el switch en "Off" y luego presionar "Save"</p>
+        <div><img src="../modules/{$node_id}/images/new_Event3.png" border="0"></div>
+        <div>Figure 3</div>
+        <br />
+    </body>
+</html>
+

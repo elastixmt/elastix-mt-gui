@@ -1,0 +1,67 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+ Codificacion: UTF-8
+ +----------------------------------------------------------------------+
+ | Elastix version 1.0 |
+ | http://www.elastix.org |
+ +----------------------------------------------------------------------+
+ | Copyright (c) 2006 Palosanto Solutions S. A. |
+ +----------------------------------------------------------------------+
+ | Cdla. Nueva Kennedy Calle E 222 y 9na. Este |
+ | Telfs. 2283-268, 2294-440, 2284-356 |
+ | Guayaquil - Ecuador |
+ | http://www.palosanto.com |
+ +----------------------------------------------------------------------+
+ | The contents of this file are subject to the General Public License |
+ | (GPL) Version 2 (the "License"); you may not use this file except in |
+ | compliance with the License. You may obtain a copy of the License at |
+ | http://www.opensource.org/licenses/gpl-license.php |
+ | |
+ | Software distributed under the License is distributed on an "AS IS" |
+ | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See |
+ | the License for the specific language governing rights and |
+ | limitations under the License. |
+ +----------------------------------------------------------------------+
+ | The Original Code is: Elastix Open Source. |
+ | The Initial Developer of the Original Code is PaloSanto Solutions |
+ | |
+ | Translate bye: Tomoaki Tanaka  |
+ | ganymean@gmail.com |
+ +----------------------------------------------------------------------+
+ $Id: ja.lang,v 1.6 2008/05/18 20:00:00 ganymean Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"DHCP Server" => "DHCPサーバ",
+"Update" => "更新",
+"Service Start" => "DHCP開始",
+"Service Stop" => "DHCP停止",
+"Start range of IPs" => "開始IPアドレス",
+"End range of IPs" => "終了IPアドレス",
+"DNS 1" => "プライマリDNS",
+"DNS 2" => "セカンダリDNS",
+"WINS" => "WINS",
+"Gateway" => "デフォルトゲートウェイ",
+"Optional" => "オプション",
+"Of 1 to 50000 Seconds" => "(1-50000秒)",
+"Time of client refreshment" => "リフレッシュ時間",
+"DHCP Configuration" => "DHCPサーバの設定",
+"Could not find IP range" => "指定したIPアドレス範囲が見つかりません",
+"DHCP configuration reading error: Verify that the DHCP service is installed and try again." => "DHCPサーバ設定の読込が失敗しました。DHCPサーバがインストールされていることを確認して再度試してください。",
+"Information DHCP" => "DHCPサーバ情報",
+"The Service dhcpd can't stop" => "DHCPサーバは停止できません",
+"The Service dhcpd can't start" => "DHCPサーバが開始できません",
+"The start IP is outside the LAN network" => "入力した開始IPアドレスがネットワークの範囲外です",
+"The final IP is outside the LAN network" => "入力した終了IPアドレスがネットワークの範囲外です",
+"IP Range is invalid for available devices" => "入力したIPアドレス範囲が利用可能なデバイスの範囲外です",
+"Gateway is outside the LAN network" => "入力したデフォルトゲートウェイアドレスがネットワークの範囲外です",
+"You can only choose between Enabled and Disabled" => "有効か無効のいずれかを選択できます",
+"Value outside the range (1-50000)" => "入力したリフレッシュ時間が範囲外です (1-50000秒)",
+"Failed to update the file configuration" => "DCHPサーバ設定ファイルの更新が失敗しました",
+"The update was successful, but was unable to reestablish the permissions of the file dhcp.conf" => "DCHPサーバ設定情報を更新しましたが、dhcp.confファイルのパーミッション変更に失敗しました",
+"Update Error" => "DCHPサーバ情報更新エラー",
+"Status" => "状態",
+"Inactive" => "未使用",
+"Information" => "Information",
+"Active"=>"使用中",
+);
+?>

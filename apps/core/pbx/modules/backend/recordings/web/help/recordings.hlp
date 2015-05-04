@@ -1,0 +1,24 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p align="Justify">La opción "Recordings" del menú "Agenda" en Elastix nos permite crear archivos de audio mediante la grabacion de nuestra voz por medio del telefono, para que esto sea posible el usuario debera estar asignado a un extension telefonica caso contrario no podra utilizar esta opción,ver modulo System/UserManagement/Users.</p>
+
+<div><img src="../modules/{$node_id}/images/recordings1.jpg" border="0"></div>
+<div>Figura 1</div><br/>
+
+<p>Asi como puede grabar un archivo de audio tambien
+puede importar uno existente.
+</p>
+
+<div><img src="../modules/{$node_id}/images/recordings2.jpg" border="0"></div>
+<div>Figura 2</div>
+<br />
+
+</body>
+</html>

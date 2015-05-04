@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="dashboard" name="Dashboard" idParent="sysdash" type="module" link=""  order_no="1">
+		<permissions administrative="yes" organization_access="yes" >
+			<actions>
+				<action name="access">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+				<action name="start|restart|stop">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+					</groups>
+				</action>
+				<action name="enable|disable">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

@@ -1,0 +1,44 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+ Codificacion: UTF-8
+ +----------------------------------------------------------------------+
+ | Elastix version 1.0 |
+ | http://www.elastix.org |
+ +----------------------------------------------------------------------+
+ | Copyright (c) 2006 Palosanto Solutions S. A. |
+ +----------------------------------------------------------------------+
+ | Cdla. Nueva Kennedy Calle E 222 y 9na. Este |
+ | Telfs. 2283-268, 2294-440, 2284-356 |
+ | Guayaquil - Ecuador |
+ | http://www.palosanto.com |
+ +----------------------------------------------------------------------+
+ | The contents of this file are subject to the General Public License |
+ | (GPL) Version 2 (the "License"); you may not use this file except in |
+ | compliance with the License. You may obtain a copy of the License at |
+ | http://www.opensource.org/licenses/gpl-license.php |
+ | |
+ | Software distributed under the License is distributed on an "AS IS" |
+ | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See |
+ | the License for the specific language governing rights and |
+ | limitations under the License. |
+ +----------------------------------------------------------------------+
+ | The Original Code is: Elastix Open Source. |
+ | The Initial Developer of the Original Code is PaloSanto Solutions |
+ | |
+ | Translate bye: Tomoaki Tanaka  |
+ | ganymean@gmail.com |
+ +----------------------------------------------------------------------+
+ $Id: ja.lang,v 1.6 2008/05/18 20:00:00 ganymean Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Date and Time Configuration" => "日時設定",
+"Current Datetime" => "現在日時",
+"New Date" => "新年月日",
+"New Time" => "新時刻",
+"New Timezone" => "新タイムゾーン",
+"The change of date and time can concern important  system processes." => "日時の変更は、システムプロセスに重要な影響を及ぼすことがあります。",
+"System time changed correctly" => "System time changed correctly",
+"You can not change the system time" => "You can not change the system time",
+"Can not find file" => "Can not find file",
+);
+?>

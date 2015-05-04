@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="time_group" name="Time Group" idParent="pbxapplications" type="module" link=""  order_no="8">
+		<permissions administrative="yes" organization_access="yes" >
+			<actions>
+				<action name="access">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+				<action name="create|delete|edit">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

@@ -1,0 +1,160 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Create New User" => "Crear Nuevo Usuario",
+"Name" => "Nombre",
+"Login" => "Login",
+"Password" => "Contraseña",
+"Retype password" => "Confirmar Contraseña",
+"New User" => "Nuevo Usuario",
+"Edit User" => "Editar Usuario",
+"The passwords are empty or don't match" => "Las contraseñas están vacías o no concuerdan",
+"The admin user cannot be deleted because is the default Elastix administrator. You can delete any other user." => "El usuario admin no puede ser eliminado porque es el administrador de Elastix predeterminado. Puede borrar cualquier otro usuario.",
+"User List" => "Lista de Usuarios",
+"Real Name" => "Nombre",
+"Extension" => "Extensión",
+"(Ex. John Doe)" => "(Ex. John Doe)",
+"Webmail User" => "Usuario de Webmail",
+"Webmail Domain" => "Dominio de Webmail",
+"Webmail Password" => "Contraseña de Webmail",
+"Retype Webmail password" => "Reingrese contraseña de Webmail",
+"Mail Profile" => "Perfil de Mail",
+"No extension associated" => "La extensión no ha sido asociada",
+"userNoAllowed" => "El usuario no está autorizado a realizar esta acción",
+"You are not authorized to access to information of that user" => "Usted no está autorizado a acceder a la información de ese usuario",
+"no extension" => "sin extensión",
+"User ID and Group ID can't be empty" => "ID de usuario y ID de grupo no pueden ser vacios. ",
+"Invalid new Group" => "Nuevo grupo no es valido. ",
+"Error getting settings from extension user" => "Error obteniendo configuracion de la extension del usuario. ",
+"Error getting settings from fax extension user" => "Error obteniendo configuracion de la extension de fax del usuario. ",
+"Extension and Fax Extension can not be equal" => "Extension y Extension de Fax no pueden ser iguales ",
+"Error setting parameters faxs" => "Error configurando parametros del fax. ",
+"Error setting email quota" => "Error configurando quota de email. ",
+"Property quota is not set" => "Email quota no esta configurada. ",
+"Error setting user properties" => "Error configurando propiedades del usuario. ",
+"Error trying create email_account" => "Error al tratar de crear la cuenta del mail. ",
+"Error trying create new fax" => "Error al tratar de crear el nuevo fax. ",
+"User couldn't be created" => "Usuario no puedo ser creado. ",
+"Invalid Organization" => "Organizacion no es valida. ",
+"You aren't authorized to perform this action" => "Usted no esta autorizado para realizar esta accion. ",
+"Can't set email contact." => "No se puede configurar email del contacto.",
+"User couldn't be update." => "Usuario no pudo ser actualizado.",
+"User dosen't exist" => "Usuario no existe. ",
+"Invalid Action" => "Accion no es valida. ",
+"Couldn't updated user extensions" => "No se pudo actualizar la extension del usuario. ",
+"Password couldn't be updated" => "Contraseña no pudo ser actualizada. ",
+"Error Updating fax configuration" => "Error actualizando las configuraciones del fax. ",
+"Failed Updated Group" => "Error al tratar de cambiar la usuario de grupo. ",
+"Old Fax extension can't be deleted" => "Antigua extension de fax no pudo ser borrada. ",
+"Old extension can't be deleted" => "Antigua extension no pudo ser borrada. ",
+"Email Account cannot be deleted" => "Cuenta de Email no pudo ser borrada. ",
+"Fax cannot be deleted" => "Fax no pudo ser borrado. ",
+"User Extension can't be deleted" => "Extension de usuario no pudo ser borrada. ",
+"Need assign password" => "Es necesario establecer una contraseña si desea asignar al usuario una nueva extension o extensión de fax. ",
+"FC_blacklistnumber" => "Lista negra a numeros (defecto 30)",
+"FC_blacklistlastcaller" => "Lista negra a la ultima llamada (defecto: 30)",
+"FC_removenumberfromblacklist" => "Remover numeros de la lista negra (defecto: 31)",
+"FC_callforwardallactivate" => "Activacion de todos los desvios de llamadas",
+"FC_callforwardalldesactivate" => "Desactivacion de todos los desvios de llamadas",
+"FC_callforwardallprompting" => "Desactiva todos los desvios incondicionales de llamadas",
+"FC_callforwardbusyactivate" => "Activar los desvios de llamadas ocupados",
+"FC_callforwardbusydesactivate" => "Desactivar los desvios de llamadas ocupados",
+"FC_callforwardbusypromptingdesactivate" => "Desactiva los desvios incondicionales de llamadas ocupados",
+"FC_callforwardansweractivate" => "Activa el desvio de llamadas modo: no disponible/sin respuesta",
+"FC_callforwardanswernoactivate" => "desactiva el desvio de llamadas modo: no disponible/sin respuesta",
+"FC_callforwardtoggle" => "desvio de llamadas modo: Toggle",
+"FC_callwaitingactivate" => "Activa la llamada en espera",
+"FC_callwaitingdesactivate" => "Desactiva la llamada en espera",
+"FC_directcallpickup" => "levantamiento de llamadas directas",
+"FC_asteriskgeneralcallpickup" => "leventamiento general de llamadas en asterisk",
+"FC_incallasteriskblindtransfer" => "Transferencia de llamadas a ciegas",
+"FC_incallasteriskattendtransfer" => "Transferencia de llamadas atendidas",
+"FC_incallasterisktoggle" => "Grabacion de llamadas en asterisk modo: toggle",
+"FC_incallasteriskdisconnectcode" => "Transferencia de llamadas desconectadas",
+"FC_simulateincomingcall" => "simulacion de llamadas entrantes",
+"FC_emailcompleteddictation" => "dictado completo de correo",
+"FC_performdictation" => "ejecucion de dictado",
+"FC_dndactivate" => "activar la opcion DND",
+"FC_dnddesactivate" => "desactivar la opcion DND",
+"FC_dndtoggle" => "DND toggle ",
+"FC_calltrace" => "rastreo de llamadas",
+"FC_echotest" => "test de eco",
+"FC_speakyourextennumber" => "Define tu numero de extension",
+"FC_speakingclock" => "reloj",
+"FC_directory" => "directorio",
+"FC_phonebookdialbynamedirectory" => "marcado por directorio (nombre)",
+"FC_setuserspeeddial" => "seteo de la velocidad de marcado del usuario",
+"FC_speeddialprefix" => "prefijo de la velocidad de marcado",
+"FC_dialvoicemail" => "marcado de mensaje de voz",
+"FC_myvoicemail" => "mi mensaje de voz",
+"FC_findmefollowtoggle" => "Siganme todos modo toggle",
+"Blacklist a number" => "Lista negra un número",
+"Blacklist the last caller" => "Lista negra la ultima llamada",
+"Remove a number from the blacklist" => "Remover un numero de la lista negra",
+"Call Forward All Activate" => "Activación total del Desvio de llamadas ",
+"Call Forward All Deactivate" => "Desactivación total del Desvio de llamadas",
+"Call Forward All Prompting Deactivate" => "Desactivación Total del desvio rápido de llamadas",
+"Call Forward Busy Activate" => "Desvio llamadas modo ocupado activado",
+"Call Forward Busy Deactivate" => "Desvio llamadas modo ocupado desactivado",
+"Call Forward Busy Prompting Deactivate" => "Desactivación del desvio rápido de llamadas modo: ocupado",
+"Call Forward No Answer/Unavailable Activate" => "Activación Desvío Llamadas No responer/No disponible ",
+"Call Forward No Answer/Unavailable Deactivate" => "Desactivación Desvío Llamadas No responer/No disponible",
+"Call Forward Toggle" => "Desvío de Llamadas modo: Toggle", 
+"Call Waiting Activate" => "Llamada en espera activado",
+"Call Waiting Desactivate" => "Llamada en espera desactivado",
+"Asterisk General Call Pickup" => "Levantamiento general de llamadas en Asterisk",
+"In-Call Asterisk Blind Transfer" => "Transferencia de llamadas a ciegas",
+"In-Call Asterisk Attended Transfer" => "Transferencia de llamadas atendidas",
+"In-Call Asterisk Toggle Call Recording" => "Grabación de llamadas en Asterisk modo: Toggle",
+"In-Call Asterisk Disconnect Code" => "Transferencia de llamadas desconectadas",
+"Simulate Incoming Call" => "Simulación de llamadas entrantes",
+"DND Activate" => "DND Activado",
+"DND Desactivate" => "DND Desactivado",
+"Call Trace" => "Rastreo de llamadas",
+"Echo Test" => "Prueba de eco",
+"Speak Your Exten Number" => "Define tu número de Extensión",
+"Directory" => "Directorio",
+"Phonebook dial-by-name directory" => "Marcado por directorio",
+"Speeddial prefix" => "Prefijo de la velocidad de marcado",
+"Dial Voicemail" => "Marcado por mensaje de voz",
+"My Voicemail" => "Mi mensaje de voz",
+"Findme Follow Toggle" => "Encuentrame, Siganme : Toggle",
+"BLACKLIST" => "LISTA NEGRA",
+"CALLFORWARD" => "DESVIO DE LLAMADAS",
+"CALLWAITING" => "LLAMADA EN ESPERA",
+"CORE" => "NUCLEO",
+"DICTATION" => "DICTADO",
+"SPEEDDIAL" => "VELOCIDAD DE MARCADO",
+"VOICEMAIL" => "MENSAJE DE VOZ",
+"FOLLOWME" => "SIGANME(follow me)", 
+"Features Code" => "Características de Prefijo",
+"Click here to reload dialplan" => "Clic aqui para recargar el plan de marcado",
+);
+?>

@@ -1,0 +1,127 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>The “Groups” option allows you to create and modify all group that will have access to the Elastix Web Interfase. There are 3 default groups of users as follows:</p>
+
+  <ul>
+      <li>Administrator</li>
+      <li>Operator</li>
+      <li>Telephone User</li>
+  </ul>
+
+<div><img src="../modules/{$node_id}/images/grouplist.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>Each one of these groups represents different levels of access to the Elastix Web Interfase. These levels are associated with a set of menus to which a given user will have access. The various access permissions to the menus are better illustrated in the following table:</p>
+
+<table class="inline">
+	<tr>
+		<th> Menu </th><th> Administrator </th><th> Operator </th><th> Telephone User </th>
+	</tr>
+
+	<tr>
+		<th class="centeralign" colspan="4">  System  </th>
+	</tr>
+	<tr>
+		<td> System Info </td><td> Yes </td><td> Yes </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> PBX Configuration </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<td> Network </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+		<td> User Management </td><td> Yes </td><td> No </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> Shutdown </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Operator Panel  </th>
+	</tr>
+	<tr>
+		<td> Flash Operator Panel </td><td> Yes </td><td> Yes </td><td> No </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Voicemails  </th>
+	</tr>
+	<tr>
+		<td> Asterisk Recording Interface </td><td> Yes </td><td> Yes </td><td> Yes </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Fax  </th>
+	</tr>
+	<tr>
+		<td> Virtual Fax List </td><td> Yes </td><td> Yes </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> New Virtual Fax </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Reports  </th>
+	</tr>
+	<tr>
+		<td> CDR Report </td><td> Yes </td><td> Yes </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> Channels Usage </td><td> Yes </td><td> Yes </td><td> No </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Billing  </th>
+	</tr>
+	<tr>
+		<td> Rates </td><td> Yes </td><td> No </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> Billing Report </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<td> Destination Distribution </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+		<td> Trunk Configuration </td><td> Yes </td><td> No </td><td> No </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Extras  </th>
+	</tr>
+	<tr>
+		<td> SugarCRM </td><td> Yes </td><td> Yes </td><td> Yes </td>
+
+	</tr>
+	<tr>
+		<td> Calling Cards </td><td> Yes </td><td> Yes </td><td> Yes </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Downloads  </th>
+	</tr>
+	<tr>
+		<td> Softphones </td><td> Yes </td><td> Yes </td><td> Yes </td>
+
+	</tr>
+	<tr>
+		<td> Fax Utilities </td><td> Yes </td><td> Yes </td><td> Yes </td>
+	</tr>
+</table>
+</body>
+</html>

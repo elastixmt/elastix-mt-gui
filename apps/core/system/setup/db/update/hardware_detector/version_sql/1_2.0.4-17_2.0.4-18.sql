@@ -1,0 +1,1 @@
+ALTER TABLE span_parameter ADD COLUMN wanpipe_force_media varchar(8);

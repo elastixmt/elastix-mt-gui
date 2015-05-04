@@ -1,0 +1,153 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Haamed Kouhfallah                                      |
+  | Email: haamed@cytco.net                                              |                                                                    |
+  +----------------------------------------------------------------------+
+   $Id: fa.lang,v 1.2 2008/04/21 10:11:44 bmacias@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Are you sure you wish to delete backup (s)?" => "آیا نسبت به حذف فایل پشتیبان اطمینان دارید؟",
+"Database" => "پایگاه داده",
+"PDF" => "PDF",
+"Endpoint" => "گوشی",
+"Asterisk" => "نرم افزار تلفنی",
+"All options (Fax)" => " تمام گزينه ها(فکس)",
+"All options (Email)" => "تمام گزینه ها(ایمیل)",
+"All options (Endpoint)" => "تمام گزینه ها(گوشی)",
+"All options (Asterisk)" => "تمام گزینه ها(نرم افزار تلفنی)",
+"DAHDI Configuration" => "تنظیمات رابط خط شهری",
+"Others" => "سایر",
+"All options (Others)" => "تمام گزینه ها (سایر)",
+"SugarCRM Database" => "پایگاه داده های شوگر",
+"VtigerCRM Database" => "پایگاه داده های CRM",
+"A2billing Database" => "پایگاه داده های نرم افزار کارت تلفن",
+"Mysql Database" => "پایگاه داده ها",
+"Menus and Permissions" => "منوها و مجوزها",
+"This process could take several minutes" => "این مرحله ممکن است چند دقیقه طول بکشد",
+"Mailbox" => "صندوق صوتی",
+"(Heavy Content)" => "(حجم زیاد)",
+"Upload" => "بارگذاری",
+"File Upload" => "ارسال فایل",
+"The backup file would have a tar extension" => "فایل پشتیبان باید دارای پسوند tar باشد",
+"Error copying the file" => "خطا در کپی فایل",
+"The file was copied correctly" => "فایل به درستی کپی شد",
+"Backup" => "پشتیبان",
+"Process" => "پردازش",
+"Restore" => "بازیابی",
+"Elastix Database" => "پایگاه داده ",
+"Sounds" => "صدا ها",
+"Configuration Files" => "فایل های تنظیمات",
+"Monitors" => "فایل های نظارت",
+"tFTP" => "tFTP",
+"Email Acccounts" => "حساب های ایمیل",
+"Choose an option to backup" => "یک گزینه را برای پشتیبان گیری انتخاب کنید",
+"Could not generate backup file" => "خطا در ایجاد فایل پشتیبان",
+"Backup Complete!" => " پشتیبان گیری انجام شد!",
+"Choose an option to restore" => "یک گزینه را برای بازیابی انتخاب کنید",
+"Backup file path can't be empty" => "مسیر فایل پشتیبان نمی تواند خالی باشد",
+"File doesn't exist" => "این فایل وجود ندارد",
+"Restore Complete!" => "بازیابی انجام شد!",
+"Backup File Location" => "محل فایل پشتیبان",
+"All options" => "تمامی گزینه ها",
+"Backup/Restore" => "پشتیبان گیری/ بازیابی",
+"Backup List" => "لیست پشتیبان",
+"Name Backup" => "نام پشتیبان",
+"Error when deleting backup file" => "مشکل در حذف فایل پشتیبان",
+"There are not backup file selected" => "فایل پشتیبان انتخاب نشده",
+"Action" => "اجرا",
+"Folder backup doesn't exist" => "پوشه پشتیبان وجود ندارد",
+"Flash Operator Panel Config Files" => "فايل تنظيمات صفحه اپراتور",
+"Date" => "تاریخ",
+"Voicemails" => "پیام های صوتی",
+"Fax" => "فکس",
+"Email" => "ایمیل",
+"Dahdi Configuration" => "تنظيمات Dahdi",
+"Cancel" => "لغو",
+"Select all in this section" => "انتخاب همه",
+"MOH" => "موزيك انتظار",
+"Others new" => "ساير موارد",
+"Calendar  Database" => "ديتابيس تقويم",
+"Address Book Database" => "ديتابيس دفترچه تلفن",
+"Conference  Database" => "ديتابيس کنفرانس",
+"FTP Backup" => "FTPپشتيباني از طريق",
+"FTP Backup" => "FTPپشتيباني از طريق",
+"Server FTP" => "FTPسرور",
+"Port" => "درگاه",
+"User" => "کاربر",
+"Password" => "پسورد",
+"Local" => "محلي",
+"Server FTP" => "FTPسرور",
+"Upload" => "بارگذاري",
+"Download" => "بارگيري",
+"Path Server FTP" => "FTPمسير سرور",
+"Error to connect" => "لطفا تمامي فيلدها براي اتصال به سرور را پرکنيد",
+"Error Connection" => "عدم اتصال به سرور ",
+"Error user_password" => "با اين کاربر و رمز عبورتان نمي توانيد وصل شويد",
+"Error to save" => "لطفا تمامي فيلد ها را براي ذخيره شدن پرکنيد",
+"Error Drag Drop" => "لطفا بين ليست هايک فايل را بکشيد و رها کنيد",
+"Error to request" => "مشکلي در ارتباط با اتصال وجود داشت",
+"Successfully uploaded" => "با موفقيت بارگذاري شد",
+"Problem uploading" => "مشکلي در ارتباط با بارگذاري وجود داشت",
+"Successfully written" => "با موفقيت نوشته شد",
+"Problem downloading" => "مشکلي در ارتباط با بارگيري وجود داشت",
+"TITLE" => "لطفا از بين ليست ها يک فايل تار را براي بارگذاري يا بارگيري از طريق FTP بکشيد و رها کنيد",
+"AUTOMATIC" => "پشتيباني خودکار",
+"DAILY" => "روزانه",
+"MONTHLY" => "ماهانه",
+"WEEKLY" => "هفتگي",
+"DISABLED" => "غيرفعال",
+"SUCCESSFUL" => "فرآيند موفق",
+"Unabled write file" => "خطا در ذخيره فايل",
+"Unabled open file" => "خطا در باز کردن فايل",
+"EOP" => "EOP",
+"programs" => "برنامه ها",
+"Warning" => "<b><font size='2' color='red'>WARNING:</font></b> مدل ها براي بازيابي متفاوت هستند. شما ممکن است پس از بازيابي هر مشکلي در ارتباط با عملکرد برنامه داشته باشيد. براي پذيرش يا عدم پذيرش روي فرآيند کليک کنيد.",
+"local_version" => "مدل فعلي شما",
+"external_version" => "مدل قابل بازيابي شما",
+"details" => "صورت جزئيات",
+"warning_details" => "جزئيات هشدارها",
+"no_file_xml" => "<b><font size='2' color='red'>WARNING:</font></b> No Data versions in file Restore. You could have any problem with the behavior of the programs after restoring. Press process to accept or cancel if not.",
+"asterisk" => "استريسک",
+"dahdi" => "DAHDI",
+"wanpipe-util" => "ابزار سنگما",
+"freepbx" => "تنظيمات تلفني",
+"elastix" => "Elastix",
+"Select All options" => "Select All options",
+"Package" => "Package",
+"elastix-pbx" => "Elastix PBX",
+"elastix-email_admin" => "Elastix Email",
+"elastix-agenda" => "Elastix Agenda",
+"elastix-fax" => "Elastix Fax",
+"elastix-vtigercrm" => "Elastix VtigerCRM",
+"elastix-a2billing" => "Elastix A2billing",
+"elastix-sugarcrm-addon" => "Elastix SugarCRM",
+"Package not installed" => "Not installed",
+"Version" => "Version",
+"Please verify if the mysql password is the correct in /etc/elastix.conf (mysqlrootpwd)" => "Please verify if the mysql password is the correct in /etc/elastix.conf (mysqlrootpwd)",
+);
+?>

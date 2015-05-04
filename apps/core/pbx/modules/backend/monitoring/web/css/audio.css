@@ -1,0 +1,56 @@
+.audiojs {
+      visibility : hidden;
+      width : 350px;
+      margin-top:2px;
+      height: 22px; 
+      background:none;
+     /* background: #404040;
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #444), color-stop(0.5, #555), color-stop(0.51, #444), color-stop(1, #444));
+      background-image: -moz-linear-gradient(center top, #444 0%, #555 50%, #444 51%, #444 100%);*/
+      -webkit-box-shadow: none; 
+      -moz-box-shadow: none; 
+      -o-box-shadow: none; 
+       box-shadow: none; 
+      }
+
+.audiojs .play-pause { 
+      width: 15px; height: 20px; padding: 0px 8px 0px 0px; border:0px;}
+.audiojs p { width: 25px; height: 20px; margin: -3px 0px 0px -1px; }
+.audiojs .scrubber { background: #5a5a5a; width: 200px; height: 10px; margin: 5px; }
+.audiojs .progress { 
+      height: 10px; width: 0px; 
+      background: #6F6F6F;
+     /* background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ccc), color-stop(0.5, #ddd), color-stop(0.51, #ccc), color-stop(1, #ccc));
+      background-image: -moz-linear-gradient(center top, #ccc 0%, #ddd 50%, #ccc 51%, #ccc 100%);*/
+  
+}
+.audiojs .loaded { 
+      height: 10px; 
+      background: #ECECEC;
+      /*background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.5, #333), color-stop(0.51, #222), color-stop(1, #222));
+      background-image: -moz-linear-gradient(center top, #222 0%, #333 50%, #222 51%, #222 100%); */
+    
+      }
+.audiojs .time { float: left; height: 25px; line-height: 25px; color: black; text-shadow: none; border:0px;}
+.audiojs .time em {color:#000;}
+.audiojs .error-message { height: 24px;line-height: 24px; margin-top: -22px; color: black; margin-left: 20px; }
+
+.track-details { 
+      clear: both; 
+      height: 20px; 
+      width: 448px; 
+      padding: 1px 6px; 
+      background: #eee; 
+      color: #222; 
+      font-family: monospace; 
+      font-size: 11px; 
+      line-height: 20px;
+      -webkit-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.15); 
+      -moz-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.15); }
+.track-details:before { content: '♬ '; }
+.track-details em { font-style: normal; color: #999; }
+
+.audiojs .play {background:url("../images/p_play.png") 3px 6px no-repeat; }
+.audiojs .pause {background:url("../images/p_pause.png") 3px 6px no-repeat; }
+.audiojs .loading {background:url("../images/p_loader.gif") 3px 5px no-repeat; }
+.audiojs .error {background:url("../images/p_error.png") 3px 5px no-repeat; }

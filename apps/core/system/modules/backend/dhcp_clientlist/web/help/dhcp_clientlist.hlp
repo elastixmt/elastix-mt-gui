@@ -1,0 +1,24 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify"></p>
+	<p>
+	Esta opción muestra un listado de todos clientes registrado, mostrando información del mimso tal como la dirección MAC y dirección IP.
+	</p>
+        <!-- Form to add images -->
+        <div><img src="../modules/{$node_id}/images/DHCP_Client_List.png" border="0"></div>
+
+         <!--<table class="inline">
+            <tr>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>-->
+            </tr>
+        </table>
+    </body>
+</html>

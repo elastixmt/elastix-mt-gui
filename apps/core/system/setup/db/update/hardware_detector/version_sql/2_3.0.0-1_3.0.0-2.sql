@@ -1,0 +1,1 @@
+ALTER TABLE span_parameter ADD column crc varchar(16) NOT NULL DEFAULT 'ncrc4';

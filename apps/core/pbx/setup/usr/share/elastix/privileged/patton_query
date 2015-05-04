@@ -1,0 +1,130 @@
+#!/usr/bin/php
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0.4                                                |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: dialerd,v 1.2 2008/09/08 18:29:36 alex Exp $ */
+
+// Preparar paquete de ICMP para solicitud de router
+define('ICMP_ROUTER', 10);
+define('ICMP_ROUTER_PATTON', 74);
+define('MAX_RETRIES', 3);
+
+$sPackFormat = 'C2nN';
+$iChecksum = 0;
+$iExtra = 0xfee40022;
+$packet = pack($sPackFormat, ICMP_ROUTER, ICMP_ROUTER_PATTON, $iChecksum, $iExtra);
+foreach (unpack('n*x', $packet) as $x) $iChecksum += $x;
+$iChecksum = (~(($iChecksum & 0xffff) + (($iChecksum >> 16) & 0xffff))) & 0xffff;
+$packet = pack($sPackFormat, ICMP_ROUTER, ICMP_ROUTER_PATTON, $iChecksum, $iExtra);
+
+// Crear socket de bajo nivel para mandar ICMP. Requiere privilegio de root.
+$sock = @socket_create(AF_INET, SOCK_RAW, getprotobyname('icmp'));
+if ($sock === FALSE) {
+    $iErr = socket_last_error();
+    fprintf(STDERR, "socket_create: unable to create ICMP socket - (%d) %s\n",
+        $iErr, socket_strerror($iErr));
+    exit(1);
+}
+
+// Permitir broadcast a través de este socket
+if (!@socket_set_option($sock, SOL_SOCKET, SO_BROADCAST, 1)) {
+    $iErr = socket_last_error();
+    fprintf(STDERR, "socket_create: unable to enable broadcast on ICMP socket - (%d) %s\n",
+        $iErr, socket_strerror($iErr));
+    socket_close($sock);
+    exit(1);
+}
+
+$discoveredRouters = array();
+for ($i = 0; $i < MAX_RETRIES && count($discoveredRouters) == 0; $i++) {
+    $iTimestamp = time();
+    $r = @socket_sendto($sock, $packet, strlen($packet), 0, '255.255.255.255', 0);
+    if ($r === FALSE) {
+        $iErr = socket_last_error();
+        fprintf(STDERR, "socket_sendto: unable to send ICMP packet - (%d) %s\n",
+            $iErr, socket_strerror($iErr));
+    }
+    do {
+        $readable = array($sock); $writable = NULL; $excepts = NULL;
+        $n = socket_select($readable, $writable, $excepts, 1);
+        if ($n !== FALSE && count($readable) > 0) {
+            $response = NULL;
+            $sRouterIP = NULL;
+            $iRouterPort = NULL;
+            $r = socket_recvfrom($sock, $response, 1024, 0, $sRouterIP, $iRouterPort);
+            if ($r !== FALSE) {
+                // La respuesta es un paquete IP. Se elimina la cabecera IP
+                $packetResponse = unpack('Chl', $response);
+                $iplength = $packetResponse['hl'] & 0x0f;
+                $response = substr($response, $iplength * 4);
+                
+                // Identificar la respuesta ICMP recibida
+                $sPackFormat = 'Ctype/Ccode/nchecksum/Cnaddr/Cndwords/nlifetime';
+                $icmpData = unpack($sPackFormat, $response);
+                if (    $icmpData['type'] == 9 /* Mobile IP Advertisement */
+                    &&  $icmpData['code'] == 0 /* Normal router advertisement */) {
+                    $response = substr($response, 8);
+                    
+                    // Desgranar los (posibles múltiples) routers anunciados
+                    for ($j = 0; $j < $icmpData['naddr']; $j++) {
+                        $routerInfo = unpack('C4o/Npreference', $response);
+                        $response = substr($response, 4 * $icmpData['ndwords']);
+                        $icmpData['routers'][] = $routerInfo;
+                    }
+
+                    // Verificar la existencia de información específica de Patton
+                    if (strlen($response) > 0) {
+                        $icmpData['extra'] = $response;
+                        $discoveredRouters[$sRouterIP] = $icmpData;
+                    }
+                }
+            }
+        }
+    } while (time() <= $iTimestamp);
+}
+socket_close($sock);
+
+// Mostrar la información que ha sido publicada por el router
+foreach ($discoveredRouters as $sRouterIP => $routerInfo) {
+    print "[$sRouterIP]\nlifetime=$routerInfo[lifetime]\n";
+    foreach ($routerInfo['routers'] as $i => $router) {
+        print "router[$i]=$router[o1].$router[o2].$router[o3].$router[o4]\n";
+        print "preference[$i]=$router[preference]\n";
+    }
+    foreach (explode("\n", $routerInfo['extra']) as $s) {
+        $regs = NULL;
+        if (preg_match('/^(\w+):(.+)/', $s, $regs)) {
+            print "$regs[1]=$regs[2]\n";
+        }
+    }
+
+    print "\n";
+}
+
+exit(0);
+?>
+

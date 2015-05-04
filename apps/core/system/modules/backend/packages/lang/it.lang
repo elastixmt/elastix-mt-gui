@@ -1,0 +1,70 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Davide Lo Leggio                                       |
+  | Email: cerino@smat.it                                                |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  $Id: it.lang,v 1.7 2008/02/18 10:07:17 bmacias@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Updates" => "Aggiornamenti",
+"Repositories" => "Repositorie",
+"Package Name" => "Nome Pacchetto",
+"Package Info" => "Info Pacchetto",
+"Package Version" => "Versione Pacchetto",
+"Package Installed" => "Pacchetto Installato",
+"Package Upgrade" => "Aggiorna Pacchetto",
+"Package Delete" => "Cancella Pacchetto",
+"Package Release" => "Release Pacchetto",
+"Packages not Founds" => "Pacchetti non trovati",
+"All Package" => "Tutti i Pacchetti",
+"Packages" => "Pacchetti",
+"Package Noninstalled" => "Pacchetti non installati",
+"Repositor not Found" => "Repositorie non trovate",
+"Package Search" => "Cerca",
+"Repositor Place" => "Repository",
+"Package Update" => "Aggiornamento Pacchetti",
+"Updating Packages" => "Sto Aggiornando i Pacchetti",
+"Satisfactory Update" => "Aggiornamento Satisfactory",
+"Choice" => "Scelta",
+"Updated" => "Aggiornato",
+"Install" => "Installa",
+"Repositories Update" => "Aggiorna Repositorie",
+"Updating Repositories" => "Sto aggiornando le Repositorie",
+"Satisfactory Install" => "Installa Satisfactory",
+"Installing Package" => "Sto installando il Pacchetto",
+"Updating for dependencies" => "Sto Aggiornando per le dipendenze",
+"Installing for dependencies" => "Sto installando per le dipendenze",
+"Installing" => "Sto installando",
+"Total Packages" => "Totale Pacchetti",
+"There is an action in process" => "C'è una azione in corso",
+"Search" => "Cerca",
+"Name" => "Nome",
+"Status" => "Status",
+);
+?>

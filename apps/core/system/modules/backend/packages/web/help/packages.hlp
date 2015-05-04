@@ -1,0 +1,24 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The Packages option in the Updates menu of Elastix allows you to show all packages installed in the Elastix server as well as install any new packages, update existing ones, or uninstall unwanted packages.</p>
+
+<div><img src="../modules/{$node_id}/images/packages.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>It is also possible to search for a particular package with the help of
+filters. Just type the name of the package or its state (Installed, All).</p>
+
+<p>If you wish to search for a package name, enter it in the Name field and click Search.</p>
+
+<p>If you wish to search for a package state, click on the Update Repositories button. By default it will show all installed packages.</p>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificacion: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.1                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 22OC84-356                                |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  |                                                                      |
+  | Romanian Translation by: Narcis Magardician   LAST UPDATE 04/06/2008 |
+  | narcis@artelcom.ro                                                   |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: ro.lang,v 1.6 2007/09/05 00:36:42 afigueroa Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Extensions Batch" => "Batch de Extensii",
+"Batch of Extensions" => "Batch of Extensions",
+"Are you really sure you want to delete all the extensions in this server?" => "Are you really sure you want to delete all the extensions in this server?",
+"Invalid file extension.- It must be csv" => "Extensie Invalida - Trebuie sa fie csv",
+"Possible file upload attack. Filename" => "Posibil atac de upload . Fisier",
+"Error" => "Eroare",
+"Error updating Tech" => "Eroare actualizare Tech",
+"Error updating Users" => "Eroare actualizare Utilizatori",
+"Error updating Devices" => "Eroare actualizare Dispozitive",
+"Error updating Voicemail" => "Eroare actualizare Voicemail",
+"Error processing CallWaiting" => "Eroare procesare CallWaiting",
+"Total extension updated" => "Total extensii actualizate",
+"Error, extension" => "Erore, extensie",
+"repeat in lines" => "repetare in liniile",
+"with" => "cu",
+"The file is incorrect or empty" => "Fisierul este incorect sau gol",
+"Incomplete Columns" => "Coloana incompleta",
+"Verify the header" => "Verificati headerul",
+"At minimum there must be the columns" => "Coloanele de aici trebuie sa fie la valoare minima",
+"Can't exist a extension empty. Line" => "Nu poate exista o extensie goala. Linia",
+"Can't exist a secret empty. Line" => "Nu poate exista un secret gol. Linia",
+"Can't exist a display name empty. Line" => "Nu poate exista un nume display gol. Linia",
+"Please read the lines in the footer" => "Va rog cititi liniile din subsol.",
+"Header File Extensions Batch" => "The first line must contains the name (or title) of the columns, and the file must have at minimum four columns: Display Name, User Extension, Secret, Tech. For more information about all the parameters supported, please read the online embedded help.",
+"About Update Extensions Batch" => "Daca incarcati un fisier cu extensii deja create aceste extensii vor fi actualizate",
+"There aren't extensions" => "Nu sunt extensii",
+"Download Extensions" => "Download the current extensions in CSV format",
+"Error processing Database Family" => "Error processing Database Family",
+"Delete All Extensions" => "Delete All Extensions",
+"All extensions deletes" => "All extensions deletes",
+"Error to delete extensions" => "Error to delete extensions",
+"Unable to reload the changes" => "Unable to reload the changes",
+"Could not delete the database" => "Could not delete the database",
+"Could not delete the ASTERISK database" => "Could not delete the ASTERISK database",
+"Unable delete AMPUSER in database astDB" => "Unable delete AMPUSER in database astDB",
+"Unable delete DEVICE in database astDB" => "Unable delete DEVICE in database astDB",
+"Unable delete CW in database astDB" => "Unable delete CW in database astDB",
+"Unable delete CF in database astDB" => "Unable delete CF in database astDB",
+"Unable delete CFB in database astDB" => "Unable delete CFB in database astDB",
+"Unable delete CFU in database astDB" => "Unable delete CFU in database astDB",
+"File" => "File to Upload (*.csv)",
+"Message" => "Mesaje",
+"Save" => "Upload CSV File",
+"Error to insert or update Direct DID" => "Error to insert or update Direct DID",
+"Can't exist a technology empty. Line" => "Can't exist a technology empty. Line",
+"has a wrong tech in line" => "has a wrong tech in line",
+"Tech must be sip or iax" => "Tech must be sip or iax"
+);
+?>

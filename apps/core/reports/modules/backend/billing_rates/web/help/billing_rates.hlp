@@ -1,0 +1,31 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify"></p>
+
+        <div style="font-size: 15px;"><b>Create a new Rate</b><br /></div>
+        <br />
+        <p> You can create or edit rates without affect the old billing reports.
+    (Figure 1-2).</p><br />
+        <div><img src="../modules/{$node_id}/images/help_new_rate.png" border="0"></div>
+        <div align="center"><p>Figure 1</p></div>
+        <br />
+        <div><img src="../modules/{$node_id}/images/help_edit_rate.png" border="0"></div>
+        <div align="center"><p>Figure 2</p></div>
+        <br />
+        <div style="font-size: 15px;"><b>Delete Rate</b><br /></div>
+        <br />
+        <div><img src="../modules/{$node_id}/images/help_delete_rate.png" border="0"></div>
+        <div align="center"><p>Figure 3</p></div>
+        <br />
+        <div style="font-size: 15px;"><b>Import Rates</b><br /></div>
+        <p> You can import files from file.csv. The correct format of file is showed <b>Figure 4</b>
+        <br />
+        <div><img src="../modules/{$node_id}/images/help_import_rate1.png" border="0"></div>
+        <div align="center"><p>Figure 4</p></div>
+    </body>
+</html>

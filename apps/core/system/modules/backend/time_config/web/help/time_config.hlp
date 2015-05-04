@@ -1,0 +1,19 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “Date and Time Configuration” of the Menu “Preferences” in Elastix lets us configure the Date, Hour and Timezone for the Elastix Web Interface.</p>
+
+<div><img src="../modules/{$node_id}/images/preferences_date_time.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>Select the new date, hour and timezone and click on the “Apply changes” button.</p>
+
+</body>
+</html>

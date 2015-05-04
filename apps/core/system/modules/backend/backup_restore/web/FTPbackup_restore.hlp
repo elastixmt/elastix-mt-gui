@@ -1,0 +1,52 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The FTP Backup/Restore option in the System menu of Elastix allows you to back up and restore Elastix configuration data to FTP Server.</p>
+
+<p>Firts we need to configure the FTP Server.</p>
+<div><img src="../modules/{$node_id}/images/FTP0.png" border="0"></div>
+<div>Figure 1</div>
+<br />
+<p>Write in text fields the ip ftp server, user and password of that user.</p>
+<p>Then in the FTP server it necessary edit the file vsftpd.conf from /etc/vsftpd/vsftpd.conf and change the following parameters:</p>
+
+<p>#idle_session_timeout=600    change to     idle_session_timeout=600
+#data_connection_timeout=120 change to     data_connection_timeout=120
+#anon_upload_enable=YES      change to     anon_upload_enable=YES
+#chown_uploads=YES           change to     chown_uploads=YES 
+#chown_username=whoever      change to     chown_username=root   *if root is the user*</p>
+<p>If there are a parameter like userlist_enable=YES so we need edit user_list in /etc/vsftpd/user_list to remove root in that file if we use root as user to connect else user that does not appear there is not necessary edit that file.</p>
+
+<p>Now we need to create a directory where the backup will be uploads. It must to be in home of user for example if the user is root => /root/backup or if the user is elastix => /home/elastix/backup  where backup is the name of directory to upload backup files.</p>
+
+<p>Finally Restart the process vsftpd whit the next command: service vsftpd restart.</p>
+<br />
+
+<div><img src="../modules/{$node_id}/images/FTP1.png" border="0"></div>
+<div>Figure 2</div>
+<br />
+
+<p>If all is fine we can do uploads and downloads.</p>
+
+<br />
+
+<div><img src="../modules/{$node_id}/images/FTP2.png" border="0"></div>
+<div>Figure 3</div>
+<br />
+
+<div><img src="../modules/{$node_id}/images/FTP3.png" border="0"></div>
+<div>Figure 4</div>
+<br />
+
+<div><img src="../modules/{$node_id}/images/FTP4.png" border="0"></div>
+<div>Figure 5</div>
+<br />
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+#!/usr/bin/php
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0.4                                                |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: dialerd,v 1.2 2008/09/08 18:29:36 alex Exp $ */
+declare(ticks=1);
+if (count($argv) < 2) {
+    fprintf(STDERR, "$argv[0] n.n.n.n/m\n");
+	exit(1);
+}
+$sNetMask = $argv[1];
+if (!preg_match('|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2}$|', $sNetMask)) {
+    fprintf(STDERR, "$argv[0]: invalid netmask\n");
+	exit(1);
+}
+$retval = NULL;
+$signum = NULL;
+
+// Install some signal handlers (SIGTERM, SIGQUIT, SIGINT, SIGHUP)
+pcntl_signal(SIGTERM, 'sighandler');
+pcntl_signal(SIGQUIT, 'sighandler');
+pcntl_signal(SIGINT, 'sighandler');
+pcntl_signal(SIGHUP, 'sighandler');
+
+$pipes = NULL;
+$pipespec = array(
+    0   =>  STDIN,
+    1   =>  array('pipe', 'w'),
+    2   =>  STDERR,
+);
+$r = @proc_open("/usr/bin/nmap -T4 -sP -n  $sNetMask", $pipespec, $pipes);
+$pstatus = NULL;
+if (is_resource($r)) {
+    $sIP = NULL;
+    while (!feof($pipes[1]) && is_null($signum)) {
+        $linea = fgets($pipes[1]);
+        $regs = NULL;
+        if (preg_match('/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/', $linea, $regs))
+            $sIP = $regs[1];
+        if (preg_match('/^MAC Address: ([:|[:alnum:]]*) \((.*)\)/', $linea, $regs)) {
+            print "$regs[1] $sIP $regs[2]\n";
+            flush();
+        }
+    }
+    if (!is_null($signum)) {
+        proc_terminate($r, $signum);
+        do {
+            if (is_resource($r)) {
+                $pstatus = @proc_get_status($r);
+                if ($pstatus !== FALSE && $pstatus['running']) usleep(1000);
+            }
+        } while (is_resource($r) && $pstatus['running']);
+    }
+    if (is_resource($r)) $retval = proc_close($r);
+    exit($retval);
+}
+exit(1);
+
+function sighandler($sn)
+{
+    global $signum;
+    $signum = $sn;
+}
+?>

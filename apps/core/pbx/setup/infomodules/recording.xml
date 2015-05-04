@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="recordings" name="Recordings" idParent="pbxsettings" type="module" link=""  order_no="5">
+		<permissions administrative="yes" organization_access="yes" >
+			<actions>
+				<action name="access">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+						<group id="3" name="supervisor"    desc="Supervisor"   />
+					</groups>
+				</action>
+				<action name="create|delete|edit">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

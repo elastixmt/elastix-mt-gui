@@ -1,0 +1,78 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Updates" => "Actualizaciones",
+"Repositories" => "Repositorios",
+"Package Name" => "Nombre Paquete",
+"Package Info" => "Informacion Paquete",
+"Package Version" => "Version",
+"Package Installed" => "Instalado",
+"Package Upgrade" => "Actualizado",
+"Package Delete" => "Eliminar",
+"Package Release" => "Release",
+"Packages not Founds" => "Paquetes no encontrados",
+"All Package" => "Todos",
+"Packages" => "Paquetes",
+"Package Noninstalled" => "No instalado",
+"Repositor not Found" => "Repositorios no encontrados",
+"Package Search" => "Buscar",
+"Repositor Place" => "Repositorio",
+"Package Update" => "Actualizar Paquetes",
+"Updating Packages" => "Actualizando Paquetes",
+"Satisfactory Update" => "Actualizacion Satisfactoria",
+"Choice" => "Elegir",
+"Updated" => "Actualizado",
+"Install" => "Instalar",
+"Repositories Update" => "Actualizar Repositorios",
+"Updating Repositories" => "Actualizando Repositorios",
+"Satisfactory Install" => "Instalacion Exitosa",
+"Installing Package" => "Instalando Paquete",
+"Updating for dependencies" => "Actualizados por Dependencias",
+"Installing for dependencies" => "Instalados por Dependencias",
+"Installing" => "Instalados",
+"Total Packages" => "Total Paquetes",
+"There is an action in process" => "Hay una accion en proceso",
+"Search" => "Buscar",
+"Name" => "Nombre",
+"Status" => "Estado",
+"The repositories are not up to date. Click on the"=>"Los repositorios no estan actualizados. De click en el boton",
+"button to list all available packages."=>"para listar todos los paquetes disponibles",
+"You will uninstall package along with everything what it depends on it. System can lose important functionalities or become unstable! Are you sure want to Uninstall?"=>"Se desinstalara el paquete con todas sus dependencias. El sistema puede perder funcionalidades importantes o volverse inestable! ¿Está seguro que desea desinstalar?",
+"Uninstalling Package"=>"Desinstalando Paquete",
+"Uninstall"=>"Desinstalar",
+"Package(s) Uninstalled"=>"Paquete(s) Desinstalado(s)",
+"Packages uninstalled"=>"Paquetes desinstalados",
+"Completed!"=>"Terminado",
+"Are you sure want to Install this package?"=>"¿Está seguro que desea instalar este paquete?",
+"Architecture" => "Arquitectura",
+"Current Version" => "Versión Actual",
+"Available Version" => "Versión Disponible",
+);
+?>

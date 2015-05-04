@@ -1,0 +1,68 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  |                                                                      |
+  | Translate bye: Erwan DESVERGNES - SDCI                               |
+  | erwan.desvergnes@SDCI.fr                                             |
+  |                                                                      |                                               |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: br.lang,v 1.6 2007/09/05 00:36:42 afigueroa Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"DHCP Server" => "Servidor de DHCP",
+"Update" => "Atualizar",
+"Service Start" => "Iniciar Serviço",
+"Service Stop" => "Encerrar Serviço",
+"Start range of IPs" => "Início da faixa de IPs",
+"End range of IPs" => "Fim da faixa de IPs",
+"DNS 1" => "DNS 1",
+"DNS 2" => "DNS 2",
+"WINS" => "WINS",
+"Gateway" => "Gateway",
+"Optional" => "Opcional",
+"Of 1 to 50000 Seconds" => "De 1 a 50000 segundos",
+"Time of client refreshment" => "Time of client refreshment",
+"DHCP Configuration" => "Configuração de DHCP",
+"Could not find IP range" => "Não foi possível encontrar essa faixa de IP",
+"DHCP configuration reading error: Verify that the DHCP service is installed and try again." => "Erro ao carregar a configuração de DHCP: Verifique se o serviço de DHCP esta instalado e tente novamente.",
+"Information DHCP" => "Informações",
+"The Service dhcpd can't stop" => "O serviço dhcpd não pôde ser parado",
+"The Service dhcpd can't start" => "O serviço dhcpd não pôde ser iniciado",
+"The start IP is outside the LAN network" => "O início da faixa de IPs está fora da rede LAN",
+"The final IP is outside the LAN network" => "O final da faixa de IPs está fora da rede LAN",
+"IP Range is invalid for available devices" => "Esta faixa de IP é inválida para os dispositivos disponíveis",
+"Gateway is outside the LAN network" => "O gateway está fora da rede LAN",
+"You can only choose between Enabled and Disabled" => "Você pode escolher entre Habilitar e Desabilitar",
+"Value outside the range (1-50000)" => "Valor fora da faixa (1-50000)",
+"Failed to update the file configuration" => "Falha ao atualizar o arquivo de configuração",
+"The update was successful, but was unable to reestablish the permissions of the file dhcp.conf" => "A atualização ocorreu com sucesso, mas não foi possível reestabelecer as permissões do arquivo dhcp.conf",
+"Update Error" => "Erro de Atualização",
+"Status" => "Status",
+"Inactive" => "Desativado",
+"Information" => "Information",
+"Active"=>"Ativo",
+);
+?>

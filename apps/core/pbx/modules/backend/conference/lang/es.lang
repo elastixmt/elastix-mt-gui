@@ -1,0 +1,122 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Conference" => "Conferencia",
+"State" => "Estado",
+"Past Conferences" => "Conferencias Pasadas",
+"Current Conferences" => "Conferencias Actuales",
+"Future Conferences" => "Conferencias Futuras",
+"Conference #" => "Conferencia #",
+"Conference Name" => "Nombre de Conferencia",
+"Starts" => "Inicio",
+"Ends" => "Fin",
+"Participants" => "Participantes",
+"All" => "Todos",
+"New Conference" => "Nueva Conferencia",
+"Conference Owner" => "Conferencia Propia",
+"Conference Number" => "Numero de Conferencia",
+"Moderator PIN" => "PIN Moderador",
+"Moderator Options" => "Opciones de Moderador",
+"Announce" => "Anuncio",
+"Record" => "Grabar",
+"User PIN" => "PIN Usuario",
+"Listen Only" => "Solo Escuchar",
+"Wait for Leader" => "Esperar por Lider",
+"User Options" => "Opciones de Usuario",
+"Start Time" => "Tiempo Inicio",
+"Duration (HH:MM)" => "Duración (HH:MM)",
+"Recurs" => "Recurs",
+"Max Participants" => "Max Participantes",
+"Reoccurs" => "Reoccurs",
+"for" => "para",
+"days" => "dias",
+"Daily" => "Diariamente",
+"Weekly" => "Semanalmete",
+"Bi-weekly" => "Bi-semanalmete",
+"Moderator and user PINs must not be equal" => "Moderador y usuario PINs no deben se iguales",
+"Are you sure you wish to delete conference (es)?" => "Estás seguro de eliminar la/las conferencia (as)?",
+"Id" => "Id",
+"CallerId" => "Id de llamada",
+"Mode" => "Modo",
+"Mute" => "Callar",
+"Kick" => "Botar",
+"Are you sure you wish to Mute caller (s)?" => "Estás seguro de callar a/las llamada(s)?",
+"Are you sure you wish to Kick caller (s)?" => "Estás seguro de botar a/las llamadas(s)?",
+"Muted" => "Callado",
+"UnMuted" => "No Callado",
+"Error when connecting to Asterisk Manager" => "Error cuando se conectaba al Adminstrador de Asterisk",
+"The conference installation is almost done. To complete it please" => "Para finalizar la instalación de conferencia haga ",
+"Kick All" => "Botar a todos",
+"Invite Caller" => "Llamada a Invitar",
+"The device wasn't write" => "La extension no se puedo escribir.",
+"The device must be numeric" => "La extension debe ser numerica",
+"The device couldn't be added to the conference" => "La extension no se pudo agregar a la conferencia",
+"Filter" => "Filtrar",
+"Show" => "Mostrar",
+"click here" => "click aquí",
+'Duration'=>'Duración',
+'Status'=>'Status',
+'Update'=>'Actualizar',
+'No Extensions'=>'No hay extensiones',
+'Unselected' => 'No seleccion',
+"CONF_name" => "Define un nombre para la conferencia",
+"CONF_numconference" => "Especifica el numero de conferencia",
+"CONF_pinmoderator" => "Especifica el pin moderador",
+"CONF_pinuser" => "Especifica pin de usuario",
+"CONF_maxparticipates" => "Especifica el numero maximo de participantes",
+"CONF_scheduleconference" => "Habilita esta opcion si desea especificar fechas para conferencia",
+"CONF_musiconhold" => "Define el tipo de musica",
+"CONF_joinconferencemessage" => "Define mensaje de conferencia",
+"CONF_recordcall" => "grabacion de llamada",
+"CONF_moderatoroptions" => "Define opciones de moderador",
+"CONF_useroptions" => "Define opciones de usuario",
+"ADD Conference" => "Agregar Conferencia",
+"Type" => "Tipo",
+"Name" => "Nombre",
+"Organization Domain" => "Dominio de la Organización",
+"Max Participates" => "Máximo de Participantes",
+"Record Call" => "Grabación de llamada",
+"Join Conference Message" => "Mensaje de Inicio de Conferencia",
+"Announce Join/Leave" => "Anuncio de Ingreso/Salida",
+"Schedule Conference" => "Calendario de Conferencia",
+"schedule" => "horario",
+"all" => "Todos",
+"Room Number" => "Número Sala",
+"Period" => "Periodo",
+"Participants / MaxUsers" => "Participantes/Max Usuarios",
+"Status" => "Estado",
+"Both" => "Ambos",
+"Schedule" => "Horario",
+"No Schedule" => "Sin Horario",
+"--no music--" => "--no música--",
+"--no announcement--" => "--No anuncio--",
+"Click here to reload dialplan" => "Click aqui para recargar el plan de marcado",
+);
+?>

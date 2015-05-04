@@ -1,0 +1,79 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<div><img src="../modules/{$node_id}/images/help_backup_restore.png" border="0"></div>
+<div>Figura 1</div>
+<br />
+
+<p>La opción "Backup/Restore" del menú "Sistema" de lastix permite respaldar y restaurar los datos de configuración de Elastix. Inicialmente se mostrará una lista de todos los archivos de formato .tar que corresponde a cada respaldo realizado. Para poder descargarse algún respaldo realizado, simplemente hay que hacer click en el nombre del archivo de formato .tar al que pertenece dicho respaldo.</p>
+
+
+<h1>Respaldar una configuración</h1>
+
+<div><img src="../modules/{$node_id}/images/help_backup.png" border="0"></div>
+<div>Figura 2</div>
+<br />
+
+<p>Para poder realizar un respaldo de la configuración de Elastix, hay que hacer click en el botón "Desarrollar un respaldo...", después, en la nueva ventana (Figura 2), seleccionar todas las opciones que se desean respaldar y finalmente hacer click en el botón "Procesar".</p>
+<p>Entre las categorías de configuraciones que se pueden respaldar se encuentran: Endpoint, Fax, Email, Asterisk y Otros. </p>
+<br />
+
+<h1>Restaurar una configuración</h1>
+
+<div><img src="../modules/{$node_id}/images/help_backup.png" border="0"></div>
+<div>Figura 3</div>
+<br />
+
+<p>Para restaurar una configuración de Elastix, hay que hacer click en el botón "Restaurar" que se encuentra al lado derecho de cada respaldo listado en la pantalla principal de esta opción (Backup/Restore), después, en la nueva ventana (Figura 3), seleccionar todas las opciones que se desean restaurar y finalmente hacer click en el botón "Procesar".</p>
+<p>Entre las categorías de configuraciones que se pueden respaldar se encuentran: Endpoint, Fax, Email, Asterisk y Otros. </p>
+
+<h1>Respaldar/Restaurar una configuración FTP</h1>
+
+<p>La opción "FTP Backup/Restore" del menú "Sistema" de Elastix permite respaldar y restaurar los datos de configuración de Elastix de un Servidor FTP.</p>
+
+<p>Primero necesitamos configurar el Servidor FTP.</p>
+<div><img src="../modules/{$node_id}/images/FTP0.png" border="0"></div>
+<div>Figura 4</div>
+<br />
+<p>Escriba en los campos de texto el IP del servidor FTP, y su respectivo usuario y contraseña.</p>
+<p>Después, en el servidor FTP, es necesario editar el archivo vsftpd.conf que se encuentra en /etc/vsftpd/vsftpd.conf y cambiar los siguientes parámetros:</p>
+
+<p>#idle_session_timeout=600</p> <p>cambiar a     idle_session_timeout=600</p>
+#data_connection_timeout=120 <p>cambiar a     data_connection_timeout=120</p>
+#anon_upload_enable=YES      <p>cambiar a     anon_upload_enable=YES</p>
+#chown_uploads=YES           <p>cambiar a     chown_uploads=YES </p>
+#chown_username=whoever      <p>cambiar a     chown_username=root   *si el usuario es root*</p>
+<p>Si existe un parámetro como userlist_enable=YES, entonces necesitamos editar user_list en /etc/vsftpd/user_list para remover root en ese archivo, si usamos root como usuario para conectar , caso contrario, si el usuario no aparece ahí, no es necesario editar ese archivo.</p>
+
+<p>Ahora necesitamos crear un directorio, en donde será subido el respaldo. Esto debe ser en el home del usuario, por ejemplo si el usuario es root entonces la carpeta debe ser /root/backup, o si el usario es elastix, entonces la carpeta debe ser /home/elastix/backup donde backup es el nombre del directorio en donde se subirán los archivos de respaldo.</p>
+
+<p>Finalmente reiniciar el proceso vsftpd con el comando: service vsftpd restart.</p>
+<br />
+
+<div><img src="../modules/{$node_id}/images/FTP1.png" border="0"></div>
+<div>Figure 5</div>
+<br />
+
+<p>Si todo está correcto, entonces podremos realizar subidas y descargas.</p>
+
+<br />
+
+<div><img src="../modules/{$node_id}/images/FTP2.png" border="0"></div>
+<div>Figure 6</div>
+<br />
+
+<div><img src="../modules/{$node_id}/images/FTP3.png" border="0"></div>
+<div>Figure 7</div>
+<br />
+
+<div><img src="../modules/{$node_id}/images/FTP4.png" border="0"></div>
+<div>Figure 8</div>
+<br />
+</body>
+</html>

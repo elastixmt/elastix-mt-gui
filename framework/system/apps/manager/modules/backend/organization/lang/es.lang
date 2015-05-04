@@ -1,0 +1,131 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.2.0-29                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2012-02-07 11:02:13 Rocio Mera rmera@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Organization" => "Organización",
+"Domain" => "Dominio",
+"Country" => "Pais",
+"City" => "Ciudad",
+"Direction" => "Dirección",
+"HERE YOU CAN CREATE NEW ORGANIZATION. " => "AQUI USTED PUEDE CREAR NUEVAS ORGANIZACIONES. ",
+"Create Organization" => "Crear Nueva Organizacion",
+"Invalid ID Organization" => "ID de la Organizacion no es valido. ",
+"Apply Changes" => "Aplicar Cambios.",
+"You must select a country" => "Usted debe seleccionar un pais. ",
+"The organization was created successfully" => "La organizacion fue creada exitosamente. ",
+"The organization was edit successfully" => "La organizacion fue editada exitosamente. ",
+"Don't extension associated" => "No tiene extension asociada",
+"Don't fax extension associated" => "No tiene extension de fax asociada",
+"Extension / fax extension" => "Extension / Fax extension",
+"Organization Domain" => "Dominio de la Organizacion",
+"User Name" => "Nombre Usuario",
+"<< Come Back" => "<< Volver",
+"Main Organization can not be deleted" => "La organizacion por defecto de elastix no puede ser borrada. ",
+"The organization was deleted successfully" => "La organizacion fue borrada exitosamente. ",
+"Organization name already exists" => "Nombre de la organizacion ya existe ",
+"An error has occurred when trying get resources of the system. " => "Un error ha ocurrido cuando se obtenian los recursos del sistema. ",
+"Error trying create organization groups." => "Error al tratar de crear los nuevos grupos",
+"Errors trying created dialplan for new organization" => "Error al tratar de crear el plan de marcado para la nueva organizacion. ",
+"Errors trying set organization properties" => "Errors al tratar de configurar las propiedades de la organizacion. ",
+"Already exist other organization with the same domain" => "Ya existe otra organizacion con el mismo nombre ",
+"Please before to delete a organization delete all users asociated to" => "Antes de borrar una organizacion borre todos los usuarios asociados a la organizacion. ",
+"Organization doesn't exist" => "Organizacion no existe. ",
+"You aren't authorized to perform this action" => "Usted no esta autorizado para realizar esta accion. ",
+"Invalid Action" => "Accion Invalida. ",
+"Error refreshing configuration" => "Error al refrescar configuracion de faxes. ",
+"Domain name already exists" => "Nombre del dominio ya existe. ",
+"Domain must no be empty" => "Dominio no puede ser vacio. ",
+"Couldn't be opened for reading file" => "No pudo ser abierto para lectura archivo",
+"File extensions_generic.conf doesn't exist, new fiel couldn't be created" => "Archivo extensions_generic.conf no existe, Nueevo plan de marcado no pudo ser creado. ",
+"Error when trying write asterisk config file" => "Error al tratar de create archivos de configuracion de asterisk. ",
+"Error trying set general settings asterisk" => "Error al tratar de configurar las variables globales in asterisk. ",
+"Error trying created directories inside asterisk" => "Error al tratar de crear directorios dentro de asterisk. ",
+"Error deleting dialplan files of organization" => "Error al tratar borrar plan de marcado de la organizacion",
+"File extensions_globals, couldn't be created" => "Archivo extensions_globals no pudo ser creado. ",
+"Couldn't be written file" => "No pudo ser creado archivo",
+"active" => "Activa",
+"terminate" => "Lista para Eliminar",
+"suspend" => "Suspendida",
+"ORG_name" => "Definimos el nombre de la organización",
+"ORG_domainname" => "Definimos el dominio para la organización (sin www Ejemplo: organizacion.com)",
+"ORG_country" => "Definimos el nombre del pais",
+"ORG_city" => "Definimos el nombre la ciudad",
+"ORG_address" => "Definimos la dirección fisica donde estará ubicada la organización",
+"ORG_countrycode" => "Definimos el código de pais",
+"ORG_areacode" => "Definimos el código de area",
+"ORG_emailcontact" => "Definimos un mail de contacto (este sera el administrador y username de acceso a esta organización)",
+"ORG_maxnumaccounts" => "Definimos el número de cuentas para la organización (defecto: ilimitado)",
+"ORG_maxnumextensions" => "Definimos el número de extensiones para la organización (defecto: ilimitado)",
+"ORG_masxnumqueues" => "Definimos el número máximo de colas para esta organización (defecto: ilimitado)",
+"ORG_emailquota" => "Definimos la cuota de email por usuario. [Mb] (defecto: 30 Mb)",
+"Address" => "Dirección",
+"Country Code" => "Código de País",
+"Email Contact"=> "Email de Contacto",
+"Domain Name" => "Nombre del Dominio",
+"Area Code" => "Código de Area",
+"Organization Limits" => "Límites de la Organización", 
+"Max. # of User Accounts" => "Num. Máximo Cuentas Usuario",
+"Max. # of extensions" => "Num. Max de Extensiones",
+"Max. # of queues" => "Num. Max de colas",
+"Email Quota By User(MB)" => "Cuota de Correo por Usuario (Mb)",
+"unlimited" => "Ilimitado",
+"Change State" => "Cambiar Estado",
+"Click here to reload dialplan" => "Clic aquí para recargar el plan de marcado de ",
+"Name" => "Nombre",
+"State" => "Estado",
+"Number of Users" => "Número de Usuarios",
+"Email Qouta" => "Cuota de email",
+"Organization List" => "Lista de Organizaciones",
+"MESSAGE" => "MENSAJE",
+"Asterisk was reloaded correctly. " => "Asterisk fue recargado Correctamente",
+"Asterisk can't be reloaded. " => "Asterisk No pudo ser recargado",
+"All" => "Todos",
+"Suspend" => "Suspendido",
+"Unsuspend" => "No Suspendido",
+"Terminate" => "Terminado",
+"Active" => "Activo",
+"Suspend" => "Suspendido",
+"terminate" => "Terminado",
+"Select a country" => "Selecciona un país",
+"DID Organization List" => "Lista de DID de Organizaciones",
+"Add DID" => "Agregar Nueva DID",
+"Remove DID" => "Remover DID",
+"Type" => "Tipo",
+"Country Code / Area Code"  => "Código País / Código Area",
+"--Select a Country--" => "Selecciona un país",
+"Available DID" => "DID Disponible",
+"DID to assign to" => "DID Asignado a ",
+"Drag and Drop DIDs into 'DID to assign' Area" => "Arrastra y Suelta DIDs dentro del area 'Asignar DID'",
+"Organization DID" => "DID Organizacion",
+"--Select a Country--" => "Selecciona un pais",
+"--Select a City--" => "Selecciona una ciudad",
+"To admin the new organization login to elastix as admin@" => "Para poder administrar la nueva organizacion debes autenticarte en elastix como admin@",
+
+);
+?>

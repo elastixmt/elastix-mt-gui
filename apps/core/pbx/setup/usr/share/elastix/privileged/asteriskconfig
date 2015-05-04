@@ -1,0 +1,1972 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  | Some functions within this class or script that implements an	 | 	
+  | asterisk dialplan are based in FreePBX code.			 |
+  | FreePBX® is a Registered Trademark of Schmooze Com, Inc.   		 |
+  | http://www.freepbx.org - http://www.schmoozecom.com 		 |
+  +----------------------------------------------------------------------+
+  $Id: asteriskconfig,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+
+$elxPath="/usr/share/elastix";
+ini_set('include_path',"$elxPath:".ini_get('include_path'));
+require_once 'Console/Getopt.php';
+include_once "libs/misc.lib.php";
+include_once "configs/default.conf.php";
+require_once "libs/paloSantoPBX.class.php";
+require_once "libs/paloSantoAsteriskConfig.class.php";
+require_once "libs/paloSantoOrganization.class.php";
+
+global $arrConf;
+
+load_default_timezone();
+
+if(!isset($argv[1]))
+    exit(1);
+    
+switch($argv[1]){
+    case "dialplan-reload":
+        exit(dialplanReload() ? 0 : 1);
+        break;
+    case "reload":
+        exit(reload() ? 0 : 1);
+        break;
+    case "writeExtensionConf":
+        if(isset($argv[2])){
+            exit(createExtensionFile($argv[2],$argv[3]) ? 0 : 1);
+        }else
+            exit(createExtensionFile() ? 0 : 1);
+        break;
+    case "createOrganizationAst":
+        if(isset($argv[2])){
+            exit(createOrganizationAsterisk($argv[2]) ? 0 : 1);
+        }else
+            error_exit("Missing arguments \n");
+        break;
+    case "cleanFailCreation":
+        if(isset($argv[2])){
+            exit(cleanFailCreation($argv[2]) ? 0 : 1);
+        }else
+            error_exit("Missing arguments \n");
+        break;
+    case "generateDialPlan":
+        if(isset($argv[2])){
+            exit(generateDialPlan($argv[2],$argv[3]) ? 0 : 1);
+        }else
+            error_exit("Missing arguments \n");
+        break;
+    case "createExtAddtionals":
+        if(isset($argv[2])){
+            exit(createExtAddtionals($argv[2]) ? 0 : 1);
+        }else
+            exit(createExtAddtionals() ? 0 : 1);
+        break;
+    case "createFileDahdiChannelAdd":
+        if(isset($argv[2])){
+            exit(createFileDahdiChannelAdd($argv[2]) ? 0 : 1);
+        }else
+            exit(createFileDahdiChannelAdd() ? 0 : 1);
+        break;
+    case "createExtGeneral":
+        exit(createExtGeneral() ? 0 : 1);
+        break;
+    case "writeTechRegister":
+        if(isset($argv[2])){
+            exit(writeTechRegister($argv[2]) ? 0 : 1);
+        }else
+            error_exit("Missing arguments \n");
+        break;
+    case "createMoHDir":
+        if(isset($argv[2])){
+            exit(createMoHDir($argv[2],$argv[3]) ? 0 : 1);
+        }else
+            error_exit("Missing arguments \n");
+        break;
+    case "deleteFolderOrganization":
+        if(isset($argv[2])){
+            exit(deleteFolderOrganization($argv[2]) ? 0 : 1);
+        }else
+            error_exit("Missing arguments \n");
+        break;
+    case "changeOrgsState":
+        if(isset($argv[2]) && isset($argv[3])){
+            exit(changeStateOrganization($argv[2],$argv[3]) ? 0 : 1);
+        }else
+            error_exit("Missing arguments \n");
+        break;
+    case "writeSIPGeneralFile":
+        exit(writeSIPGeneralFile() ? 0 : 1);  
+        break;
+    case "writeIAXGeneralFile":
+        exit(writeIAXGeneralFile() ? 0 : 1);  
+        break;
+    case "writeVMGeneralFile":
+        exit(writeVMGeneralFile() ? 0 : 1);  
+        break;
+	default:
+		error_exit("No action specified \n");
+		break;
+}
+
+function error_exit($sMsg, $errorcode = 1)
+{
+    fwrite(STDERR, $sMsg);
+    exit($errorcode);
+}
+
+function changeFilePermission($file, $newmask = 0664)
+{
+	$oldmask = umask(0);
+	chown($file,"asterisk");
+	chgrp($file,"asterisk");
+	chmod($file, $newmask);
+	umask($oldmask);
+	return true;
+}
+
+function reload(){
+    $ret = $output = null;
+	exec("/usr/sbin/asterisk -r -x 'core reload' 2>&1",$output,$ret);
+	if($ret!=0){
+        fwrite(STDERR, "Asterisk couldn't be reloaded. ".implode('', $output)).".\n";
+        return false;
+	}
+	return true;
+}
+
+function dialplanReload(){
+    $ret = $output = null;
+	exec("/usr/sbin/asterisk -r -x 'dialplan reload' 2>&1",$output,$ret);
+	if($ret!=0){
+        fwrite(STDERR, "Couldn't be reloaded asterisk dialplan. ".implode('', $output)).".\n";
+        return false;
+    }
+    return true;
+}
+
+function createOrganizationAsterisk($domain){
+    global $arrConf;
+    if(!preg_match("/^(([[:alnum:]-]+)\.)+([[:alnum:]])+$/", $domain)){
+        fprintf(STDERR, "Invalid domain format");
+        return false;
+    }
+    
+    //la organizacion no debe existir
+    $pDB=new paloDB($arrConf["elastix_dsn"]["elastix"]);
+    $query="SELECT code FROM organization WHERE domain=?";
+    $result=$pDB->fetchTable($query,false,array($domain));
+    if($result===false){
+        fprintf(STDERR, "ERR: Database connection elxpbx - %s\n", $pDB->errMsg);
+        return false;
+    }elseif(count($result)>0){
+        fprintf(STDERR, "ERR: Organization already exits\n");
+        return false;
+    }
+    
+    if(createFeaturesFile($pDB)==false){
+        fprintf(STDERR, "ERR:Error trying set Features Codes\n");
+        return false;
+    }
+    
+    if(createDirOrganization($domain)==false){
+        fprintf(STDERR, "ERR: Organization's directories for asterisk couldn't be created\n");
+        return false;
+    }
+    
+    if(createDirFax($domain)==false){
+        fprintf(STDERR, "ERR: Organization's directories for fax couldn't be created\n");
+        return false;
+    }
+    
+    //se incluyen dentro de los archivos extensions.conf y extensions_globalas.conf
+    //los archivos de configuracion del plan de marcado de la organizacion
+    if(createExtensionFile("add",$domain)==false){
+        return false;
+    }
+    
+    // Recargar Kamailio para que cargue el nuevo dominio
+    exec('/sbin/service kamailio restart');
+
+    return true;
+}
+
+function createDirOrganization($domain){
+    $pathDial="/etc/asterisk/organizations";
+    $exito=true;
+        
+    if(!is_dir($pathDial)){
+        if(mkdir($pathDial)){
+            changeFilePermission($pathDial, 0775);
+        }else{
+            fprintf(STDERR, "ERR: failed to create '/etc/asterisk/organizations' directory");
+            return false;
+        }
+    }
+    
+    $pathlib="/var/lib/asterisk";
+    $pathspool="/var/spool/asterisk";
+
+    $astmonitor = $pathspool."/monitor";
+    $astmeetme = $pathspool."/meetme";
+    $astspooltmp = $pathspool."/tmp";
+    $astlibsound = $pathlib."/sounds";
+    $arrDir=array($astmonitor,$astmeetme,$astlibsound,$astspooltmp,$pathDial);
+    $date=date("YMd_His");
+
+    foreach($arrDir as $dir){
+        if(!is_dir($dir)){
+            if(mkdir("$dir"))
+                changeFilePermission("$dir", 0770);
+            else{
+                fprintf(STDERR, "ERR: failed to create $dir main directory - %s\n", $output[0]);
+                $exito=false;
+                break;
+            }
+        }
+
+        if(is_dir("$dir/$domain")){
+            rename("$dir/$domain","$dir/$domain"."_".$date);
+        }
+        
+        if(mkdir("$dir/$domain")){
+            changeFilePermission("$dir/$domain", 0775);
+        }else{
+            fprintf(STDERR, "ERR: failed to create $dir/$domain directory - %s\n", $output[0]);
+            $exito=false;
+            break;
+        }
+    }
+
+    if(!$exito){
+        foreach($arrDir as $dir){
+            if(is_dir("$dir/$domain"))
+                rmdir("$dir/$domain");
+        }
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function createDirFax($domain)
+{
+    $path="/var/www/elastixdir/faxdocs";
+    $exito=true;
+    $arrDir=array("$path/$domain","$path/$domain/sent","$path/$domain/recvd");
+
+    umask(0);
+
+    if(!is_dir($path)){
+        if(mkdir($path)){
+            chown($path, 'asterisk');
+            chgrp($path, 'asterisk');
+            chmod($path, 0755);
+        }else{
+            fprintf(STDERR, "ERR: failed to create fax directory");
+            return false;
+        }
+    }
+
+    if(is_dir("$path/$domain")){
+        $date=date("YMd_His");
+        rename("$path/$domain","$path/$domain"."_".$date);
+    }
+
+    foreach($arrDir as $dir){
+        if(mkdir($dir)){
+            chown($dir, 'asterisk');
+            chgrp($dir, 'uucp');
+            chmod($dir, 0775);
+        }else{
+            fprintf(STDERR, "ERR: failed to create fax directory - %s\n", $output[0]);
+            $exito=false;
+            break;
+        }
+    }
+
+    if(!$exito){
+        if(is_dir("$path/$domain"))
+            rmdir("$path/$domain");
+        if(is_dir("$path/$domain/sent"))
+            rmdir("$path/$domain/sent");
+        if(is_dir("$path/$domain/recvd"))
+            rmdir("$path/$domain/recvd");
+        return false;
+    }else{
+        return true;
+    }
+}
+
+/**
+ * Esta función es usada para eliminar los directorios creados en el proceso
+ * de creación de una organización cuando esta ha ido mal
+ */
+function cleanFailCreation($domain){
+    //validamos el dominio
+    if(!preg_match("/^(([[:alnum:]-]+)\.)+([[:alnum:]])+$/", $domain)){
+        fprintf(STDERR, "Invalid domain format");
+        return false;
+    }
+        
+    //comprobamos que no exista una organizacion con ese dominio
+    $query="SELECT 1 FROM organization WHERE domain=?";
+    $exist=$pDB->getFirstRowQuery($query,true,array($domain));
+    if(count($exist)>0){
+        error_exit("Err: Action can be done because this organization hasn't be deleted from database. Domain: ").$domain;
+    }
+        
+    //eliminamos las carpetas creadas
+    $pathlib="/var/lib/asterisk/";
+    $pathspool="/var/spool/asterisk/";
+    $pathelxdir="/var/www/elastixdir/";
+    $pathAsterisk="/etc/asterisk/";
+    
+    $arrDir[] = array($pathspool."monitor/",false,"monitor"); //grabaciones llamadas 
+    $arrDir[] = array($pathspool."meetme/",false,"meetme"); //grabaciones llamadas meetme
+    $arrDir[] = array($pathspool."tmp/",false,"tmp");
+    $arrDir[] = array($pathlib."sounds/",true,"sounds"); //recordings
+    $arrDir[] = array($pathAsterisk."organizations/",false,"asteriskconfs"); //directorio dentro de asterisk que contiene los archivos de configuracion de la organizacion
+    $arrDir[]=array($pathelxdir."faxdocs/",true,"faxdocs"); //faxes recibidos y enviados
+    $arrDir[]=array($pathelxdir."backup/",true,"backup"); //backup del sistema
+    
+    foreach($arrDir as $value){
+        if(is_dir($value["0"].$domain)){
+            if(!_delTree($value["0"].$domain,$value["1"])){
+                $error="\nFailed to delete: ".$value["0"].$domain;
+            }
+        }
+    }
+    
+    if($error!=""){
+        fprintf(STDERR,$error);
+        return false;
+    }else
+        return true;
+}
+
+ /** This function verify if a directory exist
+  *  If the directory doesn't exist these function try to create these one
+  *  @param $string $path -> directory path
+  *  @return bool  true -> directory exist o could be created
+  *                false -> directory doesn't exist and couldn't be created
+  */
+function isDir($path){
+    if(!is_dir($path)){
+        if(mkdir($path)){
+            changeFilePermission($path, 0775);
+        }else{
+            fprintf(STDERR, "ERR: failed to create '/etc/asterisk/organizations' directory");
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+    Esta funcion eliminara toda la informacion de una organizacion
+    dentro del servidor. Usese con cuidado. 
+    Esta funcion asume que la organizacion ya ha sido borrada de la 
+    base de datos (tabla organization)
+    @param $idcode string codigo unico dentro del sistema de la organizacion
+*/
+function deleteFolderOrganization($idcode){
+    global $arrConf;
+    if(!preg_match("/^[[:alnum:]]+$/",$idcode)){
+         error_exit("ERR: Invalid Organization.\n");
+    }
+
+    $pathlib="/var/lib/asterisk/";
+    $pathspool="/var/spool/asterisk/";
+    $pathelxdir="/var/www/elastixdir/";
+    $pathAsterisk="/etc/asterisk/";
+    
+    $arrDir[] = array($pathspool."monitor/",false,"monitor"); //grabaciones llamadas 
+    $arrDir[] = array($pathspool."meetme/",false,"meetme"); //grabaciones llamadas meetme
+    $arrDir[] = array($pathspool."tmp/",false,"tmp");
+    $arrDir[] = array($pathlib."sounds/",true,"sounds"); //recordings
+    $arrDir[] = array($pathlib."moh/",true,"moh"); //musica en espera
+    $arrDir[] = array($pathAsterisk."organizations/",false,"asteriskconfs"); //directorio dentro de asterisk que contiene los archivos de configuracion de la organizacion
+    
+    $arrDir[]=array($pathelxdir."faxdocs/",true,"faxdocs"); //faxes recibidos y enviados
+    $arrDir[]=array($pathelxdir."backup/",true,"backup"); //backup del sistema
+    
+    $pDB = new paloDB($arrConf["elastix_dsn"]["elastix"]);
+    //obtenemos los datos de la organizacion eliminada de la tabla org_history_register
+    $query="SELECT org_code,org_domain FROM org_history_register WHERE org_idcode = ?";
+    $orgData=$pDB->getFirstRowQuery($query,true,array($idcode));
+    if($orgData==false){
+        error_exit("Err: Couldn't get information about organization with idcode: $idcode");
+    }else{
+        $code=$orgData["org_code"];
+        $domain=$orgData["org_domain"];
+    }
+    
+    //comprobamos que la organizacion ya haya sido borrada de la base
+    $query="SELECT 1 FROM organization WHERE idcode=?";
+    $exist=$pDB->getFirstRowQuery($query,true,array($idcode));
+    if(count($exist)>0){
+        error_exit("Err: Action can be done because this organization hasn't be deleted from database. Domain: $domain");
+    }
+    
+    $error="";
+    //carpeta que contendra la data de la organizacion que no pudo ser eliminada
+    $repOrg=$pathelxdir."oldOrganizations/$idcode";
+    if(!is_dir($pathelxdir."oldOrganizations")){
+        mkdir($pathelxdir."oldOrganizations");
+        chmod($pathelxdir."oldOrganizations", 0755);
+    }else{
+        //comprobamos permisos de escritura del directorio
+        if(!is_writable($pathelxdir."oldOrganizations")){
+            chmod($pathelxdir."oldOrganizations", 0755);
+        }
+    }
+    if(!is_dir($repOrg)){
+        mkdir($repOrg);
+        chmod($repOrg, 0755);
+    }
+    
+    foreach($arrDir as $value){
+        if(is_dir($value["0"].$domain)){
+            if(!_delTree($value["0"].$domain,$value["1"])){
+                rename($value["0"].$domain,"$repOrg/$value[2]_$domain");
+                $error .="\nFailed to delete: ".$value["0"].$domain;
+            }
+        }
+    }
+    
+    //borramos los voicemail de la organizacion
+    $vmdirs = glob($pathspool."voicemail/$code*");
+    foreach($vmdirs as $file){
+        if(!_delTree($file,true)){
+            if(!is_dir("$repOrg/voicemail"))
+                mkdir("$repOrg/voicemail");
+            $nfile=strpos($pathspool."voicemail",$file);
+            $error .="\nFailed to delete voicemail directory: $file";
+            
+            if(!rename($file,"$repOrg/voicemail/$nfile"))
+                $error .="\nFailed to move voicemail directory: $file";
+        }
+    }
+    
+    if($error=="" && is_dir($repOrg)){
+        rmdir($repOrg);
+    }
+    
+    if($error!=""){
+        error_exit($error);
+    }else
+        return true;
+}
+
+//funcion que elimina un directorio y su contenido
+//@param dir string  nombre del directorio a aliminar
+//@param $callback  bool  si es verdadero la funcion eliminara 
+//                         el directorio a pesar de que este tenga otros 
+//                         directorios en su interior
+function _delTree($dir,$callback=false) {
+    $files = array_diff(scandir($dir), array('.','..')); 
+    foreach ($files as $file) {
+        if(is_dir("$dir/$file")){
+            if($callback)
+                _delTree("$dir/$file",$callback);
+        }else{
+            unlink("$dir/$file");
+        }
+    } 
+    return rmdir($dir); 
+}
+
+function createMoHDir($class,$domain=null){
+    if(!preg_match('/^([[:alnum:]]|-|_)+$/', "$class")){
+        fprintf(STDERR,"Invalid Class name MoH");
+        return false;
+    }
+    
+    $base = '/var/lib/asterisk/moh';
+    if(isset($domain)){
+        if(!preg_match("/^(([[:alnum:]-]+)\.)+([[:alnum:]])+$/", $domain)){
+            fprintf(STDERR, "Invalid domain format");
+            return false;
+        }
+        $base .= '/'.$domain;
+    }
+    
+    if(!is_dir($base)){
+        if(mkdir($base,0755)){
+            chown($base,"asterisk");
+            chgrp($base,"asterisk");
+        }else{
+            fprintf(STDERR, "ERR: failed to create '%s' directory",$base);
+            return false;
+        }
+    }
+    
+    if(!is_dir($base."/$class")){
+        if(mkdir($base."/$class",0755)){
+            chown($base."/$class","asterisk");
+            chgrp($base."/$class","asterisk");
+        }else{
+            fprintf(STDERR, "ERR: failed to create '%s' directory",$base."/$class");
+            return false;
+        }
+    }else{
+        chown($base."/$class","asterisk");
+        chgrp($base."/$class","asterisk");
+    }
+        
+    return true;
+}
+
+/**
+ * Esta funcion crea el archivo extensions.conf
+ * si no se pasa ningún argumento se reescribe el archivo
+ * haciendo inclusión de los archivos de configuración de las
+ * organización activas
+ * Si se setean el parámetro $action entonces es necesario pasar 
+ * también el parametro domain. Si action==add se añade una línea
+ * de inclusión con este nombre de dominio. Si action==delete se
+ * elimina de los archivos de inclusión ese dominio
+ * pDB -> es un objeto pDO usado para la conección
+ */
+function createExtensionFile($action="",$orgdomain="",&$pDB=null){
+    global $arrConf;
+    $EXITO=false;
+    $file="/etc/asterisk/extensions.conf";
+    
+    $content = <<<EXTENSIONS_CONFIG
+[default]
+exten => s,1,Playback(vm-goodbye)
+exten => h,1,Hangup()
+
+EXTENSIONS_CONFIG;
+    
+    if(!is_object($pDB))
+        $pDB=new paloDB($arrConf["elastix_dsn"]["elastix"]);
+        
+    $query="SELECT domain FROM organization WHERE state=?";
+    $result=$pDB->fetchTable($query,false,array("active"));
+    if($result===false){
+        fprintf(STDERR, "ERR: Database connection elxpbx - %s\n", $pDB->errMsg);
+        return false;
+    }
+       
+    $arrDomain=array();
+    foreach($result as $domain)
+    {
+        $arrDomain[]=$domain[0];
+    }
+    
+    if($action=="add" || $action=="delete"){
+        if(!preg_match("/^(([[:alnum:]-]+)\.)+([[:alnum:]])+$/", $orgdomain)){
+            fprintf(STDERR, "Invalid domain format");
+            return false;
+        }
+    }
+    
+    if($action=="add"){
+        if(in_array($orgdomain,$arrDomain)===false){
+            $arrDomain[]=$orgdomain;
+        }
+    }elseif($action=="delete"){
+        $index=array_search($orgdomain,$arrDomain);
+        if($index!==false){    
+            $arrDomain[$index]=null;
+        }
+    }
+    
+    $content .="\n; BEGIN ELASTIX INCLUDE FILE DO NOT REMOVE THIS LINE\n";
+        
+    if(!is_file("/etc/asterisk/extensions_general.conf")){
+        if(createExtGeneral()!==false){
+            $content .="#include extensions_general.conf\n";
+        }
+    }else
+        $content .="#include extensions_general.conf\n";
+    
+    //comprobamos que exista el directorio donde son incluidos los archivos de configuracion de las
+    //organizaciones
+    if(!isDir("/etc/asterisk/organizations/")){
+        return false;
+    }
+    
+    if(createExtensionGlobals($arrDomain)==true){
+        $content .="#include extensions_globals.conf\n";
+    }else{
+        return false;
+    }
+    
+    if(!is_file("/etc/asterisk/extensions_custom.conf")){
+        if(file_put_contents("/etc/asterisk/extensions_custom.conf","")!==false){
+            $content .="#include extensions_custom.conf\n";
+            changeFilePermission("/etc/asterisk/extensions_custom.conf");
+        }
+    }else
+        $content .="#include extensions_custom.conf\n";
+    
+    foreach($arrDomain as $value){
+        if(!empty($value)){
+            if(!is_file("/etc/asterisk/organizations/$value/extensions.conf")){
+                //comprobamos que exista el directorio de archivos de configuracion de la organizacion
+                if(!isDir("/etc/asterisk/organizations/$value")){
+                    return false;
+                }
+                if(file_put_contents("/etc/asterisk/organizations/$value/extensions.conf","")!==false){
+                    $content .="#include organizations/$value/extensions.conf\n";
+                    changeFilePermission("/etc/asterisk/organizations/$value/extensions.conf");
+                }
+            }else{
+                $content .="#include organizations/$value/extensions.conf\n";
+            }
+        }
+    }
+    $content .="; END ELASTIX INCLUDE FILE DO NOT REMOVE THIS LINE\n";
+        
+    if(file_put_contents($file, $content)!==false){
+        changeFilePermission($file);
+        return true;
+    }else{
+        fprintf(STDERR, "ERR: File $file couldn't be written");
+        return false;
+    }   
+}
+
+function createExtensionGlobals($arrDomain){
+    $EXITO=false;
+    $content = "";
+    
+    $file="/etc/asterisk/extensions_globals.conf";
+    $source_file="/var/www/elastixdir/asteriskconf/elastix_pbx.conf";
+    $content ="[globals]\n";
+    if(is_file($source_file)){
+        if($handler=fopen($source_file,'r')){
+            $content .= fread($handler, filesize($source_file));
+        } 
+    }else{
+        fprintf(STDERR, "File /var/www/elastixdir/asteriskconf/elastix_pbx.conf dosen't exist\n");
+        $content ="\n; BEGIN ELASTIX INCLUDE FILE DO NOT REMOVE THIS LINE\n";
+        $content .="; END ELASTIX INCLUDE FILE DO NOT REMOVE THIS LINE\n";
+        file_put_contents($file, $content);
+        return false;
+    }
+    
+    if(count($arrDomain)!=0){
+        $content .="\n; BEGIN ELASTIX INCLUDE FILE DO NOT REMOVE THIS LINE\n";
+        foreach($arrDomain as $value)
+        {
+            if(!empty($value)){
+                //antes de incluir el archivo validamos que el mismo exista
+                //ya que si no existe y lo incluimos esto provocara que asterisk crash
+                //en caso de no existir el archivo se lo inteta crear
+                if(!is_file("/etc/asterisk/organizations/$value/extensions_globals.conf")){
+                    //comprobamos que exista el directorio de archivos de configuracion de la organizacion
+                    if(!isDir("/etc/asterisk/organizations/$value")){
+                        return false;
+                    }
+                    if(file_put_contents("/etc/asterisk/organizations/$value/extensions_globals.conf","")!==false){
+                        $content .="#include organizations/$value/extensions_globals.conf\n";
+                        changeFilePermission("/etc/asterisk/organizations/$value/extensions_globals.conf");
+                    }
+                }else
+                    $content .="#include organizations/extensions_globals.conf\n";
+            }
+        }
+        $content .="; END ELASTIX INCLUDE FILE DO NOT REMOVE THIS LINE\n";  
+    }else{
+        $content .="\n; BEGIN ELASTIX INCLUDE FILE DO NOT REMOVE THIS LINE\n";
+        $content .="; END ELASTIX INCLUDE FILE DO NOT REMOVE THIS LINE\n";
+    }
+    
+    if(file_put_contents($file, $content)!==false){
+        changeFilePermission($file);
+        return true;
+    }else{
+        fprintf(STDERR, "ERR: File $file couldn't be written");
+        return false;
+    } 
+}
+
+function createExtensionDomainFile($domain,$code){
+    $EXITO=false;
+    $fsource="/var/www/elastixdir/asteriskconf/generic_extensions.conf";
+    $extFile="/etc/asterisk/organizations/$domain/extensions.conf";
+    $extAddFile="/etc/asterisk/organizations/$domain/extensions_additionals.conf";
+    $extCusFile="/etc/asterisk/organizations/$domain/extensions_custom.conf";
+    $extGlobalFile="/etc/asterisk/organizations/$domain/extensions_globals.conf";
+    
+    if(is_file($fsource)){
+        if($handler=fopen($fsource,'r')){
+            //archivos a los cuales se hace inclusion en el archivo extensions_domain.conf
+            $content="";
+            foreach(array($extAddFile,$extCusFile,$extGlobalFile) as $file){
+                if(is_file($file)===false){
+                    if(file_put_contents($file, $content)!==false){
+                        changeFilePermission($file);
+                    }else{
+                        fprintf(STDERR, "ERR: File $file couldn't be written");
+                        return false;
+                    }    
+                }
+            }
+            
+            //el archivo extensions_domain.conf contiene las configuraciones estatitcas del palan de marcado
+            //su contenido se lo obtiene del archivo generic_extensions.conf
+            $content = fread($handler, filesize($fsource));
+            $content = str_replace("{CODE}", "$code", $content);
+            $content = str_replace("{DOMAIN}", "$domain", $content);
+            fclose($handler);
+            if(file_put_contents($extFile, $content)!==false){
+                changeFilePermission($extFile);
+            }else{
+                fprintf(STDERR, "ERR: File $extFile couldn't be written");
+                return false;
+            }  
+            $EXITO=true;
+        }else{
+            fprintf(STDERR, "ERR: Couldn't be opened for reading file - %s\n", $fsource);
+        }
+    }else{
+        fprintf(STDERR, "ERR: File extensions_generic.conf doesn't exist, new fiel couldn't be created - %s\n", $output[0]);
+    }
+    return $EXITO;
+}
+
+function createExtensionGlobalsDomainFile($domain,$code){
+    global $arrConf;
+    $file="/etc/asterisk/organizations/$domain/extensions_globals.conf";
+    $contenido="";
+            
+    $pDB=new paloDB($arrConf["elastix_dsn"]["elastix"]);
+    //leemos todas las variables globales de la organizacion desde la tabla globals
+    $query="SELECT variable,value FROM globals WHERE organization_domain=?";
+    $result=$pDB->fetchTable($query,false,array($domain));
+    if($result===false){
+        fprintf(STDERR, "ERR: Database connection elxppbx - %s\n", $pDB->errMsg);
+        return false;
+    }elseif(count($result)!=0){
+        $contenido = "[globals](+)\n"; //no quitar (+), esto permite escribir un mismo contexto en distintos archivos
+        foreach($result as $arrtemp){
+            if($arrtemp[0]!="CREATE_VM")
+                $contenido .=$code."_$arrtemp[0]=$arrtemp[1]\n";
+        }
+    }
+
+    if(file_put_contents($file, $contenido)!==false){
+        changeFilePermission($file);
+        return true;
+    }else{
+        fprintf(STDERR, "ERR: File $file couldn't be written");
+        return false;
+    } 
+}
+
+function generateDialPlan($domain,$reload=false){
+    global $arrConf;
+    require_once "apps/queues/libs/paloSantoQueues.class.php";
+    require_once "apps/ivr/libs/paloSantoIVR.class.php";
+    require_once "apps/inbound_route/libs/paloSantoInbound.class.php";
+    require_once "apps/outbound_route/libs/paloSantoOutbound.class.php";
+    require_once "apps/ring_group/libs/paloSantoRG.class.php";
+    require_once "apps/time_conditions/libs/paloSantoTC.class.php";
+    require_once "apps/conference/libs/paloSantoConference.class.php";
+    require_once "apps/features_code/libs/paloSantoFeaturesCode.class.php";
+    require_once "apps/announcement/libs/paloSantoAnnouncement.class.php";
+    require_once "apps/shortcut_apps/libs/paloSantoShortcutApps.class.php";
+    require_once "apps/other_destinations/libs/paloSantoOtherDestinations.class.php";
+    require_once "libs/paloSantoIM.class.php";
+    
+    if(!preg_match("/^(([[:alnum:]-]+)\.)+([[:alnum:]])+$/", $domain)){
+        fprintf(STDERR, "Invalid domain format");
+        return false;
+    }
+    
+    //la organizacion no debe existir
+    $pDB=new paloDB($arrConf['elastix_dsn']['elastix']);
+    //valido que exista el dominio y obtengo el code asociado a este
+    $queryCode="SELECT code FROM organization WHERE domain=?";
+    $resultc=$pDB->getFirstRowQuery($queryCode, false, array($domain));
+    if($resultc===false){
+        fprintf(STDERR, "ERR: Database connection elxpbx - %s\n", $pDB->errMsg);
+        return false;
+    }elseif(count($resultc)==0){
+        fprintf(STDERR, "ERR: Organization does not exist\n");
+        return false;
+    }
+    $code=$resultc[0];
+
+    $file="/etc/asterisk/organizations/$domain/extensions_additionals.conf";
+
+    $arrContext=array();
+    $arrFromInt=array();
+    
+    //comprobamos que exista el directorio donde son incluidos los archivos de configuracion de las
+    //organizaciones
+    if(!isDir("/etc/asterisk/organizations")){
+        return false;
+    }
+    
+    //comprobamos que exista el directorio que contendra los archivos, en caso de no existir los crea
+    if(!isDir("/etc/asterisk/organizations/$domain")){
+        return false;
+    }
+    
+    //al momento de crear una organizacion no se escriben las variables globales de la misma
+    //por lo que es necesario una vez que se mande a generar por primera vez el plan de marcado para
+    //la misma hacer un reload para que las variables globales sean seteadas correctamente
+    if(is_file("/etc/asterisk/organizations/$domain/extensions_globals.conf")===false || filesize("/etc/asterisk/organizations/$domain/extensions_globals.conf")==0){
+        $reload=true;
+    }
+    
+    //escribimos el archivos extensions.conf
+    if(createExtensionDomainFile($domain,$code)==false){
+        fprintf(STDERR, "ERR: File extesions_$domain.conf couln't be written.\n");
+        return false;
+    }
+    
+    if($reload==true){
+        //escribir las variables globales
+        if(createExtensionGlobalsDomainFile($domain,$code)==false){
+            fprintf(STDERR, "ERR: Globlas variables couldn't be written.\n");
+            return false;
+        }
+    }
+
+    // Generar los contextos para todos los objetos de plan de marcado
+    // TODO: migrar todos los generadores al directorio /usr/share/elastix/asteriskconfig/bydomain
+    $dialplanObjects = array(
+        array('paloIvrPBX',            'createDialPlanIvr'),
+        array('paloSantoInbound',      'createDialplanIndbound'), // typo
+        array('paloSantoOutbound',     'createDialPlanOutbound'),
+        array(
+            (new paloDevice($domain, 'sip', $pDB)),
+            array('createDialPlanLocalExtension', 'createDialPlanFaxExtension')
+        ),
+        array('paloIM',                'createDialPlanIM'),
+        array('paloQueuePBX',          'createDialPlanQueue'),
+        array('paloSantoRG',           'createDialplanRG'),
+        array('paloConference',        'createDialplanConf'),
+        array('paloSantoTC',           'createDialplanTC'),
+        array('paloFeatureCodePBX',    'createDialPlanFeaturesCode'),
+        array('paloSantoAnnouncement', 'createDialPlanAnnouncement'),
+        array('paloSantoShortcutApps', 'createDialPlanShortcutApps'),
+        array('paloSantoOtherDestinations', 'createDialplanOtherDestinations'),
+    );
+    foreach ($dialplanObjects as $tuplaCallback) {
+        $pObjDialplan = is_object($tuplaCallback[0]) ? $tuplaCallback[0] : (new $tuplaCallback[0]($pDB, $domain));
+        if (!is_array($tuplaCallback[1])) $tuplaCallback[1] = array($tuplaCallback[1]);
+        foreach ($tuplaCallback[1] as $methodname) {
+            $arrObjContexts = call_user_func(array($pObjDialplan, $methodname), &$arrFromInt);
+            if (!is_array($arrObjContexts)) {
+                fprintf(STDERR, "ERR: Error written dialplan - %s\n", $pObjDialplan->errMsg);
+            } else {
+                $arrContext = array_merge($arrContext, $arrObjContexts);
+            }
+        }
+    }
+
+    // Generar todos los contextos a través de los generadores bydomain
+    $contenido_dyngen = '';
+    foreach (glob('/usr/share/elastix/asteriskconfig/bydomain/*') as $dialplanObjectDir) {
+        $sClassName = 'DialplanGenerator_'.basename($dialplanObjectDir);
+        $sClassFile = $dialplanObjectDir.'/'.$sClassName.'.class.php';
+        if (is_dir($dialplanObjectDir)) {
+            if (!file_exists($sClassFile)) {
+                fprintf(STDERR, "ERR: expected dialplan generator file not found: $sClassFile\n");
+            } else {
+                require_once $sClassFile;
+
+                if (!class_exists($sClassName)) {
+                    fprintf(STDERR, "ERR: class $sClassName not defined in generator file: $sClassFile\n");
+                } elseif (!method_exists($sClassName, 'createDialplanContexts')) {
+                    fprintf(STDERR, "ERR: class $sClassName does not implement method createDialplanContexts()\n");
+                } else {
+                    $pObjDialplan = new $sClassName($domain, $pDB);
+                    $arrObjContexts = $pObjDialplan->createDialplanContexts();
+                    if (!is_array($arrObjContexts)) {
+                        fprintf(STDERR, "ERR: method $sClassName::createDialplanContexts() returned invalid format (not an array)\n");
+                    } else {
+                        $bValidFormat = TRUE;
+                        if (isset($arrObjContexts['error_message'])) {
+                            fprintf(STDERR, "ERR: $sClassName::createDialplanContexts() reports failure: {$arrObjContexts['error_message']}\n");
+                        } elseif (isset($arrObjContexts['dialplan_text']) && isset($arrObjContexts['dialplan_includes'])) {
+                            $contenido_dyngen .= $arrObjContexts['dialplan_text'];
+                            
+                            // Para compatibilidad temporal con el esquema (name,extra)
+                            $dialplanIncludes = array();
+                            foreach ($arrObjContexts['dialplan_includes'] as $tuplaInclude) {
+                                $dialplanIncludes[] = is_array($tuplaInclude) ? $tuplaInclude : array('name' => $tuplaInclude);
+                            }
+                            $arrFromInt = array_merge($arrFromInt, $dialplanIncludes);
+                        } else {
+                            fprintf(STDERR, "ERR: method $sClassName::createDialplanContexts() returned invalid format (missing keys error_message or dialplan_text/dialplan_includes)\n");
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //incluimos los contextos dentro de from-internal-additional
+    $fromInternal=new paloContexto($code,"from-internal-additional");
+    $fromInternal->arrInclude=$arrFromInt;
+    $fromInternal->arrExtensions=array(new paloExtensions("h",new ext_hangup(),"1"));
+    $arrContext[]=$fromInternal;
+
+    $contenido = $contenido_dyngen;
+    
+    foreach($arrContext as $value){
+        if(isset($value)){
+            if(empty($value->errMsg) && is_object($value)){
+                $contenido .=$value->stringContexto($value->arrInclude,$value->arrExtensions);
+            }else{
+                fprintf(STDERR, "ERR: Error written dialplan - %s\n",$value->errMsg);
+            }
+        }
+    }
+       
+    if(file_put_contents($file, $contenido)!==false){
+        changeFilePermission($file);
+        if($reload==true){
+            if(reload()==false){
+                return false;
+            }
+        }else{
+            if(dialplanReload()==false){
+                return false;
+            }
+        }
+        return true;
+    }else{
+        fprintf(STDERR, "ERR: File $file couldn't be written");
+        return false;
+    }
+}
+
+function createFeaturesFile(&$pDB){
+    $file="/etc/asterisk/features.conf";
+    
+    //se crea el archivo features.conf
+    $contenido = <<<FEATURES_CONFIG
+[general]
+#include features_general.conf
+#include features_general_custom.conf
+
+[featuremap]
+#include features_map.conf
+#include features_map_custom.conf
+
+[applicationmap]
+#include features_applicationmap.conf
+#include features_applicationmap_custom.conf
+FEATURES_CONFIG;
+
+    if(file_put_contents("$file", $contenido)===false){
+        fprintf(STDERR, "ERR: Couldn't be written file - %s\n", $file);
+        return false;
+    }else{
+        changeFilePermission($file);
+    }
+    
+    if(createFeatureMapfile($pDB)){
+        if(createFeatureGeneralfile($pDB))
+            return createFeatureApplicationMapfile();
+        else
+            return false;
+    }else
+        return false;
+}
+
+function createFeatureMapfile(&$pDB){
+    $contenido="";
+    $file="/etc/asterisk/features_map.conf";
+    $query="SELECT name, default_code FROM features_code_settings WHERE (name=? or name=? or name=? or name=?) and estado=?";
+    $result=$pDB->fetchTable($query,true,array("blind_transfer","attended_transfer","one_touch_monitor","disconnect_call",'enabled'));
+    if($result===false){
+        fprintf(STDERR, "ERR: Database connection globals_settings - %s\n", $pDB->errMsg);
+        return false;
+    }else{
+        foreach($result as $value){
+            switch ($value["name"]) {
+                case "blind_transfer":
+                    $feature="blindxfer";
+                    break;
+                case "attended_transfer":
+                    $feature="atxfer";
+                    break;
+                case "one_touch_monitor":
+                    $feature="automon";
+                    break;
+                case "disconnect_call":
+                    $feature="disconnect";
+                    break;
+            }
+            $contenido .= $feature."=".$value["default_code"]."\n";
+        }
+    }
+    
+    if(file_put_contents("$file", $contenido)===false){
+        fprintf(STDERR, "ERR: Couldn't be written file - %s\n", $file);
+        return false;
+    }else{
+        changeFilePermission($file);
+    }
+    
+    $file="/etc/asterisk/features_map_custom.conf";
+    $contenido="";
+    if(is_file($file)===false){
+        if(file_put_contents("$file", $contenido)===false){
+            fprintf(STDERR, "ERR: Couldn't be written file - %s\n", $file);
+            return false;
+        }else{
+            changeFilePermission($file);
+        }
+    }
+    
+    return true;
+}
+
+//TODO
+//falta ver que se va ha hacer con el asunto de la llamadas parqueadas
+//en caso de existir debe definirse aqui el numero de la estension
+function createFeatureGeneralfile(&$pDB){
+    $file="/etc/asterisk/features_general.conf";
+    $contenido="";
+    
+    $query="SELECT name, default_code FROM features_code_settings WHERE name=?";
+    $result=$pDB->fetchTable($query,true,array("pickup"));
+    if($result===false){
+        fprintf(STDERR, "ERR: Database connection globals_settings - %s\n", $pDB->errMsg);
+        return false;
+    }else{
+        foreach($result as $value){
+            switch ($value["name"]) {
+                case "pickup":
+                    $feature="pickupexten";
+                    break;
+            }
+            $contenido .= $feature."=".$value["default_code"]."\n";
+        }
+    }
+    
+    if(file_put_contents("$file", $contenido)===false){
+        fprintf(STDERR, "ERR: Couldn't be written file - %s\n", $file);
+        return false;
+    }else{
+        changeFilePermission($file);
+    }
+    
+    $file="/etc/asterisk/features_general_custom.conf";
+    $contenido="";
+    if(is_file($file)===false){
+        if(file_put_contents("$file", $contenido)===false){
+            fprintf(STDERR, "ERR: Couldn't be written file - %s\n", $file);
+            return false;
+        }else{
+            changeFilePermission($file);
+        }
+    }
+    return true;
+}
+
+//TODO
+function createFeatureApplicationMapfile(){
+    $file="/etc/asterisk/features_applicationmap.conf";
+    $contenido="";
+    
+    if(file_put_contents("$file", $contenido)===false){
+        fprintf(STDERR, "ERR: Couldn't be written file - %s\n", $file);
+        return false;
+    }else{
+        changeFilePermission($file);
+    }
+    
+    $file="/etc/asterisk/features_applicationmap_custom.conf";
+    $contenido="";
+    if(is_file($file)===false){
+        if(file_put_contents("$file", $contenido)===false){
+            fprintf(STDERR, "ERR: Couldn't be written file - %s\n", $file);
+            return false;
+        }else{
+            changeFilePermission($file);
+        }
+    }
+    return true;
+}
+
+/**
+    funcion que escribe el archivo extensions_general.conf
+    ese archivo contiene el contexto from-pstn. Con ese contexto
+    es posible redirigir las llamadas a la organizacion con el correspondiente
+    did. Este archivo es incluido dentro del archivo extensions.conf
+    dentro de este archivo se encuentra tambien los patrones de marcado de las 
+    truncales en caso de que existan
+*/
+function createExtGeneral(){
+    $file="/etc/asterisk/extensions_general.conf";
+    
+    $contenido="\n[from-pstn]\n";
+    $contenido .="include =>from-pstn-custom\n";
+    $contenido .="include =>ext-did\n";
+    $contenido .="include =>ext-did-catchall\n";
+    
+    /*
+    //This dialplan is generated in base to dialplan generated by freepbx
+    ;-------------------------------------------------------------------------------
+    ; from-pstn-e164-us:
+    ;
+    ; The context is designed for providers who send calls in e164 format and is
+    ; biased towards NPA calls, callerid and dialing rules. It will do the following:
+    ;
+    ;  DIDs in an NPA e164 format of +1NXXNXXXXXX will be converted to 10 digit DIDs
+    ;
+    ;  DIDs in any other format will be delivered as they are, including e164 non NPA
+    ;  DIDs which means they will need the full format including the + in the inbound
+    ;  route.
+    ;
+    ;  CallerID(number) presented in e164 NPA format will be trimmed to a 10 digit CID
+    ;
+    ;  CallerID(number) presented in e164 non-NPA (country code other than 1) will be
+    ;  reformated from: +<CountryCode><Number> to 011<CountryCode><Number>
+    ;
+    [from-pstn-e164-us]
+    exten => _+1NXXNXXXXXX/_+1NXXNXXXXXX,1,Set(CALLERID(number)=${CALLERID(number):2})
+    exten => _+1NXXNXXXXXX/_NXXNXXXXXX,2,Goto(from-pstn,${EXTEN:2},1)
+    exten => _+1NXXNXXXXXX/_+X.,1,Set(CALLERID(number)=011${CALLERID(number):1})
+    exten => _+1NXXNXXXXXX/_011X.,n,Goto(from-pstn,${EXTEN:2},1)
+    exten => _+1NXXNXXXXXX,1,Goto(from-pstn,${EXTEN:2},1)
+    exten => _[0-9+]./_+1NXXNXXXXXX,1,Set(CALLERID(number)=${CALLERID(number):2})
+    exten => _[0-9+]./_NXXNXXXXXX,n,Goto(from-pstn,${EXTEN},1)
+    exten => _[0-9+]./_+X.,1,Set(CALLERID(number)=011${CALLERID(number):1})
+    exten => _[0-9+]./_011X.,n,Goto(from-pstn,${EXTEN},1)
+    exten => _[0-9+].,1,Goto(from-pstn,${EXTEN},1)
+    exten => s/_+1NXXNXXXXXX,1,Set(CALLERID(number)=${CALLERID(number):2})
+    exten => s/_NXXNXXXXXX,n,Goto(from-pstn,${EXTEN},1)
+    exten => s/_+X.,1,Set(CALLERID(number)=011${CALLERID(number):1})
+    exten => s/_011X.,n,Goto(from-pstn,${EXTEN},1)
+    exten => s,1,Goto(from-pstn,${EXTEN},1)
+     ;-------------------------------------------------------------------------------*/
+    $arrExt=array();
+    $arrExt[]=new paloExtensions("_+1NXXNXXXXXX/_+1NXXNXXXXXX",new ext_set('CALLERID(number)','${CALLERID(number):2}'),1);
+    $arrExt[]=new paloExtensions("_+1NXXNXXXXXX/_NXXNXXXXXX",new ext_goto('1','${EXTEN:2}',"from-pstn"),2);
+    $arrExt[]=new paloExtensions("_+1NXXNXXXXXX/_+X.",new ext_set('CALLERID(number)','011${CALLERID(number):1}'),"1");
+    $arrExt[]=new paloExtensions("_+1NXXNXXXXXX/_011X.",new ext_goto('1','${EXTEN:2}',"from-pstn"));
+    $arrExt[]=new paloExtensions("_+1NXXNXXXXXX",new ext_goto('1','${EXTEN:2}',"from-pstn"),1);
+    $arrExt[]=new paloExtensions("_[0-9+]./_+1NXXNXXXXXX",new ext_set('CALLERID(number)','${CALLERID(number):2}'),1);
+    $arrExt[]=new paloExtensions("_[0-9+]./_NXXNXXXXXX",new ext_goto('1','${EXTEN}',"from-pstn"));
+    $arrExt[]=new paloExtensions("_[0-9+]./_+X.",new ext_set('CALLERID(number)','011${CALLERID(number):1}'),"1");
+    $arrExt[]=new paloExtensions("_[0-9+]./_011X.",new ext_goto('1','${EXTEN}',"from-pstn"));
+    $arrExt[]=new paloExtensions("_[0-9+].",new ext_goto('1','${EXTEN}',"from-pstn"),1);
+    $arrExt[]=new paloExtensions("s/_+1NXXNXXXXXX",new ext_set('CALLERID(number)','${CALLERID(number):2}'),1);
+    $arrExt[]=new paloExtensions("s/_NXXNXXXXXX",new ext_goto('1','${EXTEN}',"from-pstn"));
+    $arrExt[]=new paloExtensions("s/_+X.",new ext_set('CALLERID(number)','011${CALLERID(number):1}'),1);
+    $arrExt[]=new paloExtensions("s/_011X.",new ext_goto('1','${EXTEN}',"from-pstn"));
+    $arrExt[]=new paloExtensions("s",new ext_goto('1','${EXTEN}',"from-pstn"),1);
+    $contenido .="\n[from-pstn-e164-us]\n";
+    $contenido .="include =>from-pstn-e164-us-custom\n";
+    if(is_array($arrExt)){
+        foreach($arrExt as $extension){
+            if(!is_null($extension) && is_object($extension))
+                $contenido .=$extension->data."\n";
+        }
+    }
+    
+
+/*  ;-------------------------------------------------------------------------------
+    ; from-pstn-to-did
+    ;
+    ; The context is designed for providers who send the DID in the TO: SIP header
+    ; only. The format of this header is:
+    ;
+    ; To: <sip:2125551212@172.31.74.25>
+    ;
+    ; So the DID must be extracted between the sip: and the @, which this does
+    ;
+    [from-pstn-toheader]
+    exten => _.,1,Goto(from-pstn,${CUT(CUT(SIP_HEADER(To),@,1),:,2)},1)
+    ;-------------------------------------------------------------------------------
+    */
+    $arrExt=array();
+    $arrExt[]=new paloExtensions("_.",new ext_goto('1','${CUT(CUT(SIP_HEADER(To),@,1),:,2)}',"from-pstn"),1);
+    $contenido .="\n[from-pstn-to-did]\n";
+    $contenido .="include =>from-pstn-to-did-custom\n";
+    if(is_array($arrExt)){
+        foreach($arrExt as $extension){
+            if(!is_null($extension) && is_object($extension))
+                $contenido .=$extension->data."\n";
+        }
+    }
+    
+    $arrExt=array();
+    $arrExt[]=new paloExtensions("_X.",new ext_set('ORG_CODE',''),"1");
+    $arrExt[]=new paloExtensions("_X.",new ext_set('ORG_DOMAIN',''));
+    $arrExt[]=new paloExtensions("_X.",new ext_set('ARRAY(ORG_CODE,__ORG_DOMAIN)','${DID_EXISTDID(${EXTEN})}'));
+    $arrExt[]=new paloExtensions("_X.",new ext_gotoif('$["${ORG_CODE}"=""]','ext-did-catchall,s,1'));
+    $arrExt[]=new paloExtensions("_X.",new ext_noop('Reciving call to organization with domain ${ORG_DOMAIN}'));
+    $arrExt[]=new paloExtensions("_X.",new ext_set('CDR(fromout)','1'));
+    
+    $arrExt[]=new paloExtensions("_X.",new ext_set('CDR(organization_domain)','${ORG_DOMAIN}'));
+    $arrExt[]=new paloExtensions("_X.",new ext_goto("1",'${EXTEN}','${ORG_CODE}-from-pstn'));
+    $arrExt[]=new paloExtensions("_X.",new ext_macro('${ORG_CODE}-Hangupcall'));
+    $contenido .="\n[ext-did]\n";
+    $contenido .="include =>ext-did-custom\n";
+    if(is_array($arrExt)){
+        foreach($arrExt as $extension){
+            if(!is_null($extension) && is_object($extension))
+                $contenido .=$extension->data."\n";
+        }
+    }
+    
+    //contexto ext-did-catchall
+    $arrExt=array();
+    $arrExt[]=new paloExtensions("s",new ext_noop('No DID or CID Match'),"1");
+    $arrExt[]=new paloExtensions("s",new ext_answer(),"n","a2");
+    $arrExt[]=new paloExtensions("s",new ext_wait(2));
+    $arrExt[]=new paloExtensions("s",new ext_playback("ss-noservice"));
+    $arrExt[]=new paloExtensions("s",new ext_sayalpha('${FROM_DID}'));
+    $arrExt[]=new paloExtensions("s",new ext_hangup());
+    $arrExt[]=new paloExtensions("_.",new ext_set('__FROM_DID','${EXTEN}'),1);
+    $arrExt[]=new paloExtensions("_.",new ext_noop('Received an unknown call with DID set to ${EXTEN}'));
+    $arrExt[]=new paloExtensions("_.",new ext_goto('a2','s'));
+    $arrExt[]=new paloExtensions("h",new ext_hangup(),1);
+    $contenido .="\n[ext-did-catchall]\n";
+    $contenido .="include =>ext-did-catchall-custom\n";
+    if(is_array($arrExt)){
+        foreach($arrExt as $extension){
+            if(!is_null($extension) && is_object($extension))
+                $contenido .=$extension->data."\n";
+        }
+    }
+    
+    // contexto salida-check
+    // se creo para verificar que llamadas realizadas de una compañia a otra compañia
+    // que pertenezcan al mismo servidor no salgan por la truncal
+    // ${ARG1}=ORGANIZATION_CODE
+    // ${ARG2}=ORGANIZATION_DOMAIN
+    // ${ARG3}=DIAL_NUMBER ; numero a marcar por la truncal si añadir el OUTPREFIX
+    // ${ARG4}=TRUNNK_CHANNEL ; 
+    $arrExt=array();
+    $arrExt[]=new paloExtensions("s",new ext_set('_REDIRECCIONAR',''),"1");
+    $arrExt[]=new paloExtensions("s",new ext_set('ORG_CODE','${ARG1}'));
+    $arrExt[]=new paloExtensions("s",new ext_set('_REDIRECCIONAR','${DID_INFODID(${ARG3},${ARG2})}')); 
+    $arrExt[]=new paloExtensions("s",new ext_gotoif('$["${REDIRECCIONAR}" = "1"]','indial'));
+    $arrExt[]=new paloExtensions("s",new ext_set('outtrunk','continue'));
+    $arrExt[]=new paloExtensions("s",new ext_return('${outtrunk}'));
+    // b options sera efectiva en asterisk 11
+    $arrExt[]=new paloExtensions("s",new ext_dial('Local/${ARG3}@from-pstn/n','60,${DIAL_TRUNK_OPTIONS}f(${CALLERID(all)})'),"n","indial");
+    $arrExt[]=new paloExtensions("s",new ext_noop('TRUNK Dialed with ${DIALSTATUS} HANGUPCAUSE: ${HANGUPCAUSE}'));
+    $arrExt[]=new paloExtensions("s",new ext_hangup());
+    $arrExt[]=new paloExtensions("h",new ext_macro('${ORG_CODE}-hangupcall'),"1");
+    $contenido .="\n[salida-check]\n";
+    $contenido .="include =>salida-check-custom\n";
+    if(is_array($arrExt)){
+        foreach($arrExt as $extension){
+            if(!is_null($extension) && is_object($extension))
+                $contenido .=$extension->data."\n";
+        }
+    }
+    
+    // en asterisk 11 puede ser usado este contexto
+    $arrExt=array();
+    $arrExt[]=new paloExtensions("s",new ext_set('CDR(intraforward)','${ARG1}'),"1");
+    $contenido .="\n[intraforward-call]\n";
+    $contenido .="include =>intraforward-call-custom\n";
+    if(is_array($arrExt)){
+        foreach($arrExt as $extension){
+            if(!is_null($extension) && is_object($extension))
+                $contenido .=$extension->data."\n";
+        }
+    }
+    
+    // contexto allow-out
+    // este contexto se creo para aegurarnos que solos las organizaciones 
+    // autorizadas por el superadmin podran realizar llamdas a traves de la 
+    // truncal con el id pasado como parametro
+    // ${ARG1}=ORGANIZATION_DOMAIN
+    // ${ARG2}=TRUNK_ID
+    $arrExt=array();
+    $arrExt[]=new paloExtensions("s",new ext_noop('TRUNK ${OUT_${ARG2}} Organization: ${ARG1}'),"1");
+    $arrExt[]=new paloExtensions("s",new ext_set('ORG_PERMIT',''));
+    $arrExt[]=new paloExtensions("s",new ext_set('ORG_PERMIT','${TRUNK_INFOORG(${ARG1},${ARG2})}'));
+    $arrExt[]=new paloExtensions("s",new ext_execif('$["${ORG_PERMIT}"!="1"]','Set','ORG_PERMIT=noallow'));
+    $arrExt[]=new paloExtensions("s",new ext_return('${ORG_PERMIT}'));
+    $contenido .="\n[allow-out]\n";
+    $contenido .="include =>allow-out-custom\n";
+    if(is_array($arrExt)){
+        foreach($arrExt as $extension){
+            if(!is_null($extension) && is_object($extension))
+                $contenido .=$extension->data."\n";
+        }
+    }
+    
+    //contexto from-analog
+    //a este contexto llegan la llamadas provenientes de los puertos analogicos
+    $arrExt=array();
+    $arrExt[]=new paloExtensions("_X.",new ext_setvar("DID",'${EXTEN}'),"1");
+    $arrExt[]=new paloExtensions("_X.",new ext_goto("1",'s'));
+    $arrExt[]=new paloExtensions("s",new ext_noop('Entering from-analog with DID == ${DID}'),"1");
+    $arrExt[]=new paloExtensions("s",new ext_ringing());
+    $arrExt[]=new paloExtensions("s",new ext_setvar("DID",'${IF($["${DID}"= "]?s:${DID})}'));
+    $arrExt[]=new paloExtensions("s",new ext_noop('DID is now ${DID}'));
+    $arrExt[]=new paloExtensions("s",new ext_gotoif('$["${CHANNEL:0:5}"="DAHDI"]','dahdiok','checkzap'));
+    $arrExt[]=new paloExtensions("s",new ext_gotoif('$["${CHANNEL:0:3}"="Zap"]','zapok','neither'),"n","checkzap");
+    $arrExt[]=new paloExtensions("s",new ext_gosub(1,'${DID}'),"n","neither");
+    $arrExt[]=new paloExtensions("s",new ext_hangup());
+    $arrExt[]=new paloExtensions("s",new ext_noop('Is a DAHDI Channel'),"n","dahdiok");
+    $arrExt[]=new paloExtensions("s",new ext_setvar("CHAN",'${CHANNEL:6}'));
+    $arrExt[]=new paloExtensions("s",new ext_setvar("CHAN",'${CUT(CHAN,-,1)}'));
+    $arrExt[]=new paloExtensions("s",new ext_macro('analog-did','${CHAN}'));
+    $arrExt[]=new paloExtensions("s",new ext_noop('Returned from Macro analog-did'));
+    $arrExt[]=new paloExtensions("s",new ext_goto(1,'${DID}',"from-pstn"));
+    $arrExt[]=new paloExtensions("s",new ext_noop('Is a Zaptel Channel'),"n",'zapok');
+    $arrExt[]=new paloExtensions("s",new ext_setvar("CHAN",'${CHANNEL:4}'));
+    $arrExt[]=new paloExtensions("s",new ext_setvar("CHAN",'${CUT(CHAN,-,1)}'));
+    $arrExt[]=new paloExtensions("s",new ext_macro('analog-did','${CHAN}'));
+    $arrExt[]=new paloExtensions("s",new ext_noop('Returned from Macro analog-did'));
+    $arrExt[]=new paloExtensions("s",new ext_goto(1,'${DID}',"from-pstn"));
+    
+    $contenido .="\n[from-analog]\n";
+    $contenido .="include =>from-analog-custom\n";
+    if(is_array($arrExt)){
+        foreach($arrExt as $extension){
+            if(!is_null($extension) && is_object($extension))
+                $contenido .=$extension->data."\n";
+        }
+    }
+    
+    // macro analog-did
+    // este contexto se utiliza para setear un did a las llamadas provenientes desde puertos analogicos
+    // en contexto de llegada de esos puertos debe ser from analog
+    // ${ARG1}=PORT_ID
+    $arrExt=array();
+    $arrExt[]=new paloExtensions("s",new ext_noop('Entering to macro analog-did from port_id: ${ARG1} with DID : ${DID}'),"1");
+    $arrExt[]=new paloExtensions("s",new ext_set('RETDID',''));
+    $arrExt[]=new paloExtensions("s",new ext_set('RETDID','${DID_ANALOGDID(${ARG1},${ARG2})}'));
+    $arrExt[]=new paloExtensions("s",new ext_execif('$["${RETDID}"=""]','MacroExit'));
+    $arrExt[]=new paloExtensions("s",new ext_setvar("__FROM_DID",'${RETDID}'));
+    $arrExt[]=new paloExtensions("s",new ext_goto("1",'${RETDID}','from-pstn'));
+    $contenido .="\n[macro-analog-did]\n";
+    $contenido .="include =>macro-analog-did-custom\n";
+    if(is_array($arrExt)){
+        foreach($arrExt as $extension){
+            if(!is_null($extension) && is_object($extension))
+                $contenido .=$extension->data."\n";
+        }
+    }
+        
+    //im-sip
+    //useado para enviar mensajes de chat
+    //ARG1 -> ORG_CODE
+    //ARG2 -> DEVICE a que se le envia el mensaje
+    $arrExt=array();
+    $arrExt[]=new paloExtensions("im",new ext_noop('Start SIP MESSAGE to ${MESSAGE(to)} from ${MESSAGE(from)}'),"1");
+    //si no se envia la lista de dispositivos alos cuales enviar el mensaje no se puede continuar
+    $arrExt[]=new paloExtensions("im",new ext_execif('$["${ARG2}" = ""]','Return'));
+    $arrExt[]=new paloExtensions("im",new ext_set('FROM_PEER','${CUT(MESSAGE(from),:,2)}'));
+    $arrExt[]=new paloExtensions("im",new ext_set('FROM_PEER','${CUT(FROM_PEER,@,1)}'));
+    //obtenemos el alias del del device dentro del sistema, si no llegase a tener entonces usamos solamente el nombre del dispositivo
+    $arrExt[]=new paloExtensions("im",new ext_set('FROM_PEER_ALIAS','${DB(DEVICE/${ARG1}/${FROM_PEER}/alias)}'));
+    $arrExt[]=new paloExtensions("im",new ext_execif('$["${FROM_PEER_ALIAS}" = ""]','SET','FROM_PEER_ALIAS=${FROM_PEER}'));
+    $arrExt[]=new paloExtensions("im",new ext_set('FROM_PEER_NAME','${SIPPEER(${FROM_PEER},callerid_name)}'));
+    $arrExt[]=new paloExtensions("im",new ext_set('TO_PEER_ORG','${CUT(MESSAGE(to),:,2)}'));
+    $arrExt[]=new paloExtensions("im",new ext_set('TO_PEER_ORG','${CUT(TO_PEER_ORG,@,1)}'));
+    
+    $arrExt[]=new paloExtensions("im",new ext_set('GROUP_MSG_STATUS','FAIL'));
+    $arrExt[]=new paloExtensions("im",new ext_while('$["${SET(TO_PEER=${SHIFT(ARG2,&)})}" != ""]'));
+    $arrExt[]=new paloExtensions("im",new ext_set('TO_PEER_NAME','${SIPPEER(${TO_PEER},callerid_name)}'));
+    $arrExt[]=new paloExtensions("im",new ext_set('FROM_REPLACE','${STRREPLACE(MESSAGE(from),${FROM_PEER},${FROM_PEER_ALIAS})}'));
+    $arrExt[]=new paloExtensions("im",new ext_messageSend('sip:${TO_PEER}','${FROM_REPLACE}'));
+    $arrExt[]=new paloExtensions("im",new ext_noop('Send status is ${MESSAGE_SEND_STATUS}'));
+    $arrExt[]=new paloExtensions("im",new ext_execif('$["${MESSAGE_SEND_STATUS}" = "SUCCESS"]','SET','GROUP_MSG_STATUS=SUCCESS'));
+    $arrExt[]=new paloExtensions("im",new extension('EndWhile'));
+    $arrExt[]=new paloExtensions("im",new ext_gotoif('$["${GROUP_MSG_STATUS}"!="SUCCESS"]','sendfailedmsg'));
+    $arrExt[]=new paloExtensions("im",new ext_hangup());
+    $arrExt[]=new paloExtensions("im",new ext_noop('Sending error to user'),"n",'sendfailedmsg');
+    $arrExt[]=new paloExtensions("im",new ext_set('MESSAGE(body)','[${STRFTIME(${EPOCH},,%d/%m/%Y-%H:%M:%S)}] Your message to ${TO_PEER_NAME} has failed. Sending when available'));
+    $arrExt[]=new paloExtensions("im",new ext_messageSend('sip:${FROM_PEER}','"${TO_PEER_NAME}" <${MESSAGE(to)}>'));
+    $arrExt[]=new paloExtensions("im",new ext_noop('Send status is ${MESSAGE_SEND_STATUS}'));
+    $arrExt[]=new paloExtensions("im",new ext_hangup());
+    $contenido .="\n[im-sip]\n";
+    $contenido .="include =>im-sip-custom\n";
+    if(is_array($arrExt)){
+        foreach($arrExt as $extension){
+            if(!is_null($extension) && is_object($extension))
+                $contenido .=$extension->data."\n";
+        }
+    }
+    
+    $TrunkPattern=createDialplanTrunkPattern();
+    if($TrunkPattern!==false){
+        $contenido .=$TrunkPattern;
+    }
+    
+    if(file_put_contents("$file", $contenido)===false){
+        fprintf(STDERR, "ERR: Couldn't be written file - %s\n", $file);
+        return false;
+    }else{
+        changeFilePermission($file);
+    }
+    return true;
+}
+
+//esta funcion se usa para llamar a las funciones createExtGeneral
+//y createFileDahdiChannelAdd en una misma funcion y no invocar a elastix helper dos veces
+function createExtAddtionals($domain=null){
+    if(createExtGeneral()==true)
+        return createFileDahdiChannelAdd($domain);
+    else
+        return false;
+}
+
+function createFileDahdiChannelAdd($domain=null){
+    global $arrConf;
+    $file="/etc/asterisk/chan_dahdi_additional.conf";
+    $pDB=new paloDB($arrConf["elastix_dsn"]["elastix"]);
+    
+    if(!is_null($domain)){
+        if(!preg_match("/^(([[:alnum:]-]+)\.)+([[:alnum:]])+$/", $domain)){
+            $domain=null;
+        }
+    }
+    
+    //valido que exista el dominio y obtengo el code asociado a este
+    $queryCode="SELECT code from organization where domain=?";
+    
+    //obtenemos los puertos que han sido asignados a un did y que pertencen a una organizacion
+    $query="SELECT dd.did, dd.data, di.organization_domain from did_details dd join did di on dd.did=di.did where di.organization_domain IS NOT NULL and dd.keyword=? and di.type=?";
+    $result=$pDB->fetchTable($query,true,array("port","analog"));
+    if($result===false){
+        fprintf(STDERR, "ERR: Database connection did - %s.\n", $pDB->errMsg);
+        fprintf(STDERR, "ERR: Couln't be rewritten file chan_dahdi_additional.conf.\n");
+        return false;
+    }
+    
+    $content="";
+    
+    if(is_file("/etc/asterisk/chan_dahdi_custom.conf")===false){
+        if(file_put_contents("/etc/asterisk/chan_dahdi_custom.conf", "")!==false){
+            $content .="#include chan_dahdi_custom.conf";
+            changeFilePermission("/etc/asterisk/chan_dahdi_custom.conf");
+        }
+    }else
+        $content .="#include chan_dahdi_custom.conf\n";
+        
+    foreach($result as $value){
+        if(!empty($value["organization_domain"])){
+            if($value["organization_domain"]!=$domain){
+                $resultc=$pDB->getFirstRowQuery($queryCode, true, array($value["organization_domain"]));
+                if($resultc!=false){
+                    $content .="context=from-analog\n";
+                    $content .="channel => ".$value["data"]."\n";
+                }
+            }
+        }
+    }
+    
+    if(file_put_contents("$file", $content)===false){
+        fprintf(STDERR, "ERR: Couldn't be written file - %s\n", $file);
+        return false;
+    }else{
+        changeFilePermission($file);
+        $ret = $output = null;
+        exec("/usr/sbin/asterisk -r -x 'module reload chan_dahdi.so' 2>&1",$output,$ret);
+        if($ret!=0){
+            fwrite(STDERR, "Couldn't be reloaded module chan_dahdi.so. ".implode('', $output));
+            return false;
+        }
+    }     
+    
+    return true;
+}
+
+function writeTechRegister($tech){
+    global $arrConf;
+    if($tech=="sip" or $tech=="iax2"){
+        if($tech=="sip"){
+            $file="sip_register.conf";
+            $mode="chan_sip.so";
+        }else{
+            $file="iax_register.conf";
+            $mode="chan_iax2.so";
+        }
+            
+        $query="SELECT tech,string_register from trunk where tech=?";
+        $pDB=new paloDB($arrConf["elastix_dsn"]["elastix"]);
+        $result=$pDB->fetchTable($query,true,array($tech));
+        if($result===false){
+            fprintf(STDERR, "ERR: Couldn't be written file - '/etc/asterisk/$file'. %s\n",$pDB->errMsg);
+            return false;
+        }
+        
+        $content="\n";
+        //obtenemos los string de conneccion de las truncales
+        foreach($result as $value){
+            if(!empty($value["string_register"])){
+                $content .="register => ".$value["string_register"]."\n";
+            }
+        }
+        
+        if(file_put_contents("/etc/asterisk/$file", $content)===false){
+            fprintf(STDERR, "ERR: Couldn't be written file - '/etc/asterisk/$file'\n");
+            return false;
+        }else{
+            changeFilePermission("/etc/asterisk/$file");
+        }
+        
+        $ret = $output = null;
+        exec("/usr/sbin/asterisk -r -x 'module reload $mode' 2>&1",$output,$ret);
+        if($ret!=0){
+            fwrite(STDERR, "Couldn't be reloaded module $mode. ".implode('', $output));
+            return false;
+        }
+    }
+    return true;
+}
+
+function createDialplanTrunkPattern(){
+    global $arrConf;
+    $arrExt=array();
+    $exten="s";
+    $prepend=$prefix=$pattern=$len="";
+    $pDB=new paloDB($arrConf["elastix_dsn"]["elastix"]);
+    $query="SELECT * from trunk_dialpatterns order by trunkid";
+    $result=$pDB->fetchTable($query,true);
+    if($result===false){
+        fprintf(STDERR, "ERR: Error getting trunk dialpatterns %s.\n",$pDB->errMsg);
+        return false;
+    }else{
+        $trunkid="none";
+        foreach($result as $value){
+            $context="sub-flp-".$value["trunkid"];
+            
+            if(isset($value['prepend_digits']))
+                $prepend=$value['prepend_digits'];
+            if(isset($value['match_pattern_prefix'])){
+                $prefix=strtoupper($value['match_pattern_prefix']);
+                $len=($prefix=="")?"":":".strlen($prefix);
+            }
+            if(isset($value['match_pattern_pass'])){
+                if($value['match_pattern_pass']=="")
+                    $pattern=".";
+                else
+                    $pattern=strtoupper($value['match_pattern_pass']);
+            }
+                
+            $expression = str_replace(
+                array('X','Z','N','.','*','+'),
+                array('[0-9]','[1-9]','[2-9]','[0-9#*\\\$]$','\\\*','\\\$'),
+                $prefix.$pattern);
+            $expression = strtr($expression,"$","+");
+            
+            if($trunkid!=$value["trunkid"]){
+                $arrExt[$context][]=new paloExtensions($exten,new ext_set("NEW_DIAL_NUMBER",''),1);
+            }
+            
+            if($prepend!="" || $prefix!=""){
+                $arrExt[$context][]=new paloExtensions($exten,new ext_execif('$[${REGEX("^'.$expression.'$" ${DIAL_NUMBER})} = 1]','Set','NEW_DIAL_NUMBER='.$prepend.'${DIAL_NUMBER'.$len.'}'));
+                $arrExt[$context][]=new paloExtensions($exten,new ext_gotoif('$[${LEN(${NEW_DIAL_NUMBER})} != 0]', 'match'));
+            }
+            $trunkid=$value["trunkid"];
+        }
+        
+        $contenido="";
+        foreach(array_keys($arrExt) as $name){
+            $contenido .="\n[$name]\n";
+            $arrExt[$name][]=new paloExtensions($exten,new ext_return(''));
+            $arrExt[$name][]=new paloExtensions($exten,new ext_set('DIAL_NUMBER','${NEW_DIAL_NUMBER}'),"n","match");
+            $arrExt[$name][]=new paloExtensions($exten,new ext_return(''));
+            foreach($arrExt[$name] as $extension){
+                if(!is_null($extension) && is_object($extension))
+                    $contenido .=$extension->data."\n";
+            }
+        }
+    }
+    return $contenido;
+}
+
+function changeStateOrganization($filename,$state){
+    global $arrConf;
+    $error="";
+    
+    if(!($state=="suspend" || $state=="unsuspend" || $state=="terminate")){
+        fprintf(STDERR, "ERR: Invalid Organization State.\n");
+        return false;
+    }
+    
+    if(dirname("$filename")!="/tmp"){
+        fprintf(STDERR, "ERR: Invalid File name.\n");
+        return false;
+    }
+    
+    //validamos en nombre del archivo para asegurarnos que no sea un path relativo
+    if(!preg_match("/^orgToChange/",basename("$filename"))){
+        fprintf(STDERR, "ERR: Invalid File name.\n");
+        return false;
+    }
+    
+    $state_org=$state;
+    if($state=="unsuspend"){
+        $state_org="active";
+    }
+    
+    $arrExito=array();
+    
+    $arrOrg = file("$filename");
+    if($arrOrg === FALSE){
+        error_exit("ERR: failed to load $filename for organization update\n");
+    }
+    
+    
+    //creamos una nueva instanacia de la clase paloSantoOrganization
+    $pDB=new paloDB($arrConf["elastix_dsn"]["elastix"]);
+    $pOrg=new paloSantoOrganization($pDB);
+    $pOrg->_DB->beginTransaction();
+    
+    foreach($arrOrg as $id){
+        //validamos el id de la organizacion
+        if(!preg_match("/^[0-9]+$/",$id) || $id=="1"){
+            continue;
+        }
+        //comprobamos que la organizacion exista
+        $query="Select idcode,domain,state from organization where id=?";
+        $org=$pOrg->_DB->getFirstRowQuery($query,true,array((int)$id));
+        if($org!=false){
+            if($org["state"]==$state_org){
+                continue;
+            }
+            //cambiamos el estado de la organizacion en la tabla organization
+            $query="Update organization set state=? where id=?";
+            if(!$pOrg->_DB->genQuery($query,array($state_org,(int)$id))){
+                $error=$pOrg->_DB->errMsg;
+                break;
+            }
+            //registramos el evento
+            if(!$pOrg->registerEvent($state,$org["idcode"])){
+                $error=$pOrg->errMsg;
+                break;
+            }
+            $arrExito[]=$id;
+        }else{
+            continue;
+        }   
+    }
+    
+    if(is_file("$filename"))
+        unlink("$filename");
+    
+    if($error!=""){
+        $pOrg->_DB->rollBack();
+        fprintf(STDERR,$error);
+        return false;
+    }
+    
+    if(count($arrExito)!=0){
+        if(createExtensionFile("","",$pDB)){
+            if(dialplanReload()){
+                $pOrg->_DB->commit();
+                return true;
+            }else{
+                $pOrg->_DB->rollBack();
+                return false;
+            }
+        }else{
+            $pOrg->_DB->rollBack();
+            return false;
+        }
+    }else//no se realizo ninguna transaccion
+        $pOrg->_DB->rollBack();
+        
+    return true;
+}
+
+
+function writeSIPGeneralFile(){
+    global $arrConf;
+    $query="Select * from sip_general where cathegory!=? and property_name!=? and property_name!=?";
+    $pDB=new paloDB($arrConf["elastix_dsn"]["elastix"]);
+    $result=$pDB->fetchTable($query,true,array("nat","nat","nat_type"));
+    if($result===false){
+        fprintf(STDERR, "ERR: Error getting SIP general settings %s.\n",$pDB->errMsg);
+        return false;
+    }else{
+        foreach($result as $prop){
+            if(!empty($prop["property_name"])){
+                if(isset($prop["property_val"])){
+                    if($prop["property_val"]!=""){
+                        if($prop["property_name"]=="default_context"){
+                            $arrItem[]="context=".$prop["property_val"]."\n";   
+                        }elseif($prop["property_name"]=="allow" || $prop["property_name"]=="sendrpid"){
+                            $codes=explode(",",$prop["property_val"]);
+                            foreach($codes as $value){
+                                $arrItem[]=$prop["property_name"]."=$value\n";
+                            }
+                        }else
+                            $arrItem[]=$prop["property_name"]."=".$prop["property_val"]."\n";
+                    }
+                }
+            }
+        }
+    }
+    
+    //nat settings
+    $query="SELECT property_name,property_val,cathegory from sip_general where cathegory=? or property_name=?";
+    $arrRes=$pDB->fetchTable($query,true,array("nat","nat"));
+    $localNet=array("ip"=>array(),"mask"=>array());
+    if($arrRes===false){
+        fprintf(STDERR, "ERR: Error getting SIP general settings %s.\n",$pDB->errMsg);
+        return false;
+    }else{
+        foreach($arrRes as $prop){
+            if(isset($prop["property_val"])){
+                if(preg_match("/^localnetip_[0-9]+$/",$prop["property_name"])){
+                    $localNet["ip"][]=$prop["property_val"];
+                }elseif(preg_match("/^localnetmask_[0-9]+$/",$prop["property_name"])){
+                    $localNet["mask"][]=$prop["property_val"];
+                }else{
+                    $arrItem[]=$prop["property_name"]."=".$prop["property_val"]."\n";
+                }
+            }
+        }
+    }
+    foreach($localNet["ip"] as $key => $value){
+        $arrItem[]="localnet=$value/{$localNet["mask"][$key]}\n";
+    }
+    
+    $default[]="[general]\n";
+    $default[]="tos_sip=cs3\n";
+    $default[]="tos_audio=ef\n";
+    $default[]="tos_video=af41\n";
+    $default[]="rtcachefriends=yes\n";
+    $default[]="callcounter=yes\n";
+    $default[]="alwaysauthreject=yes\n";
+    
+    $arrFile=$default+$arrItem;
+    $arrFile[]="\n";
+    //antes de incluir los archivos comprobamos de que estos existan, si no existen deben ser creados
+    $files=array("sip_general_custom.conf","sip_register.conf","sip_custom.conf");
+    foreach($files as $file){
+        if(!is_file("/etc/asterisk/$file")){
+            if(file_put_contents("/etc/asterisk/$file","")!==false){
+                $arrFile[]="#include $file\n";
+                changeFilePermission("/etc/asterisk/$file");
+            }
+        }else
+            $arrFile[]="#include $file\n";
+    }
+    
+    if(file_put_contents("/etc/asterisk/sip.conf", $arrFile)!==false){
+        changeFilePermission("/etc/asterisk/sip.conf");
+        exec("/usr/sbin/asterisk -r -x 'module show like chan_sip.so' 2>&1",$output,$ret);
+        if(preg_match('/[1-9] modules loaded/', implode('',$output))){
+            $comand="module reload chan_sip.so";
+        }else{
+            $comand="module load chan_sip.so";
+        }
+        $ret=$output=null;
+        exec("/usr/sbin/asterisk -r -x '$comand' 2>&1",$output,$ret);
+        if($ret!=0){
+            fwrite(STDERR, "Module chan_sip.so couldn't be reloaded. ".implode('', $output)).".\n";
+            return false;
+        }
+        return true;
+    }else{
+        fprintf(STDERR, "ERR: File $file couldn't be written");
+        return false;
+    }   
+}
+
+
+function writeIAXGeneralFile(){
+    global $arrConf;
+    $query="Select * from iax_general";
+    $pDB=new paloDB($arrConf["elastix_dsn"]["elastix"]);
+    $result=$pDB->fetchTable($query,true);
+    if($result===false){
+        fprintf(STDERR, "ERR: Error getting IAX general settings %s.\n",$pDB->errMsg);
+        return false;
+    }else{
+        foreach($result as $prop){
+            if(!empty($prop["property_name"])){
+                if(isset($prop["property_val"])){
+                    if($prop["property_val"]!=""){
+                        if($prop["property_name"]=="allow"){
+                            $codes=explode(",",$prop["property_val"]);
+                            foreach($codes as $value){
+                                $arrItem[]=$prop["property_name"]."=$value\n";
+                            }
+                        }else
+                            $arrItem[]=$prop["property_name"]."=".$prop["property_val"]."\n";
+                    }
+                }
+            }
+        }
+    }
+    
+    $default[]="[general]\n";
+    $default[]="tos_audio=ef\n";
+    $default[]="rtcachefriends=yes\n";
+    $default[]="maxregexpire=1300\n";
+    $default[]="calltokenoptional=127.0.0.1/255.255.255.0\n";
+    $default[]="mailboxdetail=yes\n";
+    
+    $arrFile=$default+$arrItem;
+    $arrFile[]="\n";
+    //antes de incluir los archivos comprobamos de que estos existan, si no existen deben ser creados
+    $files=array("iax_general_custom.conf","iax_register.conf","iax_custom.conf");
+    foreach($files as $file){
+        if(!is_file("/etc/asterisk/$file")){
+            if(file_put_contents("/etc/asterisk/$file","")!==false){
+                $arrFile[]="#include $file\n";
+                changeFilePermission("/etc/asterisk/$file");
+            }
+        }else
+            $arrFile[]="#include $file\n";
+    }
+    
+    if(file_put_contents("/etc/asterisk/iax.conf", $arrFile)!==false){
+        changeFilePermission("/etc/asterisk/iax.conf");
+        exec("/usr/sbin/asterisk -r -x 'module show like chan_iax2.so' 2>&1",$output,$ret);
+        if(preg_match('/[1-9] modules loaded/', implode('',$output))){
+            $comand="module reload chan_iax2.so";
+        }else{
+            $comand="module load chan_iax2.so";
+        }
+        $ret=$output=null;
+        exec("/usr/sbin/asterisk -r -x '$comand' 2>&1",$output,$ret);
+        if($ret!=0){
+            fwrite(STDERR, "Module chan_iax2.so couldn't be reloaded. ".implode('', $output)).".\n";
+            return false;
+        }
+        return true;
+    }else{
+        fprintf(STDERR, "ERR: File $file couldn't be written");
+        return false;
+    }   
+}
+
+function writeVMGeneralFile(){
+    global $arrConf;
+    $query="Select * from voicemail_general";
+    $pDB=new paloDB($arrConf["elastix_dsn"]["elastix"]);
+    $result=$pDB->getFirstRowQuery($query,true);
+    if($result===false){
+        fprintf(STDERR, "ERR: Error getting Voicemail general settings %s.\n",$pDB->errMsg);
+        return false;
+    }else{
+        foreach($result as $key => $prop){
+            if(isset($prop)){
+                if($prop!=""){
+                    $arrItem[]="$key=$prop\n";
+                }
+            }
+        }
+    }
+    
+    $default[]="[general]\n";
+    $default[]="emaildateformat=%A, %B %d, %Y at %r\n";
+    $default[]="pagerdateformat=%A, %B %d, %Y at %r\n";
+    
+    $arrFile=$default+$arrItem;
+    $arrFile[]="\n";
+    //antes de incluir los archivos comprobamos de que estos existan, si no existen deben ser creados
+
+    $files=array("vm_general_custom.conf","vm_zonemessages.conf");    
+    foreach($files as $file){
+        if(!is_file("/etc/asterisk/$file")){
+            $content=($file=="vm_zonemessages.conf")?createVMzonemessages():"";
+            if(file_put_contents("/etc/asterisk/$file",$content)!==false){
+                $arrFile[]="#include $file\n";
+                changeFilePermission("/etc/asterisk/$file");
+            }
+        }else
+            $arrFile[]="#include $file\n";
+    }
+    
+    if(file_put_contents("/etc/asterisk/voicemail.conf", $arrFile)!==false){
+        changeFilePermission("/etc/asterisk/voicemail.conf");
+        exec("/usr/sbin/asterisk -r -x 'module show like app_voicemail.so' 2>&1",$output,$ret);
+        if(preg_match('/[1-9] modules loaded/', implode('',$output))){
+            $comand="module reload app_voicemail.so";
+        }else{
+            $comand="module load app_voicemail.so";
+        }
+        $ret=$output=null;
+        exec("/usr/sbin/asterisk -r -x '$comand' 2>&1",$output,$ret);
+        if($ret!=0){
+            fwrite(STDERR, "Module app_voicemail.so couldn't be reloaded. ".implode('', $output)).".\n";
+            return false;
+        }
+        return true;
+    }else{
+        fprintf(STDERR, "ERR: File voicemail.conf couldn't be written");
+        return false;
+    }
+    
+}
+
+function createVMzonemessages(){
+    $file[]="[zonemessages]\n";
+    $file[]="; Users may be located in different timezones, or may have different\n";
+    $file[]="; message announcements for their introductory message when they enter\n";
+    $file[]="; the voicemail system. Set the message and the timezone each user\n";
+    $file[]="; hears here. Set the user into one of these zones with the tz= attribute\n";
+    $file[]="; in the options field of the mailbox. Of course, language substitution\n";
+    $file[]="; still applies here so you may have several directory trees that have\n";
+    $file[]="; alternate language choices.\n";
+    $file[]=";\n";
+    $file[]="; Look in /usr/share/zoneinfo/ for names of timezones.\n";
+    $file[]="; Look at the manual page for strftime for a quick tutorial on how the\n";
+    $file[]="; variable substitution is done on the values below.\n";
+    $file[]=";\n";
+    $file[]="; Supported values:\n";
+    $file[]="; 'filename'    filename of a soundfile (single ticks around the filename\n";
+    $file[]=";               required)\n";
+    $file[]='; ${VAR}        variable substitution\n';
+    $file[]="; A or a        Day of week (Saturday, Sunday, ...)\n";
+    $file[]="; B or b or h   Month name (January, February, ...)\n";
+    $file[]="; d or e        numeric day of month (first, second, ..., thirty-first)\n";
+    $file[]="; Y             Year\n";
+    $file[]="; I or l        Hour, 12 hour clock\n";
+    $file[]="; H             Hour, 24 hour clock (single digit hours preceded by 'oh')\n";
+    $file[]="; k             Hour, 24 hour clock (single digit hours NOT preceded by 'oh')\n";
+    $file[]="; M             Minute, with 00 pronounced as o'clock\n";
+    $file[]="; N             Minute, with 00 pronounced as 'hundred' (US military time)\n";
+    $file[]="; P or p        AM or PM\n";
+    $file[]="; Q             'today', 'yesterday' or ABdY\n";
+    $file[]=";               (*note: not standard strftime value)\n";
+    $file[]="; q             '' (for today), 'yesterday', weekday, or ABdY\n";
+    $file[]=";               (*note: not standard strftime value)\n";
+    $file[]="; R             24 hour time, including minute\n";
+    $file[]=";\n";
+    $file[]="eastern=America/New_York|'vm-received' Q 'digits/at' IMp\n";
+    $file[]="central=America/Chicago|'vm-received' Q 'digits/at' IMp\n";
+    $file[]="central24=America/Chicago|'vm-received' q 'digits/at' H N 'hours'\n";
+    $file[]="military=Zulu|'vm-received' q 'digits/at' H N 'hours' 'phonetic/z_p'\n";
+    $file[]="european=Europe/Copenhagen|'vm-received' a d b 'digits/at' HM\n";
+    return $file;
+}
+?>

@@ -1,0 +1,360 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Copyright (c) 1997-2003 Palosanto Solutions S. A.                    |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  +----------------------------------------------------------------------+
+  | Este archivo fuente está sujeto a las políticas de licenciamiento    |
+  | de Palosanto Solutions S. A. y no está disponible públicamente.      |
+  | El acceso a este documento está restringido según lo estipulado      |
+  | en los acuerdos de confidencialidad los cuales son parte de las      |
+  | políticas internas de Palosanto Solutions S. A.                      |
+  | Si Ud. está viendo este archivo y no tiene autorización explícita    |
+  | de hacerlo, comuníquese con nosotros, podría estar infringiendo      |
+  | la ley sin saberlo.                                                  |
+  +----------------------------------------------------------------------+
+  | Autores: Alex Villacís Lasso <a_villacis@palosanto.com>              |
+  +----------------------------------------------------------------------+
+  $Id: elastix-helper.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+
+/*****************************************************************************
+ * This program, when run, will extract the IP addresses of all ethX network
+ * devices, along with network and netmask. It will then setup a configuration
+ * file (/etc/sysconfig/rtpproxy-multi) for configuration of the rtpproxy-multi
+ * startup script. Additionally it will write a configuration file at
+ * /etc/kamailio/kamailio-mhomed-elastix.cfg that will setup Kamailio to use
+ * the multiple rtpproxy instances started by rtpproxy-multi. This script will
+ * _NOT_ restart any services.
+ ****************************************************************************/
+
+define('PASSWD_PATH', '/etc/elastix.conf');
+
+function ip2octet($ip)
+{
+    foreach (explode('.', $ip) as $i => $o) $oct[$i] = (int)$o;
+    return $oct;
+}
+
+function network_from_ip($ip_octet, $mask_octet)
+{
+    foreach ($ip_octet as $i => $o) $net_octet[$i] = $o & $mask_octet[$i];
+    return $net_octet;
+}
+
+function octet2mask($oct)
+{
+    $mask = 0;
+    foreach ($oct as $o) {
+        for (; $o != 0; $o = (($o << 1) & 0xFF)) $mask++;
+    }
+    return $mask;
+}
+
+function lookup_closest_interface(&$if_list, $oct)
+{
+    $closest_idx = NULL;
+
+    foreach ($if_list as $idx => $if_entry) {
+        // Check if specified IP belongs to this network
+        if ($if_entry['net_octet'] == network_from_ip($oct, $if_entry['mask_octet'])) {
+            if (is_null($closest_idx) || $if_list[$closest_idx]['mask_octet'] < $if_entry['mask_octet'])
+                $closest_idx = $idx;
+        }
+    }
+    
+    return $closest_idx;
+}
+
+// Need custom function to load conf file, odd characters choke parse_ini_file()
+function load_keys()
+{
+    $keys = array();
+    if (file_exists(PASSWD_PATH)) foreach (file(PASSWD_PATH) as $s) {
+        $s = rtrim($s, "\r\n");
+        $regs = NULL;
+        if (preg_match('/^(\w+)=(.*)$/', $s, $regs))
+            $keys[$regs[1]] = $regs[2];
+    }
+    return $keys;
+}
+
+// Get IP of Asterisk instance, assumes localhost by default
+$asterisk_ip = '127.0.0.1';
+if (count($argv) > 1) {
+    if (!preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $argv[1])) {
+        fputs(STDERR, "WARN: invalid IPv4 address '{$argv[1]}', using default of $asterisk_ip instead!\n");
+    } else {
+        $asterisk_ip = $argv[1];
+    }
+}
+
+// Get UDP port of Asterisk instance for SIP, assumes 5080 for localhost, else 5060.
+$asterisk_port = ($asterisk_ip == '127.0.0.1') ? 5080 : 5060;
+if (count($argv) > 2) {
+    if (!ctype_digit($argv[2]) || $argv[2] > 65535) {
+        fputs(STDERR, "WARN: invalid SIP port '{$argv[2]}', using default of $asterisk_port instead!\n");
+    } else {
+        $asterisk_port = (int)$argv[2];
+    }
+}
+
+//print "DEBUG: Configuring for Asterisk instance at {$asterisk_ip}:{$asterisk_port}\n";
+
+// Collect information on IPv4 addresses of active interfaces.
+// Run the 'ifconfig' command with LANG=C to have consistent parsing
+putenv('LANG=C');
+$output = NULL; $retval = NULL; $if_list = array();
+exec('/sbin/ifconfig', $output, $retval);
+foreach ($output as $s) {
+    // This pattern works for CentOS 6 only, will break on Fedora
+    $regs = NULL;
+    if (preg_match('/inet addr:(\S+).+Mask:(\S+)/', $s, $regs)) {
+        $if_entry = array(
+            'ip_addr'    => $regs[1],
+            'mask_addr'  => $regs[2],
+            'net_addr'   => NULL,
+            'mask'       => 0,
+            'mask_octet' => ip2octet($regs[2]),
+            'ip_octet'   => ip2octet($regs[1]),
+            'net_octet'  => array(0, 0, 0, 0),
+            'gwroute'    => array(),
+        );
+        $if_entry['net_octet'] = network_from_ip($if_entry['ip_octet'], $if_entry['mask_octet']);
+        $if_entry['net_addr'] = implode('.', $if_entry['net_octet']);
+        $if_entry['mask'] = octet2mask($if_entry['mask_octet']);
+
+        $if_list[] = $if_entry;
+    }
+}
+
+//print "DEBUG: detected IPv4 addresses: "; print_r($if_list);
+
+// Save non-localhost IPs into database
+$passwords = load_keys();
+try {
+    $db = new PDO('mysql:host=localhost', 'root', $passwords['mysqlrootpwd']);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sth = $db->prepare('REPLACE INTO elxpbx.global_domains (domain) VALUES (?)');
+    foreach ($if_list as $if_entry) {
+        if ($if_entry['ip_addr'] != '127.0.0.1') $sth->execute(array($if_entry['ip_addr']));
+    }
+
+    $db = NULL;
+} catch (PDOException $e) {
+    fputs(STDERR, "ERR: unable to save current IPs to database - ".$e->getMessage()."\n");
+}
+
+// Run route -n to figure out current gateway
+$gateway = NULL;
+$output = $retval = NULL;
+exec('/sbin/route -n', $output, $retval);
+foreach ($output as $s) {
+    $f = preg_split('/\s+/', $s);
+    if ($f[2] == '0.0.0.0' && $f[3] == 'UG') {
+        // Found default gateway
+        $gateway = $f[1];
+    } elseif (strpos($f[3], 'UG') !== FALSE) {
+        // Found a non-default gateway, look up which interface ($f[1]) links to this gateway
+        $gwroute = array(
+            'net_addr'  => $f[0],
+            'net_octet' => ip2octet($f[0]),
+            'mask_addr' => $f[2],
+            'mask_octet'=> ip2octet($f[2]),
+            'mask'      =>  0,
+        );
+        $gwroute['mask'] = octet2mask($gwroute['mask_octet']);
+        
+        $idx = lookup_closest_interface($if_list, ip2octet($f[1]));
+        if (!is_null($idx))
+            $if_list[$idx]['gwroute'][] = $gwroute;
+        else
+            fputs(STDERR, "WARN: could not figure out inteface that links to gateway: $s\n");
+    }
+}
+
+// Find out which interface will be used to contact the Asterisk instance. This
+// will be labeled the Kamailio interface. If no address matches (non-local 
+// Asterisk), bail out.
+$asterisk_octet = ip2octet($asterisk_ip);
+$gateway_octet = is_null($gateway) ? NULL : ip2octet($gateway);
+$kamailio_idx = lookup_closest_interface($if_list, $asterisk_octet);
+$gateway_idx = is_null($gateway) ? NULL : lookup_closest_interface($if_list, $gateway_octet);
+
+if (is_null($kamailio_idx)) {
+    fputs(STDERR, "FATAL: Asterisk IP {$asterisk_ip} does not belong to any of the networks for current interfaces!\n");
+    exit(1);
+}
+if (!is_null($gateway) && is_null($gateway_idx)) {
+    fputs(STDERR, "WARN: could not figure out which interface leads to gateway $gateway !\n");
+}
+$kamailio_ip = $if_list[$kamailio_idx]['ip_addr'];
+//print "DEBUG: Configuring for Kamailio instance at {$kamailio_ip}\n";
+
+// Write out the rtpproxy configuration
+$rtpproxy_list = array();
+foreach ($if_list as $if_entry) {
+    if ($if_entry['ip_addr'] != $kamailio_ip) $rtpproxy_list[] = $if_entry['ip_addr'].'/'.$kamailio_ip;
+}
+$rtpproxy_multi = '"'.implode('" "', $rtpproxy_list).'"';
+$rtpproxy_config = <<<RTPPROXY_CONFIG
+BASE_PORT=7722
+OPTIONS_BRIDGE=($rtpproxy_multi)
+OPTIONS='-m 10000 -M 20000'
+
+RTPPROXY_CONFIG;
+file_put_contents('/etc/sysconfig/rtpproxy-multi', $rtpproxy_config);
+
+// Write out the kamailio configuration
+$rtpproxy_sock = '';
+$route_mhomed_elastix_choose = '';
+$i = 1; $rtpproxy_port = 7722;
+
+foreach ($if_list as $if_entry) {
+    if ($if_entry['ip_addr'] != $kamailio_ip) {
+        $rtpproxy_sock .= "modparam(\"rtpproxy\", \"rtpproxy_sock\", \"$i == udp:127.0.0.1:{$rtpproxy_port}\")\n";
+
+		// Internal network for interface
+		$subnet_list = array("{$if_entry['net_addr']}/{$if_entry['mask']}");
+		
+		// Gateways through interface
+		foreach ($if_entry['gwroute'] as $gwroute) {
+			array_push($subnet_list, "{$gwroute['net_addr']}/{$gwroute['mask']}");
+		}
+		$subnet_cond = "is_in_subnet(\$var(target_remote_ip), \"".
+			implode("\") ||\n\t\tis_in_subnet(\$var(target_remote_ip), \"", $subnet_list).
+			"\")";
+
+		$route_mhomed_elastix_choose .= <<<ROUTE_CONDITION
+	if ($subnet_cond) {
+
+		\$var(rtpproxy_set) = {$i};
+		\$var(rtpproxy_if) = "{$if_entry['ip_addr']}";
+		return 1;
+	}
+
+ROUTE_CONDITION;
+
+        $i++; $rtpproxy_port++;
+    }
+}
+
+$route_mhomed_elastix_gateway = '';
+if (is_null($gateway_idx)) {
+	$route_mhomed_elastix_gateway .= <<<ROUTE_FAILURE
+	xlog("L_ALERT", "ALERT: no matching set: si=\$si du=\$du Ri=\$Ri td=\$td Record-Route[0]=\$(hdr(Record-Route)[0]) Record-Route[1]=\$(hdr(Record-Route)[1]) Via[0]=\$(hdr(Via)[0]) Via[1]=\$(hdr(Via)[1]) via[2].host=\$sel(via[2].host)\\n");
+ROUTE_FAILURE;
+} else {
+	$gw_if = $if_list[$gateway_idx]['ip_addr'];
+	$i = $gateway_idx + 1;
+	$route_mhomed_elastix_gateway .= <<<ROUTE_DEFAULT
+	\$var(rtpproxy_set) = {$i};
+	\$var(rtpproxy_if) = "{$gw_if}";
+ROUTE_DEFAULT;
+}
+
+$route_mhomed_elastix = <<<ROUTE_MHOMED_ELASTIX
+#!ifdef WITH_ASTERISK
+#!substdef "/ASTERISKIP/{$asterisk_ip}/"
+#!substdef "/ASTERISKPORT/{$asterisk_port}/"
+asterisk.bindip = "ASTERISKIP" desc "Asterisk IP Address"
+asterisk.bindport = "ASTERISKPORT" desc "Asterisk Port"
+kamailio.bindip = "{$kamailio_ip}" desc "Kamailio IP Address"
+kamailio.bindport = "5060" desc "Kamailio Port"
+#!endif
+
+mhomed = 1
+
+$rtpproxy_sock
+# Define \$var(target_remote_ip) before invoking this block
+route[MHOMED_ELASTIX_CHOOSE] {
+	# Do not choose if value not available
+	if (\$var(target_remote_ip) == \$null)
+		return -1;
+	if (\$var(target_remote_ip) == \$sel(cfg_get.asterisk.bindip))
+		return -1;
+
+	# Resolve IP if given hostname
+	if (!is_ip(\$var(target_remote_ip))) {
+		if (dns_query(\$var(target_remote_ip), "target_remote_ip")) {
+			if (\$dns(target_remote_ip=>ipv4) > 0) {
+				# Might trip up on IPv6
+				\$var(i) = 0;
+				while (\$var(i) < \$dns(target_remote_ip=>count)) {
+					\$var(target_remote_ip) = \$dns(target_remote_ip=>addr[\$var(i)]);
+					\$var(i) = \$var(i) + 1;
+				}
+			} else {
+				return -1;
+			}
+		} else {
+			return -1;
+		}
+	}
+
+	# Choose based on subnet or gateway
+$route_mhomed_elastix_choose
+	return -1;
+}
+
+route[MHOMED_ELASTIX] {
+
+	\$var(rr_advertise_address) = \$null;
+	\$var(rtpproxy_set) = \$null;
+	\$var(rtpproxy_if) = \$null;
+
+	\$var(target_remote_ip) = \$si;
+	if (route(MHOMED_ELASTIX_CHOOSE)) {
+		return;
+	}
+
+	\$var(target_remote_ip) = \$Ri;
+	if (route(MHOMED_ELASTIX_CHOOSE)) {
+		return;
+	}
+
+	if (\$du != \$null) {
+		\$var(target_remote_ip) = \$(du{uri.host});
+		if (route(MHOMED_ELASTIX_CHOOSE)) {
+			return;
+		}
+	}
+
+	\$var(target_remote_ip) = \$td;
+	if (route(MHOMED_ELASTIX_CHOOSE)) {
+		return;
+	}
+
+	if (\$(hdr(Record-Route)[1]) != \$null) {
+		\$var(target_remote_ip) = \$(hdr(Record-Route)[1]{nameaddr.uri}{uri.host});
+		if (route(MHOMED_ELASTIX_CHOOSE)) {
+			return;
+		}
+	}
+
+	if (\$sel(via[2].host) != \$null) {
+		\$var(target_remote_ip) = \$sel(via[2].host);
+		if (route(MHOMED_ELASTIX_CHOOSE)) {
+			return;
+		}
+	}
+
+$route_mhomed_elastix_gateway
+
+	# TODO: auto-insert advertised public address here	
+	\$var(rr_advertise_address) = \$null;
+}
+
+
+ROUTE_MHOMED_ELASTIX;
+
+file_put_contents('/etc/kamailio/kamailio-mhomed-elastix.cfg', $route_mhomed_elastix);
+exit(0);
+?>

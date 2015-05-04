@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="shutdown" name="Shutdown" idParent="system" type="module" link=""  order_no="2">
+		<permissions administrative="yes" organization_access="no" >
+			<actions>
+				<action name="access|shutdown">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

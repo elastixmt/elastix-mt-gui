@@ -1,0 +1,58 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: ko.lang,v 1.6 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Network Parameters" => "네트웍 파라미터",
+"Device" => "디바이스",
+"Type" => "타입",
+"IP" => "IP",
+"Mask" => "마스크",
+"MAC Address" => "맥 어드레스",
+"HW Info" => "하드웨어 정보",
+"Status" => "Status",
+"Ethernet Interfaces List" => "이더넷 인터페이스 리스트",
+"Connected" => "연결됨",
+"Not Connected" => "연결되지 않음",
+"Edit Interface" => "편집 인터페이스",
+"Validation Error" => "유효 에러",
+"The following fields contain errors" => "다음 필드는 에러을 나타냅니다.",
+"Host" => "호스트",
+"Primary DNS" => "1차 DNS",
+"Secondary DNS" => "2차 DNS",
+"Default Gateway" => "기본 게이트웨이",
+"IP Address" => "IP 주소",
+"Network Mask" => "네트웍 마스크",
+"Interface Type" => "인터페이스 타입",
+"Save" => "저장",
+"Edit Network Parameters" => "네트웍 파라미터 수정",
+"Required field" => "요구된 필드",
+"Apply changes" => "수정사항 적용",
+"Are you sure you want to edit network parameters?" => "네트워크 파라미터 수정을 원하십니까?",
+);
+?>

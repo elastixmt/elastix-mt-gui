@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="monitoring" name="Monitoring" idParent="pbxconfig" type="module" link=""  order_no="6">
+		<permissions administrative="yes" organization_access="yes" >
+			<actions>
+				<action name="access">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+						<group id="3" name="supervisor" desc="Supervisor" />
+					</groups>
+				</action>
+				<action name="delete">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+				<action name="download|export">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+						<group id="3" name="supervisor" desc="Supervisor" />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

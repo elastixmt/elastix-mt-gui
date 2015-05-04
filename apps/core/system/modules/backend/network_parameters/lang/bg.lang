@@ -1,0 +1,62 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version: 2.0                                           |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by:Chavdar Iliev                                             |
+  | Email: chavdar_75@yahoo.com                                                       |
+  +----------------------------------------------------------------------+
+  $Id: bg.lang, October 25, 2010, 6:07 pm kleber andres loayza Exp $ */
+global $arrLangModule;
+$arrLangModule=array(  
+"Network Parameters" => "Параметри на Мрежата",
+"Device" => "Устройство",
+"Type" => "Тип",
+"IP" => "IP Адрес",
+"Mask" => "Маска",
+"MAC Address" => "MAC Адрес",
+"HW Info" => "Информация за Хардуера",
+"Status" => "Състояние",
+"Ethernet Interfaces List" => "Списък на Мрежовите Устройства",
+"Connected" => "Свързан",
+"Not Connected" => "Разкачен",
+"Edit Interface" => "Редактиране на Устройството",
+"Validation Error" => "Грешка при Потвърждаване",
+"The following fields contain errors" => "Следните полета съдържат грешки",
+"Host" => "Хост",
+"Primary DNS" => "Първи DNS",
+"Secondary DNS" => "Втори DNS",
+"Default Gateway" => "Шлюз",
+"IP Address" => "IP Адрес",
+"Network Mask" => "Маска",
+"Interface Type" => "Метод на свързване",
+"Save" => "Запис",
+"Edit Network Parameters" => "Редактирай Мрежовите Параметри",
+"Required field" => "Задължителни полета",
+"Apply changes" => "Приложи Промените",
+"Are you sure you want to edit network parameters?" => "Сигурни ли сте че искате да промените мрежовите параметри?",
+
+);
+?>

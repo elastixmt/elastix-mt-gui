@@ -1,0 +1,11 @@
+[rate]
+ignore_backup = no
+engine = sqlite3
+path   = /var/www/db
+deletable = yes
+
+[asteriskcdrdb]
+ignore_backup = yes
+engine = mysql
+path   = /var/lib/mysql
+deletable = no

@@ -1,0 +1,28 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+<p align="Justify">La opción "Graphic Report" del módulo "Reports" nos permite visualizar
+graficamente la información del número de llamadas de las extensiones, colas y troncales del sistema tanto en porcentajes(%) como en cantidades.
+</p>
+<div><img src="../modules/{$node_id}/images/graphic_report_1.jpg" border="0"></div>
+<div>Figura 1</div><br/><br/>
+<p align="Justify">Para ver la información de una extensión solo tenemos que seleccionarla con dar
+click en el enlace "Here" luego del cual nos aparece una pequeña ventana que nos muestra las extensiones disponibles, seleccionamos y procedemos a presionar el boton "Mostrar", asi obtenemos un gráfico tipo pastel con la información requerida </p>
+<div><img src="../modules/{$node_id}/images/graphic_report_2.jpg" border="0"></div>
+<div>Figura 2</div><br/><br/>
+<div><img src="../modules/{$node_id}/images/graphic_report_3.jpg" border="0"></div>
+<div>Figura 3</div><br/><br/>
+<p align="Justify">Para generar los gráficos de las llamadas vs colas solo tenemos que
+cambiar la opcion  en la lista desplegable y seleccionar "Cola"</p>
+<div><img src="../modules/{$node_id}/images/graphic_report_4.jpg" border="0"></div>
+<div>Figura 4</div><br/><br/>
+<p align="Justify">Para generar los gráficos de las llamadas en las troncales solo cambiamos
+la opción en el menu despegable luedo del cual nos aparece una lista adicional para seleccionar la troncal a consultar. Este gráfico nos muestra una información adicional como lo es el tiempo total de llamadas entrantes asi como las salientes."</p>
+<div><img src="../modules/{$node_id}/images/graphic_report_5.jpg" border="0"></div>
+<div>Figura 5</div><br/><br/>
+</body>
+</html>

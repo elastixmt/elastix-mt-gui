@@ -1,0 +1,91 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+   Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                             |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on "AS IS"     |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Andrés Flores                                          |
+  | Email: aflores@palosanto.com                                         |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.7 2008/02/18 09:49:00 jvega Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Hardware Detector" => "Detector de Hardware",
+"Ports not Founds" => "Puertos no Encontrados",
+"Card" => "Span",
+"Type port" => "Tipo",
+"No. Port" => "Puerto #",
+"(In Use)" => "En uso",
+"Hardware Detecting" => "Detectando Hardware",
+"Hardware Detect" => "Detectar Nuevo Hardware",
+"Cards undetected on your system, press for detecting hardware detection." => "Tarjetas no detectadas en su sistema, presione \"Detectar Nuevo Hardware\" para la detección",
+"Information" => "Información",
+"Satisfactory Hardware Detection" => "Hecho",
+"Unknown" => "Desconocido",
+"Replace file chan_dahdi.conf" => "Reemplazar el archivo chan_dahdi.conf",
+"Unable to backup file chan_dahdi.conf by chan_dahdi.conf.replace_for_elastix" => "Unable to backup file chan_dahdi.conf by chan_dahdi.conf.replace_for_elastix",
+"Unable to replace file chan_dahdi.conf" => "No se puede reemplazar el archivo chan_dahdi.conf",
+"Detect Sangoma hardware" => "Detección de hardware sangoma",
+"Detect ISDN hardware" => "Detección de hardware ISDN",
+"(Not in Use)" => "Sin uso",
+"Misdn Card" => "Tarjeta Misdn",
+"Port" => "Puerto",
+"Configure Echo Cancellers" => "Configurar Cancelador de eco",
+"mISDN Driver Installed" => "Driver mISDNuser Instalado",
+"mISDN Driver not Installed" => "Driver mISDNuser no Instalado",
+"Channel detected and not used" => "Canal detectado y fuera de servicio",
+"Channel detected and in use" => "Canal detectado y en servicio",
+"Undetected Channel" => "Canal no detectado",
+"You can set the parameters for these ports here" => "Aquí puedes configurar los parámetros para estos puertos",
+"Port Status" => "Estado de puertos",
+"Configuration of Span" => "Configuración de Span",
+"Span Settings" => "Configuración de Span",
+"Advanced" => "Avanzado",
+"Preferences" => "Preferencias",
+"Timing source" => "Prioridad de reloj",
+"Line build out" => "Longitud/atenuación de línea",
+"Framing" => "Empaquetamiento",
+"Coding" => "Codificación",
+"No Ports availables" => "No hay puertos disponibles",
+"Card Configured" => "Tarjeta Configurada",
+"Loading SPAN" => "Cargar SPAN",
+"Saving configuration" => "Configuración guardada",
+"Detected by Asterisk" => "Detectado por Asterisk",
+"Not detected by Asterisk" => "No detectado por Asterisk",
+"Hardware Control" => "Control de Hardware",
+"Channel Empty" => "Canal Vacío",
+"Span Parameters" => "Parámetros de Span",
+"ISDN PRI Media Type" => "Tipo de medio para RSDI PRI",
+'T1: 24 channels, USA' => 'T1: 24 canales, USA',
+'E1: 31 channels, Europe' => 'E1: 31 canales, Europa',
+'0 db (CSU) / 0-133 feet (DSX-1)' => '0 db (CSU) / 0-133 pies (DSX-1)',
+'133-266 feet (DSX-1)' => '133-266 pies (DSX-1)',
+'266-399 feet (DSX-1)' => '266-399 pies (DSX-1)',
+'399-533 feet (DSX-1)' => '399-533 pies (DSX-1)',
+'533-655 feet (DSX-1)' => '533-655 pies (DSX-1)',
+'-7.5db (CSU)' => '-7.5db (CSU)',
+'-15db (CSU)' => '-15db (CSU)',
+'-22.5db (CSU)' => '-22.5db (CSU)',
+);
+?>

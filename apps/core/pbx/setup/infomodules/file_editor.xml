@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="file_editor" name="Asterisk File Editor" idParent="tools" type="module" link=""  order_no="2">
+		<permissions administrative="yes" organization_access="no" >
+			<actions>
+				<action name="access">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+					</groups>
+				</action>
+				<action name="new_file|edit_file">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+					</groups>
+				</action>
+				<action name="reload_asterisk">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

@@ -1,0 +1,48 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify">La opción "Configuración de Endpoint en Lote" del Elastix nos permite establecer la configuración adecuada de cada uno de nuestros "Endpoint" teniendo como entrada un archivo ".CSV" .</p>
+
+        <div><img src="../modules/{$node_id}/images/endpoints_batch.jpg" border="0"></div>
+        <div>Figura 1</div>
+        <br />
+        <!-- Form to add images -->
+        <!--<div><img src="../modules/{$node_id}/images/images.png" border="0"></div> -->
+        <p>Actualmente Soporta Tecnología "SIP" y marcas como :</p>
+
+        <p>
+            <ul>
+                <li>ATCOM</li>
+                <li>YEALINK</li>
+            </ul>
+        </p>
+        
+        <p>Todos los teléfonos a ser configurados deben estar conectados en la misma RED</p>
+        <p>La IP es obligatoria, con su respectiva mascara de subred. Por defecto se configura la subred donde se encuentra el servidor</p>
+        
+        <p>El archivo "*.CSV" debe tener mínimo cuatro columnas (Vendor - Model - MAC - Ext)</p>
+
+        <div><img src="../modules/{$node_id}/images/file_csv.jpg" border="0"></div>
+        <div>Figura 2</div>
+        <br />
+
+        <p>Otra de las columnas de este archivo, es la IP a configurar. Si la columna se encuentra vacia la configuración del Endpoint se realizará por DHCP.</p>
+
+        <p>Caso contrario si la IP ha sido ingresada, esta será validada y el Endpoint será configurado mediante IP estática</p>
+
+        <p>De esta manera podremos configurar Endpoints por lote, siguiendo las recomendaciones descritas anteriormente.</p>
+
+        <!--<table class="inline">
+            <tr>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+        </table>-->
+    </body>
+</html>

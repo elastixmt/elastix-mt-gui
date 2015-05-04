@@ -1,0 +1,90 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0-16                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2008-10-30 09:10:15 Bruno Macias bmacias@elastix.org Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Queue Number" => "Queue Number",
+"Queue Name" => "Queue Name",
+"Password" => "Password",
+"Record Call" => "Record Call",
+"Strategy" => "Strategy",
+"Timeout Queue" => "Timeout Queue",
+"Timeout Agent" => "Timeout Agents",
+"Queue Members" => "Queue Members",
+"General" => "General",
+"Advanced Options" => "Advanced Settings",
+"QUO_name" => "Defines the queue name",
+"QUO_description" => "Write a short information about this queue",
+"QUO_cidprefix" => "Defines the CID prefix",
+"QUO_cidprefixholdtime" => "Defines the CID prefix hold time",
+"QUO_alertinfo" => "Defines the alert info",
+"QUO_musiconhold" => "Defines the music on hold",
+"QUO_announcecaller" => "announce caller",
+"QUO_announceagent" => "announce agent",
+"QUO_reportagentcaller" => "report agent caller",
+"QUO_strategy" => "Select the strategy",
+"QUO_queueweight" => "Defines the queue weight",
+"QUO_maxnumbercalls" => "Select the max number calls",
+"QUO_maxtimecallerinqueue" => "Defines the max time caller in queue",
+"QUO_agenttimeout" => "Defines the agent timeout",
+"QUO_retry" => "retry (seconds)",
+"QUO_timeoutpriority" => "Defines the timeout priority",
+"QUO_joinempty" => "Join empty",
+"QUO_leavewhenempty" => "Leave when empty",
+"QUO_skipbusyagent" => "Skip busy agents",
+"QUO_recordcalls" => "Record calls",
+"QUO_defaultdestination" => "Default destination",
+
+"QUO_password" => "Defines a password",
+"QUO_staticmembers" => "Define static members",
+"QUO_dynamicmembers" => "Define dynamic members",
+"QUO_onlyagentsdynamic" => "Enable/Disable only dynamic agents",
+"QUO_agentrestriction" => "Defines agent restriction",
+
+"QUO_servicelevel" => "Defines the service level",
+"QUO_exitcontext" => "Defines the exit context",
+"QUO_wrapuptime" => "Defines the wrap up context",
+"QUO_autofill" => "Allow enable/disable the autofill",
+"QUO_autopause" => "Allow enable/disable the autopause",
+"QUO_autopausedelay" => "Defines the quantity of the auto pause delay",
+
+"QUO_announcefrecuency" => "Defines the quantiy of frequency",
+"QUO_minannouncefrecuency" => "Defines the min quantity of frequence",
+"QUO_announceholdtime" => "Defines the anounce of hold time",
+"QUO_announceposition" => "Defines the announce position",
+"QUO_announcepositionlimit" => "Defines the announce position limit",
+
+"QUO_periodicannounce" => "Defines the periodic announce",
+"QUO_periodicannouncefrecuency" => "Defines the periodic announce frecuency",
+"yes" => "yes",
+"Strategy" => "Strategy",
+"All" => "All",
+
+
+);
+?>

@@ -1,0 +1,66 @@
+#!/bin/bash
+#
+# elastix-firstboot	This shell script sets up the various MySQL databases for the
+#                       modules that need an initialized database to work. Other tasks
+#                       to be performed on first boot should be placed here.
+#
+# chkconfig: 2345 66 1
+# description:	Elastix setup for first boot.
+
+# Source function library.
+# . /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Currently this is dead code
+elastix_activate_firewall(){
+	salida=1
+	dialog --colors --title "\Z1 Attention" --backtitle "Elastix Firewall Settings" --ok-label "Continue" --msgbox "Default Firewall Rules will be activated on the system upon finishing the installation.\n\nIf you want to review or modify the applied rules, you can do so\nin the web GUI by navigating to:\n\nSecurity > Firewall" 12 70
+	if [ -f "/usr/share/elastix/privileged/fwconfig" ]; then
+		/usr/bin/elastix-helper fwconfig --load 2>&1
+		tmp=$?
+		if [ $tmp -eq 0 ]; then
+			sqlite3 /var/www/db/iptables.db "update tmp_execute set first_time = 0 ,exec_in_sys = 1" > /dev/null 2>&1
+			if [ $? -eq 0 ]; then
+				echo "Firewall actived successfully."
+				salida=0
+			fi
+		else
+			echo "Firewall can't be actived. Please activated your Firewall from from elastix web interface: Security > Firewall > Firewall Rules."
+		fi
+	else
+		echo "Firewall can't be actived. Don't exits file /usr/share/elastix/privileged/fwconfig"
+	fi
+	return $salida
+}
+
+start() {
+	ret=0
+
+	/usr/bin/elastix-admin-passwords --init
+	ret=$?
+
+    [ $ret -eq 0 -a -d /var/lock/subsys ] && touch /var/lock/subsys/elastix-firstboot
+	return $ret
+}
+
+stop(){
+	[ -f "/var/lock/subsys/elastix-firstboot" ] && rm -f /var/lock/subsys/elastix-firstboot
+	return 0
+}
+
+# See how we were called.
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  *)
+    echo $"Usage: $0 {start|stop}"
+    exit 1
+esac
+
+exit $?

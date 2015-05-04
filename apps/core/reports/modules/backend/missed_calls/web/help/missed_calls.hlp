@@ -1,0 +1,28 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>Este módulo permite visualizar el reporte de llamadas perdidas por extensiones de tal manera que se pueda conocer cuantas veces se ha estado recibiendo una llamada desde un mismo destino o varios de ellos.</p>
+<p>Los parametros qque se puede ingresar son los siguientes:</p>
+<ul>
+  <li><b>Start Date:</b> Filtro de busquedas desde esa fecha de inicio.</li>
+  <li><b>End Date  :</b> Filtro de busqueda hasta esa fecha de fin.</li>
+  <li>
+    <b>Buscar      :</b> Se puede buscar por los siguientes parametros:
+    <ul>
+      <li><span style="font-style: italic; font-weight: bold;">Origen :</span> Número donde se origina la llamada.</li>
+      <li><span style="font-style: italic; font-weight: bold;">Destino:</span> Número Telefónico de destino.</li>
+    </ul>
+  </li>
+</ul>
+<br />
+<div><img src="../modules/{$node_id}/images/missed_calls.png" border="0"></div>
+<div align="center">Figure 1</div>
+
+</body>
+</html>
+

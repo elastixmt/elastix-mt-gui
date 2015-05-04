@@ -1,0 +1,34 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “CDR Reports” of the Menu “Reports” in Elastix lets us view a list with the details of the calls.</p>
+
+<div><img src="../modules/{$node_id}/images/cdr_report_list.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>The report will change depending on the values of the filter:</p>
+
+<table class="inline">
+  <tr>
+    <td>Start Date</td><td>The start date of the calls to be selected.</td>
+  </tr>
+  <tr>
+    <td>End Date</td><td>The end date of the calls to be selected.</td>
+  </tr>
+  <tr>
+    <td>Field</td><td>Additional fields for filtering: Source, Destination, Dst. Channel.</td>
+  </tr>
+  <tr>
+    <td>Status</td><td>Status of call: Answered, Busy, Failed, No Answer.</td>
+  </tr>
+</table>
+
+</body>
+</html>

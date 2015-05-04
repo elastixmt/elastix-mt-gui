@@ -1,0 +1,104 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0-16                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2008-10-30 09:10:15 Bruno Macias bmacias@elastix.org Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Create New Extension"=>"Create New Extension",
+"Name"=>"Name",
+"name"=>"Name",
+"PBXT_name" => "Name of context",
+"Login"=>"Login",
+"Password" => "Password",
+"Retype password"=>"Retype password",
+"New Extension"=>"New Extension",
+"Edit Extension"=>"Edit Extension",
+"Error to obtain extensions"=>"Error trying get extensions. ",
+"on_demand"=>"On demand",
+"trunk_name" => "Descriptive Name",
+"PBXT_trunk_name" => "Defines a trunk name",
+"outcid" => "Outbound Caller ID",
+"PBXT_outcid" => "Defines the ID for the outbound caller",
+"keepcid" => "CID Options",
+"PBXT_keepcid" => "Select the options for the CID",
+"disabled" => "Status",    
+"PBXT_disabled" => "Enable/Disble show the trunk status",
+"org" => "Organization",
+"period_time" => "Period of Time",
+"maxcalls_time" => "Max # Calls",
+"max_chans" => "Max # Current Calls",
+"PBXT_max_chans" => "Defines the max number of current calls ",
+"sec_call_time" => "Set Max # Calls By time",    
+"PBXT_sec_call_time" => "Enable/Disable set the max number calls by time",
+"PBXT_org" => "Allow select the organization(s) for this trunk",
+"dialout_prefix" => "Outbound Dial Prefix",
+"PBXT_dialout_prefix" => "Defines the prefix of outbound dial",
+"register" => "Register String", 
+"PBXT_register" => "Allow make the register of the peer",
+"PBXT_peername" => "Defines the peer name",
+"PBXT_type" => "Defines the peer type",
+"PBXT_secret" => "Defines a password for this peer",
+"PBXT_username" => "Defines a username",
+"PBXT_host" => "Defines a type of host (default: dynamic)",
+"PBXT_context" => "Defines a context type",
+"PBXT_transport" => "Defines a transport type",
+"PBXT_dtmfmode" => "Select the mode of the dtmf",
+"PBXT_directmedia" => "Select the mode of the direct media",
+"PBXT_nat" => "Defines the nat",
+"PBXT_insecure" => "Defines the insecure(default: port,invite)",
+"PBXT_quality" => "Defines quality(default: yes)",
+"PBXT_qualityfrec" => "Defines the quality frequence",
+"PBXT_disallow" => "Defines the types of reject (default: all)",
+"PBXT_allow" => "Allow define the types of technology (default: ulaw,alaw, gsm)",
+"PBXT_deny" => "Allow deny the Ip(s)",
+"PBXT_permit" => "Allow free access to any Ip",
+"PBXT_acl" => "Define a acl",
+"PBXT_callcounter" => "Enable/Disable the call counter",
+"PBXT_busylevel" => "Allow define the busy level",
+"PBXT_amaflags" => "Select the type of alert",
+"PBXT_allowoverlap" => "Allow define the type of enable of overlap",
+"PBXT_allowsuscribe" => "Allow define the type of subscription",
+"PBXT_allowtransfer" => "Allow define the type of transfer",
+"PBXT_fromuser" => "Defines the trunks from user",
+"PBXT_fromdomain" => "Defines the trunks from domain",
+"PBXT_defaultip" => "Allow set the tip",
+"PBXT_defaultuser" => "Defines the default user",
+"PBXT_keepalive" => "Allow define the keep alive",
+"PBXT_rtptimeout" => "Allow define the timeout of the rtp hold",
+"PBXT_rtpholdtimeout" => "Allow define the timeout of the rtp hold",
+"PBXT_sendrip" => "Enable/Disable the send rip",
+"PBXT_trustpid" => "Enable/Disable the trustpid",
+"PBXT_outboundproxy" => "Defines the outbound proxy",
+"PBXT_contactdeny" => "Defines the contacts that will be rejected",
+"PBXT_contactpermit" => "Defines the contacts that will be accepted",
+"PBXT_contactacl" => "Defines the contacts of acl",
+"PBXT_videosupport" => "Enable/Disable the video support",
+"PBXT_maxcallbitrate" => "Defines the max. call bit rate",
+"PBXT_sendrpid" => "If Remote-Party-ID should be sent",
+"PBXT_trustrpid" => "If Remote-Party-ID should be trusted",
+);
+?>

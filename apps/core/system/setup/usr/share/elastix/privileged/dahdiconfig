@@ -1,0 +1,372 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: dahdiconfig.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+require_once 'Console/Getopt.php';
+
+/*
+ * WARNING: this program works under the VERY BIG assumption that the configuration
+ * for a single span in /etc/dahdi/system.conf is kept together instead of being
+ * scattered through the configuration file. This affects the echo canceller
+ * configuration. The proper solution to remove this assumption is to be able to
+ * store the DAHDI configuration in a database and then regenerate the 
+ * configuration file as needed. Currently the refresh-from-database approach
+ * is used for the span configuration and the echo canceller.
+ */
+
+// Parse command-line options
+$opt = Console_Getopt::getopt($argv, '', array(
+    'refresh',  // Refresh configuration from database
+));
+if (PEAR::isError($opt)) error_exit($opt->getMessage()."\n");
+//validateOptions($opt);
+foreach ($opt[0] as $option) switch ($option[0]) {
+case '--refresh':
+    exit(action_refreshConfiguration($opt) ? 0 : 1);
+}
+error_exit("No action specified (--refresh)\n");
+
+function error_exit($sMsg, $errorcode = 1)
+{
+    fwrite(STDERR, $sMsg);
+    exit($errorcode);
+}
+
+function action_refreshConfiguration($opt)
+{
+    $bExito = TRUE;
+
+    /* Instead of trying to replace the echocanceller lines in-place, the 
+     * following code removes all echocanceller lines from system.conf and adds
+     * new echocanceller lines at the end of the file. This is a more robust
+     * way of dealing with arbitrary modifications to the file. Additionally, 
+     * the code will try to associate echocanceller spans with appropriate
+     * digital spans and analog channels so that echocanceller lines will be
+     * kept together with the span/channel definition. */
+    $spanData = array();
+    $echoData = array();
+    try {
+        $conn = new PDO('sqlite:/var/www/db/hardware_detector.db');
+
+        // Read all the span configuration information
+        $sth = $conn->query(
+            'SELECT span_num, timing_source, linebuildout, framing, coding, crc '.
+            'FROM span_parameter ORDER BY span_num');
+        $recordset = $sth->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($recordset as $tupla) {
+            $spanData[(int)$tupla['span_num']] = $tupla;
+        }        
+
+        // Read all the echo canceller information
+        $sth = $conn->query('SELECT num_port, echocanceller FROM echo_canceller');
+        $recordset = $sth->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($recordset as $tupla) {
+            // Workaround for bug in web configuration
+            if ($tupla['echocanceller'] == 'KBL')
+                $tupla['echocanceller'] = 'kb1';
+        	$echoData[(int)$tupla['num_port']] = strtolower($tupla['echocanceller']);
+        }
+        ksort($echoData);
+
+    } catch (PDOException $e) {            
+        fprintf(STDERR, "ERR: failed to query span configuration - %s\n", $e->getMessage());
+        return FALSE;
+    }
+    
+    // Organize the port list into spans
+    $echoSpans = array(); $curSpan = NULL;
+    foreach ($echoData as $k => $sEC) {
+    	if (is_null($curSpan)) { 
+            // Brand-new span
+            $curSpan = array(
+                'start' =>  $k,
+                'end'   =>  $k,
+                'echocanceller' =>  $sEC,
+            );
+        } else {
+        	if ($curSpan['end'] + 1 == $k && $curSpan['echocanceller'] == $sEC) {
+        		$curSpan['end'] = $k;
+        	} else {
+        		$echoSpans[] = $curSpan;
+                $curSpan = array(
+                    'start' =>  $k,
+                    'end'   =>  $k,
+                    'echocanceller' =>  $sEC,
+                );
+        	}
+        }
+    }
+    if (!is_null($curSpan)) $echoSpans[] = $curSpan;
+    
+    /* Open all span files in /proc/dahdi in turn in order to learn beginning
+     * and end of each span */
+    foreach (scandir('/proc/dahdi/') as $spanFile) {
+    	if (ctype_digit($spanFile)) {
+            $iSpanNum = (int)$spanFile;
+            
+            // Channels are assumed to be listed in ascending order
+            $iSpanStart = $iSpanEnd = NULL;
+    		foreach (file('/proc/dahdi/'.$spanFile) as $sLinea) {
+                $regs = NULL;
+    			if (preg_match('/^\s+(\d+)\s+/', $sLinea, $regs)) {
+    				if (is_null($iSpanStart)) $iSpanStart = (int)$regs[1];
+                    $iSpanEnd = (int)$regs[1];
+    			}
+    		}
+            if (isset($spanData[$iSpanNum])) {
+            	$spanData[$iSpanNum]['start'] = $iSpanStart;
+                $spanData[$iSpanNum]['end'] = $iSpanEnd;
+            }
+            
+            // Echo ranges that lie partially within a span get split
+            $tempEcho = array();
+            foreach ($echoSpans as $curSpan) {
+            	if ($curSpan['start'] < $iSpanStart && $iSpanStart <= $curSpan['end']) {
+            		$newSpan = array(
+                        'start'         =>  $curSpan['start'],
+                        'end'           =>  $iSpanStart - 1,
+                        'echocanceller' =>  $curSpan['echocanceller'],
+                    );
+                    $tempEcho[] = $newSpan;
+                    $curSpan['start'] = $iSpanStart;
+            	}
+                if ($curSpan['start'] <= $iSpanEnd && $iSpanEnd < $curSpan['end']) {
+                    $newSpan = array(
+                        'start'         =>  $curSpan['start'],
+                        'end'           =>  $iSpanEnd,
+                        'echocanceller' =>  $curSpan['echocanceller'],
+                    );
+                    $tempEcho[] = $newSpan;
+                    $curSpan['start'] = $iSpanEnd + 1;
+                }
+                $tempEcho[] = $curSpan;
+            }
+            
+            $echoSpans = $tempEcho; 
+    	}
+    }
+
+    // Move all the echocanceller spans to each spandata entry
+    foreach (array_keys($spanData) as $iSpanNum) {
+    	if (isset($spanData[$iSpanNum]['start']) && isset($spanData[$iSpanNum]['end'])) {
+    		foreach (array_keys($echoSpans) as $e) {
+    			if (!is_null($echoSpans[$e]) && 
+                    $spanData[$iSpanNum]['start'] <= $echoSpans[$e]['start'] &&
+                    $echoSpans[$e]['end'] <= $spanData[$iSpanNum]['end']) {
+                
+                    if (!isset($spanData[$iSpanNum]['echolist']))
+                        $spanData[$iSpanNum]['echolist'] = array();
+                    $c = count($spanData[$iSpanNum]['echolist']);
+                    if ($c > 0 &&
+                        $spanData[$iSpanNum]['echolist'][$c - 1]['echocanceller'] == $echoSpans[$e]['echocanceller']) {
+                        $spanData[$iSpanNum]['echolist'][$c - 1]['ranges'][] = array(
+                            $echoSpans[$e]['start'], $echoSpans[$e]['end']
+                        );
+                    } else {
+                    	$spanData[$iSpanNum]['echolist'][] = array(
+                            'echocanceller' =>  $echoSpans[$e]['echocanceller'],
+                            'ranges'        =>  array(
+                                array($echoSpans[$e]['start'], $echoSpans[$e]['end']),
+                            ),
+                        );
+                    }
+                    $echoSpans[$e] = NULL;    	
+                }
+    		}
+    	}
+    }
+
+    $bRestartWanpipe = FALSE;
+
+    // Read original system.conf
+    $hArchivo = fopen('/etc/dahdi/system.conf', 'r');
+    if (!$hArchivo) return FALSE;
+    $lineas = array();
+    while (!feof($hArchivo)) {
+    	$sLinea = fgets($hArchivo);
+        
+        // Remove all echocanceller configurations
+        if (strpos($sLinea, 'echocanceller') === 0) continue;
+        
+        /* Recognize and replace span configurations. Insert echo canceller
+         * configuration (if any) just after the span. */
+        $regs = NULL;
+        if (preg_match('/^span=(\d+)/', $sLinea, $regs)) {
+        	$iSpan = (int)$regs[1];
+            if (isset($spanData[$iSpan]))
+                $bIsT1 = ($spanData[$iSpan]['end'] - $spanData[$iSpan]['start'] + 1 == 24);
+                $bIsE1 = ($spanData[$iSpan]['end'] - $spanData[$iSpan]['start'] + 1 == 31);
+                
+                // Check span parameters for either E1/BRI or T1
+                if ($bIsT1) {
+                    $validFraming = array('esf', 'd4');
+                    $validCoding = array('b8zs', 'ami');
+                    $spanData[$iSpan]['media_type'] = 'T1';
+                } elseif ($bIsE1) {
+                    $validFraming = array('ccs', 'cas');
+                    $validCoding = array('hdb3', 'ami');
+                    $spanData[$iSpan]['media_type'] = 'E1';
+                } else {
+                    $validFraming = array('ccs');
+                    $validCoding = array('ami'); 
+                    $spanData[$iSpan]['media_type'] = 'BRI';
+                }
+                if (!in_array($spanData[$iSpan]['framing'], $validFraming))
+                    $spanData[$iSpan]['framing'] = $validFraming[0];
+                if (!in_array($spanData[$iSpan]['coding'], $validCoding))
+                    $spanData[$iSpan]['coding'] = $validCoding[0];
+
+                if (file_exists("/etc/wanpipe/wanpipe{$iSpan}.conf")) {
+                    $bRestartWanpipe = (updateWanpipeConf("/etc/wanpipe/wanpipe{$iSpan}.conf", $spanData[$iSpan])
+                        || $bRestartWanpipe); 
+                }                    
+
+                $spanLine = sprintf(
+                    "span=%d,%d,%d,%s,%s", $spanData[$iSpan]['span_num'], 
+                    $spanData[$iSpan]['timing_source'], $spanData[$iSpan]['linebuildout'], 
+                    $spanData[$iSpan]['framing'], $spanData[$iSpan]['coding']);
+                if ($bIsE1 && $spanData[$iSpan]['crc'] == 'crc4') {
+                    // Only add CRC4 for E1 spans
+                    $spanLine .= ",crc4";
+                }
+                $spanLine .= "\n";
+                $lineas[] = $spanLine;
+                if (isset($spanData[$iSpan]['echolist'])) {
+                    foreach ($spanData[$iSpan]['echolist'] as $curSpan) {                    
+                        /* Some drivers, such as opvxg400, do not accept an
+                           echocanceller setting on a control channel, not even
+                           'none'. Therefore, the echocanceller is left to its
+                           default value (which is assumed to be 'none')
+                         */
+                        if ($curSpan['echocanceller'] == 'none') continue;
+                        $sLinea = 'echocanceller='.$curSpan['echocanceller'];
+                        foreach ($curSpan['ranges'] as $r) {
+                            if ($r[0] == $r[1])
+                                $sLinea .= ','.$r[0];
+                            else $sLinea .= ','.$r[0].'-'.$r[1];
+                        }
+                        $sLinea .= "\n";
+                        $lineas[] = $sLinea;
+                    }
+                }
+        } elseif (preg_match('/^(e&m|fxsls|fxsgs|fxsks|fxols|fxogs|fxoks)=(\d+)\s*$/', $sLinea, $regs)) {
+            $lineas[] = $sLinea;
+            
+            /* I am assuming analog channels are listed one by one in ascending 
+             * order. I don't want to handle ranges of analog channels. This
+             * code just inserts echo canceller information right after the
+             * single channel configuration.
+             */
+            $iChannel = (int)$regs[2];
+            foreach (array_keys($echoSpans) as $e) {
+                if (!is_null($echoSpans[$e]) && 
+                    ($echoSpans[$e]['start'] == $iChannel || $echoSpans[$e]['end'] == $iChannel)) {
+                	if ($echoSpans[$e]['start'] == $echoSpans[$e]['end']) {
+                        $lineas[] = "echocanceller={$echoSpans[$e]['echocanceller']},{$iChannel}\n";
+                		$echoSpans[$e] = NULL;
+                	} elseif ($echoSpans[$e]['start'] == $iChannel) {
+                		$lineas[] = "echocanceller={$echoSpans[$e]['echocanceller']},{$iChannel}\n";
+                        $echoSpans[$e]['start']++;
+                    } elseif ($echoSpans[$e]['end'] == $iChannel) {
+                        $lineas[] = "echocanceller={$echoSpans[$e]['echocanceller']},{$iChannel}\n";
+                        $echoSpans[$e]['end']--;
+                	}
+                }
+            }            
+        } else {
+        	$lineas[] = $sLinea;
+        }
+    }
+    fclose($hArchivo);
+    
+    // Emit remainder of echo canceller directives not associated with digital spans
+    foreach ($echoSpans as $curSpan) {
+    	if (!is_null($curSpan)) {
+            if ($curSpan['start'] == $curSpan['end'])
+                $lineas[] = "echocanceller={$curSpan['echocanceller']},{$curSpan['start']}\n";
+            else $lineas[] = "echocanceller={$curSpan['echocanceller']},{$curSpan['start']}-{$curSpan['end']}\n";
+        }
+    }
+
+    // Write new configuration and restart dahdi
+    file_put_contents('/etc/dahdi/system.conf', $lineas);
+    if (!$bRestartWanpipe) {
+        $output = $ret = NULL;
+        exec('/sbin/service dahdi restart > /dev/null 2>&1', $output, $ret);
+        if ($ret != 0) $bExito = FALSE;
+    } else {
+        exec('/sbin/service asterisk stop > /dev/null 2>&1', $output, $ret);
+        exec('/sbin/service dahdi stop > /dev/null 2>&1', $output, $ret);
+        exec('/sbin/service wanrouter stop > /dev/null 2>&1', $output, $ret);
+        exec('/sbin/service wanrouter start > /dev/null 2>&1', $output, $ret);
+        exec('/sbin/service dahdi start > /dev/null 2>&1', $output, $ret);
+        exec('/sbin/service asterisk start > /dev/null 2>&1', $output, $ret);
+    }
+    
+    return $bExito;
+}
+
+function updateWanpipeConf($sWanpipe, $spanData)
+{
+    $bModified = FALSE;
+    $lineas = array();
+    foreach (file($sWanpipe) as $s) {
+        $regs = NULL;
+        if (preg_match('/^FE_LCODE\s*=\s*(\S+)/', $s, $regs)) {
+            if ($regs[1] != strtoupper($spanData['coding'])) {
+                $bModified = TRUE;
+                $lineas[] = "FE_LCODE = ".strtoupper($spanData['coding'])."\n";
+            } else {
+                $lineas[] = $s;
+            }
+        } elseif (preg_match('/^FE_SIG_MODE\s*=\s*(\S+)/', $s, $regs)) {
+            if ($regs[1] != strtoupper($spanData['framing'])) {
+                $bModified = TRUE;
+                $lineas[] = "FE_SIG_MODE = ".strtoupper($spanData['framing'])."\n";
+            } else {
+                $lineas[] = $s;
+            }
+        } elseif (preg_match('/^FE_FRAME\s*=\s*(\S+)/', $s, $regs)) {
+            if ($spanData['media_type'] == 'E1' && $regs[1] != strtoupper($spanData['crc'])) {
+                $bModified = TRUE;
+                $lineas[] = "FE_FRAME = ".strtoupper($spanData['crc'])."\n";
+            } else {
+                $lineas[] = $s;
+            }
+        } else {
+            $lineas[] = $s;
+        }
+    }
+    if ($bModified)
+        file_put_contents($sWanpipe, $lineas);
+    return $bModified;
+}
+
+?>

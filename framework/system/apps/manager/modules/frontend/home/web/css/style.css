@@ -1,0 +1,455 @@
+/* Basic Styles */
+.ml10{
+    margin-left:10px;
+    margin-left:5px;
+}   
+.lp{
+    position:relative;
+}
+#paneldiv{
+    position:relative;
+    height: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+#list_folders{
+    position:absolute;
+    z-index:100;
+}
+#display1{
+    position:absolute;
+    height:30px;
+    margin-left:0;
+    margin-top:0;
+    width:30px;
+    top: 0;
+}
+#icn_disp1{
+    background-color: #F3F3F3;
+    border-left:none;
+    height:40px;
+    float:left;
+    cursor:pointer;
+    width:40px; 
+    font-size: 25px;
+    padding:2px;
+}
+#leftdiv{
+    background-color: #F3F3F3;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 140px;
+    display: none;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+}
+#centerdiv{
+    position:relative;
+    top:0;
+    left:0;
+    bottom:0;
+    display:block;
+}
+#mail_toolbar{
+    margin-left:0px;
+    min-height:40px;
+}
+#b1_1{
+    border-right: 1px solid rgb(204, 204, 204);			
+}
+.folder{
+    font-size:11pt;
+    width: 100%;
+    height: 30px;
+    float:left;
+    color: black;
+    cursor:pointer; 
+    cursor: hand;
+    padding:6px;
+    color: rgb(68, 68, 68);
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.folder-item:hover{
+    color:white;
+    background: #8c99a4;
+}
+#folder_list_title{
+    height: 40px;
+    vertical-align: middle;
+    margin-top: 0px;
+    padding-top: 10px;
+    font-size: 14px;
+    font-weight: normal;
+    color: black;
+}
+.ra_disp1_10{
+    border: none;
+    border-top-right-radius:         10px;
+    -moz-border-top-right-radius:    10px;
+    -o-border-top-right-radius:      10px;
+    -webkit-border-top-right-radius: 10px;
+    border-bottom-right-radius:         10px;
+    -moz-border-bottom-right-radius:    10px;
+    -o-border-bottom-right-radius:      10px;
+    -webkit-border-bottom-right-radius: 10px;
+}
+#icn_disp1:hover span{
+    opacity: 1;
+}
+#footer{
+    position:absolute;
+    left:0;
+    bottom:0;
+    height:70px;
+    width:100%;
+    background-color: #132531;
+    float:left;
+}
+#elx_bodymail{
+    float:left;
+    width:100%;
+    padding:15px
+}
+.email_contentdiv{
+    margin-top:3px;
+    float:left;
+    width:100%;
+    overflow-y: auto!important;
+    overflow-x: auto!important;
+    border-top: 1px solid rgb(204, 204, 204);
+    display: block!important;
+}
+#elx_list_mail_messages{
+    float:left;
+    width:100%;
+}
+.elx_unseen_email{
+    font-weight:bold;
+    background-color:white;
+}
+.elx_seen_email{
+    background-color:white;
+}
+.elx_row{
+    float:left;
+    width:100%;
+    min-height:27px;
+    border: 1px solid rgb(204, 204, 204);
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    padding-left: 5px
+}
+.ic{
+    float:left;
+    display:inline-block;
+    width:60px;
+    min-height:27px;
+    border-right: 1px solid rgb(204, 204, 204);
+}
+.sel{
+    display:inline-block;
+    width:16px;
+    height:25px;
+}
+.icon{
+    display:inline-block;
+    width:30px;
+}
+.star{
+    display:inline-block;
+    font-size:18px;
+    width:25px;
+    height:25px;
+}
+.elx_flagged_email{
+    color:#ffe800!important;
+    cursor:pointer;
+}
+.elx_unflagged_email{
+    color:#D8D8D8!important;
+    cursor:pointer;
+}
+.elx_row_email_msg{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.from{
+    font-size:10pt;
+    float:left;
+    width:30%;
+    height:27px;
+    padding: 5px 4px;
+    text-align:left;
+    cursor:pointer;
+}
+.subject{
+    font-size:10pt;
+    border-right: 1px solid rgb(204, 204, 204);
+    border-left: 1px solid rgb(204, 204, 204);
+    float:left;
+    width:30%;
+    height:27px;
+    padding: 5px 4px;
+    text-align:left;
+    cursor:pointer;
+}
+.date{
+    font-size:10pt;
+    float:left;
+    width:15%;
+    height:27px;
+    text-align:left;
+    padding: 5px 4px;
+    cursor:pointer;
+}	
+.icn_buz, .inp1{
+    margin-top:4px;
+    margin-left:5px;
+    width:15px;
+    height:15px;
+}
+.inp1{
+    cursor:pointer;
+}
+.elx_email_pag_bar{
+    display:inline-block;
+    padding:5px 5px 5px 0px;
+}
+.elx_email_pag_btn {
+    height: 30px!important;
+    font-size:18px;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+#elx_email_mv_wtag{
+    display:inline;
+}
+#elx_bodymsg_subject{
+    font-weight: normal;
+}
+#elx_bodymsg_subject > h1{
+    font-size:25px;
+    padding: 0px;
+    margin: 0px;
+}
+#elx_bodymsg_header{
+    margin-top:10px;
+    padding-top:10px;
+    border-top: 1px solid rgb(204, 204, 204);
+}
+#elx_bodymsg_theader{
+    border:0;
+}
+.elx_bodymsg_trheader{
+    font-size:11px;
+}
+.elx_bodymsg_trheader > td{
+    width:auto;
+    padding-right: 4px;
+    padding-bottom: 2px;
+    vertical-align: top;
+}
+td.elx_bodymsg_tdheader:first-child{
+    font-weight:bold;
+}
+#elx_bodymsg_attachment{
+    min-height:22px;
+    margin-top:10px;
+    padding-left:10px;
+    border-top: 1px solid rgb(204, 204, 204);
+}
+.elx_bodymsg_file_att{
+    padding: 2px;
+    vertical-align: top;
+    font-size:13px;
+    margin:2px;
+    background-color:#DFDFDF;
+    display: inline-block;
+    height: 20px;
+}
+#elx_bodymsg_body{
+    padding-top:10px;
+    border-top: 1px solid rgb(204, 204, 204);
+}
+#elx_mail_pager > ul{
+    margin:0;
+}
+.btn-bodymsg-tools{
+    height:30px;
+}
+.btn-bodymsg-tools span.glyphicon{
+    top:0px;
+}
+#elx_mail_pagingbar{
+    height: 22px;
+    background-color: rgb(65, 65, 65);
+    font-size:15px;
+    color:#D0D0D0;
+    width:100%;
+    float: right;
+    padding:0 20px;
+}
+#elx_mail_pagingbar_icons{
+    width:320px;
+    float: right;
+    text-align: right;
+}
+.elx_mail_pagingbar_icon{
+    width: 20px!important;
+    height: 20px;
+    font-size: 15px;
+}
+.elx_mail_pagingbar_icon:hover{
+    color:white;
+}
+#elx_mail_pagingbar_nummails{
+    float:left;
+}
+#elx_mail_pagingbar_currentpg{
+    display:inline-block; 
+    height: 20px;
+    position: relative;
+    top: -2px;
+}
+
+/*****************************************************/
+/*    Styles for screen 960px and lower             */
+/*****************************************************/
+@media screen and (max-width: 960px) {
+.elx_row{
+    min-height:50px;
+}
+.ic{
+    min-height:50px;
+    width:30px;
+    /*top:-25px;
+    width:100%;
+    border-right:none;	*/
+}
+.sel{
+    height:20px;
+}
+.star{
+    height:20px;
+}
+.from{
+    /*position:relative;
+    top:0px;*/
+    font-size:11pt;
+    border-right: none;
+    width:70%;
+    height:20px;
+    /*margin-left:30px;*/
+    padding-top:2px;
+}
+.subject{
+    /*position:relative;
+    top:-25px;*/
+    font-size:11pt;
+    border-right: none;
+    border-left: none;
+    float:left;
+    width:70%;
+    height:20px;
+    /*margin-left:30px;*/
+    padding-top:2px;
+}
+.date{
+/*    position:relative;
+    top:-40px;*/
+    text-align:right;
+    font-size:11pt;
+    float:right;
+    width:25%;
+    height:20px;
+    margin-right: 5px;
+}
+}
+/*****************************************************/
+/*    Styles for screen 700px and lower             */
+/*****************************************************/
+@media screen and (max-width: 720px) {
+#menu_name{
+    width:40%;
+}
+.elx_email_pag_btn > .btn > .glyphicon{
+    display: inline-block!important;
+}
+.elx_row{
+    min-height:70px;
+}
+.ic{
+    min-height:70px;
+    width:30px;
+}
+.from{
+    width:85%;
+}
+.subject{
+    width:85%;
+}
+.date{
+    width:85%;
+    height:20px;
+    text-align:left;
+    float:left;
+    padding-top:2px;
+    margin:0px;
+}
+}
+/*****************************************************/
+/*    Styles for screen 500px and lower             */
+/*****************************************************/
+@media only screen and (max-width : 500px) {
+    
+}
+/*****************************************************/
+/*    Styles for screen 450px and lower             */
+/*****************************************************/
+@media only screen and (max-width : 450px) {
+#icn_pc{
+    width:100%;
+    float:none;
+    margin:0 auto;
+}
+#icn_pc{	
+    width:240px;	
+}
+#elx_mail_pagingbar_nummails{
+    display:none;
+}
+/*.sel{
+    position:relative;
+    top:30px;
+}*/
+/*****************************************************/
+/*    Styles for screen 260px and lower             */
+/*****************************************************/
+@media only screen and (max-width : 320px) {
+#icn_conf{
+    width:40%;
+}
+#tools{
+    margin-left:40%;
+}	
+.from{
+    width:85%;
+}
+.subject{
+    width:85%;
+}
+.date{
+    width:85%;
+}
+
+
+

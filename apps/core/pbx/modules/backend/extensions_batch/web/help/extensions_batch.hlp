@@ -1,0 +1,76 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>La opción "Lotes de Extensiones" del Menú "PBX" del Elastix permite crear extensiones a partir de un archivo csv, además se puede generar un archivo csv a partir de las extensiones ya creadas, de esta forma se facilita la migración de datos.</p>
+
+<div><img src="../modules/{$node_id}/images/extensions_batch.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>Para crear las extensiones a partir de un archivo csv, de click en examinar busque el archivo y finalmente de click en el botón "Guardar".</p>
+
+<p>Para crear un archivo csv con todas las extensiones creadas en Elastix, de click sobre el link "Descargar Extensiones", y proceda a guardar este archivo localmente.
+
+<p><b>Tomar en consideración:</b></p>
+<p>
+    <ul>
+        <li>No pueden existir extensiones repetidas.</li>
+        <li>Si usted a creado el archivo csv manualmente recuerde que este archivo debe tener en la primera línea las cabeceras (descritas a continuación).</li>
+        <li>Cada fila de datos debe tener al menos 3 campos (columnas, descritas a continuación)</li>
+        <li>Usted puede crear o abrir este tipo de archivos en una hoja de cálculos como OpenOffice Calc, Excel, entre otros, al guardar el documento recuerde que la extensión del archivo debe ser .csv</li>
+        <li>Recuerde que el separador usado en este módulo es , (coma).</li>
+    </ul>
+</p>
+
+<p><b>Cabeceras:</b></p>
+
+<table class="inline">
+  <tr>
+    <th>Cabecera</th><th>Campo Obligatorio</th><th>Dato</th>
+  </tr>
+  <tr>
+    <td>Display Name</td><td>Si</td><td>Texto</td>
+  </tr>
+  <tr>
+    <td>User Extension</td><td>Si</td><td>Numérico</td>
+  </tr>
+  <tr>
+    <td>Direct DID</td><td>No</td><td>Numérico</td>
+  </tr>
+  <tr>
+    <td>Call Waiting</td><td>No</td><td>Enabled, Disabled</td>
+  </tr>
+  <tr>
+    <td>Secret</td><td>Si</td><td>Texto</td>
+  </tr>
+  <tr>
+    <td>Voicemail Status</td><td>No</td><td>Enabled, Disabled</td>
+  </tr>
+  <tr>
+    <td>Voicemail Password</td><td>No</td><td>Texto</td>
+  </tr>
+  <tr>
+    <td>VM Options</td><td>No</td><td>Texto</td>
+  </tr>
+</table>
+<br />
+
+<p>Ejemplo de un archivo csv generado con este módulo y abierto en un editor de texto:</p>
+
+<div><img src="../modules/{$node_id}/images/extensions_batch_csv.jpg" border="0"></div>
+<div>Figure 2</div>
+<br />
+
+<p>El mismo archivo csv abierto desde una hoja de cálculo:</p>
+
+<div><img src="../modules/{$node_id}/images/extensions_batch_calc.jpg" border="0"></div>
+<div>Figure 3</div>
+<br />
+
+</body>
+</html>

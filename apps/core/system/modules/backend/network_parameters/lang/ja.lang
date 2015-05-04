@@ -1,0 +1,61 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+ Codificacion: UTF-8
+ +----------------------------------------------------------------------+
+ | Elastix version 1.0 |
+ | http://www.elastix.org |
+ +----------------------------------------------------------------------+
+ | Copyright (c) 2006 Palosanto Solutions S. A. |
+ +----------------------------------------------------------------------+
+ | Cdla. Nueva Kennedy Calle E 222 y 9na. Este |
+ | Telfs. 2283-268, 2294-440, 2284-356 |
+ | Guayaquil - Ecuador |
+ | http://www.palosanto.com |
+ +----------------------------------------------------------------------+
+ | The contents of this file are subject to the General Public License |
+ | (GPL) Version 2 (the "License"); you may not use this file except in |
+ | compliance with the License. You may obtain a copy of the License at |
+ | http://www.opensource.org/licenses/gpl-license.php |
+ | |
+ | Software distributed under the License is distributed on an "AS IS" |
+ | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See |
+ | the License for the specific language governing rights and |
+ | limitations under the License. |
+ +----------------------------------------------------------------------+
+ | The Original Code is: Elastix Open Source. |
+ | The Initial Developer of the Original Code is PaloSanto Solutions |
+ | |
+ | Translate bye: Tomoaki Tanaka  |
+ | ganymean@gmail.com |
+ +----------------------------------------------------------------------+
+ $Id: ja.lang,v 1.6 2008/05/18 20:00:00 ganymean Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Network Parameters" => "ネットワークパラメータ",
+"Device" => "デバイス",
+"Type" => "タイプ",
+"IP" => "IPアドレス",
+"Mask" => "ネットマスク",
+"MAC Address" => "MACアドレス",
+"HW Info" => "ハードウェア情報",
+"Status" => "状態",
+"Ethernet Interfaces List" => "LANインタフェース一覧",
+"Connected" => "接続中",
+"Not Connected" => "未接続",
+"Edit Interface" => "インターフェースの編集",
+"Validation Error" => "検証エラー",
+"The following fields contain errors" => "以下の内容に間違いがあります",
+"Host" => "ホスト名",
+"Primary DNS" => "プライマリDNS",
+"Secondary DNS" => "セカンダリDNS",
+"Default Gateway" => "デフォルトゲートウェイ",
+"IP Address" => "IPアドレス",
+"Network Mask" => "ネットマスク",
+"Interface Type" => "インタフェースタイプ",
+"Save" => "保存",
+"Edit Network Parameters" => "ネットワークパラメータの編集",
+"Required field" => "必須フィールド",
+"Apply changes" => "変更の適用",
+"Are you sure you want to edit network parameters?" => "ネットワークパラメータを本当に変更しますか？",
+);
+?>

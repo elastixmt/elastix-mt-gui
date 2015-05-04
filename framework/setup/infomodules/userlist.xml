@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="userlist" name="Users" idParent="usermgr" type="module" link=""  order_no="1">
+		<permissions administrative="yes" organization_access="yes" >
+			<actions>
+				<action name="access">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+				<action name="create_user|delete_user|edit_user|reconstruct_mailbox|edit_email_quota">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

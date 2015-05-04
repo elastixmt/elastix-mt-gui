@@ -1,0 +1,72 @@
+.mensajeStatus{
+    height: auto;
+    width: 100%;
+    background-color: #bf040d;
+    background-color: #F08080;
+    margin-top: 4px;
+    margin-bottom: 0px;
+    text-align: center;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font: 13px Verdana, Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    border: 1px solid black;
+    color: black;
+}
+.mensajeStatus a{
+    font: 14px Verdana, Arial,Helvetica,sans-serif;
+    color: black;
+    text-decoration: none;
+}
+/*desde aqui para el estilo de los tabs*/
+.tabs { /* es el rectángulo contenedor */
+min-height: 90px;
+height:auto;
+position: relative;
+padding-top: 5px;
+}
+.tab { /* cada una de las pestañas */
+float: left;
+}
+.neo-table-header-row-filter label { /* la parte superior con el título de la pestaña */
+/*border-radius: 5px 5px 0 0;
+box-shadow: -3px 3px 2px #678 inset;*/
+float: left;
+cursor: pointer;
+left: 0;
+margin-right: 1px;
+margin-bottom: 5px;
+padding: 5px 15px;
+position: relative;
+}
+/* el control input sólo lo necesitamos para que las pestañas permanezcan abiertas así que lo ocultamos */
+.tab [type=radio] { display: none; }
+/* el contenido de las pestañas */
+.content {
+bottom: 0;
+left: 0;
+overflow: hidden;
+padding: 5px;
+position: absolute;
+right: 0;
+top: 10px;
+}
+/* y un poco de animación */
+.content > * {
+    opacity: 0;
+}
+.tabForm td{
+    white-space:nowrap;
+    text-align:left;
+}
+.tabForm th{
+    color: #E35332;
+    font-weight:bold; 
+    text-align:left;
+}
+.item_des_form{
+    display: none;
+}
+#audio_codec, #video_codec{ list-style-type: none; margin: 0; padding: 0; width: 60%; }
+#audio_codec li, #video_codec li{ margin: 0 2px 2px 2px; padding: 0.4em; padding-left: 1.5em; height: 15px; }
+#audio_codec li span, #video_codec li span{ position: absolute; margin-left: -1.3em; }

@@ -1,0 +1,79 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+   Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                             |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on "AS IS"     |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Andrés Flores                                          |
+  | Email: aflores@palosanto.com                                         |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.7 2008/02/18 09:49:00 jvega Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Hardware Detector" => "Hardver detektálása",
+"Ports not Founds" => "Port nem található",
+"Card" => "Span",
+"Type port" => "Port típus",
+"No. Port" => "Portszám",
+"(In Use)" => "(használatban)",
+"Hardware Detecting" => "Hardver detektálás ",
+"Hardware Detect" => "Hardvert detektált",
+"Cards undetected on your system, press for detecting hardware detection." => "Kártya nincs detektálva a rendszerben, kattincs a hardver detektálásra",
+"Information" => "Információ",
+"Satisfactory Hardware Detection" => "Megfelelő hardver detektálás",
+"Unknown" => "Ismeretlen",
+"Replace file chan_dahdi.conf" => "A chan_dahdi.conf file felülírása",
+"Unable to backup file chan_dahdi.conf by chan_dahdi.conf.replace_for_elastix" => "Nem tud a chan_dahdi.conf file-ról mentést készíteni a chan_dahdi.conf_replace_for_elastix-ba",
+"Unable to replace file chan_dahdi.conf" => "Nem cserélhető a chan_dahdi.conf file",
+"Detect Sangoma hardware" => "Detect Sangoma hardware",
+"Detect ISDN hardware" => "Detect ISDN hardware",
+"Misdn Card" => "Misdn Card",
+"(Not in Use)" => "Not in Use",
+"Port" => "Portszám",
+"Configure Echo Cancellers" => "Configure Echo Cancellers",
+"mISDN Driver Installed" => "mISDNuser Driver Installed",
+"mISDN Driver not Installed" => "mISDNuser Driver not Installed",
+"Channel detected and not used" => "Channel detected and not in service",
+"Channel detected and in use" => "Channel detected and in service",
+"Undetected Channel" => "Undetected Channel",
+"You can set the parameters for these ports here" => "You can set the parameters for these ports here",
+"Port Status" => "Port Status",
+"Configuration of Span" => "Configuration of Span",
+"Span Settings" => "Span Settings",
+"Advanced" => "Advanced",
+"Preferences" => "Preferences",
+"Timing source" => "Timing source",
+"Line build out" => "Line build out",
+"Framing" => "Framing",
+"Coding" => "Coding",
+"No Ports availables" => "No Ports availables",
+"Card Configured" => "Card Configured",
+"Loading SPAN" => "Loading SPAN",
+"Saving configuration" => "Saving configuration",
+"Detected by Asterisk" => "Detected by Asterisk",
+"Not detected by Asterisk" => "Not detected by Asterisk",
+"Hardware Control" => "Hardware Control",
+"Channel Empty" => "Channel Empty",
+);
+?>

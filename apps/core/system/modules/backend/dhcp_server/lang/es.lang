@@ -1,0 +1,64 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"DHCP Server" => "Servidor DHCP",
+"Update" => "Guardar/Actualizar",
+"Service Start" => "Activar DHCP",
+"Service Stop" => "Desactivar DHCP",
+"Start range of IPs" => "Inicio del rango de IPs",
+"End range of IPs" => "Fin del rango de IPs",
+"DNS 1" => "DNS 1",
+"DNS 2" => "DNS 2",
+"WINS" => "WINS",
+"Gateway" => "Gateway",
+"Optional" => "Opcional",
+"Of 1 to 50000 Seconds" => "de 1 a 50000 Segundos",
+"Time of client refreshment" => "Tiempo de concesión",
+"DHCP Configuration" => "Configuración Servidor DHCP",
+"Could not find IP range" => "No se puedo encontrar el rango de IP",
+"DHCP configuration reading error: Verify that the DHCP service is installed and try again." => "Error al leer la configuración DHCP: Verifique que el servicio DHCP este instalado e intente de nuevo.",
+"Information DHCP" => "Información",
+"The Service dhcpd can't stop" => "No se puedo parar el Servicio DHCP",
+"The Service dhcpd can't start" => "No se puedo iniciar el Servicio DHCP",
+"The start IP is outside the LAN network" => "EL inicio de la IP está fuera del area de trabajo de la red LAN",
+"The final IP is outside the LAN network" => "El final de la IP estáis fuera del area de trabajo de la red LAN",
+"IP Range is invalid for available devices" => "Rango de IP es invalido para el dispositivo disponible",
+"Gateway is outside the LAN network" => "Gateway esta fuera del area de trabajo de la red LAN",
+"You can only choose between Enabled and Disabled" => "Tu puedes solo elegir entre habilitar y Desabilitar",
+"Value outside the range (1-50000)" => "Valor fuera del rango (1-50000)",
+"Failed to update the file configuration" => "No se pudo actualizar el archivo de configuración",
+"The update was successful, but was unable to reestablish the permissions of the file dhcp.conf" => "La actualización fue exitosa, pero no se pudo reestablecer los permisos del archivo dhcp.conf",
+"Update Error" => "Error al Actualizar",
+"Status" => "Estado",
+"Inactive" => "Inactivo",
+"Information" => "Informacion",
+"Active"=>"Activo",
+);
+?>

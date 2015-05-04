@@ -1,0 +1,64 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Number" => "Numero RG",
+"Name"   => "Nombre RG",
+"Strategy" => "Estrategia de Marcado",
+"Ring Time" => "Tiempo de Timbrado",
+"Ignore CF" => "Ignorar Reenvio de Llamadas",
+"Skip Busy Extensions" => "Saltar Extensiones Ocupadas",
+"Default Destination" => "Default Destination",
+"Error to obtain Ring Groups" => "Error to obtain Ring Groups. ",
+"Create New Ring Group" => "Crear Nuevo Ring Group",
+"Click here to reload dialplan" => "Click aqui para recargar el plan de marcado. ",
+"Invalid Ring Group" => "Ring Group no vàlido. ",
+"Field 'Name' can't be empty." => "Campo 'Name' no puede ser vacìo.",
+"Ring Group has been created successfully" => "Ring Group se creo exitosamente. ",
+"You must select a destination for this ring_group." => "Usted debe seleccionar un destination para el ring group. ",
+"The Ring Group was deleted successfully" => "El Ring Group fue borrado exitosamente. ",
+"Ring Group has been edited successfully" => "Ring Group fue editado exitosamente. ",
+"TC_timegroup" => "Selecciona uno de los grupos",
+"TC_destinem" => "Escoge el destino en caso de exito",
+"TC_destinef" => "Escoge el destino en caso de fallo",
+"Organization Domain" => "Dominio de la Organización",
+"Destination If Match" => "Destino si fue exitosa",
+"Destination If Fail" => "Destino si fue erronea",
+"Destine" => "Destino",
+"TC Route" => "Ruta TC",
+"Destination Match" => "Destino Exito",
+"Destination Fail" => "Destino Fallo",
+"ADD Time Conditions" => "Agregar Condición de Tiempo",
+"Time Conditions List" => "Lista de Condiciones de Tiempo",
+"Time Condition Name" => "Nombre Condición de Tiempo",
+"--Select one--" => "Selecciona Uno",
+"- choose one -" => "Escoge Uno",
+"Selected Time Group doesn't exist" => "El grupo seleccionado no existe",
+);
+?>

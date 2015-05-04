@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="system" name="System" idParent="" type="" link=""  order_no="1">
+		<permissions administrative="yes" organization_access="yes" >       
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

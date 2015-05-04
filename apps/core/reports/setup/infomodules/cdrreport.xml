@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="cdrreport" name="CDR Report" idParent="reports" type="module" link=""  order_no="1">
+		<permissions administrative="yes" organization_access="yes" >
+			<actions>
+				<action name="access">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator"    desc="Administrator"   />
+						<group id="3" name="supervisor"    desc="Supervisor"   />
+					</groups>
+				</action>
+				<action name="delete">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+					</groups>
+				</action>
+				<action name="export">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+						<group id="2" name="administrator"    desc="Administrator"   />
+						<group id="3" name="supervisor"    desc="Supervisor"   />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

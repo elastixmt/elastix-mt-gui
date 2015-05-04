@@ -1,0 +1,46 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.2.0-29                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2012-02-07 11:02:13 Rocio Mera rmera@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Organization Domain" => "Organization Domain",
+"Type" => "Type",
+"message did" => "Here you can create a DID, which can later be assigned to organizations in this server. The assignment of DID is made from the 'organization' module.<br />If you do not assign a DID to an organization, it will not be able to receive external calls.<br />
+If you pick 'analog' in the 'type' parameter, it will be assumed that you have an analog card in your server, so you must assign the ports related to this DID.",
+"DID was created successfully" => "DID was created successfully.</br>You can assign this DID to a organization from System >> User >> Organization",
+"DID_number" => "Defines the DID number",
+"DID_type" => "Defines the type of DID (Analogic, Digital, Voip)",
+"DID_channels" => "Select the type of device (only in case: analogic)",
+"DID_country" => "Defines your country",
+"DID_countrycode" => "Defines the country code",
+"DID_areacode" => "Defines the area code",
+"DID_org" => "Select the organization(s)",
+"DID_status" => "Defines the status",
+"DID_city" => "Defines the city",
+);
+?>

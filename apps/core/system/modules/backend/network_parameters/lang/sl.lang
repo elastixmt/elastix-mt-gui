@@ -1,0 +1,58 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: sl.lang,v 1.6 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Network Parameters" => "Omrežni parametri",
+"Device" => "Naprava",
+"Type" => "Tip",
+"IP" => "IP naslov",
+"Mask" => "Omrežna maska",
+"MAC Address" => "MAC naslov",
+"HW Info" => "Strojene informacije",
+"Status" => "Status",
+"Ethernet Interfaces List" => "Seznam lokalnih vmesnikov",
+"Connected" => "Povezan",
+"Not Connected" => "Ni povezave",
+"Edit Interface" => "Uredi vmesnik",
+"Validation Error" => "Napaka v potrditvi veljavnosti",
+"The following fields contain errors" => "Ta polja vsebujejo napako",
+"Host" => "Strežnik",
+"Primary DNS" => "Primarni DNS steržnik",
+"Secondary DNS" => "Sekundarni DNS strežnik",
+"Default Gateway" => "Privzeti prehod",
+"IP Address" => "IP naslov",
+"Network Mask" => "Omrežna maska",
+"Interface Type" => "Tip vmesnika",
+"Save" => "Shrani",
+"Edit Network Parameters" => "Uredi omrežne parametre",
+"Required field" => "Potrebno polje",
+"Apply changes" => "Uveljavi spremembe",
+"Are you sure you want to edit network parameters?" => "Ali ste prepričani, da hočete spremeniti/urediti omrežne nastavitve?",
+);
+?>

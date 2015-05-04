@@ -1,0 +1,43 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>The option “System Info” of the Menu “System” in Elastix lets us monitor the server’s hardware resources.<p>
+<p>Within this option, we have two sections:</p>
+
+<p><b>System Resources</b></p>
+
+<p>“System Resource” shows us the values of actual use of both the memory as well as the processor.</p>
+
+<div><img src="../modules/{$node_id}/images/system_resources_1.jpg" border="0"></div>
+
+<ul>
+<li><b>CPU Info:</b> Information about brand, model and processor speed</li>
+<li><b>Uptime:</b> Time from the last reboot of the server</li>
+<li><b>CPU usage:</b> Percentage of use of processor capacity</li>
+<li><b>Memory usage:</b> Percentage of RAM memory utilized</li>
+<li><b>Swap usage:</b> Percentage of SWAP memory utilized</li>
+</ul>
+
+<p>Here is a graphic with the statistics of simultaneous calls, percentage of use of processor and percentage of use of RAM memory.</p>
+
+<div><img src="../modules/{$node_id}/images/system_resources_2.jpg" border="0"></div>
+
+<p><b>Hard Drives</b></p>
+
+<p>This section shows a summary of the utilization of storage available on the server.</p>
+
+<div><img src="../modules/{$node_id}/images/system_resources_3.jpg" border="0"></div>
+
+<ul>
+<li><b>Partition name:</b> The name of the partition in the hard drive. Example:"HDA2"</li>
+<li><b>Capacity:</b> The maximum storage capacity for the installed hard drive</li>
+<li><b>Usage:</b> The percentage of the maximum storage capacity of the hard drive that has been used already</li>
+<li><b>Mount point:</b> The name of the point in the filesystem where the partition is to be mounted</li>
+</ul>
+</body>
+</html>

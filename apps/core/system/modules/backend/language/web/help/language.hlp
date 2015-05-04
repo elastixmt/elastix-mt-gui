@@ -1,0 +1,19 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “Language” of the Menu “Preferences” in Elastix lets us configure the language for the Elastix Web Interface.</p>
+
+<div><img src="../modules/{$node_id}/images/preferences_language.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>Select the language from the list and click the “Change” button.</p>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ 
+  $Id: es.lang,v 1.8 2014/04/14 14:04:42 achuto@elastix.com Exp $ 
+  $Id: es.lang,v 1.9 2014/04/25 14:45:40 achuto@elastix.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Are you sure you wish to delete backup (s)?" => "Esta seguro que desea eliminar el (los) respaldos(?)",
+"Database" => "Base de Datos",
+"PDF" => "PDF",
+"Endpoint" => "Endpoint",
+"Asterisk" => "Asterisk",
+"All options (Fax)" => "Todas las opciones (Fax)",
+"All options (Email)" => "Todas las opciones (Email)",
+"All options (Endpoint)" => "Todas las opciones (Endpoint)",
+"All options (Asterisk)" => "Todas las opciones (Asterisk)",
+"DAHDI Configuration" => "Configuración de DAHDI",
+"Others" => "Otros",
+"All options (Others)" => "Todas las opciones (Others)",
+"SugarCRM Database" => "Base de Datos SugarCRM",
+"VtigerCRM Database" => "Base de Datos VtigerCRM",
+"A2billing Database" => "Base de Datos A2billing",
+"Mysql Database" => "Base de Datos Mysql",
+"Menus and Permissions" => "Menús y Permisos",
+"This process could take several minutes" => "Este proceso puede tomar varios minutos",
+"Mailbox" => "Buzón de Entrada",
+"(Heavy Content)" => "(Contenido Pesado)",
+"Upload" => "Subir",
+"File Upload" => "Subir Archivo",
+"The backup file would have a tar extension" => "El archivo de respaldo debe tener extensión tar",
+"Error copying the file" => "Error copiando el archivo",
+"The file was copied correctly" => "El archivo fue copiado correctamente",
+"Backup" => "Desarrollar un respaldo...",
+"Process" => "Procesar",
+"Restore" => "Restaurar",
+"Elastix Database" => "Dase de Datos",
+"Sounds" => "Sonidos",
+"Configuration Files" => "Archivos de configuración",
+"Monitors" => "Monitoreos",
+"tFTP" => "tFTP",
+"Email Acccounts" => "Cuentas de Correo",
+"Choose an option to backup" => "Seleccione una opción para respaldar",
+"Could not generate backup file" => "No se pudo generar archivo de respaldo",
+"Backup Complete!" => "Respaldo Completado!",
+"Choose an option to restore" => "Seleccione una opción para restaurar",
+"Backup file path can't be empty" => "Debe especificar la ruta del archivo de respaldo",
+"File doesn't exist" => "Archivo no existe",
+"Restore Complete!" => "Proceso de restauración Completado!",
+"Backup File Location" => "Ruta de Archivo de Respaldo",
+"Select All options" => "Selecciona todas las opciones",
+"Backup/Restore" => "Respaldar/Restaurar",
+"Backup List" => "Listado de Respaldos",
+"Name Backup" => "Nombre del Respaldo",
+"Error when deleting backup file" => "Error al borrar el archivo de respaldo",
+"There are not backup file selected" => "No hay archivo de respaldo seleccionado",
+"Action" => "Acción",
+"Folder backup doesn't exist" => "El directorio backup no existe",
+"Flash Operator Panel Config Files" => "Archivos de configuración del panel de operaciones",
+"Date" => "Fecha",
+"Voicemails" => "Correo de Voz",
+"Fax" => "Fax",
+"Email" => "Email",
+"Dahdi Configuration" => "Configuración Dahdi",
+"Cancel" => "Cancelar",
+"Select all in this section" => "Seleccionar todo en esta sección",
+"MOH" => "Música de espera",
+"Others new" => "Otros",
+"Calendar  Database" => "Base de datos de calendario",
+"Address Book Database" => "Base de datos de agenda",
+"Conference  Database" => "Base de datos de conferencia",
+"FTP Backup" => "Respaldo FTP",
+"Server FTP" => "Servidor FTP",
+"Port" => "Puerto",
+"User" => "Usuario",
+"Password" => "Contraseña",
+"Local" => "Local",
+"Upload" => "Subir",
+"Download" => "Descargar",
+"Path Server FTP" => "Ruta en servidor FTP",
+"Error to connect" => "Por favor llene todos los campos para contactar al servidor",
+"Error Connection" => "No se puede conectar al servidor",
+"Error user_password" => "No se puede conectar con este usuario y contraseña",
+"Error to save" => "Por favor llene todos los campos para guardar",
+"Error Drag Drop" => "Por favor arrastre y coloque un archivo entre listas",
+"Error to request" => "Se ha encontrado un problema en la conexión",
+"Successfully uploaded" => "Envío exitoso",
+"Problem uploading" => "Se ha encontrado un problema al enviar",
+"Successfully written" => "Escritura exitosa",
+"Problem downloading" => "Se ha encontrado un problema al descargar",
+"TITLE" => "Por favor arrastre y coloque un archivo tar entre listas para enviar o descargar vía FTP",
+"AUTOMATIC" => "Establecer Respaldo Automático",
+"DAILY" => "Diario",
+"MONTHLY" => "Mensual",
+"WEEKLY" => "Semanal",
+"DISABLED" => "Desactivado",
+"SUCCESSFUL" => "Proceso exitoso",
+"Unabled write file" => "No se puede escribir archivo",
+"Unabled open file" => "No se puede abrir archivo",
+"EOP" => "EOP",
+"programs" => "Programas",
+"Warning" => "<b><font size='2' color='red'>WARNING:</font></b> Las versiones a restaurar son distintas. Pueden ocurrir problemas con los programas luego de restaurar. Elija procesar para aceptar, o cancelar.",
+"local_version" => "Actual",
+"external_version" => "A restaurar",
+"details" => "Ver detalles",
+"warning_details" => "Detalles de advertencia",
+"no_file_xml" => "<b><font size='2' color='red'>WARNING:</font></b> No hay versiones de datos en archivo de respaldo. Pueden ocurrir problemas con los programas luego de restaurar. Elija procesar para aceptar, o cancelar.",
+"asterisk" => "Asterisk",
+"dahdi" => "DAHDI",
+"wanpipe-util" => "Wanpipe-Util",
+"freepbx" => "Freepbx",
+"elastix" => "Elastix",
+"Package" => "Paquete",
+"elastix-pbx" => "Elastix PBX",
+"elastix-email_admin" => "Elastix Email",
+"elastix-agenda" => "Elastix Agenda",
+"elastix-fax" => "Elastix Fax",
+"elastix-vtigercrm" => "Elastix VtigerCRM",
+"elastix-a2billing" => "Elastix A2billing",
+"elastix-sugarcrm-addon" => "Elastix SugarCRM",
+"Package not installed" => "No instalado",
+"Version" => "Versión",
+"Please verify if the mysql password is the correct in /etc/elastix.conf (mysqlrootpwd)" => "Por favor verfique la clave de mysql si esta correcta en /etc/elastix.conf (mysqlrootpwd)",
+);
+?>

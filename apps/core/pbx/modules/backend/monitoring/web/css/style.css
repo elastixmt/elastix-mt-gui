@@ -1,0 +1,26 @@
+.start, .play, .stop, .disable, .start1{
+    vertical-align: bottom;
+    width:50px;
+    border-radius: 5px;
+    -ms-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    background: white;
+    border : 1px;
+    cursor: pointer;    
+    float: left;
+    text-align:center;
+}
+.start, .stop{
+     float : none;
+}
+.start:hover,.start1:hover{ 
+    box-shadow: 1px 3px 8px grey;
+    -webkit-box-shadow: 1px 3px 8px grey; 
+    -moz-box-shadow: 1px 3px 8px grey; 
+    -o-box-shadow: 1px 3px 8px grey; 
+}
+.display{
+    font-size: 18px;
+}

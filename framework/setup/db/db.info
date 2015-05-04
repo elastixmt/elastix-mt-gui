@@ -1,0 +1,18 @@
+[elxpbx]
+ignore_backup = no
+engine = mysql
+path = /var/lib/mysql
+deletable = yes
+prefix = 1  
+
+[register]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes
+
+[samples]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes

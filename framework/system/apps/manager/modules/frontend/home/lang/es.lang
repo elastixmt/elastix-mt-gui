@@ -1,0 +1,83 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.4-1                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2008-08-25 05:08:01 jvega jvega@palosanto.com Exp $ 
+  $Id: en.lang,v 1.2 2014-04-25 15:38:01 achuto achuto@elastix.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"INBOX"=>"Bandeja",
+"Sent"=>"Enviados",
+"Drafts"=>"Borradores",
+"Trash"=>"Eliminados",
+"Spam"=>"Spam",
+"View"=>"Ver",
+"Seen"=>"Vistos",
+"Unseen"=>"No vistos",
+"Important"=>"Destacados",
+"No Important"=>"No Destacados",
+"There is not message"=>"No existe mensaje",
+"All"=>"Todos",
+"At_least_one"=>"Usted debe seleccionar al menos un mensaje válido",
+"Success_mv"=>"Los mensajes fueron movidos exitosamente",
+"Dest_mail_inv"=>"La casilla de destino es inválida",
+"Success_tag"=>"Los mensajes fueron marcados exitosamente",
+"view_bodymail" => "ver cuerpo del mensaje",
+"Invalid Username"=>"Nombre Usuario Invalido",
+"Searching..."=>"Buscando...",
+"Loading..."=>"Cargando...",
+"There are no messages" => "No hay mensajes",
+"There are no messages in this mailbox" => "No hay mensajes en este buzon",
+"Flag as Unimportant" => "Marcar como no importante",
+"Flag as Important" => "Marcar como importante",
+"Delete" => "Borrar",
+"Forward" => "Reenviar",
+"Reply All"=> "Responder a todos",
+"Reply" => "Responder",
+"Reply to" => "Responder a",
+"Actions" => "Acciones",
+"Profile" => "Mi Perfil",
+"Contacts List" => "Lista de Contactos",
+"Contact Type:" => "Tipo de Contacto",
+"Mark message as" => "Marcar mensaje como",
+"Move to" => "Mover hacia",
+"User" => "Usuario",
+"Subject" => "Tema",
+"To" => "A",
+"SEND MAIL" => "Envio de Email",
+"Send" => "Enviar",
+"New Folder" => "Nueva carpeta",
+"Attach" => "Adjuntar",
+"Not messages" => "No tiene mensajes",
+"Messages"=> "Mensajes",
+"Folders" => "Carpetas",
+"Delete Image" => "Borrar Imagen",
+"All"=>"Todos",
+"Invalid Field 'TO'" => "Invalido el campo 'A:'",
+"Sent"=>"Envios",
+"Drafts" => "Borradores"
+);
+?>

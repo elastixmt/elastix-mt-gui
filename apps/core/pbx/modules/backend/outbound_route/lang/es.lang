@@ -1,0 +1,110 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Create New User" => "Crear Nuevo Usuario",
+"Name" => "Nombre",
+"Login" => "Login",
+"Password" => "Contraseña",
+"Retype password" => "Confirmar Contraseña",
+"New User" => "Nuevo Usuario",
+"Edit User" => "Editar Usuario",
+"The passwords are empty or don't match" => "Las contraseñas están vacías o no concuerdan",
+"The admin user cannot be deleted because is the default Elastix administrator. You can delete any other user." => "El usuario admin no puede ser eliminado porque es el administrador de Elastix predeterminado. Puede borrar cualquier otro usuario.",
+"User List" => "Lista de Usuarios",
+"Real Name" => "Nombre",
+"Extension" => "Extensión",
+"(Ex. John Doe)" => "(Ex. John Doe)",
+"Webmail User" => "Usuario de Webmail",
+"Webmail Domain" => "Dominio de Webmail",
+"Webmail Password" => "Contraseña de Webmail",
+"Retype Webmail password" => "Reingrese contraseña de Webmail",
+"Mail Profile" => "Perfil de Mail",
+"No extension associated" => "La extensión no ha sido asociada",
+"userNoAllowed" => "El usuario no está autorizado a realizar esta acción",
+"You are not authorized to access to information of that user" => "Usted no está autorizado a acceder a la información de ese usuario",
+"no extension" => "sin extensión",
+"User ID and Group ID can't be empty" => "ID de usuario y ID de grupo no pueden ser vacios. ",
+"Invalid new Group" => "Nuevo grupo no es valido. ",
+"Error getting settings from extension user" => "Error obteniendo configuracion de la extension del usuario. ",
+"Error getting settings from fax extension user" => "Error obteniendo configuracion de la extension de fax del usuario. ",
+"Extension and Fax Extension can not be equal" => "Extension y Extension de Fax no pueden ser iguales ",
+"Error setting parameters faxs" => "Error configurando parametros del fax. ",
+"Error setting email quota" => "Error configurando quota de email. ",
+"Property quota is not set" => "Email quota no esta configurada. ",
+"Error setting user properties" => "Error configurando propiedades del usuario. ",
+"Error trying create email_account" => "Error al tratar de crear la cuenta del mail. ",
+"Error trying create new fax" => "Error al tratar de crear el nuevo fax. ",
+"User couldn't be created" => "Usuario no puedo ser creado. ",
+"Invalid Organization" => "Organizacion no es valida. ",
+"You aren't authorized to perform this action" => "Usted no esta autorizado para realizar esta accion. ",
+"Can't set email contact." => "No se puede configurar email del contacto.",
+"User couldn't be update." => "Usuario no pudo ser actualizado.",
+"User dosen't exist" => "Usuario no existe. ",
+"Invalid Action" => "Accion no es valida. ",
+"Couldn't updated user extensions" => "No se pudo actualizar la extension del usuario. ",
+"Password couldn't be updated" => "Contraseña no pudo ser actualizada. ",
+"Error Updating fax configuration" => "Error actualizando las configuraciones del fax. ",
+"Failed Updated Group" => "Error al tratar de cambiar la usuario de grupo. ",
+"Old Fax extension can't be deleted" => "Antigua extension de fax no pudo ser borrada. ",
+"Old extension can't be deleted" => "Antigua extension no pudo ser borrada. ",
+"Email Account cannot be deleted" => "Cuenta de Email no pudo ser borrada. ",
+"Fax cannot be deleted" => "Fax no pudo ser borrado. ",
+"User Extension can't be deleted" => "Extension de usuario no pudo ser borrada. ",
+"Need assign password" => "Es necesario establecer una contraseña si desea asignar al usuario una nueva extension o extensión de fax. ",
+"OU_routename" => "Define el nombre de la ruta",
+"OU_outcid" => "Especifica el CID de la ruta",
+"OU_routepass" => "Define la contraseña para la ruta",
+"OU_musiconhold" => "Especifica el tipo de sonido",
+"OU_timegroup" => "Define el tiempo para los grupos",
+"ADD Outbound Route" => "Agregar Nueva Ruta saliente",
+"Settings" => "Configuraciones",
+"Dial Patterns" => "Patrones de marcado",
+"Trunk Sequence for Matched Routes" => "Secuencia de troncales para rutas coincidentes",
+"Organization Domain" => "Dominio de la Organización",
+"Route Name" => "Nombre de la ruta",
+"Route Password" => "Contraseña de la ruta",
+"Time Group" => "Tiempo de Grupo",
+"Route CID" => "Ruta de CID",
+"Music On Hold" => "Música en Espera",
+"Caller Id" => "Identificador de llamada",
+"Prefix" => "Prefijo",
+"Match Pattern" => "Patron coincidente",
+"TRUNKS" => "TRONCALES",
+"TRUNKS SEQUENCE" => "TRONCALES DE SECUENCIA",
+"Drag and Drop Trunk into Sequence Trunk Area" => "Arrastrar y Soltar Troncales en el area de Troncales de Secuencia",
+"Outbound Routes List" => "Lista de Rutas Salientes",
+"Order" => "Orden",
+"Override Extension" => "Sobreescribir Extensión",
+"Inbound Routes List" => "Lista de rutas de entrada ",
+"all" => "Todas",
+"-- Permanent Route --" => "Ruta Permanente",
+"Outbound Route" => "Ruta Saliente",
+);
+?>

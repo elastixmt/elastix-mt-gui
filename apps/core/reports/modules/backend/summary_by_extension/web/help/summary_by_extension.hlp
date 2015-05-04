@@ -1,0 +1,16 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify"></p>
+
+        <!-- Form to add images -->
+        <div><img src="../modules/{$node_id}/images/help_summary.png" border="0"></div>
+	<p>Figura 1</p>
+	<p></p>
+	<p>La opción "Summary by Extension" del menú "Reports" de Elastix muestra un reporte de cada extensión que está conectada a Elastix.(Figura 1).</p>
+    </body>
+</html>

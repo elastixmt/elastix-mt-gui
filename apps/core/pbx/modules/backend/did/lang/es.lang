@@ -1,0 +1,67 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.2.0-29                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2012-02-07 11:02:13 Rocio Mera rmera@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Organization Domain" => "Dominio de la Organización",
+"Type" => "Tipo",
+"message did" => "Tu puedes crear una DID, que pueden ser asignadas a organizaciones en este servidor. La asignacion de DID es hecha desde el modulo 'Organizacion'.<br />Si tu  no asignas un DID a la organizacion, Esta no podria habilitar la recpeción de llamadas externas.<br />
+Si tu seleccionas 'analogic' en el tipo de parametro, Elastix asume que tu tienes una tarjeta analogica en su servidor, tu debes asignar los puertos relativos a este DID.",
+"DID was created successfully" => "DID fue creado exitosamente..</br>Usted puede aisganar el DID a una organizacion desde System >> User >> Organization",
+"DID_number" => "Define un numero para el DID",
+"DID_type" => "Define el tipo de DID (analogico, voip, digital)",
+"DID_channels" => "Selecciona el tipo de dispositivo (Unicamente en caso: analogico)",
+"DID_country" => "Define el pais",
+"DID_countrycode" => "Define el codigo de pais",
+"DID_areacode" => "Define el codigo de area",
+"DID_org" => "Selecciona la(s) organizacion(es)",
+"DID_status" => "Selecciona el estado actual",
+"DID_city" => "Define el nombre la ciudad",
+"DID Number"=> "Número del DID",
+"Channels" => "Canales",
+"Country" => "País",
+"City" => "Ciudad",
+"Country Code" => "Codigo de País",
+"Area Code" => "Codigo de Area",
+"Save" => "Guardar",
+"Cancel" => "Cancelar",
+"New DID" => "Crear Nuevo DID",
+"DID Parameters" => "Parametros DID",
+"Country Code / Area Code" => "Código Pais/Código Area",
+"Did Number" => "Número de DID",
+"Status" => "Estado",
+"All" => "Mostrar Todas",
+"all" => "Todas",
+"analog" => "analogico",
+"--Select one--" => "Selecciona alguno",
+"Select a country" => "Selecciona un país",
+"Assigned" => "Asignado",
+"No Assigned" => "No Asignado",
+"DID List" => "Lista de DID",
+);
+?>

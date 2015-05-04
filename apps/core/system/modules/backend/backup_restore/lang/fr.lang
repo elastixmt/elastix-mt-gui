@@ -1,0 +1,149 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version: 2.0                                           |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by:Dannarz                                             |
+  | Email: sesshomarurin7@palosanto.com                                                       |
+  +----------------------------------------------------------------------+
+  $Id: fr.lang, October 25, 2010, 5:39 pm kleber andres loayza Exp $ */
+global $arrLangModule;
+$arrLangModule=array(  
+"Are you sure you wish to delete backup (s)?" => "Etes vous sûr de vouloir effacer la(les) sauvegarde (s)?",
+"Database" => "Base de données",
+"PDF" => "PDF",
+"Endpoint" => "Terminal",
+"Asterisk" => "Asterisk",
+"All options (Fax)" => "Toutes les options (Fax)",
+"All options (Email)" => "Toutes les options (Email)",
+"All options (Endpoint)" => "Toutes les options (Terminal)",
+"All options (Asterisk)" => "Toutes les options (Asterisk)",
+"DAHDI Configuration" => "Configuration DAHDI",
+"Others" => "Autres",
+"All options (Others)" => "Toutes les options (Autres)",
+"SugarCRM Database" => "Base de données SugarCRM",
+"VtigerCRM Database" => "Base de données VtigerCRM",
+"A2billing Database" => "Base de données A2billing",
+"Mysql Database" => "Base de données Mysql",
+"Menus and Permissions" => "Menus et Permissions",
+"This process could take several minutes" => "Cette action peut prendre quelques minutes",
+"Mailbox" => "Boite Email",
+"(Heavy Content)" => "(Contenu lourd)",
+"Upload" => "Transmettre",
+"File Upload" => "Fichier à envoyer",
+"The backup file would have a tar extension" => "Le fichier de sauvegarde doit avoir une extension .tar .",
+"Error copying the file" => "Erreur de copie de fichier",
+"The file was copied correctly" => "Le fichier a été copié correctement",
+"Backup" => "Exécuter une sauvegarde....",
+"Process" => "Exécuter",
+"Restore" => "Restauration",
+"Elastix Database" => "Base de données Elastix",
+"Sounds" => "Sons",
+"Configuration Files" => "Fichiers de Configuration",
+"Monitors" => "Surveillance",
+"tFTP" => "tFTP",
+"Email Acccounts" => "Comptes Email",
+"Choose an option to backup" => "Choisissez une option de sauvegarde",
+"Could not generate backup file" => "Impossible de créer le fichier de sauvegarde",
+"Backup Complete!" => "Sauvegarde Terminée !",
+"Choose an option to restore" => "Choisissez une option de restauration",
+"Backup file path can't be empty" => "Le chemin du fichier de sauvegarde ne peut pas être vide",
+"File doesn't exist" => "Fichier inexistant",
+"Restore Complete!" => "Restauration Terminée !",
+"Backup File Location" => "Emplacement fichier de sauvegarde",
+"Select All options" => "Select All options",
+"Backup/Restore" => "Sauvegarde/Restauration",
+"Backup List" => "Liste Sauvegardes",
+"Name Backup" => "Nom de Sauvegarde",
+"Error when deleting backup file" => "Erreur lors de l'effacement du fichier de sauvegarde",
+"There are not backup file selected" => "Il n'y a aucun fichier de sauvegarde sélectionné",
+"Action" => "Action",
+"Folder backup doesn't exist" => "Dossier de sauvegarde inexistant",
+"Flash Operator Panel Config Files" => "Fichiers de config FOP",
+"Date" => "Date",
+"Voicemails" => "Messagerie vocale",
+"Fax" => "Fax",
+"Email" => "Email",
+"Dahdi Configuration" => "Configuration Dahdi",
+"Cancel" => "Cancel",
+"Select all in this section" => "Sélectionner tout",
+"MOH" => "Musique d'Attente (Contenu lourd)",
+"Others new" => "Autres Suite",
+"Calendar  Database" => "Base de données Calendrier",
+"Address Book Database" => "Base de données Carnet d'Adresses",
+"Conference  Database" => "Base de données Conférence",
+"FTP Backup" => "Sauvegarde FTP",
+"Server FTP" => "Serveur FTP",
+"Port" => "Port",
+"User" => "Utilisateur",
+"Password" => "Mot de passe",
+"Local" => "Local",
+"Download" => "Télécharger",
+"Path Server FTP" => "Chemin du serveur",
+"Error to connect" => "SVP remplissez tous les champs pour vous connecter au serveur",
+"Error Connection" => "Ne peut se connecter au serveur!",
+"Error user_password" => "Ne peu se connecter au serveur avec cet utilisateur ou mot de passe!",
+"Error to save" => "SVP, remplissez tous les champs pour sauvegarder!",
+"Error Drag Drop" => "SVP, Glisser-déplacer un fichier entre les listes!",
+"Error to request" => "Il y a eu un problème avec la connexion!",
+"Successfully uploaded" => "Téléchargé avec succès.",
+"Problem uploading" => "Il y a eu un problème avec la transmission!",
+"Successfully written" => "Écrit avec succès.",
+"Problem downloading" => "Il y a eu un problème avec le téléchargement!",
+"TITLE" => "SVP Glisser-déplacer un fichier .tar entre listes pour transmettre ou télécharger par FTP",
+"AUTOMATIC" => "Sauvegarde Automatique",
+"DAILY" => "Quotidienne",
+"MONTHLY" => "Mensuelle",
+"WEEKLY" => "Chaque semaine",
+"DISABLED" => "Désactivé",
+"SUCCESSFUL" => "Processus effectué",
+"Unabled write file" => "Impossible d'écrire le fichier",
+"Unabled open file" => "Impossible d'ouvrir le fichier",
+"EOP" => "EOP",
+"programs" => "Programmes",
+"Warning" => "<b><font size='2' color='red'>Attention:</font></b> Les versions restaurées sont différentes. Vous pourriez avoir des problèmes avec le comportement des programmes après avoir restauré. Cliquer sur <b>Exécuter</b> pour accepter ou annuler sinon.",
+"local_version" => "Actuelle",
+"external_version" => "Restaurée",
+"details" => "Voir les détails",
+"warning_details" => "Attention au détails!",
+"no_file_xml" => "<b><font size='2' color='red'>Attention:</font></b> Aucune donnée de version dans le fichier de restauration. Vous pourriez avoir des problèmes avec le comportement des programmes après avoir restauré. Cliquer sur <b>Exécuter</b> pour accepter ou annuler sinon.",
+"asterisk" => "Asterisk",
+"dahdi" => "DAHDI",
+"wanpipe-util" => "Wanpipe-Util",
+"freepbx" => "Freepbx",
+"elastix" => "Elastix",
+"Package" => "Package",
+"elastix-pbx" => "Elastix PBX",
+"elastix-email_admin" => "Elastix Email",
+"elastix-agenda" => "Elastix Agenda",
+"elastix-fax" => "Elastix Fax",
+"elastix-vtigercrm" => "Elastix VtigerCRM",
+"elastix-a2billing" => "Elastix A2billing",
+"elastix-sugarcrm-addon" => "Elastix SugarCRM",
+"Package not installed" => "Not installed",
+"Version" => "Version",
+"Please verify if the mysql password is the correct in /etc/elastix.conf (mysqlrootpwd)" => "Please verify if the mysql password is the correct in /etc/elastix.conf (mysqlrootpwd)",
+);
+?>

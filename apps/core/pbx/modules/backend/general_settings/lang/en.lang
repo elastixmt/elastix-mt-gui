@@ -1,0 +1,130 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0-16                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2008-10-30 09:10:15 Bruno Macias bmacias@elastix.org Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Create New Extension"=>"Create New Extension",
+"Name"=>"Name",
+"Login"=>"Login",
+"Password" => "Password",
+"Retype password"=>"Retype password",
+"New Extension"=>"New Extension",
+"Edit Extension"=>"Edit Extension",
+"Error to obtain extensions"=>"Error trying get extensions. ",
+"on_demand"=>"On demand",
+"GS_asteriskdialoptions" => "Asterisk dial options",
+"GS_asteriskdialoptionsintrunk" => "Asterisk dial options in trunks",
+"GS_ringtimebeforevoicemail" => "Defines the quantity of sound before voicemail (duration)",
+"GS_enable/disablecall" => "Enable/Disable the call recording ",
+"GS_callrecordingformat" => "Defines the call recording format ",
+"GS_countrytonezone" => "Defines the country tone zone",
+"GS_language" => "Select the language",
+"GS_searchdirectoryby" => "Allow search in directory by name o last name",
+"GS_sayextensionwithname" => "Allow enable extension with name",
+"GS_createvoicemailwithextension" => "Enable/Disable the creation of voicemail with extension",
+
+"GS_context" => "defines the context",
+"GS_dtmfmode" => "defines the dtmf mode",
+"GS_host" => "Defines the host",
+"GS_type" => "Select the mode",
+"GS_nat" => "Nat",
+"GS_allowtransfer" => "Allow enable the transfer option",
+"GS_port" => "defines port number",
+"GS_qualify" => "limits",
+"GS_qualifyfreq" => "limits of frequence",
+"GS_disallow" => "avoid codecs selections",
+"GS_allow" => "Allow some types of format",
+"GS_rtptimeout" => "Defines the rtpt timeout",
+"GS_rtpholdtimeout" => "Defines the time ",
+"GS_rtpkeepalive" => "Allow keep alive the rtpk functions",
+"GS_videosupport" => "Enable/Disable video support",
+"GS_maxcallbitrate" => "Defines the max call bit rate",
+"GS_mohinterpret" => "Select the interprter of music on hold",
+"GS_mohsuggest" => "Select the suggest of music on hold",
+"GS_directmedia" => "Select the direct media",
+"GS_transport" => "Defines the transport (example: udp, ws, wss)",
+"GS_trustpid" => "Enable/Disable the trustpid options",
+"GS_sendrpid" => "Enable/Disable the sendrpid options",
+"GS_callingpres" => "Select any politic for the callingpres",
+"GS_callcounter" => "Enable/Disable the call counter",
+"GS_busylevel" => "Defines the busy level",
+"GS_progressinband" => "Defines the progress in band",
+"GS_g726nonstandard" => "g726 non standart",
+
+"GS_contextIax" => "Defines the context",
+"GS_portIax" => "Defines the port number",
+"GS_hostIax" => "Definses the host",
+"GS_typeIax" => "Select the type",
+"GS_transferIax" => "Enable/Disable the transfer mode",
+"GS_disallowIax" => "avoid the codec selections",
+"GS_allowIax" => "Allow enable types of technology (ejemplo: ulaw, alaw, gsm)",
+"GS_codecpriority" => "Select the priority status",
+"GS_mohinterpretIax" => "Defines the interpret usic on hold",
+"GS_mohsuggestIax" => "Defines the music on hold suggest",
+"GS_qualifyIax" => "Defines the qualify IAX",
+"GS_qualifysmoothingIax" => "Defines the qualify smoothing",
+"GS_qualifyfreqokIax" => "Defines the qualify frequency in case: ok",
+"GS_qualifyfreqnotokIax" => "Defines the limit of frequence no valid",
+"GS_jitterbufferIax" => "Enable/Disable the jitter buffer",
+"GS_forcejitterbufferIax" => "Enable/Disable the force jitter buffer",
+"GS_sendaniIax" => "Enable/Disable the sendani options",
+"GS_adsiIax" => "Enable/Disable the adsi options",
+"GS_requierecalltokenIax" => "Enable/Disable the call token",
+"GS_encrytionIax" => "Enable/Disable the encryption options",
+"GS_maskIax" => "Defines the mask IAX",
+
+"GS_voicemailprefix" => "Defines the voicemail prefix",
+"GS_voicemailmessagetype" => "Defines the voicemail message type",
+"GS_voicemailgain" => "Defines the voicemail gain",
+"GS_playpleaseleave" => "Enable/Disable this message after tone",
+"GS_operatorextension" => "Defines the operator extension",
+"GS_emailsubject" => "Defines the email subject",
+"GS_body" => "Defines the email body",
+"GS_emailattachment" => "Enable/Disable the attach of files in the mails",
+"GS_maxnummessageperfolder" => "Defines the max number of messages/folder",
+"GS_playCID" => "Enable/Disable the play CID",
+"GS_sayduration" => "Enable/Disable say the duration of the voicemail",
+"GS_playenvelope" => "Enable/Disable the play envelope",
+"GS_deletevoicemail" => "Enable/Disable the delete voicemail",
+"GS_vociemailcontext" => "Defines the voicemail context",
+"GS_timezone" => "Select the time zone",
+"GS_reviewmessage" => "Enable/Disable allow review message",
+"GS_operator" => "Enable/Disable the operator",
+"GS_forcetorecordname" => "Enable/Disable force to record name",
+"GS_forcetorecordgreetings" => "Enable/Disable the force to record greetings",
+"GS_defaultcontext_prim" => "Defines the context Voicemail Context",
+"GS_timeout_press" => "Defines the timeout",
+"GS_loopexceed" => "Defines rge loop exceed",
+"GS_timeoutVM" => "Select the Message for the timeout Vm",
+"GS_maxloopVM" => "Select the max loop Vm message",
+"GS_directVMoption" => "Select the Direct Vm option",
+"GS_msgtimeout" => "Defines the message for timeout (seconds)",
+"GS_msgplay" => "Defines the message play",
+"GS_error_retries" => "Defines the retries for error (quantity)",
+);
+?>

@@ -1,0 +1,49 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+ Codificacion: UTF-8
+ +----------------------------------------------------------------------+
+ | Elastix version 1.0 |
+ | http://www.elastix.org |
+ +----------------------------------------------------------------------+
+ | Copyright (c) 2006 Palosanto Solutions S. A. |
+ +----------------------------------------------------------------------+
+ | Cdla. Nueva Kennedy Calle E 222 y 9na. Este |
+ | Telfs. 2283-268, 2294-440, 2284-356 |
+ | Guayaquil - Ecuador |
+ | http://www.palosanto.com |
+ +----------------------------------------------------------------------+
+ | The contents of this file are subject to the General Public License |
+ | (GPL) Version 2 (the "License"); you may not use this file except in |
+ | compliance with the License. You may obtain a copy of the License at |
+ | http://www.opensource.org/licenses/gpl-license.php |
+ | |
+ | Software distributed under the License is distributed on an "AS IS" |
+ | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See |
+ | the License for the specific language governing rights and |
+ | limitations under the License. |
+ +----------------------------------------------------------------------+
+ | The Original Code is: Elastix Open Source. |
+ | The Initial Developer of the Original Code is PaloSanto Solutions |
+ | |
+ | Translate bye: Tomoaki Tanaka  |
+ | ganymean@gmail.com |
+ +----------------------------------------------------------------------+
+ $Id: ja.lang,v 1.6 2008/05/18 20:00:00 ganymean Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Channels Usage Report" => "チャネル使用状況レポート",
+"Simultaneous Channels (Total)" => "同時通話チャネル数(全体)",
+"Simultaneous Zap Channels" => "同時通話チャネル数（外線)",
+"Simultaneous SIP Channels" => "同時通話チャネル数(SIP外線)",
+"Simultaneous IAX Channels" => "同時通話チャネル数(IAX)",
+"Simultaneous H323 Channels" => "同時通話チャネル数(H323)",
+"Simultaneous Local Channels" => "同時通話チャネル数(内線)",
+"Total Channels" => "総チャネル数",
+"Zap Channels" => "Zapチャネル数",
+"SIP Channels" => "SIP外線チャネル数",
+"IAX Channels" => "IAXチャネル数",
+"H323 Channels" => "H323チャネル数",
+"Local Channels" => "内線チャネル数",
+"Nothing to show yet" => "Nothing to show yet"
+);
+?>

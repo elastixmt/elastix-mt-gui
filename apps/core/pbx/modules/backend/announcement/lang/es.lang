@@ -1,0 +1,58 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 3.0.0                                                |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.1 2014-03-12 Bruno Macias bmacias@elastix.org Exp $
+  $Id: es.lang,v 1.2 2014-04-25 Armando Chuto achuto@elastix.org Exp $  
+*/
+global $arrLangModule;
+$arrLangModule=array(
+"Announcement Name"   => "Nombre del Aviso",
+"Destination after playback" => "Destino despues de la reproducción",
+"Recording" => "Grabacion",
+"Repeat" => "Repetir",
+"Allow Skip" => "Permitir Saltos",
+"Return to IVR" => "Retornar a IVR",
+"Don't answer channel" => "No contestar el canal",
+"Announcement List" => "Lista de Avisos",
+"Error to obtain Announcement" => "Error obtencion de Aviso",
+"ADD Announcement" => "Agregar Aviso",
+"Invalid Announcement ID" => "Identificador de Anuncio Invalido",
+"Announcement doesn't exist" => "Aviso no existe",
+"Announcement" => "Aviso",
+"Announcement recording" => "Grabación de Aviso",
+"Name" => "Nombre",
+"Repeat Message" => "Repetir Mensaje",
+"Destination" => "Destino",
+"Announcement has been created successfully" => "Aviso fue creado exitosamente",
+"You must select a default destination." => "Debe seleccionar un destino predeterminado.",
+"Field 'Description' can't be empty" => "Campo 'Description' no puede ser vacío",
+"Announcement has been edited successfully" => "El aviso fue editado exitosamente",
+"Announcement can't be deleted." => "Aviso no puede ser eliminado.",
+"Announcement was deleted successfully" => "Aviso fue borrado exitosamente",
+"Error creating dialplan for Announcement. " => "Error al crear un plan de marcado para un aviso. ",    
+);
+?>

@@ -1,0 +1,19 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>Openfire (previously known as Wildfire) is a Jabber/XMPP server written in Java under GNU and commercial licences. Openfire implements most features amongst those measured by jabber.org.</p>
+
+<div><img src="../images/help/im/openfire.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>For more information visit <a href="http://www.igniterealtime.org/projects/openfire/index.jsp">http://www.igniterealtime.org/projects/openfire/index.jsp</a></p>
+
+</body>
+</html>

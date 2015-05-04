@@ -1,0 +1,58 @@
+  .start, .play, .stop, .disable, .start1{
+	vertical-align: bottom;
+    width:50px;
+	border-radius: 5px;
+	-ms-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	background: white;
+	border : 1px;
+	cursor: pointer;	
+	float: left;
+	text-align:center;
+	
+	
+      }
+   .start, .stop{
+     float : none;
+     
+    }
+   .start:hover,.start1:hover{ 
+ 	box-shadow: 1px 3px 8px grey;
+	-webkit-box-shadow: 1px 3px 8px grey; 
+	-moz-box-shadow: 1px 3px 8px grey; 
+	-o-box-shadow: 1px 3px 8px grey; 
+     }
+      .display{
+	font-size: 18px;
+	}
+      #recording{
+	 width:90px;
+      }
+      .labelRecord{
+	color: red;
+	font-size: 1em;
+	font-style: italic;
+      }
+      .labelError{
+	color: red;
+	font-size: 1em;
+	margin-left: -13%;
+	text-align: center;
+	width: 36%;
+	padding-bottom: 5px;
+      }
+      #clock1{
+	
+	padding-top:2%;
+	padding-bottom:2%;
+	margin-left: 15%;
+	/*width: 100%;
+	border: 1px solid #BDB2B2;
+	padding: 8px 0 30px 24px;
+	width: 85%;
+	border-radius: 5px;
+	background: #DFDFDF;*/
+      }
+      

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="dhcp_by_mac" name="Assign IP Address to Host" idParent="network" type="module" link=""  order_no="4">
+		<permissions administrative="yes" organization_access="no" >
+			<actions>
+				<action name="access">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+					</groups>
+				</action>
+				<action name="create_dhcp|delete_dhcp|edit_dhcp">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

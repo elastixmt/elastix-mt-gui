@@ -1,0 +1,5 @@
+#!/bin/sh
+# se borraran todos los archivos que tengan mas de 12 horas de antiguedad
+# estos temporales son archivos que se crean al momento de adjuntar un archivo en un email
+
+find /var/www/elastixdir/uploadAttachs/ -type f -mmin +720 -exec rm -rf {} \; >/dev/null 2>&1

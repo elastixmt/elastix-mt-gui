@@ -1,0 +1,59 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+   Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                             |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on "AS IS"     |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Jonathan Vega                                     |
+  | Email: jvega@palosanto.com                                                        |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.7 2008/02/18 09:49:00 jvega Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Incoming Calls" => "Incoming Calls",
+"Outcoming Calls" => "Outgoing Calls",
+"Calls" => "Calls",
+"Start date" => "Start date",
+"End date" => "End date",
+"Number" => "Number",
+"Extensions" => "Extensions",
+"Required Field" => "Required Field",
+"Total Time" => "Total Time",
+"In calls:" => "In calls:",
+"Out calls:" => "Out calls:",
+"There are no data to present" => "There are no data to present",
+"Number of Calls" => "Number of Calls",
+"Number Calls vs Queues" => "Number Calls vs. Queues",
+"Number of calls extension" => "Number of calls extension",
+"Here" => "Here",
+"Graphic Report" => "Graphic Report",
+"All" => "All",
+"Show"=>"Show",
+"No records found"=>"No records found",
+"No exist calls for this number" => "No calls available for this number",
+"The extension" => "The extension",
+"does not have calls yet" => "does not have calls yet",
+"The extension must be numeric and can not start with zero" => "The extension must be numeric and can not start with zero"
+);
+?>

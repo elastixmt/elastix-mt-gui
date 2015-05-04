@@ -1,0 +1,46 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: sv.lang,v 0.1 2008/03/25 00:36:42 IFIT DATA - http://www.ifit.se Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Channels Usage Report" => "Kanal användnings Rapport",
+"Simultaneous Channels (Total)" => "Parallella Kanaler (Totalt)",
+"Simultaneous Zap Channels" => "Parallella Zap Kanaler",
+"Simultaneous SIP Channels" => "Parallella SIP Kanaler",
+"Simultaneous IAX Channels" => "Parallella IAX Kanaler",
+"Simultaneous H323 Channels" => "Parallella H323 Kanaler",
+"Simultaneous Local Channels" => "Parallella Lokala Kanaler",
+"Total Channels" => "Totala Kanaler",
+"Zap Channels" => "Zap Kanaler",
+"SIP Channels" => "SIP Kanaler",
+"IAX Channels" => "IAX Kanaler",
+"H323 Channels" => "H323 Kanaler",
+"Local Channels" => "Lokala Kanaler",
+"Nothing to show yet" => "Nothing to show yet"
+);
+?>

@@ -1,0 +1,74 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.4-1                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2008-08-25 05:08:01 jvega jvega@palosanto.com Exp $ */
+global $arrLangModule;
+
+$arrLangModule=array(
+"ME_displaynameCID" => "Show the name and extension for this user",
+"ME_extensionnumber" => "show the extension number",
+"ME_device" => "show the device code",
+"ME_language" => "select the language",
+"ME_donotdisturb" => "Enable/Disable the do no to disturb",
+"ME_callwaiting" => "Enable/Disable the call waiting",
+"ME_callforward" => "Enable/Diable the call forward",
+"ME_callforwardonunavailable" => "Enable/Disable the call forward (mode: unavailable)",
+"ME_callforwardonbusy" => "Enable/Disable the call forward (mode: busy)",
+"ME_recordincoming" => "Select the mode of recording incoming",
+"ME_recordoutgoing" => "Select the mode of recording outgoing",
+"ME_status" => "Enable/Disable the voicemail status",
+"ME_email" => "Defines the email address",
+"ME_password" => "Defines a password",
+"ME_emailattachment" => "Enable/Disable the email attachment",
+"ME_playcid" => "Enable/Disable the play CID",
+"ME_palyenvelope" => "Enable/Disable the play envelope",
+"ME_deletevmail" => "Enable/Disable the delete vmail",
+"Call Monitor Settings" => "Call Monitor Settings",
+"Enable/Disable the call waiting" => "Enable/Disable the call waitings",
+"Display Name CID" => "Display Name CID",
+"Call Forward" => "Call Forward",
+"Enable/Disable the status" =>"Enable/Disable the status", 
+"Enable/Disable the call fordward on busy" => "Enable/Disable the call fordward on busy",
+"Enable/Disable the Voicemail Configuration" => "Enable/Disable the voicemail configuration",
+"Status:" => "Status",
+"Defines the email" => "Define el correo electronico",
+"Extension number" => "Extension Number",
+"Enable/Disable the delete Vmail" => "Enable/Disable the delete Vmail",
+"Delete Vmail" => "Delete Vmail",
+"Enable/Disable the play CID Option" => "Enable/Disable the play CID Option",
+"Save Configuration" => "Save Configuration",
+"Send Mail" => "Send Mail",
+"Send Fax" => "Send Fax",
+"Fax Device to use" => "Fax Device to use",
+"Destination fax numbers" => "Destination fax numbers",
+"File Upload" => "File Upload",
+"Email content" => "Email content",
+"Send" => "Send",
+"Cancel" => "Cancel"
+);
+
+?>

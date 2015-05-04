@@ -1,0 +1,120 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Create New User" => "Crear Nuevo Usuario",
+"Name" => "Nombre",
+"Login" => "Login",
+"Password" => "Contraseña",
+"Retype password" => "Confirmar Contraseña",
+"New User" => "Nuevo Usuario",
+"Edit User" => "Editar Usuario",
+"The passwords are empty or don't match" => "Las contraseñas están vacías o no concuerdan",
+"The admin user cannot be deleted because is the default Elastix administrator. You can delete any other user." => "El usuario admin no puede ser eliminado porque es el administrador de Elastix predeterminado. Puede borrar cualquier otro usuario.",
+"User List" => "Lista de Usuarios",
+"Real Name" => "Nombre",
+"Extension" => "Extensión",
+"(Ex. John Doe)" => "(Ex. John Doe)",
+"Webmail User" => "Usuario de Webmail",
+"Webmail Domain" => "Dominio de Webmail",
+"Webmail Password" => "Contraseña de Webmail",
+"Retype Webmail password" => "Reingrese contraseña de Webmail",
+"Mail Profile" => "Perfil de Mail",
+"No extension associated" => "La extensión no ha sido asociada",
+"userNoAllowed" => "El usuario no está autorizado a realizar esta acción",
+"You are not authorized to access to information of that user" => "Usted no está autorizado a acceder a la información de ese usuario",
+"no extension" => "sin extensión",
+"User ID and Group ID can't be empty" => "ID de usuario y ID de grupo no pueden ser vacios. ",
+"Invalid new Group" => "Nuevo grupo no es valido. ",
+"Error getting settings from extension user" => "Error obteniendo configuracion de la extension del usuario. ",
+"Error getting settings from fax extension user" => "Error obteniendo configuracion de la extension de fax del usuario. ",
+"Extension and Fax Extension can not be equal" => "Extension y Extension de Fax no pueden ser iguales ",
+"Error setting parameters faxs" => "Error configurando parametros del fax. ",
+"Error setting email quota" => "Error configurando quota de email. ",
+"Property quota is not set" => "Email quota no esta configurada. ",
+"Error setting user properties" => "Error configurando propiedades del usuario. ",
+"Error trying create email_account" => "Error al tratar de crear la cuenta del mail. ",
+"Error trying create new fax" => "Error al tratar de crear el nuevo fax. ",
+"User couldn't be created" => "Usuario no puedo ser creado. ",
+"Invalid Organization" => "Organizacion no es valida. ",
+"You aren't authorized to perform this action" => "Usted no esta autorizado para realizar esta accion. ",
+"Can't set email contact." => "No se puede configurar email del contacto.",
+"User couldn't be update." => "Usuario no pudo ser actualizado.",
+"User dosen't exist" => "Usuario no existe. ",
+"Invalid Action" => "Accion no es valida. ",
+"Couldn't updated user extensions" => "No se pudo actualizar la extension del usuario. ",
+"Password couldn't be updated" => "Contraseña no pudo ser actualizada. ",
+"Error Updating fax configuration" => "Error actualizando las configuraciones del fax. ",
+"Failed Updated Group" => "Error al tratar de cambiar la usuario de grupo. ",
+"Old Fax extension can't be deleted" => "Antigua extension de fax no pudo ser borrada. ",
+"Old extension can't be deleted" => "Antigua extension no pudo ser borrada. ",
+"Email Account cannot be deleted" => "Cuenta de Email no pudo ser borrada. ",
+"Fax cannot be deleted" => "Fax no pudo ser borrado. ",
+"User Extension can't be deleted" => "Extension de usuario no pudo ser borrada. ",
+"Need assign password" => "Es necesario establecer una contraseña si desea asignar al usuario una nueva extension o extensión de fax. ",
+"Us_username" => "Define un nombre de nombre como usuario. ",
+"Us_name" => "Escribe tu nombre Ejemplo: Homero Simpson. ",
+"Us_pass" => "Define una contraseña minimo de 10 caracteres (Mayusculas, minusculas y numeros). ",
+"Us_confpass" => "Confirma tu contraseña escribiendola nuevamente. ",
+"Us_organization" => "Si eres superadmin selecciona tu organizacion, caso contrario te muestra la organizacion a la que perteneces. ",
+"Us_group" => "Selecciona el grupo al que pertenecera el usuario. ",
+"Us_extension" => "Ingresa el numero de la extension. ",
+"Us_faxext" => "Ingresa el numero de extension de fax . ",
+"Us_faxcidname" => "Define el nombre para el CID fax. ",
+"Us_faxcidnumber" => "Define el numero para el CID fax. ",
+"Us_countrycode" => "Especifica el codigo telefonico de pais del usuario. ",
+"Us_areacode" => "Especifica el codigo de area del usuario. ",
+"Us_emailquota" => "Especifica la cantidad en Mb que tendra de capacidad el mail del usuario. ",
+"Us_picture" => "adjunta una imagen/foto para su identificacion. ",
+"Fax Settings" => "Configuraciones de Fax",
+"Email Settings" => "Configuraciones de Correo",
+"Email Quota" => "Cuota de Email",
+"Country Code" => "Código de País",
+"Fax Cid Name" => "Nombre Fax CID",
+"Picture" => "Imagen/Foto",
+"User" => "Datos de Usuario",
+"Click here to reload dialplan" => "Clic aquí para recargar el plan de marcado de ",
+"MESSAGE" => "MENSAJE",
+"Asterisk was reloaded correctly." => "Asterisk fue recargado Correctamente",
+"Asterisk can't be reloaded." => "Asterisk No pudo ser recargado",
+"all" => "Todos",
+"Used Space" => "Espacio Utilizado",
+"Email Quota" => "Cuota de Mail",
+"Passwords don't match" => "Contraseñas no coinciden",
+"Password can not be empty"=> "Contraseña no puede quedar vacia",
+"Extension number and Fax number can not be equal" => "Número extension y número de fax no pueden ser iguales",
+"You must select a organization" => "Tu debes seleccionar una organización",
+"Error Extension Number. Already exits a extension with same pattern" => "Ya existe una extension con el mismo número",
+"Already exits a extension with same pattern" => "Existe una extension con el mismo número",
+"Error Extension Number. " => "Error ",
+"Already exits a fax extension with same pattern" => "Existe una extension de fax con el mismo número",
+"User has been created successfully" => "Usuario fue creado exitosamente",
+"The user was deleted successfully" => "El usuario fue borrado exitosamente",
+);
+?>

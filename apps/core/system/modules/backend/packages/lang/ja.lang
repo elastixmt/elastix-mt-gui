@@ -1,0 +1,69 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+ Codificacion: UTF-8
+ +----------------------------------------------------------------------+
+ | Elastix version 1.0 |
+ | http://www.elastix.org |
+ +----------------------------------------------------------------------+
+ | Copyright (c) 2006 Palosanto Solutions S. A. |
+ +----------------------------------------------------------------------+
+ | Cdla. Nueva Kennedy Calle E 222 y 9na. Este |
+ | Telfs. 2283-268, 2294-440, 2284-356 |
+ | Guayaquil - Ecuador |
+ | http://www.palosanto.com |
+ +----------------------------------------------------------------------+
+ | The contents of this file are subject to the General Public License |
+ | (GPL) Version 2 (the "License"); you may not use this file except in |
+ | compliance with the License. You may obtain a copy of the License at |
+ | http://www.opensource.org/licenses/gpl-license.php |
+ | |
+ | Software distributed under the License is distributed on an "AS IS" |
+ | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See |
+ | the License for the specific language governing rights and |
+ | limitations under the License. |
+ +----------------------------------------------------------------------+
+ | The Original Code is: Elastix Open Source. |
+ | The Initial Developer of the Original Code is PaloSanto Solutions |
+ | |
+ | Translate bye: Tomoaki Tanaka  |
+ | ganymean@gmail.com |
+ +----------------------------------------------------------------------+
+ $Id: ja.lang,v 1.6 2008/05/18 20:00:00 ganymean Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Updates" => "パッケージ更新",
+"Repositories" => "リポジトリ",
+"Package Name" => "パッケージ名",
+"Package Info" => "パッケージ情報",
+"Package Version" => "バージョン",
+"Package Installed" => "導入済",
+"Package Upgrade" => "Upgrade",
+"Package Delete" => "削除",
+"Package Release" => "リリース",
+"Packages not Founds" => "対象パッケージが見つかりません",
+"All Package" => "すべて",
+"Packages" => "パッケージ",
+"Package Noninstalled" => "未導入",
+"Repositor not Found" => "対象リポジトリが見つかりません",
+"Package Search" => "検索",
+"Repositor Place" => "Repository",
+"Package Update" => "パッケージの更新",
+"Updating Packages" => "パッケージを更新中",
+"Satisfactory Update" => "アップデートが完了しました",
+"Choice" => "選択",
+"Updated" => "更新済",
+"Install" => "導入",
+"Repositories Update" => "パッケージの更新",
+"Updating Repositories" => "リポジトリの更新中",
+"Satisfactory Install" => "インストールが完了しました",
+"Installing Package" => "パッケージのインストール中",
+"Updating for dependencies" => "依存パッケージの更新中",
+"Installing for dependencies" => "依存パッケージのインストール中",
+"Installing" => "インストール中",
+"Total Packages" => "総パッケージ",
+"There is an action in process" => "進行中のパッケージ更新があります",
+"Search" => "検索",
+"Name" => "名称",
+"Status" => "状態",
+);
+?>

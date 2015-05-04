@@ -1,0 +1,48 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 3.0.0                                                |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.1 2014-03-12 Bruno Macias bmacias@elastix.org Exp $
+  $Id: es.lang,v 1.2 2014-04-25 Armando Chuto achuto@elastix.org Exp $  
+*/
+global $arrLangModule;
+$arrLangModule=array(
+"ANI List"   => "Lista de ANI",
+"Trunk Name" => "Nombre Trocal",
+"Prefix ANI" => "Prefijo ANI",
+"Error to obtain ANI" => "Error al obtener ANI",
+"MESSAGE" => "MENSAJE",
+"Search" => "Buscar",
+"Filter applied " => "Filtro aplicado ",
+"Organization" => "Organización",
+"ANI Prefix" => "Prefijo ANI",
+"Prefix ANI was saved successfully." => "Prefijo ANI fue guardado exitosamente.",
+"Can't create a new instace of paloSantoANI" => "No se puede crear una nueva instancia de paloSantoANI",
+"Invalid Trunk ID" => "Inválido ID de troncal",
+"Prefix ANI doesn't exist" => "Prefijo ANI no existe",
+"Prefix ANI Invalid, it must be a number maximum 5 digits" => "Inválido prefijo ANI, debe ser un número máximo de 5 digitos",
+);
+?>

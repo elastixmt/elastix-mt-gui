@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="mysettings" name="Settings" idParent="" type="" link=""  order_no="2">
+		<permissions administrative="no" organization_access="yes" >       
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

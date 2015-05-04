@@ -1,0 +1,80 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>The option “Network” of the Menu “System” in Elastix lets us view and configure the parameters of the network of the server.</p>
+
+<p>Within this option we have two sections:</p>
+
+<h3>Network Parameters</h3>
+
+<div><img src="../modules/{$node_id}/images/network_1.png" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>This corresponds to the general network parameters of the server:</p>
+
+<table class="inline">
+  <tr>
+    <th>Host</th><th>Server Name, for example: pbx.subdomain.com</th>
+  </tr>
+  <tr>
+    <td>Default Gateway</td><td>IP Address of the Port of Connection (Default Gateway)</td>
+  </tr>
+  <tr>
+    <td>Primary DNS</td><td>IP Address of the Primary Domain Name Server (DNS)</td>
+  </tr>
+  <tr>
+    <td>Secundary DNS</td><td>IP Address of the Secondary or Alternative Domain Name Server (DNS)</td>
+  </tr>
+</table>
+<br />
+
+<p>To change any of these parameters, click on the button “Edit Network Parameters”.</p>
+
+<h3>Ethernet Interfaces List</h3>
+
+<p>This shows the list of network interfaces available on the server, with the following data: </p>
+
+<div><img src="../modules/{$node_id}/images/network_2.png" border="0"></div>
+<div>Figure 2</div>
+<br />
+
+<table class="inline">
+  <tr>
+    <th>Device</th><th>Name of the Operating System that is assigned to the Interface</th>
+  </tr>
+  <tr>
+    <td>Type</td><td>The type of IP address that the Interface has, which could be STATIC when the IP address is fixed or DHCP when the IP address is obtained automatically when the equipment is booted up. To use the second option, there should be a DHCP server in the network.</td>
+	</tr>
+	<tr>
+		<td>IP</td><td>IP Address assigned to the Interface</td>
+	</tr>
+	<tr>
+
+		<td>Mask</td><td>The Network Mask assigned to the Interface</td>
+	</tr>
+	<tr>
+		<td>MAC Address</td><td>Physical Address of the network Interface</td>
+	</tr>
+	<tr>
+		<td>HW Info</td><td>Additional information about the network interface</td>
+
+	</tr>
+	<tr>
+		<td>Status </td><td>Shows the physical status of the Interface, if it’s connected or not</td>
+	</tr>
+</table>
+
+<p>To change the parameters of any of the Interfaces, click on the name of the device. The only values that can be changed are: Type, IP and Mask</p>
+
+<div><img src="../modules/{$node_id}/images/network_3.jpg" border="0"></div>
+<div>Figure 3</div>
+<br />
+
+</body>
+</html>

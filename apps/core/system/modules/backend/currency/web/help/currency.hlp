@@ -1,0 +1,15 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify"></p>
+
+        <!-- Form to add images -->
+        <div><img src="../modules/{$node_id}/images/help_currency.png" border="0"></div>
+	<p>Figura 1</p>
+	<p>La opción "Currency" del menú "Preferencias" de Elastix permite escoger la moneda que se va a utilizar en Elastix.</p>
+    </body>
+</html>

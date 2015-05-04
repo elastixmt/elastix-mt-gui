@@ -1,0 +1,70 @@
+#!/usr/bin/php
+<?php
+/*
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: switch_wanpipe_media.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+
+try {
+    $conn = new PDO('sqlite:/var/www/db/hardware_detector.db');
+    $sth = $conn->query(
+        'SELECT span_num, wanpipe_force_media FROM span_parameter '.
+        'WHERE wanpipe_force_media IS NOT NULL ORDER BY span_num');
+    $spans = $sth->fetchAll(PDO::FETCH_ASSOC);
+    
+    foreach ($spans as $span) {
+        $sArchivo = "/etc/wanpipe/wanpipe{$span['span_num']}.conf";
+        if (file_exists($sArchivo)) {
+            $input = file($sArchivo);
+            $output = array();
+            if ($span['wanpipe_force_media'] == 'E1') {
+                foreach ($input as $s) {
+                    if (preg_match('/^FE_MEDIA\s*=\s*T1/', $s))
+                        $s = "FE_MEDIA = E1\n";
+                    elseif (preg_match('/^FE_LCODE\s*=\s*/', $s))
+                        $s = "FE_LCODE = HDB3\n";
+                    elseif (preg_match('/^FE_FRAME\s*=\s*/', $s))
+                        $s = "FE_FRAME = CRC4\n";
+                    elseif (preg_match('/^TE_RX_SLEVEL\s*=\s*/', $s))
+                        $s = "TE_SIG_MODE = CCS\nTE_RX_SLEVEL = 430\n";
+                    elseif (preg_match('/^LBO\s*=\s*/', $s))
+                        $s = "LBO = 120OH\n";
+                    elseif (preg_match('/^TDMV_DCHAN\s*=\s*/', $s))
+                        $s = "TDMV_DCHAN = 16\n";
+                    $output[] = $s;
+                }
+                file_put_contents($sArchivo, $output);
+            } elseif ($span['wanpipe_force_media'] == 'T1') {
+                // Leave defaults from wanpipe                        
+            }
+        }
+    }
+} catch (PDOException $e) {            
+    $bExito = FALSE;
+    fprintf(STDERR, "ERR: failed to query fixed IPs for DHCP - %s\n", $e->getMessage());
+}
+?>

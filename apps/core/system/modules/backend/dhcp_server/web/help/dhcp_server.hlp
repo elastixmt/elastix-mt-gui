@@ -1,0 +1,50 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>La opción "Conferencia" del Elastix nos permite Administrar varias conferencias.</p>
+
+<div><img src="../modules/{$node_id}/images/dhcp_server.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>El módulo "Servidor DHCP" nos permite configurar el elastix para que nos permita asignar direcciones IP en la red.</p>
+
+<p>Los campos requeridos son:</p>
+
+<table class="inline">
+  <tr>
+    <th>Campo</th><th>Descripción</th>
+  </tr>
+  <tr>
+    <td>Estado</td><td>Indica si el servicio DHCP está activo o inactivo.</td>
+  </tr>
+  <tr>
+    <td>Inicio de rango de IPs</td><td>Desde esta IP en adelante se proporcionarán las IP.</td>
+  </tr>
+  <tr>
+    <td>Fin de rango de IPs</td><td>Hasta esta IP se proporcionarán las IP.</td>
+  </tr>
+  <tr>
+    <td>Tiempo de refrescamiento</td><td>Después de cuanto tiempo se volverá a pedir las IP y proveer a quienes no lo tengan.</td>
+  </tr>
+  <tr>
+    <td>DNS 1</td><td>Servidor DNS.</td>
+  </tr>
+  <tr>
+    <td>WINS</td><td>Proveer IPs a Windows.</td>
+  </tr>
+  <tr>
+    <td>Gateway</td><td></td>
+  </tr>
+</table>
+<br />
+
+<p>Una vez llene los campos requeridos de click en el botón "Iniciar Servicio".</p>
+
+</body>
+</html>

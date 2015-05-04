@@ -1,0 +1,356 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLang;
+$arrLang=array(
+/*System Info*/
+"System Resources"=>"Recursos del Sistema",
+"Disk usage"=>"Uso del Disco",
+"Used space"=>"Espacio usado",
+"Free space"=>"Espacio libre",
+"Simultaneous calls, memory and CPU"=>"Llamadas simultáneas, memoria y CPU",
+"Sim. calls"=>"Llamadas Sim.",
+"CPU usage (%)"=>"Uso de CPU (%)",
+"Mem. usage (MB)"=>"Uso de Mem. (MB)",
+
+"Export"=>"Exportar",
+"Start"=>"Primero",
+"End"=>"Último",
+"Next"=>"Siguiente",
+"Previous"=>"Anterior",
+
+
+"Validation Error"=>"Error de Validación",
+"The following fields contain errors"=>"Los siguientes campos contienen errores ",
+"Save"=>"Guardar",
+"Required field"=>"Campo requerido",
+"Apply changes"=>"Aplicar cambios",
+"Cancel"=>"Cancelar",
+
+/*Login to Elastix*/
+"Welcome to Elastix"=>"Bienvenido a Elastix",
+"Please enter your username and password"=>"Por favor ingrese su usuario y contraseña",
+"Username"=>"Nombre de Usuario",
+"Password"=>"Contraseña",
+"Submit"=>"Ingresar",
+"Login page"=>"Página de Ingreso",
+/*end Login to Elastix*/
+
+/*start User Management*/
+"Group"=>"Grupo",
+"Group List"=>"Lista de Grupos",
+"User List"=>"Lista de Usuarios",
+"The group is wrong"=>"El grupo es incorrecto",
+
+
+
+"Are you sure you wish to continue?"=>"¿Está seguro que desea continuar?",
+"Edit"=>"Editar",
+"Delete"=>"Eliminar",
+"Accept"=>"Aceptar",
+"Group Permission"=>"Permisos de Grupo",
+"Users" => "Usuarios",
+"Directory couldn't be opened"=>"No se pudo abrir el directorio",
+/*end User Management*/
+
+/*start menu*/
+"System"=>"Sistema",
+"System Info"=>"Información del Sistema",
+"User Management"=>"Administrar Usuarios",
+"Users"=>"Usuarios",
+"Organization"=>"Organizacion",
+"Menu Administrator"=>"Administrador de Menú",
+/*end menu*/
+
+/*Start Language*/
+"Language"=>"Idioma",
+"Change"=>"Cambiar",
+"Logout"=>"Cerrar Sesión",
+/*end Language*/
+
+/*version 0.7*/
+/*start paloSantoValidar.class.php*/
+"Options"=>"Opciones",
+"Empty field"=>"Campo vacío",
+"Bad Format"=>"Formato incorrecto",
+"No option was selected"=>"Opción no seleccionada",
+"Octets out of range"=>"Octetos fuera de rango",
+"Undefined validation type" => "Tipo de validación no definida",
+/*end paloSantoValidar.class.php*/
+
+/*version 0.8*/
+/*start user*/
+"View User"=>"Ver usuario",
+/*end user*/
+
+
+/*system - date/time*/
+"Date/Time" => "Fecha/Hora",
+/*end system - date/time*/
+
+/*load module*/
+"Load Module" => "Cargar Menú",
+"ID for new module (folder name)"  =>  "ID para nuevo modulo (nombre de carpeta)",
+"Choose Menu"  =>  "Seleccione Menú",
+"ID for new menu"  =>  "ID para nuevo menú",
+"Menu Name"  =>  "Nombre de Menú",
+"Defined Menu"  =>  "Menú definido",
+"New Menu"  =>  "Nuevo Menú",
+"Module sucessfully loaded"  =>  "Modulo cargado exitosamente",
+"Folder name doesn't exist in module file"  =>  "Nombre de carpeta no exite en archivo de modulo",
+"Folder configs doesn't exist in module file"  =>  "Carpeta configs no existe en archivo de modulo",
+"Folder themes doesn't exist in module file"  => "Carpeta themes no existe en archivo de modulo",
+"File index.php doesn't exist in module file"  =>  "Archivo index.php no existe en archivo de modulo",
+/*end load module*/
+
+
+// Elastix 0.9 
+
+/*Start SubModule Themes*/
+"Themes" => "Temas",
+"Change Theme" => "Cambiar Tema",
+/*end SubModule Themes*/
+
+/*Module IM*/
+"IM" => "IM",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "El servicio Openfire no esta activo en este momento. Si deseas activarlo haga ",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "El servicio Webmin no esta activo en este momento.Si deseas activarlo haga ",
+
+
+/*vTigerCRM*/
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "Para finalizar la instalación de vTiger haga ",
+"click here" => "click aquí",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "Para finalizar la instalación de SugarCRM de",
+
+/* Preferences*/
+"Preferences" => "Preferencias",
+
+/* Start About Elastix */
+"About Elastix"=>"Acerca de Elastix",
+"About Elastix2"=>"Sobre Nosotros",
+"HELP"=>"Help",
+"About Elastix Content"=>"Elastix es una Solución de Comunicaciones Unificadas confiable y fácil de utilizar. Este software de código abierto basado en web se ha convertido en la solución predilecta para las implementaciones de Comunicaciones sobre IP en todo el mundo.",
+"About Elastix Closed"=>"Cerrar",
+
+/* End About Elastix */
+
+//Elastix 0.9.1
+/*Start module Group List*/
+"Groups"=>"Grupos",
+/*End module Group List*/
+
+/** Elastix 1.0 **/
+/*Start UserList*/
+"administrator" => "Administrador",
+"operator" => "Operador",
+"extension" => "Extensión",
+"total access" => "Acceso Total",
+"extension user" => "Usuario de Extensión",
+/*end UserList*/
+"Title" => "Título",
+"Search" => "Buscar",
+"Show"   => "Mostrar",
+'md_message_title' => 'Dismiss',
+"ERROR" => "Error",
+"VersionDetails" => "Version",
+"VersionPackage" => "Detalles de las versiones de los paquetes",
+"textMode" => "Modo Texto",
+"htmlMode" => "Modo Html",
+"Register" => "Registro",
+"Registered" => "Registrado",
+"Unauthorized" => "No Autorizado",
+"You are not authorized to access to this page" => "Usted no está autorizado a acceder a esta página",
+"You need administrator privileges" => "Usted necesita privilegios de administrador",
+"Elastix Authentication" => "Autenticación de Elastix",
+
+/*new*/
+"Please write your current password." => "Por favor escriba su clave actual.",
+"Please write the new password and confirm the new password." => "Por favor escriba la nueva clave y confirme la misma.",
+"The new password doesn't match with retype new password." => "La clave nueva no es igual con la confirmación de la nueva clave.",
+"Please your session id does not exist. Refresh the browser and try again." => "Por favor su id de session no existe. Refresque el navegador y vuelva a intentar.",
+"Elastix password has been changed." => "Clave de usuario Elastix ha sido cambiada.",
+"Impossible to change your Elastix password." => "Imposible cambiar su clave de usuario elastix.",
+"Impossible to change your Elastix password. User does not exits or password is wrong" => "Imposible cambiar su clave de usaurio elastix. Nombre de usuario no existe o la clave es incorrecta",
+"Change Elastix Password" => "Cambiar clave de Elastix",
+"Current Password" => "Clave Actual",
+"New Password" => "Nueva Clave",
+"Retype New Password" => "Confirme la nueva clave",
+"Change" => "Actualizar",
+"Search modules" => "Busqueda de módulos",
+"Unauthorized" => "No Autorizado",
+"You are not authorized to access this page." => "Usted no está autorizado a acceder a esta página",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "Usted no tiene permisos para acceder al Flash Operator Panel. Por favor contacte a su administrador.",
+"Advice" => "Advertencia",
+"Bookmarks" => "Bookmarks",
+"History" => "Historia",
+"The maximum of bookmarks is 5. Please uncheck one in order to add this bookmark" => "El máximo número de bookmarks es 5. Por favor deseleccione uno para agregar este como bookmark",
+"Bookmark has been added." => "Bookmark ha sido agregado.",
+"Bookmark cannot be added. Please try again or contact with your elastix administrator and notify the next error: " => "Bookmark no pudo se agregado. Por favor intente otra vez o contacte con el administrador de su elastix y notifique el siguiente error: ",
+"Bookmark has been removed." => "Bookmark ha sido removido.",
+"Bookmark cannot be removed. Please try again or contact with your elastix administrator and notify the next error: " => "Bookmark no puede ser removido. Por favor intente otra vez o contacte con el administrador de su elastix y notifique el siguiente error: ",
+"Sending Request" => "Enviando Petición",
+"Request cannot be completed. Please try again or contact with your elastix administrator and notify the next error: " => "Requerimiento no pudo ser completado. Por favor intente otra vez o contacte con el administrador de su elastix y notifique el siguiente error: ",
+"Request has been sent." => "Requerimiento ha sido enviado.",
+"Add Bookmark" => "Agregar Bookmark",
+"Remove Bookmark" => "Quitar Bookmark",
+"Adding Bookmark" => "Agregando Bookmark",
+"Removing Bookmark" => "Quitando Bookmark",
+"Hiding left panel" => "Ocultando panel izquierdo",
+"Loading left panel" => "Cargando panel izquierdo",
+"Hide left panel" => "Ocultar panel izquierdo",
+"Load left panel" => "Cargar panel izquierdo",
+"characters left" => "caracteres faltantes",
+"Save Note" => "Guardar Nota",
+"Saving Note" => "Guardando Nota",
+"Loading Note" => "Cargando Nota",
+"Click here to leave a note." => "Click aquí para dejar una nota.",
+"Your session has expired. Press 'Accept' to return to the login page." => "Su sesion ha expirado. Presione 'Aceptar' para regresar a la pagina de ingreso.",
+"No records match the filter criteria" => "Ningun registro coincide con el criterio de filtrado seleccionado",
+"New Row" => "Nueva Fila",
+"Custom Action" => "Accion Personalizada",
+"Delete Selected" => "Eliminar Seleccionado",
+"Page" => "Página",
+"of" => "de",
+"records" => "registros",
+"Apply Filter" => "Aplicar Filtro",
+"Download" => "Descargar",
+"WARNING" => "ADVERTENCIA",
+"Show Filter" => "Mostrar Filtro",
+"Hide Filter" => "Ocultar Filtro",
+"More Options" => "Más Opciones",
+"Filter applied: " => "Filtro aplicado: ",
+"Filter applied " => "Filtro aplicado: ",
+"Organization ID must be numeric" => "ID de la organizacion debe ser numerico. ",
+"Organization doesn't exist" => "Organizacion no existe. ",
+"User ID is not valid" => "ID de usuario no es valido. ",
+"User doesn't exist" => "Usuario no existe. ",
+"User ID must be numeric" => "ID de usuario debe ser numerico. ",
+"Username is not valid" => "Username no es valido. ",
+"Username can't be empty" => "Username no puede ser vacio. ",
+"Username already exists" => "Username ya existe. ",
+"Can't get extension user" => "No se puede obtener extension del usuario. ",
+"User doesn't have a associated extension" => "Usuario no tiene extension asociada. ",
+"Limit must be numeric" => "Limit debe ser numerico. ",
+"Offset must be numeric" => "Offset debe ser numerico. ",
+"Grout ID is not valid" => "ID de grupo no es valido. ",
+"Group dosen't exist" => "Grupo no existe. ",
+"Password is not a valid MD5 hash" => "Contraseña no es un valido MD5 hash. ",
+"Resource Name can't be empty" => "Nombre del recurso no puede ser vacio. ",
+"Menu already exists" => "Menu ya existe. ",
+"Doesn't exist resource with id=" => "No existe recurso con id=",
+"Doesn't exist organization with id=" => "No existe organizacion con id=",
+"Doesn't exist group with id=" => "No existe grupo con id=",
+"Organization doesn't have priviled to access resource " => "Organizacion no tiene privilegios para acceder al recurso ",
+"Error has ocurred to delete permission" => "Error ha ocurrido al borrar el permiso. ",
+"Problem setting globals variables" => "Un error ha ocurrido al configurar las variables globales en asterisk. ",
+"Coulnd't be created new dialplan" => "El nuevo plan de marcado no pudo ser creado. ",
+
+"Network" => "Red",
+"Network Parameters" => "Parametros de Red",
+"DHCP Server" => "Servidor DHCP",
+"DHCP Client List" => "Lista de Clientes DHCP",
+"Assign IP Address to Host" => "Asignación de Dirección IP a Host",
+"Shutdown" => "Reinicio",
+"Hardware Configuration" => "Configuración de Hardware",
+"Hardware Detector" => "Detector de Hardware",
+"Updates" => "Actualizaciones",
+"Repositories" => "Repositorios",
+"Packages" => "Paquetes",
+"Currency" => "Moneda",
+
+"Manager" => "Administrador",
+"Dashboard Manager" => "Tablero de Administrador ",
+"Dashboard" => "Tablero",
+"Dashboard Applet Admin" => "Tablero Componentes Adm. ",
+
+"Organization Manager" => "Organización",
+"Organization Resource" => "Recursos de Organización",
+
+"User/Group Manager" => "Usuario/Grupo",
+"Group Resource" => "Recursos de Grupo",
+
+"Relay" => "Retraso",
+"Remote SMTP" => "SMTP Remoto",
+"Email list" => "Lista de Email",
+"Email stats" => "Estado de Email",
+
+"Fax Viewer" => "Visor de Fax",
+"Fax Queue" => "Cola de Fax",
+"Fax Master" => "Fax Maestro",
+"Fax Clients" => "Clientes de Fax",
+
+"Trunks" => "Troncales",
+"Outbound Routes" => "Rutas Salientes",
+"Inbound Routes" => "Rutas Entrantes",
+
+"PBX Applications" => "Aplicaciones de PBX",
+"Extensions" => "Extensiones",
+"Queues" => "Colas",
+"Time Group" => "Tiempo de Grupo",
+"Time Conditions" => "Condiciones de Tiempo",
+"Ring Group" => "Grupo de llamada",
+
+"PBX Admin Settings" => "Configuraciones Administrador PBX",
+"Conference" => "Conferencia",
+"General Settings Admin" => "Configuraciones Generales de Adm",
+"Features Codes" => "Características de Prefijo",
+"General Settings" => "Configuraciones Generales",
+"MUsic On Hold" => "Música en Espera",
+"Recording" => "Grabación",
+"Monitoring" => "Monitoreo",
+"Tools" => "Herramientas",
+
+"Asterisk File Editor" => "Editor de Archivos Asterisk",
+"Text to Wav" => "Texto a Wav",
+
+"Reports" => "Reportes",
+"CDR Report" => "Reporte CDR",
+"Channels Usage" => "Reporte de Canales ",
+"Graphic Report" => "Reporte Gráfico",
+"Summary" => "Resumen",
+"Missed Calls" => "Llamadas Perdidas",
+
+"Security" => "Seguridad",
+"Audit" => "Auditoria",
+"Weak Keys" => "Claves Débiles",
+"Firewall" => "Cortafuego",
+"Firewall Rules" => "Reglas de Cortafuego",
+"Define Ports" => "Definir Puertos",
+"Port Knocking Interfaces" => "Interfaces protegidas por Knocking",
+"Port Knocking Users" => "Usuarios protegidas por Knocking",
+
+
+
+);
+?>

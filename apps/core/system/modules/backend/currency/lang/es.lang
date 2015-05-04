@@ -1,0 +1,64 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.4-1                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2008-08-25 05:08:01 jvega jvega@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Currency" => "Moneda",
+"Argentinian peso" => "Peso Argentino",
+"Baht tailandés / balboa panameño" => "Baht tailandés / balboa panameño",
+"Bolívar venezolano" => "Bolívar venezolano",
+"Bolívar fuerte venezolana" => "Bolívar fuerte venezolana",
+"Córdoba nicaragüense/dólar canadiense" => "Córdoba nicaragüense/dólar canadiense",
+"Dong vietnamita" => "Dong vietnamita",
+"Dólar del Caribe Oriental" => "Dólar del Caribe Oriental",
+"Corona danesa, corona sueca" => "Corona danesa, corona sueca",
+"Lira" => "Lira",
+"Lempira hondureño" => "Lempira hondureño",
+"Quetzal guatemalteco" => "Quetzal guatemalteco",
+"Euro" => "Euro",
+"Rand sudafricano" => "Rand sudafricano",
+"Rupia indonesia" => "Rupia indonesia",
+"Rupia" => "Rupia",
+"Real brasileño" => "Real brasileño",
+"Dólar australiano" => "Dólar australiano",
+"Dólar/Peso" => "Dólar/Peso",
+"Yen" => "Yen",
+"Sheqel israelí" => "Sheqel israelí",
+"Colón salvadoreño" => "Colón salvadoreño",
+"Yuan chino" => "Yuan chino",
+"Rupia bengalí" => "Rupia bengalí",
+"Dólar de Singapur" => "Dólar de Singapur",
+"Error" => "Error",
+"Successfully saved" => "Guardado exitosamente",
+"Colón costarricense" => "Colón costarricense",
+"GB Sterling" => "Libra Esterlina",
+"Rublo ruso" => "Rublo ruso",
+"Swiss Franc" => "Franco Suizo",
+"CU_currency" => "Especifica el tipo de moneda",
+);
+?>

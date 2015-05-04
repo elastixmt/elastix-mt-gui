@@ -1,0 +1,67 @@
+.mensajeStatus{
+	height: auto;
+	width: 100%;
+	background-color: #bf040d;
+	background-color: #F08080;
+	margin-top: 4px;
+	margin-bottom: 0px;
+	text-align: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font: 13px Verdana, Arial,Helvetica,sans-serif;
+	font-size: 13px;
+	border: 1px solid black;
+	color: black;
+}
+
+.mensajeStatus a{
+	font: 14px Verdana, Arial,Helvetica,sans-serif;
+	color: black;
+	text-decoration: none;
+}
+
+/*desde aqui para el estilo de los tabs*/
+.tabs { /* es el rectángulo contenedor */
+min-height: 90px;
+height:auto;
+position: relative;
+border-bottom: 0px;
+padding-top: 5px;
+}
+
+.tab { /* cada una de las pestañas */
+float: left;
+}
+
+.tab label { /* la parte superior con el título de la pestaña */
+/*border-radius: 5px 5px 0 0;
+box-shadow: -3px 3px 2px #678 inset;*/
+float: left;
+cursor: pointer;
+left: 0;
+margin-right: 1px;
+margin-bottom: 5px;
+padding: 5px 15px;
+position: relative;
+}
+/* el control input sólo lo necesitamos para que las pestañas permanezcan abiertas así que lo ocultamos */
+.tab [type=radio] { display: none; }
+
+/* el contenido de las pestañas */
+.content {
+bottom: 0;
+left: 0;
+overflow: hidden;
+padding: 5px;
+position: relative;
+right: 0;
+top: 10px;
+}
+/* y un poco de animación */
+.content > * {
+opacity: 0;
+}
+
+th{
+  color: #E35332;  
+}

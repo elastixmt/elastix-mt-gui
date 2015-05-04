@@ -1,0 +1,21 @@
+.row{
+    margin-top: 7px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+select[name=language_vm]{
+width: 65px;
+display:inline;
+}
+
+input[type="text"]{
+width: 175px !important;
+display:inline;
+}
+
+.subtitle p{
+color: #E35332;
+font-size: 17px;
+font-weight: bold;
+}

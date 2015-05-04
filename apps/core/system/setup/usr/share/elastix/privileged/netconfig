@@ -1,0 +1,439 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: netconfig.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+require_once 'Console/Getopt.php';
+
+// Parse command-line options
+$opt = Console_Getopt::getopt($argv, '', array(
+    'genconf',  // General network configuration
+    'ifconf',   // Interface-specific configuration
+    
+    // General network configuration options
+    'host=',        // New hostname
+    'dns1=',        // DNS 1
+    'dns2=',        // DNS 2
+    'gateway=',     // Network gateway
+    
+    // Interface configuration options
+    'device=',      // ethN
+    'bootproto=',   // Either 'dhcp' or 'static'
+    'ipaddr=',      // IP address for the interface
+    'netmask=',     // Network mask for interface
+));
+if (PEAR::isError($opt)) error_exit($opt->getMessage()."\n");
+validateOptions($opt);
+foreach ($opt[0] as $option) switch ($option[0]) {
+case '--genconf':
+    exit(action_generalConfiguration($opt) ? 0 : 1);
+case '--ifconf':
+    exit(action_interfaceConfiguration($opt) ? 0 : 1);
+}
+error_exit("No action specified (--genconf or --ifconf)\n");
+
+function error_exit($sMsg, $errorcode = 1)
+{
+    fwrite(STDERR, $sMsg);
+	exit($errorcode);
+}
+
+// Parse and validate known command-line options
+function validateOptions($opt)
+{
+	foreach ($opt[0] as $option) switch ($option[0]) {
+    case 'genconf':
+    case 'ifconf':
+        break;
+	case '--host':
+        if (!preg_match('/^(([[:alnum:]-]+)\.)+([[:alnum:]])+$/', $option[1]))
+            error_exit('Option '.$option[0].": Invalid hostname\n");
+        if (count(explode('.', $option[1])) < 2)
+            error_exit('Option '.$option[0].": Invalid hostname - domain-only not acceptable\n");
+        break;
+    case '--device':
+        // Only support ethernet for now
+        if (!preg_match('/^eth\d+$/', $option[1]))
+            error_exit('Option '.$option[0].": Invalid network device\n");
+        break;
+    case '--bootproto':
+        if (!in_array($option[1], array('dhcp', 'static')))
+            error_exit('Option '.$option[0].": Invalid bootproto\n");
+        break;
+    case '--dns1':
+    case '--dns2':
+    case '--gateway':
+    case '--ipaddr':
+    case '--netmask':
+        $regs = NULL;
+        if (!preg_match('/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/', $option[1], $regs))
+            error_exit('Option '.$option[0].": Invalid IP address\n");
+        for ($i = 1; $i <= 4; $i++) if ($regs[$i] > 255)
+            error_exit('Option '.$option[0].": Invalid IP address\n");
+        if ($option[0] == '--netmask') {
+        	$b = FALSE;
+            for ($i = 1; $i <= 4; $i++) {
+                if ($regs[$i] == 255 && !$b) continue;
+        		if ($regs[$i] != 0 && $b)
+                    error_exit('Option '.$option[0].": Invalid network mask (1)\n");
+                if ($regs[$i] == 0 && $b) continue;
+                $b = TRUE;
+                if (!in_array($regs[$i], array(255, 254, 252, 248, 240, 224, 192, 128, 0)))
+                    error_exit('Option '.$option[0].": Invalid network mask (2)\n");
+        	}
+        }
+        break;
+	}
+}
+
+// Execute hostname/DNS/gateway configuration. Returns TRUE on success.
+function action_generalConfiguration($opt)
+{
+    /* In order to update the general network configuration, the following
+     * actions are taken:
+     * - All references to GATEWAY are removed from /etc/sysconfig/network-scripts/ifcfg-eth*
+     * - If a new hostname is given, it is set with the hostname command, and
+     *   replaced in /etc/postfix/main.cf, and in /etc/sysconfig/network
+     * - If a new gateway is given, it is set in /etc/sysconfig/network, and
+     *   also used to run a route command to set the gateway.
+     * - If there are new DNS servers, they are set in /etc/resolv.conf
+     * - After all changes, service network restart
+     * - If hostname changed, service postfix restart
+     */
+    $bExito = TRUE;
+
+    $sHostname = $sGateway = $sDNS1 = $sDNS2 = NULL;
+    foreach ($opt[0] as $option) switch ($option[0]) {
+    case '--host':
+        $sHostname = $option[1];
+        break;
+    case '--gateway':
+        $sGateway = $option[1];
+        break;
+    case '--dns1':
+        $sDNS1 = $option[1];
+        break;
+    case '--dns2':
+        $sDNS2 = $option[1];
+        break;
+    }
+
+    if (is_null($sDNS1) && !is_null($sDNS2)) {
+        $bExito = FALSE;
+        fprintf(STDERR, "ERR: DNS 2 requires DNS 1 to be set\n");
+    }
+
+    // Change default gateway
+    if ($bExito && !is_null($sGateway)) setDefaultGateway($sGateway);
+
+    // Change hostname
+    if ($bExito && !is_null($sHostname)) setHostname($sHostname);
+    
+    // Change DNS servers
+    if ($bExito && !is_null($sDNS1)) setDNS($sDNS1, $sDNS2);
+
+    // Restart affected services
+    if ($bExito) {
+        $output = $ret = NULL;
+        exec("/sbin/service network restart 2>&1", $output, $ret);
+        if ($ret != 0) $bExito = FALSE;
+        exec("/sbin/service postfix restart 2>&1", $output, $ret);
+        if ($ret != 0) $bExito = FALSE;
+        if (!refreshKamailioConfiguration()) $bExito = FALSE;
+    }
+
+	return $bExito;
+}
+
+// Set default gateway. Gateway already assumed to be in a.b.c.d format.
+function setDefaultGateway($sGateway)
+{
+    $interfaces = listEthernetInterfaces();
+
+    // Remove all mention of GATEWAY from files in network-scripts
+    foreach ($interfaces as $sInterface) {
+        $sArchivo = '/etc/sysconfig/network-scripts/ifcfg-'.$sInterface;
+        if (file_exists($sArchivo)) {
+            $bClavePresente = FALSE;
+            $contenidoNuevo = array();
+            foreach (file($sArchivo) as $sLinea) {
+                if (!preg_match('/^GATEWAY\s*=/', $sLinea))
+                    $contenidoNuevo[] = $sLinea;
+                else $bClavePresente = TRUE;
+            }
+            if ($bClavePresente) file_put_contents($sArchivo, $contenidoNuevo);
+        }
+    }
+    
+    // In /etc/sysconfig/network replace GATEWAY or add it if absent
+    $bClavePresente = FALSE;
+    $contenidoNuevo = array();
+    foreach (file('/etc/sysconfig/network') as $sLinea) {
+        if (preg_match('/^GATEWAY\s*=/', $sLinea)) {
+            $bClavePresente = TRUE;
+            $contenidoNuevo[] = "GATEWAY=$sGateway\n";
+        } else {
+            $contenidoNuevo[] = $sLinea;
+        }
+            
+    }
+    if (!$bClavePresente) $contenidoNuevo[] = "GATEWAY=$sGateway\n";
+    file_put_contents('/etc/sysconfig/network', $contenidoNuevo);
+	
+    // Set default gateway with route commands
+    $output = NULL; $sOldGateway = NULL;
+    exec('/sbin/route -n', $output);
+    if (is_array($output)) {
+    	foreach ($output as $sLinea) {
+            $regs = NULL;
+    		if (preg_match('/^0.0.0.0\s+(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/', $sLinea, $regs)) {
+    			$sOldGateway = $regs[1];
+    		}
+    	}
+    }
+    if (!is_null($sOldGateway))
+        exec("/sbin/route del -net default gw $sOldGateway");
+    exec("/sbin/route add -net default gw $sGateway");
+}
+
+// List all ethernet interfaces from the output of /proc/net/dev
+function listEthernetInterfaces()
+{
+	$interfaces = array();
+    foreach (file('/proc/net/dev') as $s) {
+        $regs = NULL;
+    	if (preg_match('/^\s*(eth\d+):/', $s, $regs)) $interfaces[] = $regs[1];
+    }
+    return $interfaces;
+}
+
+// Set the hostname for the machine to the specified string
+function setHostname($sHostname)
+{
+    // In /etc/sysconfig/network, replace HOSTNAME or add it if absent
+    $bClavePresente = FALSE;
+    $contenidoNuevo = array();
+    foreach (file('/etc/sysconfig/network') as $sLinea) {
+        if (preg_match('/^HOSTNAME\s*=/', $sLinea)) {
+            $bClavePresente = TRUE;
+            $contenidoNuevo[] = "HOSTNAME=$sHostname\n";
+        } else {
+            $contenidoNuevo[] = $sLinea;
+        }            
+    }
+    if (!$bClavePresente) $contenidoNuevo[] = "HOSTNAME=$sHostname\n";
+    file_put_contents('/etc/sysconfig/network', $contenidoNuevo);
+
+    // Create or overwrite /etc/hostname with the new hostname as content.
+    // This is a noop in CentOS 5 but required in Fedora for hostname to persist
+    file_put_contents('/etc/hostname', "$sHostname\n");
+    chmod('/etc/hostname', 0644);
+
+    // In /etc/hosts, replace hostname for 127.0.0.1
+    $bClavePresente = FALSE;
+    $contenidoNuevo = array();
+    foreach (file('/etc/hosts') as $sLinea) {
+        if (preg_match('/^127\.0\.0\.1\s+/', $sLinea)) {
+            $bClavePresente = TRUE;
+            $contenidoNuevo[] = "127.0.0.1\tlocalhost $sHostname localhost.localdomain\n";
+        } else {
+            $contenidoNuevo[] = $sLinea;
+        }            
+    }
+    if ($bClavePresente) file_put_contents('/etc/hosts', $contenidoNuevo);
+
+    // Figure out a domain for the hostname
+    $sDomain = array_pop(explode('.', $sHostname, 2));
+
+    // Set the hostname for the current session
+	exec("/bin/hostname $sHostname");
+
+    // In /etc/postfix/main.cf, replace myhostname and mydomain or add if absent
+    $bClavePresente = array();
+    $bClavePresente['myhostname'] = $bClavePresente['mydomain'] = FALSE;
+    $contenidoNuevo = array();
+    foreach (file('/etc/postfix/main.cf') as $sLinea) {
+        if (preg_match('/^myhostname\s*=/', $sLinea)) {
+            $bClavePresente['myhostname'] = TRUE;
+            $contenidoNuevo[] = "myhostname = $sHostname\n";
+        } elseif (preg_match('/^mydomain\s*=/', $sLinea)) {
+            $bClavePresente['mydomain'] = TRUE;
+            $contenidoNuevo[] = "mydomain = $sDomain\n";
+        } else {
+            $contenidoNuevo[] = $sLinea;
+        }            
+    }
+    if (!$bClavePresente['myhostname']) $contenidoNuevo[] = "myhostname = $sHostname\n";
+    if (!$bClavePresente['mydomain']) $contenidoNuevo[] = "mydomain = $sDomain\n";
+    file_put_contents('/etc/postfix/main.cf', $contenidoNuevo);
+}
+
+// Set DNS servers in /etc/resolv.conf. DNS 1 is mandatory. DNS 2 is optional
+function setDNS($sDNS1, $sDNS2 = NULL)
+{
+	$content = array(
+        "; generated by /usr/share/elastix/privileged/netconfig\n",
+        "nameserver $sDNS1\n"
+    );
+    if (!is_null($sDNS2)) $content[] = "nameserver $sDNS2\n";
+    file_put_contents('/etc/resolv.conf', $content);
+}
+
+// Execute interface configuration. Returns TRUE on success.
+function action_interfaceConfiguration($opt)
+{
+    $bExito = TRUE;
+
+    $sDevice = $sBootproto = $sIpAddr = $sNetMask = NULL;
+    foreach ($opt[0] as $option) switch ($option[0]) {
+    case '--device':
+        $sDevice = $option[1];
+        break;
+    case '--bootproto':
+        $sBootproto = $option[1];
+        break;
+    case '--ipaddr':
+        $sIpAddr = $option[1];
+        break;
+    case '--netmask':
+        $sNetMask = $option[1];
+        break;
+    }
+
+    // Check required parameters
+    if ($bExito && is_null($sDevice)) {
+    	$bExito = FALSE;
+        fprintf(STDERR, "ERR: network device must be specified\n");
+    }
+    if ($bExito && is_null($sBootproto)) {
+        $bExito = FALSE;
+        fprintf(STDERR, "ERR: bootproto must be either dhcp or static\n");
+    }
+    if ($bExito && $sBootproto == 'static') {
+    	if ($bExito && is_null($sIpAddr)) {
+    		$bExito = FALSE;
+            fprintf(STDERR, "ERR: --bootproto static requires --ipaddr\n");
+    	}
+        if ($bExito && is_null($sNetMask)) {
+            $bExito = FALSE;
+            fprintf(STDERR, "ERR: --bootproto static requires --netmask\n");
+        }
+    }
+
+    if ($bExito) {
+        $sPath = '/etc/sysconfig/network-scripts/ifcfg-'.$sDevice;
+        $contenido = array();
+        if (file_exists($sPath)) $contenido = file($sPath);
+        $settings = array(
+            'DEVICE'    =>  $sDevice, 
+            'BOOTPROTO' =>  $sBootproto, 
+            'ONBOOT'    =>  'yes',
+            'TYPE'      =>  'Ethernet',
+            'IPADDR'    =>  '',
+            'NETMASK'   =>  '',
+            'NOZEROCONF'=>  'yes',
+        ); 
+        if ($sBootproto == 'static') {
+            $settings['IPADDR']     = $sIpAddr;
+            $settings['NETMASK']    = $sNetMask;
+            $settings['BROADCAST']  = construir_ip_broadcast($sIpAddr, $sNetMask); 
+            $settings['NETWORK']    = construir_ip_red($sIpAddr, $sNetMask);; 
+        }
+        
+        $contenidoNuevo = array();
+        foreach ($contenido as $sLinea) {
+        	$regs = NULL;
+            if (preg_match('/^(\w+)\s*=/', $sLinea, $regs)) {
+            	if (isset($settings[$regs[1]])) {
+            		$contenidoNuevo[] = $regs[1]."=".$settings[$regs[1]]."\n";
+                    unset($settings[$regs[1]]);
+            	} else {
+            		// Unknown setting - pass thru
+                    $contenidoNuevo[] = $sLinea;
+            	}
+            } else {
+                // Comment or whitespace - pass thru
+            	$contenidoNuevo[] = $sLinea;
+            }
+        }
+        foreach ($settings as $key => $value) {
+        	$contenidoNuevo[] = "$key=$value\n";
+        }
+        file_put_contents($sPath, $contenidoNuevo);
+
+        $output = $ret = NULL;
+        exec("/sbin/service network restart 2>&1", $output, $ret);
+        if ($ret != 0) $bExito = FALSE;
+
+        if (!refreshKamailioConfiguration()) $bExito = FALSE;
+    }
+    return $bExito;
+}
+
+function construir_ip_broadcast($ip, $mascara) 
+{
+    $ip = explode(".", $ip);
+    $mascara = explode(".", $mascara);
+    for ($i = 0; $i < 4; $i++) $ip[$i] = ((int)$ip[$i]) | (~((int)$mascara[$i])& 0xFF);
+    return implode(".", $ip); 
+} 
+
+function construir_ip_red($ip, $mascara) 
+{    
+    $ip = explode(".", $ip);
+    $mascara = explode(".", $mascara);
+    for ($i = 0; $i < 4; $i++) $ip[$i] = (int)$ip[$i] & (int)$mascara[$i];    
+    return implode(".", $ip); 
+}
+
+function refreshKamailioConfiguration()
+{
+    $output = $ret = NULL;
+    
+    // Run detection of new network configuration
+    exec('/usr/sbin/elastix-setup-kamailio-rtpproxy 2>&1', $output, $ret);
+    if ($ret != 0) {
+        fputs(STDERR, "ERR: failed to setup Kamailio. Output follows:\n\n".implode("\n", $output));
+        return FALSE;
+    }
+    
+    // Restart Kamailio and rtpproxy services
+    exec("/sbin/service rtpproxy-multi restart 2>&1", $output, $ret);
+    if ($ret != 0) {
+        fputs(STDERR, "ERR: failed to restart rtpproxy. Output follows:\n\n".implode("\n", $output));
+        return FALSE;
+    }
+    exec("/sbin/service kamailio restart 2>&1", $output, $ret);
+    if ($ret != 0) {
+        fputs(STDERR, "ERR: failed to restart kamailio. Output follows:\n\n".implode("\n", $output));
+        return FALSE;
+    }
+    return TRUE;
+}
+?>

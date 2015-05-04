@@ -1,0 +1,70 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version: 2.0                                           |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by:Dannarz                                             |
+  | Email: sesshomarurin7@palosanto.com                                                       |
+  +----------------------------------------------------------------------+
+  $Id: fr.lang, October 25, 2010, 5:39 pm kleber andres loayza Exp $ */
+global $arrLangModule;
+$arrLangModule=array(  
+"Updates" => "Mises à jour",
+"Repositories" => "Installateurs",
+"Package Name" => "Nom",
+"Package Info" => "Info",
+"Package Version" => "Version",
+"Package Installed" => "Installé",
+"Package Upgrade" => "Mettre à jour",
+"Package Delete" => "Effacer",
+"Package Release" => "Mise à jour",
+"Packages not Founds" => "Paquets non trouvés",
+"All Package" => "Tous",
+"Packages" => "Paquets",
+"Package Noninstalled" => "Non installé",
+"Repositor not Found" => "Installateur non trouvé",
+"Package Search" => "Chercher",
+"Repositor Place" => "Dépôt",
+"Package Update" => "Mettre à jour Paquet",
+"Updating Packages" => "Mise à jour Paquets",
+"Satisfactory Update" => "Mise à jour effectuée",
+"Choice" => "Choix",
+"Updated" => "A jour",
+"Install" => "Installer",
+"Repositories Update" => "Mettre à jour le dépôt",
+"Updating Repositories" => "Mise à jour le dépôt",
+"Satisfactory Install" => "Installation effectuée",
+"Installing Package" => "Installation du Paquet",
+"Updating for dependencies" => "Mise à jour pour les dépendances",
+"Installing for dependencies" => "Installation pour les dépendances",
+"Installing" => "Installation",
+"Total Packages" => "Paquets Totaux",
+"There is an action in process" => "Il y a une action en cours",
+"Search" => "Chercher",
+"Name" => "Nom",
+"Status" => "Statut",
+
+);
+?>

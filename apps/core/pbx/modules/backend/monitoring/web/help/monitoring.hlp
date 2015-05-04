@@ -1,0 +1,30 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “Monitoring” of the Menu “PBX” in Elastix lets us view a list with details of calls recorded automatically or manually, for the extension of a connected user.</p>
+
+<div><img src="../modules/{$node_id}/images/monitoring.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>The report will change depending on the values of the filter: </p>
+
+<table class="inline">
+  <tr>
+    <td>Start Date</td><td>The start date for the calls to be selected.</td>
+  </tr>
+  <tr>
+    <td>End Date</td><td>The end date for the calls to be selected.</td>
+  </tr>
+</table>
+
+<p>Also, we can listen to the calls by clicking on the option “Listen” for each call, or we can download an audio file with the .wav extension of the selected call.</p>
+
+</body>
+</html>

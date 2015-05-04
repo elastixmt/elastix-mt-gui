@@ -1,0 +1,68 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version: 2.0                                           |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by:Chavdar Iliev                                             |
+  | Email: chavdar_75@yahoo.com                                                       |
+  +----------------------------------------------------------------------+
+  $Id: bg.lang, October 25, 2010, 6:07 pm kleber andres loayza Exp $ */
+global $arrLangModule;
+$arrLangModule=array(  
+"DHCP Server" => "DHCP Сървър",
+"Update" => "Запиши/Обнови",
+"Service Start" => "Включи DHCP",
+"Service Stop" => "Изключи DHCP",
+"Start range of IPs" => "Начало мрежа от IP-та",
+"End range of IPs" => "Край мрежа от IP-та",
+"DNS 1" => "DNS 1",
+"DNS 2" => "DNS 2",
+"WINS" => "WINS",
+"Gateway" => "Шлюз",
+"Optional" => "Опция",
+"Of 1 to 50000 Seconds" => "От 1 до 50000 секунди",
+"Time of client refreshment" => "Време на обновяване",
+"DHCP Configuration" => "Конфигуриране на DHCP сървър",
+"Could not find IP range" => "IP мрежата не е намерена",
+"DHCP configuration reading error: Verify that the DHCP service is installed and try again." => "Грешка: Проверете дали DHCP процесът е стартиран и пробвайте отново.",
+"Information DHCP" => "Информация",
+"The Service dhcpd can't stop" => "Процесът dhcpd не може да бъде спрян",
+"The Service dhcpd can't start" => "Процесът dhcpd не може да бъде стартиран",
+"The start IP is outside the LAN network" => "Въведеният IP адрес е извън LAN мрежата",
+"The final IP is outside the LAN network" => "Въведеният IP адрес е извън LAN мрежата",
+"IP Range is invalid for available devices" => "IP Мрежата е невалидна за наличните устройства",
+"Gateway is outside the LAN network" => "Въведеният Gateway е извън LAN мрежата",
+"You can only choose between Enabled and Disabled" => "Може да избирате само между Разрешаване и Забрани",
+"Value outside the range (1-50000)" => "Въведената стойност е извън диапазона (1-50000)",
+"Failed to update the file configuration" => "Обновяването на конфигурационния файл се провали",
+"The update was successful, but was unable to reestablish the permissions of the file dhcp.conf" => "Обновяването завърши успешно, но не се възстановиха забраните от файла dhcp.conf",
+"Update Error" => "Грешка При Обновяване",
+"Status" => "Състояние",
+"Inactive" => "Изключен",
+"Information" => "Информация",
+"Active" => "Включен",
+
+);
+?>

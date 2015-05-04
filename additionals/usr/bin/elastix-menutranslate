@@ -1,0 +1,125 @@
+#!/usr/bin/php
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: elastix-menutranslate,v 1.0 2012-03-21 10:50:00 Alberto Santos F.  asantos@palosanto.com Exp $*/
+
+if ($argc < 2) die("Please specify path to menu.lang for module to be installed.\n");
+
+$elxPath="/usr/share/elastix";
+$pathMenuLang = $argv[1];
+
+if(file_exists($pathMenuLang)){
+	include_once $pathMenuLang;
+	global $arrTranslateMenu;
+	if(!isset($arrTranslateMenu)){
+		echo "WARNING: The file $pathMenuLang does not have the variable \$arrTranslateMenu defined";
+		exit;
+	}
+	if(is_array($arrTranslateMenu)){
+		if(!file_exists("$elxPath/langmenus")){
+			mkdir("$elxPath/langmenus",0755);
+			if(!chown("$elxPath/langmenus","asterisk")){
+				echo "Could not change the owner to asterisk in file $elxPath/langmenus\n";
+				exit(1);
+			}
+			if(!chgrp("$elxPath/langmenus","asterisk")){
+				echo "Could not change the group to asterisk in file $elxPath/langmenus\n";
+                                exit(1);
+			}
+		}
+		foreach($arrTranslateMenu as $language => $translations){
+			if(file_exists("$elxPath/langmenus/$language.lang")){
+                                include_once "$elxPath/langmenus/$language.lang";
+                                global $arrLangMenu;
+                        }
+			else
+                                $arrLangMenu = array();
+			foreach($translations as $titleMenu => $translate)
+				$arrLangMenu[$titleMenu] = $translate;
+			$arrLangMenu = array_implode(" => ",",\n",$arrLangMenu);
+			$fileContent = <<<FILECONTENT
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  \$Id: $language.lang,v 1.0 2012-03-21 10:50:00 Alberto Santos F.  asantos@palosanto.com Exp $*/
+\$arrLangMenu=array(
+$arrLangMenu
+);
+?>
+FILECONTENT;
+                        file_put_contents("$elxPath/langmenus/$language.lang",$fileContent);
+			if(!chown("$elxPath/langmenus/$language.lang","asterisk")){
+                                echo "Could not change the owner to asterisk in file $elxPath/langmenus/$language.lang\n";
+                                exit(1);
+                        }
+                        if(!chgrp("$elxPath/langmenus/$language.lang","asterisk")){
+                                echo "Could not change the group to asterisk in file $elxPath/langmenus/$language.lang\n";
+                                exit(1);
+                        }		
+		}
+	}
+}
+else
+	echo "WARNING: The file $pathMenuLang does not exist\n";
+
+function array_implode($glue, $separator, $array){
+    if ( ! is_array( $array ) ) return $array;
+    $string = array();
+    foreach ( $array as $key => $val ) {
+        if ( is_array( $val ) )
+            $val = implode( ',', $val );
+        $string[] = "\"{$key}\"{$glue}\"{$val}\"";
+       
+    }
+    return implode($separator, $string);
+}
+?>

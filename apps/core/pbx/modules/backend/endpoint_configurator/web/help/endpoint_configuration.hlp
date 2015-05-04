@@ -1,0 +1,34 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>La opción "Configuración  de Endpoint" del Elastix nos permite establecer la configuración adecuada de cada uno de nuestros "Endpoint".</p>
+
+<div><img src="../modules/{$node_id}/images/endpoint_configuration.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>Actualmente se soportan varias marcas como:</p>
+
+<p>
+    <ul>
+        <li>Atcom</li>
+        <li>Polycom</li>
+        <li>Linksys</li>
+    </ul>
+</p>
+
+<p>Se prevee tener soporte para una mayor cantidad de Endpoints.</p>
+
+<p>Para configurar un Endpoint debemos seleccionar el tipo de teléfono de entre las opciones disponibles, además de la extensión del usuario, una vez hayamos seleccionado estas dos opciones para cada uno de los Endpoint a configurar, procedemos a dar click sobre el botón “Configurar”.</p>
+
+<p>Si deseamos eliminar la configuración dada a uno o varios Endpoints,  seleccionamos dichos Enpoints, y damos click sobre el botón “Desconfigurar”.</p>
+
+<p>Además es posible realizar la configuración manualmente dando click sobre el link de la IP del Endpoint deseado, esto nos abrirá la interfaz de administración propia del Endpoint.</p>
+
+<p>El mapeo de los Endpoint se lo puede realizar dando click sobre el botón “Mapear Endpoint”, el mapeo dependerá de la IP proveída así como de la máscara; por defecto la IP y máscara para el mapeo son:
+192.168.1.0/24</p>

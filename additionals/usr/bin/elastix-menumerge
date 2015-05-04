@@ -1,0 +1,108 @@
+#!/usr/bin/php
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+ */
+
+/*
+This script takes one argument that indicates the path to a module.xml or menu.xml
+file. This file indicates the menus that are to be merged into an Elastix menu
+installation. The corresponding folders in /var/www/html/modules/MENU must exist.
+*/
+
+if ($argc < 2) die("Please specify path to menu.xml for module to be installed.\n");
+if (!is_readable($argv[1])) die("FATAL: unable to read $argv[1] \n");
+
+$elxPath="/usr/share/elastix";
+require_once("$elxPath/libs/misc.lib.php");
+require_once("$elxPath/configs/default.conf.php");
+
+//global variables framework
+global $arrConf;
+require_once("$elxPath/libs/paloSantoDB.class.php");
+require_once("$elxPath/libs/paloSantoACL.class.php");
+require_once("$elxPath/libs/paloSantoMenu.class.php");
+require_once("$elxPath/libs/paloSantoModuloXML.class.php");
+require_once("$elxPath/libs/paloSantoInstaller.class.php");
+
+$pDB = new paloDB($arrConf['elastix_dsn']["elastix"]);
+
+if(!empty($pDB->errMsg)) echo "ERROR DE DB: {$pDB->errMsg}\n";
+
+$pACL = new paloACL($pDB);
+
+// $_SERVER['argv'][1] = path to the folder that containst the apps xml files
+
+if(isset($_SERVER['argv'][1])){
+    if(!is_dir($_SERVER['argv'][1])){
+        echo "{$_SERVER['argv'][1]} is not a directory\n";
+        return 1;
+    }
+    
+    $dir=$_SERVER['argv'][1];
+    
+    //obtenmos los nombres de los archivos xml que reprensantan recursos o menus dentro de elastix
+    $arrXMLs=obtainFiles($dir,"xml");
+    if($arrXMLs==false)
+        return 0; //no existen archivos dentro dle directorio
+    
+    foreach($arrXMLs as $file_xml){
+        //leemos el modulo xml
+        $oModuloXML= new ModuloXML($dir."/".$file_xml);
+        if($oModuloXML){
+            if($pACL->createResource($oModuloXML->getArbolResource())){
+                echo "Resource for file $file_xml was created successfully.\n";
+            }else{
+                echo "Resource for file $file_xml can not be created. ".$pACL->errMsg."\n";
+            }
+        }else{
+            echo "$file_xml is bad former, can not be readen\n";
+        }
+    }
+}else{
+    echo "Error: Directory that contains xml files is not defined. Usage: {$_SERVER['argv'][0]} menu.xml\n";
+    return 1;
+}
+
+deleteSmartyCompileFiles();
+function deleteSmartyCompileFiles()
+{
+    global $arrConf;
+    $files="{$arrConf['documentRoot']}/tmp/smarty/templates_c/*.php";
+    foreach(glob($files) as $filename)
+        unlink($filename);
+}
+
+function obtainFiles($dir,$type){
+    $files =  glob($dir."/{*.$type}",GLOB_BRACE);
+    $names ="";
+    foreach ($files as $ima)
+        $names[]=array_pop(explode("/",$ima));
+    if(!$names) return false;
+    return $names;
+}
+?>

@@ -1,0 +1,20 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>The option “Hardware Detection” from the “System” menu in Elastix allows us to detect telephone hardware that is available on our machine. That's to say, the telephone cards that are installed.</p>
+
+<p>The list that you will see after logging into this section will be all of the cards that have been installed and are functioning. Also, you can see the ports that are still available (not in use) for new telephone cards.</p>
+
+<div><img src="../modules/{$node_id}/images/hardware_detection.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+<p>To detect new telephonic hardware, click on the “Detect Hardware” button and it will list all of the available cards including “Recently Installed New Cards”.</p>
+<p>The checkboxes allows us to replace the original file "chan_dahdi.conf" of the card by the Elastix's chan_dahdi.conf, also allows us to detect the "Sangoma cards".</p>
+
+</body>
+</html>

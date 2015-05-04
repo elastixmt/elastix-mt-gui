@@ -1,0 +1,90 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.2.0-29                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2012-02-07 11:02:13 Rocio Mera rmera@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Organization" => "Organization",
+"Domain" => "Domain",
+"Country" => "Country",
+"City" => "City",
+"Direction" => "Direction",
+"HERE YOU CAN CREATE NEW ORGANIZATION. " => "HERE YOU CAN CREATE NEW ORGANIZATION. ",
+"Create Organization" => "Create New Organization",
+"Invalid ID Organization" => "Organization ID isn't valid. ",
+"Apply Changes" => "Apply Changes",
+"You must select a country" => "You must select a country. ",
+"The organization was created successfully" => "The organization was created successfully. ",
+"The organization was edit successfully" => "The organization was edit successfully. ",
+"To admin the new organization login to elastix as admin@" => "To admin the new organization login to elastix as admin@",
+"Don't extension associated" => "Don't extension associated",
+"Don't fax extension associated" => "Don't fax extension associated",
+"Extension / fax extension" => "Extension / fax extension",
+"Organization Domain" => "Organization Domain",
+"User Name" => "User Name",
+"<< Come Back" => "<< Come Back",
+"Main Organization can not be deleted" => "Elastix default Organization can not be deleted. ",
+"The organization was deleted successfully" => "The organization was deleted successfully. ",
+"Organization name already exists" => "Organization name already exists. ",
+"An error has occurred when trying get resources of the system. " => "An error has occurred when trying get resources of the system. ",
+"Error trying create organization groups." => "Error trying create organization groups.",
+"Errors trying created dialplan for new organization" => "Errors trying created dialplan for new organization. ",
+"Errors trying set organization properties" => "Errors trying set organization properties. ",
+"Already exist other organization with the same domain" => "Already exist other organization with the same domain. ",
+"Please before to delete a organization delete all users asociated to" => "Please before to delete a organization delete all users asociated to ",
+"Organization doesn't exist" => "Organization doesn't exist. ",
+"You aren't authorized to perform this action" => "You aren't authorized to perform this action. ",
+"Invalid Action" => "Invalid Action. ",
+"Error refreshing configuration" => "Error refreshing Fax configurations. ",
+"Domain name already exists" => "Domain name already exists. ",
+"Domain must no be empty" => "Domain must no be empty. ",
+//crear plan de marcado
+"Couldn't be opened for reading file" => "Couldn't be opened for reading file",
+"File extensions_generic.conf doesn't exist, new fiel couldn't be created" => "File extensions_generic.conf doesn't exist, new fiel couldn't be created. ",
+"Error when trying write asterisk config file" => "Error when trying created asterisk config file. ",
+"Error trying set general settings asterisk" => "Error when trying set globals variables in asterisk. ",
+"Error trying created directories inside asterisk" => "Error when trying created directories inside asterisk. ",
+"Error deleting dialplan files of organization" => "Error deleting dialplan files of organization",
+"File extensions_globals, couldn't be created" => "File extensions_globals, couldn't be created. ",
+"Couldn't be written file" => "Couldn't be created file",
+"active" => "Active",
+"terminate" => "Ready to Delete",
+"suspend" => "Suspended",
+"ORG_name" => "Defines the organization name",
+"ORG_domainname" => "Defines the Organization domain (not www Example: organization.com).",
+"ORG_country" => "Defines the organization country",
+"ORG_city" => "Definimos the organization city",
+"ORG_address" => "Defines the address for this organization",
+"ORG_countrycode" => "Defines the country code",
+"ORG_areacode" => "Defines the area code",
+"ORG_emailcontact" => "Defines a mail for receive information (this mail will be the administrator and username of this organization)",
+"ORG_maxnumaccounts" => "Defines the users numbers for the organization (default: unlimited)",
+"ORG_maxnumextensions" => "Defines the extensions number for the organization (default: unlimited)",
+"ORG_masxnumqueues" => "Defines the queues for the organization (default: unlimited)",
+"ORG_emailquota" => "Defines the email quota by user [Mb] (default: 30 mb)",
+);
+?>

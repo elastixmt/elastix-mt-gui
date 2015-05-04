@@ -1,0 +1,54 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.6-12                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2009-11-12 04:11:04 Oscar Navarrete onavarrete.palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Assign IP Address to Host" => "Asignar dirección IP a host",
+"Host Name" => "Nombre de Host",
+"IP Address" => "Dirección IP",
+"MAC Address" => "Dirección MAC",
+
+"Hostname" => "Nombre de host",
+"Assign IP Address" => "Asignar dirección IP",
+"View edit" => "View edit",
+
+"Are you sure you wish to delete the DHCP configuration." => "¿Está usted seguro de borrar la configuración DHCP?",
+"The name of hostname is duplicated please changes to another name" => "The name of hostname is duplicated please changes to another name",
+"The following fields are duplicates or already exists" => "The following fields are duplicates or already exists",
+"ex_hostname" => "(p.ej. myhostname)",
+"ex_ipaddress" => "(p.ej. 127.0.0.1)",
+"ex_mac_address" => "(p.ej. AA:BB:CC:DD:EE:FF)",
+'Invalid hostname' => 'Nombre de host no es válido',
+'Invalid IP address' => 'Dirección IP no es válida',
+'Invalid MAC address' => 'Dirección MAC no es válida',
+'Duplicate IP or MAC' => 'IP o MAC están ya duplicados',
+"DCHBYMAC_macaddress" => "Define una dirección mac", 
+"DCHBYMAC_hostname" => "Define el nombre para el host",
+"DCHBYMAC_ipaddress" => "Define una dirección IP",
+);
+?>

@@ -1,0 +1,50 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificacion: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.1                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 22OC84-356                                |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  |                                                                      |
+  | Romanian Translation by: Narcis Magardician   LAST UPDATE 04/06/2008 |
+  | narcis@artelcom.ro                                                   |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: ro.lang,v 1.6 2007/09/05 00:36:42 afigueroa Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Channels Usage Report" => "Raport Utilizarea Canalelor",
+"Simultaneous Channels (Total)" => "Canale Simultane (Total)",
+"Simultaneous Zap Channels" => "Canale Zap Simultane",
+"Simultaneous SIP Channels" => "Canale SIP simultane",
+"Simultaneous IAX Channels" => "Canale IAX simultane",
+"Simultaneous H323 Channels" => "Canale H323 simultane",
+"Simultaneous Local Channels" => "Canale Locale simultane",
+"Total Channels" => "Total canale",
+"Zap Channels" => "Canale Zap",
+"SIP Channels" => "Canale SIP",
+"IAX Channels" => "Canale IAX",
+"H323 Channels" => "Canale H323",
+"Local Channels" => "Canale Locale",
+"Nothing to show yet" => "Nothing to show yet"
+);
+?>

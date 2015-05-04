@@ -1,0 +1,24 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>The option “Calling Cards” of the Menu “Extras” in Elastix offers us the possibility of making international calls for a price that is lower than normal, through a number that the telephone company provides for making calls. These companies can be the typical telephone companies of each country or businesses specializing in telephone services.</p>
+
+<p>
+The user administrator is:<br />
+<b>User:</b> admin<br />
+<b>Password:</b> The Admin password of elastix web interface
+</p>
+
+<div align="center"><img src="../images/help/extras/calling_cards.png" border="0"></div>
+<div align="center">Figure 1</div>
+<br />
+
+<p>The Calling Card Platform is based on Asterisk2Billing. For more information visit the Manufacturer Site at: <a href="http://www.asterisk2billing.org">http://www.asterisk2billing.org</a></p>
+
+</body>
+</html>

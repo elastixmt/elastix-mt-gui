@@ -1,0 +1,107 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.4-1                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2008-08-25 05:08:01 jvega jvega@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"ME_displaynameCID" => "Muestra el nombre y extension asignada para este usuario",
+"ME_extensionnumber" => "Muestra el numero de extension",
+"ME_device" => "Muestra el codigo del dispositivo",
+"ME_language" => "Selecciona el lenguaje de tu preferencia ",
+"ME_donotdisturb" => "Habilita/Deshabilita la opción de no interrupcion",
+"ME_callwaiting" => "Habilita/Deshbilita la opcion de llamada en espera",
+"ME_callforward" => "Habilita/Deshabilita la opcion de desvio de llamada",
+"ME_callforwardonunavailable" => "Habilita/Deshabilita la opcion de desvio de llamada en modo: no disponible",
+"ME_callforwardonbusy" => "Habilita/Deshabilita la opcion de desvio de llamada en modo: ocupado",
+"ME_recordincoming" => "Selecciona el modo de grabaciones entrantes",
+"ME_recordoutgoing" => "Selecciona el modo de grabaciones salientes",
+"ME_status" => "Habilita/Deshabilita el estado actual del mensaje de voz",
+"ME_email" => "Define tu correo electronico ",
+"ME_password" => "Define una contraseña",
+"ME_emailattachment" => "Habilita/Deshabilita la opción de poder adjuntar archivos",
+"ME_playcid" => "Habilita/Deshabilita la opción de Play CID",
+"ME_palyenvelope" => "Habilita/Deshabilita la opción de Play envelope",
+"ME_deletevmail" => "Habilita/Deshabilita la opción de borrado de Vmail",
+"Call Monitor Settings" => "Configuracion del Monitor de llamadas",
+"Language:" => "Lenguaje",
+"Enable/Disable the call waiting" => "Habilita/Deshabilita la llamada en espera",
+"Display Name CID" => "Nombre de Display CID",
+"Enable/Disable the call waiting" => "Habilita/Deshabilita la llamada en espera",
+"Call Forward" => "Desvio llamadas",
+"Record Incoming" => "Grabaciones Entrantes",
+"Enable/Disable the status" => "Habilita/Deshabilita el estado",
+"Enable/Disable the call fordward on busy" => "Habilita/Deshabilita el desvio de llamadas modo ocupado",
+"Selects the frequency with that uses this option"=> "selecciona la frecuencia con que usas esta opcion",
+"Enable/Disable the Voicemail Configuration" => "Habilita/Deshabilita la configuracion de mensaje de voz",
+"Status:" => "Estado:",
+"Password:" => "Contraseña:",
+'Enable' => "Habilitado",
+"Extension number" => "Número de la Extension",
+"Select the language for voice recording" => "Selecciona el lenguaje para mensaje de voz",
+"Record Incoming:" => "Grabación Interna",
+"Record Outgoing:" => "Grabación Saliente",
+"Defines your password" => "Define tu contraseña",
+"Email Attachment:" => "Adjuntar al mail",
+"Allow attachment files to mail" => "Permite adjuntar archivos al mail",
+"Enable/Disable the delete Vmail" => "Habilita/Deshabilita el borrado de Vmail",
+"Delete Vmail" => "Borrado de Vmail",
+"Enable/Disable the play CID Option" => "Habilita/Deshabilita la opcion de reproduccion de CID",
+"Display Name CID:" => "Nombre Display CID",
+"Extension number:" => "Número de Extensión",
+"Device:" => "Dispositivo:",
+"Language" => "Lenguaje:",
+"Call Waiting :" => "Llamada en Espera:",
+"Do Not Disturb:" => "Opción No molestar:",
+"Call Forward Configuration" => "Configuración de Desvío de llamadas",
+"Voicemail Configuration" => "Configuración de Mensaje de Voz",
+"Delete Vmail:" => "Borrado de Vmail:",
+"Enable" => "Habilitado",
+"Disable" => "Deshabilitado",
+"Always" => "Siempre",
+"Never" => "Nunca",
+"On-Demand" => "En Demanda",
+"Yes" => "Si",
+"Save Configuration" => "Guardar Configuración",
+"Cancel" => "Cancelar",
+"Call Forward:" => "Desvío de Llamada:",
+"Call Forward on Unavailable:" => "Desvío de Llamada Modo no disponible:",
+"Call Forward on Busy:" => "Desvío de llamada Modo Ocupado:",
+"Play CID:" => "Reproducción CID:",
+"Send Mail" => "Enviar Mail",
+"Send Fax"=> "Enviar Fax",
+"Fax Device to use" => "Uso del Dispotivo de Fax",
+"Destination fax numbers" => "Números destinatarios de Fax",
+"File Upload" => "Subir Archivo",
+"Email content" => "Contenido de mail",
+"Send" => "Enviar",
+"Profile" => "Perfil",
+"Changes were saved succefully" => "Cambios Fueron Guardados Exitosamente",
+"Save Configuration" => "Guardar Configuracion",
+"Cancel" => "Cancelar",
+
+);
+?>
