@@ -16,6 +16,6 @@ Install the git package and follow the instructions.
 ```bash
 #System packages
 yum -y install system-config-date system-config-firewall-base system-config-keyboard system-config-language system-config-network-tui system-config-users
-#Paquetes For this implementation.
+#Packages For this implementation.
 yum -y install dialog vim mc screen git
 ```
