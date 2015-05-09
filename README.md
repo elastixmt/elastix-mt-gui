@@ -25,11 +25,9 @@ yum -y groupinstall "Web Server"
 #Packages to the database.
 yum -y install mysql-server mysql-connector-odbc
 #Packages for php
-
 wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm -O /usr/src/epel-release-6-8.noarch.rpm
 rpm -ivh /usr/src/epel-release-6-8.noarch.rpm
 yum -y install php-mcrypt
-
 yum -y install php php-cli php-common php-devel php-gd php-imap php-mbstring  php-mysql php-pdo php-pear php-pear-DB php-process php-soap php-xml
 
 Cloning repository
