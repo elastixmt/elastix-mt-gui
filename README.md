@@ -24,4 +24,8 @@ yum -y groupinstall "Web Server"
 yum -y install mysql-server mysql-connector-odbc
 #Packages for php
 yum -yinstall php php-cli php-common php-devel php-gd php-imap php-mbstring php-mcrypt php-mysql php-pdo php-pear php-pear-DB php-process php-soap php-xml
+
+Cloning repository
+cd /usr/src/
+git clone https://github.com/elastixmt/elastix-mt-gui.git
 ```
