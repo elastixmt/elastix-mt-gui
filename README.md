@@ -19,7 +19,7 @@ cd /usr/src
 #System packages
 yum -y install system-config-date system-config-firewall-base system-config-keyboard system-config-language system-config-network-tui system-config-users
 #Packages for this implementation.
-yum -y install dialog vim mc screen git nmap wget mlocate
+yum -y install dialog vim mc screen git nmap wget mlocate mailx 
 #Packages for web server.
 yum -y groupinstall "Web Server"
 yum -y install mod_ssl openssl
