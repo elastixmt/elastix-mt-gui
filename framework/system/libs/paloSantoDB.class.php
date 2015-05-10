@@ -5,7 +5,7 @@
   | Elastix version 1.1                                                  |
   | http://www.elastix.org                                               |
   +----------------------------------------------------------------------+
-  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  | Copyright (c) 2006-2015 Palosanto Solutions S. A.                    |
   +----------------------------------------------------------------------+
   | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
   | Telfs. 2283-268, 2294-440, 2284-356                                  |
@@ -45,7 +45,7 @@ class paloDB {
      *
      * @param string    $dsn    cadena de conexión, de la forma "mysql://user:password@dbhost/baseomision"
      */
-    function paloDB($dsn) // Creo que aqui debo pasar el dsn
+    function paloDB($dsn) 
     {
         // Creo una conexion y hago login en la base de datos
         $this->conn = NULL;
