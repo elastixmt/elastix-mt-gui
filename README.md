@@ -22,6 +22,7 @@ yum -y install system-config-date system-config-firewall-base system-config-keyb
 yum -y install dialog vim mc screen git nmap wget mlocate
 #Packages for web server.
 yum -y groupinstall "Web Server"
+yum -y install mod_ssl openssl
 #Packages to the database.
 yum -y install mysql-server mysql-connector-odbc
 #Packages for php
