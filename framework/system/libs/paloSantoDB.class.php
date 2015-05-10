@@ -27,7 +27,6 @@
   +----------------------------------------------------------------------+
   $Id: paloSantoDB.class.php,v 1.2 2007/09/07 00:20:03 bmacias Exp $ */
 
-// La siguiente clase es una clase prototipo... Usela bajo su propio riesgo
 class paloDB {
 
     var $conn;          // Referencia a la conexion activa a la DB
