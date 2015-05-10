@@ -10,7 +10,7 @@ This code is distributed under the GNU LGPL v2.0 license.
 
 ## Installation
 
-Install the git package and follow the instructions.
+Install the git package and follow the instructions on a CentOS 6. 
 
 
 ```bash
