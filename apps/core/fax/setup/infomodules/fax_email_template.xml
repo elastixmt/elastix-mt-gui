@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="fax_email_template" name="Fax Email Template" idParent="fax" type="module" link=""  order_no="5">
+		<permissions administrative="yes" organization_access="yes" >
+			<actions>
+				<action name="access|edit">
+					<groups>
+						<group id="2" name="administrator" desc="Administrator" />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

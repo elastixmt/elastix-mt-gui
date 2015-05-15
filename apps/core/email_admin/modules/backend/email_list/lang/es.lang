@@ -1,0 +1,98 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0.4-28                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.1 2011-07-27 05:07:46 Alberto Santos asantos@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Name1 Lastname1 <userEmail1@domain1.com>" => "Nombre1 Apellido1 ".htmlentities("<usuario1@dominio1.com>"),
+"Name2 Lastname2 <userEmail2@domain2.com>" => "Nombre2 Apellido2 ".htmlentities("<usuario2@dominio2.com>"),
+"Name3 Lastname3 <userEmail3@domain3.com>" => "Nombre3 Apellido3 ".htmlentities("<usuario3@dominio3.com>"),
+"Email List" => "Lista de Correo",
+"Are you sure you wish to delete the Email List(s)." => "Está usted seguro que desea eliminar la(s) lista(s) de correo",
+"List name" => "Nombre de la lista",
+"Membership" => "Número de miembros",
+"Action" => "Acción",
+"Add Members" => "Agregar miembros",
+"All" => "Todo",
+"New Email list" => "Nueva Lista de Correo",
+"Select a domain" => "Seleccione un dominio",
+"Wrong List Name" => "Nombre de lista incorrecto",
+"The Password List and Confirm Password List do not match" => "La contraseña de la lista y la confirmación de la contraseña de la lista no coinciden",
+"The domain selected does not exist" => "El dominio seleccionado no existe",
+"The List entered already exists" => "La lista ingresada ya existe",
+"Could not create the list" => "No se pudo crear la lista",
+"Could not create the virtual alias" => "No se pudieron crear los alias virtuales",
+"The List was successfully created" => "La lista fue creada exitosamente",
+"You can also enter a name for each email, like the following" => "Usted también puede ingresar un nombre para cada correo, como lo siguiente",
+"New List Member" => "Nuevo Miembro de la Lista",
+"The List entered does not exist" => "La lista ingresada no existe",
+"Already a member" => "Ya es un miembro",
+"Mailman could not add the members" => "Mailman no pudo agregar los miembros",
+"The following members were added to the list" => "Los siguientes miembros fueron agregados a la lista",
+"The following members could not be added to the list" => "Los siguientes miembros no pudieron ser agregados a la lista",
+"Message" => "Mensaje",
+"Mailman could not remove the list" => "Mailman no pudo eliminar la(s) lista(s)",
+"The email list(s) were successfully deleted" => "La(s) lista(s) de correo fueron eliminadas exitosamente",
+"Domain" => "Dominio",
+"Email mailmam admin" => "Correo del administrador de mailman",
+"Password mailman" => "Contraseña de mailman",
+"Domain name" => "Nombre del dominio",
+"Password list" => "Contraseña de la lista",
+"Confirm password list" => "Confirmación de la contraseña de la lista",
+"Email admin list" => "Correo del administrador de la lista",
+"Members emails" => "Correos de los miembros",
+"Could not execute command list_lists" => "No se pudo ejecutar el comando list_lists",
+"Remove members" => "Eliminar miembros",
+"Remove List Member" => "Eliminar miembros de la lista",
+"You must enter each email line by line, like the following" => "Usted debe ingresar cada correo línea por línea, como lo siguiente",
+"userEmail1@domain1.com" => "usuario1@dominio1.com",
+"userEmail2@domain2.com" => "usuario2@dominio2.com",
+"userEmail3@domain3.com" => "usuario3@dominio3.com",
+"Mailman could not remove the members" => "Mailman no pudo remover los miembros",
+"No such subscriber" => "No existe tal suscriptor",
+"The following members were removed from the list" => "Los siguientes miembros fueron removidos de la lista",
+"The following members could not be removed from the list" => "Los siguientes miembros no pudieron ser removidos de la lista",
+"Add" => "Agregar",
+"Remove" => "Remover",
+"New List Settings" => "Configuración de la Nueva Lista",
+"Mailman Admin Settings" => "Configuración del Administrador de Mailman",
+"There is no domain created. To use this module you need at least one domain. You can create a domain in the module Email->Domains" => "No existe ningún dominio creado. Para poder usar éste módulo usted necesita al menos un dominio. Usted puede crear un dominio en el módulo <a href='?menu=email_domains'>Email->Domains</a>",
+"View members" => "Ver miembros",
+"Return" => "Regresar",
+"List Members of" => "Miembros de la Lista",
+"Member name" => "Nombre del miembro",
+"Member email" => "Correo del miembro",
+"Name" => "Nombre",
+"Email" => "Correo",
+"Export Members" => "Exportar Miembros",
+"New Email List" => "Nueva Lista de Correo",
+"List Name" => "Nombre de la Lista",
+"Number of Members" => "Número de Miembros",
+"Actions" => "Acciones",
+
+);
+?>

@@ -1,0 +1,71 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.6-6                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2010-07-21 01:08:56 Bruno Macias bmacias@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Host Name" => "Host Name",
+"Remote SMTP Delivery" => "Remote SMTP Delivery",
+"Remote SMTP Server" => "Remote SMTP Server",
+"Port" => "Port",
+"Username" => "Username",
+"Password" => "Password",
+"Autentification" => "Authentication",
+"Enable" => "Enable",
+"Disable" => "Disable",
+"Enabled" => "Enabled",
+"Disabled" => "Disabled",
+"Save" => "Save",
+"Status" => "Status",
+"Result transaction" => "Result transaction",
+"Configured successful" => "Configured successful",
+"Invalid file extension.- It must be pem" => "Invalid file extension.- It must be pem",
+"Message Remote SMTP Server" => "<p>The parameter 'Domain' specifies the default host to send mail. In the case of SMTP, specify a domain, host, [host] or [address]; the form [host] turns off MX lookups.<br /><br />
+            Domain = [gateway.my.domain]<br />
+            Domain = uucphost<br />
+            Domain = [an.ip.add.ress]</p>",
+"Message Remote Autentification"=>"This option allows the authentication with certificates.",
+"Message Remote SMTP Cert"=>"To enable the certificates option is neccesary to specify the required fields",
+"OTHER" => "OTHER",
+"SMTP Server" => "SMTP Server",
+"Domain" => "Domain",
+"TLS Enable" => "TLS Enable",
+"Ex" => "Ex",
+"Failed to connect to server" => "Failed to connect to server",
+"Failed to send hello command" => "Failed to send hello command",
+"Failed to start TLS" => "Failed to start TLS",
+"Authenticate not accepted from server" => "Authenticate not accepted from server",
+"Authenticate Error, TLS must be activated" => "Authenticate Error, TLS must be activated",
+"Rstp_status" => "Turn on/Turn off the remote SMTP status",
+"Rstp_smtpserver" => "Choose the type of server",
+"Rstp_domain" => " Defines the domain name that you'll use (Example: smtp.live.com)",
+"Rstp_port" => "Defines the port number",
+"Rstp_username" => "Defines a username (similar to the example)",
+"Rstp_password" => "Defines a password",
+"Rstp_tlsenable" => "if activate this option allow authentications with certified" 
+);
+?>

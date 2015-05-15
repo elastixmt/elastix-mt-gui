@@ -1,0 +1,17 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify">El módulo "Email Stats" muestra gráficos estadísticos sobre los correos entrantes.</p>
+	<p align="Justify">El primer gráfico muestra la cantidad de correos entrantes por hora, mostrando datos hasta 26 horas atras de la hora actual, este gráfico se va actualizando cada hora y empezará a mostrarse el gráfico a partir de máximo 3 horas después de haberse instalado este módulo.</p>
+	<p align="Justify">El segundo gráfico muestra la cantidad de correos entrantes por día, mostrando datos hasta 7 días atrás, este gráfico se va actualizando cada 6 horas y empezará a mostrarse el gráfico a partir de máximo 13 horas despúes de haberse instalado este módulo.</p>
+	<p align="Justify">Y el último gráfico muestra la cantidad de correos entrantes por mes, mostrando datos hasta 12 meses atrás, este gráfico se va actualizando aproximadamente cada 15 días y empezará a mostrarse el gráfico a partir de aproximadamente 1 mes después de haberse instalado éste módulo.</p>
+	<p align="Justify">El hecho de que se muestre el mensaje "Nada que mostrar todavía", en lugar del gráfico, indica que aún no se ha recolectado la suficiente cantidad de datos como para poder realizar el mismo</p>
+	<div><img src="../modules/{$node_id}/images/email_stats.png" border="0"></div>
+        <div>Figure 1</div>
+	<br />
+    </body>
+</html>

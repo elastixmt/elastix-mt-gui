@@ -1,0 +1,20 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify"></p>
+
+        <!-- Form to add images -->
+        <div><img src="../modules/{$node_id}/images/help_send_fax.png" border="0"></div>
+	<p>Figura 1</p>
+	<p></p>
+	<p>La opción "Send Fax" del menú "Fax" de Elastix permite enviar faxes a uno o varios números de fax en Elastix. Esta opción permite enviar como fax texto que el usuario puede definir en la misma pantalla (Figura 1).</p>
+<div><img src="../modules/{$node_id}/images/help_send_fax_file.png" border="0"></div>
+<p>Figura 2</p>
+<p></p>
+O también se puede enviar un archivo de texto que sea de formato .pdf, .tiff o .txt (Figura 2).</p>
+    </body>
+</html>

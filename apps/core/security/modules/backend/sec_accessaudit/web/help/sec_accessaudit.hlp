@@ -1,0 +1,25 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify">El módulo Access Audit se encarga de mostrar en una tabla todos los usuarios que han ingresado al sistema, mostrando la fecha en que se ingresó, que usuario ingresó y un mensaje que indica si el ingreso fue exitoso o no y cual fue la dirección ip donde se ingresó. Los datos se muestran por fecha, es decir dependiendo de la fecha que se ingrese en ese filtro y luego de eso se hace click en el botón Show (Mostrar).</p>
+        <div><img src="../modules/{$node_id}/images/new_Event1.png" border="0"></div>
+        <div>Figure 1</div>
+        <br />
+        <p align="Justify">También se cuenta con una opción de búsqueda de string el cual señala todas las coincidencias entre el string ingresado y los datos del campo mensaje cuando se da click en el botón Search (Buscar).</p>
+        <div><img src="../modules/{$node_id}/images/new_Event2.png" border="0"></div>
+        <div>Figure 2</div>
+        <br />
+        <p align="Justify">Si le damos click al botón Search Next (Buscar Siguiente) nos mostrará la fila que contiene la siguiente coincidencia.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event3.png" border="0"></div>
+        <div>Figure 3</div>
+        <br />
+        <p align="Justify">También cuenta con opciones de exportación, para llevar los datos mostrados en la grilla a un archivo CSV, SPREAD SHEET o PDF.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event4.png" border="0"></div>
+        <div>Figure 4</div>
+        <br />
+    </body>
+</html>

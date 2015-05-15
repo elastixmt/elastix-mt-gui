@@ -1,0 +1,6 @@
+[elxpbx]
+ignore_backup = yes
+engine = mysql
+path = /var/lib/mysql
+deletable = yes
+prefix = 5

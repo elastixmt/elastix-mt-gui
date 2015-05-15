@@ -1,0 +1,262 @@
+<html>
+<head></head>
+<link rel="stylesheet" href="docstyles.css" />
+<body bgcolor="#FFE394">
+<br /><br />
+<center>
+<div class="classDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Class xml_domit_rss_collection</td>
+					</tr>
+					<tr>
+						<td class="regular">Represents a collection of custom RSS elements, e.g. a set of dc:creator entries.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>isPublic? </b>no<br /><b>isAbstract? </b>yes</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Inheritance tree: </b></p><p><center><br /><a href="xml_domit_rss_base.html">xml_domit_rss_base</a><br /><span class="branch">|</span><br /><a href="xml_domit_rss_elementindexer.html">xml_domit_rss_elementindexer</a><br /><span class="branch">|</span><br /><a href="xml_domit_rss_collection.html">xml_domit_rss_collection</a></center></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Known subclasses: </b></p><p>None</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Source file: </b>xml_domit_rss_shared.php</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="constructorDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Constructor</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicConstantsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Constants</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateConstantsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Constants</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicFieldsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Fields</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateFieldsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Fields</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">elements</td>
+					</tr>
+					<tr>
+						<td class="regular">An array holding the collection of custom elements.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>array</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">elementCount</td>
+					</tr>
+					<tr>
+						<td class="regular">The number of custom elements in the collection.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>int</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicMethodsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Methods</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getElementAt</td>
+					</tr>
+					<tr>
+						<td class="regular">Retrieves the element at the specified index.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">&amp;getElementAt($index)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>int <span class="parameter">index</span> - The index of the requested custom RSS element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p><a href="DOMIT_Node.html">DOMIT_Node</a> - The DOMIT node representing the requested element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Returns the second DOMIT node in the collection.</p><p><span class="code">$myNode =&amp; $myCollection-&amp;gt;getElementAt(1);</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getElement</td>
+					</tr>
+					<tr>
+						<td class="regular">Retrieves the element at the specified index (alias for getElementAt).</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">&amp;getElement($index)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>int <span class="parameter">index</span> - The index of the requested custom RSS element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p><a href="DOMIT_Node.html">DOMIT_Node</a> - The DOMIT node representing the requested element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Returns the second DOMIT node in the collection.</p><p><span class="code">$myNode =&amp; $myCollection-&amp;gt;getElement(1);</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getElementCount</td>
+					</tr>
+					<tr>
+						<td class="regular">Returns the number of elements in the collection.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getElementCount()</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>int - The number of elements in the collection.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Returns the number of elements in the collection.</p><p><span class="code">$numItems =&amp; $myCollection-&amp;gt;getElementCount();</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getElementText</td>
+					</tr>
+					<tr>
+						<td class="regular">Gets a text representation of the collection (applies the toString method to each member and concatenates).</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getElementText()</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>int - A text representation of the collection .</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Returns  a text representation of the collection .</p><p><span class="code">$text =&amp; $myCollection-&amp;gt;getElementText();</span></p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateMethodsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Methods</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">addElement</td>
+					</tr>
+					<tr>
+						<td class="regular">Adds a custom RSS element to the collection.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">addElement(&amp;$node)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p><a href="DOMIT_Node.html">DOMIT_Node</a> <span class="parameter">node</span> - A DOMIT node representing a custom RSS element.</p>
+</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<br />
+<p class="docblurb">Documentation generated by <b>ClassyDoc</b>, using the <b>DOMIT!</b> and <b>SAXY</b> parsers.<br />
+Please visit <a href="http://www.engageinteractive.com" target="_child">Engage Interactive</a> to download free copies.</p>
+<br />
+</center>
+</body>
+</html>

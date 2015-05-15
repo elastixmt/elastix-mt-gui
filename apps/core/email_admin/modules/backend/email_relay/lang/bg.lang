@@ -1,0 +1,47 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version: 2.0                                           |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by:Chavdar Iliev                                             |
+  | Email: chavdar_75@yahoo.com                                                       |
+  +----------------------------------------------------------------------+
+  $Id: bg.lang, October 25, 2010, 6:07 pm kleber andres loayza Exp $ */
+global $arrLangModule;
+$arrLangModule=array(  
+"main.cf file was updated successfully but when restarting the mail service failed" => "Файлът main.cf беше преработен успешно но след рестартиране пощенските услуги не се стартираха",
+"Relay" => "Препредаване",
+"message about email relay" => "Въведените мрежи са оторизирани да изпращат eMail към външни домейни <br> чрез Еластикс като се използва SMTP протокол. Необходимо е да въвеждате <br>по една мрежа на ред и всяка мрежа трябва да е във формат <b>IP/MASK</b>.<br>Например, за да се позволи препредаване на eMail чрез Еластикс трябва да <br>въведете 127.0.0.1/32. Препоръчваме да запазите мрежата 127.0.0.1/32 <br>в конфигурацията, защото някои процеси в Еластикс се нуждаят от нея.",
+"Networks which can RELAY" => "Мрежи които да препредават",
+"Could not read the relay configuration." => "Не е възможно да се прочете конфигурацията за препредаване.",
+"No network entered, you must keep at least the net 127.0.0.1/32" => "Не е въведена мрежа, трябва да запазите поне 127.0.0.1/32",
+"Configuration updated successfully" => "Конфигурацията е преработена успешно",
+"Write error when writing the new configuration." => "Грешка при запис на новата конфигурация.",
+"Network" => "Мрежа",
+"Error" => "Грешка",
+"Message" => "Съобщение",
+
+);
+?>

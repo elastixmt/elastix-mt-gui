@@ -1,0 +1,108 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                             |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: paloSantoRules.class.php,v 1.2 2010-12-20 03:09:47 Alberto Santos asantos@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Rules" => "Rules",
+"New" => "New",
+"Traffic" => "Traffic",
+"Interface IN" => "Interface IN",
+"Interface OUT" => "Interface OUT",
+"IP Source" => "Source Address",
+"IP Destiny" => "Destination Address",
+"ALL" => "ALL",
+"Protocol" => "Protocol",
+"Target" => "Target",
+"Action" => "Action",
+"Port Source" => "Source Port",
+"Port Destine" => "Destination Port",
+"Type" => "Type",
+"ID" => "ID",
+"New Rule" => "New Rule",
+"Delete" => "Delete",
+"Are you sure you wish to delete the Rule" => "Are you sure you wish to delete the Rule",
+"Orden" => "Orden",
+"Filter Example" => "Filter Example",
+"Rule" => "Rule",
+"Activate" => "Activate",
+"Desactivate" => "Desactivate",
+"Rule List" => "Rule List",
+"Source Port" => "Source Port",
+"Destiny Port" => "Destination Port",
+"Protocol ICMP Type" => "Protocol ICMP Type",
+"Number Protocol IP" => "Number Protocol IP",
+"Order" => "Order",
+"Order/Activated" => "Order/Activated",
+"INPUT" => "INPUT",
+"OUTPUT" => "OUTPUT",
+"FORWARD" => "FORWARD",
+"ACCEPT" => "ACCEPT",
+"DROP" => "DROP",
+"REJECT" => "REJECT",
+"ANY" => "ANY",
+"The bit masks must be values less than 33" => "The bit masks must be values less than 33",
+"Error" => "Error",
+"Validation Error" => "Validation Error",
+"The following fields contain errors" => "The following fields contain errors",
+"Edit Rule" => "Edit Rule",
+"Wrong Mask" => "Máscara Incorrecta",
+"Up" => "Up",
+"Down" => "Down",
+"Successful Change" => "Successful Change",
+"Invalid Action" => "Invalid Action",
+"Execute Rules" => "Execute Rules",
+"Successful Save" => "Successful Save",
+"Successful Update" => "Successful Update",
+"Error during execution of rules" => "Error during execution of rules",
+"Interface" => "Interface",
+"IN" => "IN",
+"OUT" => "OUT",
+"The rules have been executed in the system" => "The rules have been executed in the system",
+"There have been changes and have not been executed in the system" => "There have been changes and have not been executed in the system",
+"Cancel" => "Cancel",
+"Wrong value for ip" => "Wrong value for ip",
+"Save Changes" => "Save Changes",
+"FireWall Rules" => "Firewall Rules",
+"You have made changes to the definition of firewall rules, for this to take effect in the system press the next button" => "You have made changes to the definition of firewall rules, for this to take effect in the system press the next button",
+"The firewall is totally desactivated. It is recommended to activate the firewall rules" => "The firewall is currently deactivated. It is recommended to always have it activated",
+"Activate FireWall" => "Activate FireWall",
+"Desactivate FireWall" => "Deactivate Firewall",
+"The firewall has been activated" => "The firewall has been activated",
+"The firewall has been desactivated" => "The firewall has been deactivated",
+"The firewall could not be desactivated" => "The firewall could not be desactivated",
+"STATE" => "STATE",
+"Established" => "Established",
+"Related" => "Related",
+"You have to select at least one state" => "You have to select at least one state",
+"Details" => "Details",
+"MESSAGE"=>"MESSAGE",
+"IP DETAILS"=>"IP DETAILS",
+"PROTOCOL DETAILS"=>"PROTOCOL DETAILS",
+"ACTION DETAIL"=>"ACTION DETAIL"
+);
+?>

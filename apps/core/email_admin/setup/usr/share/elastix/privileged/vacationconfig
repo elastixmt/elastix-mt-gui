@@ -1,0 +1,69 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Copyright (c) 1997-2003 Palosanto Solutions S. A.                    |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  +----------------------------------------------------------------------+
+  | Este archivo fuente está sujeto a las políticas de licenciamiento    |
+  | de Palosanto Solutions S. A. y no está disponible públicamente.      |
+  | El acceso a este documento está restringido según lo estipulado      |
+  | en los acuerdos de confidencialidad los cuales son parte de las      |
+  | políticas internas de Palosanto Solutions S. A.                      |
+  | Si Ud. está viendo este archivo y no tiene autorización explícita    |
+  | de hacerlo, comuníquese con nosotros, podría estar infringiendo      |
+  | la ley sin saberlo.                                                  |
+  +----------------------------------------------------------------------+
+  | Autor: Eduardo Cueva <ecueva@palosanto.com>                          |
+  +----------------------------------------------------------------------+
+  $Id: vacations_config.php,v 1.1 2010/08/16 13:49:36 ecueva Exp $
+*/
+
+require_once 'Console/Getopt.php';
+
+if(!isset($argv[1]))
+    exit(1);
+
+$response = FALSE;
+
+switch($argv[1]){
+    case "create_cron":
+	$response = create_cron();
+	break;
+    case "exist_cron":
+	$response = exist_cron();
+	break;
+    default:
+	exit(1);
+	break;
+}
+
+return $response;
+
+
+function create_cron()
+{
+    $file = "/etc/cron.d/vacations";
+    $status = touch("/etc/cron.d/vacations");
+    $content = "59 00 * * *  root /usr/bin/php -q /var/www/elastixdir/scripts/disable_vacations.php\n";
+    if($status)
+	$status = file_put_contents($file, $content);
+    if(!$status)
+	exit(1);
+    return TRUE;
+}
+
+function exist_cron()
+{
+    $file = "/etc/cron.d/vacations";
+    if(is_file($file))
+	return TRUE;
+    exit(1);
+}
+
+?>

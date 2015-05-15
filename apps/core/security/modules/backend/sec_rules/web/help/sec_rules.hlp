@@ -1,0 +1,56 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify">La primera vez que se instala Elastix, en el módulo Rulers Filtering nos aparece un listado de reglas, las cuales deben ser activadas presionando el botón Activate FireWall, caso contrario no se podrá hacer nada en el módulo</p>
+        <div><img src="../modules/{$node_id}/images/new_Event10.png" border="0"></div>
+        <div>Figure 1</div>
+        <br />
+        <p align="Justify">Una vez activadas las reglas que vienen por defecto, podemos en el módulo crear, modificar, eliminar y ejecutar en el sistema reglas iptables de filtrado.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event11.png" border="0"></div>
+        <div>Figure 1</div>
+        <br />
+        <p align="Justify">Si se desea crear una nueva regla iptable de filtrado debemos hacer click en el botón New Rule, con lo cual nos aparecerá un formulario para llenar los datos de la nueva regla.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event12.png" border="0"></div>
+        <div>Figure 2</div>
+        <br />
+        <p align="Justify">Dependiendo de los datos que se elijan en los campos tráfico y protocolo el formulario puede variar, como se muestra en la siguiente figura.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event13.png" border="0"></div>
+        <div>Figure 3</div>
+        <br />
+        <p align="Justify">Los datos que se muestran en el combo select para puertos (en caso de protocolos TCP o UDP), tipo (para ICMP) y ID (para IP) son obtenidos del módulo Service/Network Ports, por lo tanto si deseamos crear una regla con cierto puerto debemos primero crear el puerto en el módulo Service/Network Ports para que aparezca ese puerto entre las opciones del combo select.</p>
+        <br />
+        <p align="Justify">En los campos de ip tanto origen como destino se debe ingresar la dirección con el respectivo formato ip (x.x.x.x). Y en los campos de máscara se la debe ingresar pero en formato decimal y debe ser un número entre 0 y 32. Si se deja la dirección ip por default (0.0.0.0) entonces se guardará en la base de datos una máscara de 0 sin importar que se ingrese otro valor, y si se la deja en blanco o vacío tampoco importará el valor de la máscara. Por otro lado si ingresamos otra dirección ip e ingresamos una máscara válida entonces se guardará en la base de datos la dirección de red de la ip para la máscara dada. Si queremos que se grabe una dirección ip específica entonces debemos ingresarla y en el campo de máscara debemos dejarlo vacío.</p>
+        <br />
+        <p align="Justify">Una vez ingresado los datos de la nueva regla y dado click en el botón Save, se abrá guardado en la base de datos y aparecerá en el reporte como activada (foco prendido), si se quiere desactivar tenemos que darle click al link del foco (penúltimo).</p>
+        <div><img src="../modules/{$node_id}/images/new_Event14.png" border="0"></div>
+        <div>Figure 4</div>
+        <div><img src="../modules/{$node_id}/images/new_Event15.png" border="0"></div>
+        <div>Figure 5</div>
+        <br />
+        <p align="Justify">A pesar de que las reglas estén activadas en el reporte y en la base de datos, no han sido todavía ejecutadas en el sistema, si se desea hacerlo debemos hacer click en el botón Save Changes el cual sólo aparecerá cuando el módulo detecte que se ha hecho algun cambio en las reglas, de esta forma todas las reglas que se encuentren como activas se ejecturán en el sistema en el orden mostrado.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event16.png" border="0"></div>
+        <div>Figure 6</div>
+        <br />
+         <p align="Justify">Para editar una regla creada debemos hacer click en el link en forma de cuaderno de notas (último), lo cual nos llevará al formulario mencionado antes pero con los datos llenos de la regla.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event17.png" border="0"></div>
+        <div>Figure 7</div>
+        <div><img src="../modules/{$node_id}/images/new_Event18.png" border="0"></div>
+        <div>Figure 8</div>
+        <p align="Justify">Si se desea eliminar una regla de la base de datos debemos hacer click en el checkbox que se encuentra al lado izquierdo de la regla, luego de esto damos click en el botón Delete.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event19.png" border="0"></div>
+        <div>Figure 9</div>
+        <br />
+         <p align="Justify">Si bien es cierto al hacer esto las reglas han sido borradas de la base de datos, todavía siguen activas y ejecutadas en el sistema, entonces para eliminarlas por completo del sistema, luego de presionar el botón Delete debemos presionar el botón Save Changes.</p>
+        <br />
+        <p align="Justify">Finalmente tenemos la funcionalidad de modificar el orden de una regla, para ello hay dos botones con imagenes de flechas (hacia arriba y hacia abajo) en la columna denominada Order. Estas flechas trabajan de la siguiente manera: Si presionamos la flecha hacia arriba, la regla seleccionada subirá una posición, reemplazando a su inmediata superior y tomará el orden de esa regla, mientras que la que se encontraba en esa posición descenderá un puesto para ocupar la posición de la regla señalada y tomará su orden. En cambio si presionamos la flecha hacia abajo, la regla seleccionada descenderá una posición, reemplazando a su inmediata inferior y tomará el orden de esa regla, mientras que la que se encontraba en esa posición subirá un puesto para ocupar la posición de la regla señalada y tomará su orden. Al hacer esto los cambios surgirán efecto automáticamente en la base de datos.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event20.png" border="0"></div>
+        <div>Figure 10</div>
+        <br />
+        <p align="Justify">Una vez de haber terminado de reordenar las reglas, para que se ejecute el nuevo orden de reglas en el sistema debemos hacer click una vez más en el botón Save Changes.</p>
+        <br />
+    </body>
+</html>

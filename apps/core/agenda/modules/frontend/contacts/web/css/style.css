@@ -1,0 +1,38 @@
+.row{
+    margin-top: 7px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+select[name=ftype_contacto], select[name=filter]{
+width: 110px;
+display:inline;
+}
+
+input[type="text"]{
+width: 175px !important;
+display:inline;
+}
+
+.subtitle p{
+color: #E35332;
+font-size: 17px;
+font-weight: bold;
+}
+
+.name-label{
+font-weight: bold !important;
+}
+
+/* css pagineo*/
+.my_settings .pagination{
+    margin: 0px 0px;
+}
+/*fin css pagineo*/
+
+/* css foto de cada user*/
+#img-users{
+    width:25px !important;
+    height:25px !important;
+}
+/* fin de css cada user foto*/

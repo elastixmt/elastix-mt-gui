@@ -1,0 +1,15 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>The option "Fax Queue" from the Menu "FAX" in Elastix shows the list of faxes that are awaiting its turn to be sent. All the jobs have an ID and a status so you can monitor the sending of the faxes. If you want to cancel a job, just select the job and click on "Cancel Job" button.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_faxqueue.png" border="0" />
+<p>Figure 1</p></div>
+<br />
+<br />
+</body>
+</html>

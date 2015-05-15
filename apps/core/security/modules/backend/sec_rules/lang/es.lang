@@ -1,0 +1,107 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                             |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: paloSantoRules.class.php,v 1.2 2010-12-20 03:09:47 Albero Santos asantos@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Rules" => "Reglas",
+"New" => "Nuevo",
+"Traffic" => "Trafico",
+"Interface IN" => "Interfaz ENTRADA",
+"Interface OUT" => "Interfaz SALIDA",
+"IP Source" => "Dirección Origen",
+"IP Destiny" => "Dirección Destino",
+"ALL" => "TODOS",
+"Protocol" => "Protocolo",
+"Target" => "Objetivo",
+"Action/Activated" => "Acción/Activada",
+"Port Source" => "Puerto Origen",
+"Port Destine" => "Puerto Destino",
+"Type" => "Tipo",
+"ID" => "ID",
+"New Rule" => "Nueva Regla",
+"Delete" => "Borrar",
+"Are you sure you wish to delete the Rule" => "Está seguro que desea eliminar la Regla",
+"Orden" => "Orden",
+"Filter Example" => "Filtro Ejemplo",
+"Rule" => "Regla",
+"Activate" => "Activar",
+"Desactivate" => "Desactivar",
+"Rule List" => "Lista de Reglas",
+"Source Port" => "Puerto Origen",
+"Destiny Port" => "Puerto Destino",
+"Protocol ICMP Type" => "Tipo de Protocolo ICMP",
+"Number Protocol IP" => "Número de Protocolo IP",
+"Order" => "Orden",
+"Order/Activated" => "Orden/Activada",
+"INPUT" => "ENTRADA",
+"OUTPUT" => "SALIDA",
+"FORWARD" => "A TRAVES",
+"ACCEPT" => "ACEPTAR",
+"DROP" => "DESCARTAR",
+"REJECT" => "RECHAZAR",
+"ANY" => "CUALQUIERA",
+"The bit masks must be values less than 33" => "Las máscaras en bits deben ser valores menores a 33",
+"Error" => "Error",
+"Validation Error" => "Error de Validación",
+"The following fields contain errors" => "Los siguientes campos contienen errores",
+"Edit Rule" => "Editar Regla",
+"Up" => "Subir",
+"Down" => "Bajar",
+"Successful Change" => "Cambio Exitoso",
+"Invalid Action" => "Acción Inválida",
+"Execute Rules" => "Ejecutar Reglas",
+"Successful Save" => "Guardado Exitoso",
+"Successful Update" => "Actualización Exitosa",
+"Error during execution of rules" => "Error durante la ejecución de las reglas",
+"Interface" => "Interfaz",
+"IN" => "ENTRADA",
+"OUT" => "SALIDA",
+"The rules have been executed in the system" => "Las reglas han sido ejecutadas en el sistema",
+"There have been changes and have not been executed in the system" => "Han habido cambios y no se han ejecutado en el sistema",
+"Cancel" => "Cancelar",
+"Wrong value for ip" => "Valor inválido para ip",
+"Save Changes" => "Guardar Cambios",
+"FireWall Rules" => "Reglas del Cortafuegos",
+"You have made changes to the definition of firewall rules, for this to take effect in the system press the next button" => "Usted ha realizado cambios en la definición de las reglas de firewall, para que esto haga efecto en el sistema debe presionar el siguiente botón",
+"The firewall is totally desactivated. It is recommended to activate the firewall rules" => "El Cortafuegos está actualmente desactivado. Es recomendable mantenerlo siempre activado",
+"Activate FireWall" => "Activar Cortafuegos",
+"Desactivate FireWall" => "Desactivar Cortafuegos",
+"The firewall has been activated" => "El cortafuegos ha sido activado",
+"The firewall has been desactivated" => "El cortafuegos ha sido desactivado",
+"The firewall could not be desactivated" => "El cortafuegos no pudo ser desactivado",
+"STATE" => "ESTADO",
+"Established" => "Establecido",
+"Related" => "Relacionado",
+"You have to select at least one state" => "Debe seleccionar al menos un estado",
+"Details" => "Detalles",
+"MESSAGE"=>"MENSAJE",
+"IP DETAILS"=>"DETALLES DE LA IP",
+"PROTOCOL DETAILS"=>"DETALLES DEL PROTOCOLO",
+"ACTION DETAIL"=>"DETALLE DE LA ACCIÓN"
+);
+?>

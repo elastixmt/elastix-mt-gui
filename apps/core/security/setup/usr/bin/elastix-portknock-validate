@@ -1,0 +1,192 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: fwconfig.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+
+/*
+ * Este programa recibe los siguientes parámetros, en el orden indicado:
+ * 
+ *  Interfaz de red por la que ingresó la petición de portknock (ethX)
+ *  IPv4 fuente de la petición de portknock
+ *  Nombre de usuario bajo el cual se hace la petición
+ *  Payload del paquete encriptado de la petición, en base64
+ * 
+ * Se consulta la base de datos acl.db para verificar si el usuario existe y 
+ * para obtener el hash MD5 de la contraseña. Luego de deshacer la codificación
+ * base64, se decripta el payload usando el hash MD5 como contraseña. Se espera
+ * que el payload en plaintext sea un texto con el siguiente formato
+ * 
+ *  tttttttttttt:aa.bb.cc.dd:XXX,YYY,ZZZ
+ * 
+ * El primer campo es el timestamp UNIX del envío del paquete, y debe ser 
+ * enteramente numérico. El segundo campo es una IP, que debe coincidir con la
+ * IP desde la cual se envió el paquete portknock. El tercer campo es una lista
+ * separada por comas de las ETIQUETAS de los servicios de red que el usuario
+ * desea que sean permitidos para la IP fuente. La lista debe de ser un 
+ * subconjunto de la lista de puertos autorizados para el usuario indicado en la
+ * base de datos iptables.db. Si alguna etiqueta no se reconoce o no está entre
+ * las autorizaciones, se rechaza toda la petición. Luego de validar esto, se
+ * agrega la lista de puertos a la base de datos y se recarga el firewall.
+ */
+
+if (count($argv) < 5) {
+    fputs(STDERR, "$argv[0] eth-in source-ip username base64payload\n");
+    exit(2);
+}
+
+$eth_in = $argv[1];
+$ipFuente = $argv[2];
+$sUserName = $argv[3];
+$sPayload = base64_decode($argv[4]);
+if ($sPayload === FALSE) exit(3);
+
+// Lectura del password y el ID de usuario
+$md5_password = NULL;
+$id_user = NULL;
+try {
+    $db = new PDO('sqlite:/var/www/db/acl.db');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sth = $db->prepare('SELECT id, md5_password FROM acl_user WHERE name = ?');
+    $sth->execute(array($sUserName));
+    $hashlist = $sth->fetchAll(PDO::FETCH_NUM);
+    if (count($hashlist) > 0) {
+    	list($id_user, $md5_password) = $hashlist[0];
+    }
+    $sth->closeCursor();
+    $sth = NULL; $db = NULL;
+} catch (PDOException $e) {
+    fputs(STDERR, "FATAL: unable to query user - ".$e->getMessage()."\n");
+    exit(4);
+}
+if (is_null($md5_password)) exit(5);
+
+// Desencriptación y validación de payload
+$sPlaintext = trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $md5_password, $sPayload, 
+    MCRYPT_MODE_CBC, md5($md5_password)), "\0");
+$params = explode(':', $sPlaintext);
+if (count($params) != 3 || !ctype_digit($params[0]) || $ipFuente != $params[1]) exit(6);
+$ports = explode(',', $params[2]);
+
+exit(validar_acceso_puertos($id_user, $eth_in, $params[1], $ports) ? 0 : 1);
+
+function load_default_timezone()
+{
+    $sDefaultTimezone = @date_default_timezone_get();
+    if ($sDefaultTimezone == 'UTC') {
+        $sDefaultTimezone = 'America/New_York';
+        if (file_exists('/etc/sysconfig/clock')) {
+            foreach (file('/etc/sysconfig/clock') as $s) {
+                $regs = NULL;
+                if (preg_match('/^ZONE\s*=\s*"(.+)"/', $s, $regs)) {
+                    $sDefaultTimezone = $regs[1];
+                }
+            }
+        }
+    }
+    date_default_timezone_set($sDefaultTimezone);
+}
+
+function validar_acceso_puertos($id_user, $eth_in, $sourceip, $portlist)
+{
+    load_default_timezone();
+
+	try {
+        // Lectura de los puertos autorizados y las reglas actuales
+        $sqlPuertos = <<<SQL_PUERTOS
+SELECT portknock_user_auth.id AS auth_id, portknock_user_current_rule.id AS rule_id, 
+    port.name
+FROM portknock_user_auth, port
+LEFT JOIN portknock_user_current_rule
+    ON  portknock_user_current_rule.id_portknock_auth = portknock_user_auth.id
+    AND portknock_user_current_rule.eth_in = ?
+    AND portknock_user_current_rule.ip_source = ?
+WHERE   portknock_user_auth.id_user = ?
+    AND portknock_user_auth.id_port = port.id
+SQL_PUERTOS;
+        $db = new PDO('sqlite:/var/www/db/iptables.db');
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sth = $db->prepare($sqlPuertos);
+        $sth->execute(array($eth_in, $sourceip, $id_user));
+        $ruleGroups = array();
+        foreach ($sth as $row) {
+        	if (!isset($ruleGroups[$row['auth_id']])) {
+        		$ruleGroups[$row['auth_id']] = array(
+                    'name'  =>  $row['name'],
+                    'current'   =>  array(),
+                );
+        	}
+            if (!is_null($row['rule_id'])) {
+                $ruleGroups[$row['auth_id']]['current'][] = $row['rule_id'];
+            }
+        }
+        
+        // Filtrar los puertos autorizados.
+        $allowedPorts = array();
+        foreach ($ruleGroups as $rule) {
+        	if (!in_array($rule['name'], $allowedPorts)) $allowedPorts[] = $rule['name'];
+        }
+        $excessPorts = array_diff($portlist, $allowedPorts);
+        if (count($excessPorts) > 0) return FALSE;
+        
+        // Extraer las reglas que referencian puertos deseados
+        $sthInsert = $db->prepare(
+            'INSERT INTO portknock_user_current_rule '.
+                '(eth_in, ip_source, id_portknock_auth, rule_start) '.
+            'VALUES (?, ?, ?, ?)');
+        $sthUpdate = $db->prepare(
+            'UPDATE portknock_user_current_rule SET rule_start = ? WHERE id = ?');
+        foreach ($ruleGroups as $auth_id => $rule) {
+        	if (in_array($rule['name'], $portlist)) {
+        		/* Se pide la apertura de este puerto. Se verifica si el puerto
+                 * ya estaba abierto para esta IP a través de la interfaz. */
+                $bUpdatedRules = FALSE;
+                foreach ($rule['current'] as $rule_id) {
+                    $sthUpdate->execute(array(date('Y-m-d H:i:s'), $rule_id));
+                    $bUpdatedRules = TRUE;
+                }
+                if (!$bUpdatedRules) {
+                    // No hay regla existente, se agrega nueva
+                	$sthInsert->execute(array($eth_in, $sourceip, $auth_id, date('Y-m-d H:i:s')));
+                }
+        	}
+        }
+        
+        // Mandar a actualizar las reglas de firewall. Se asume usuario root
+        $retval = NULL;
+        system('/usr/share/elastix/privileged/fwconfig --load', $retval);
+        if ($retval) {
+            fputs(STDERR, "FATAL: fwconfig --load failed! (retval=$retval)\n");
+        }
+        return ($retval == 0);
+	} catch (PDOException $e) {
+        fputs(STDERR, "FATAL: unable to query port authorizations - ".$e->getMessage()."\n");
+		return FALSE;
+	}
+}
+?>

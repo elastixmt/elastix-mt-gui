@@ -1,0 +1,581 @@
+#!/usr/bin/php
+<?php
+/*
+ vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: elastix-faxevent.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+
+$elxPath="/usr/share/elastix";
+ini_set('include_path', "$elxPath:".ini_get('include_path'));
+
+require_once 'Console/Getopt.php';
+require_once "libs/misc.lib.php";
+
+define('HYLAFAX_SPOOLDIR', '/var/spool/hylafax');
+define('ELASTIX_FAXDIR', '/var/www/elastixdir/faxdocs/');
+//arreglo que contiene los parametros para el string de coneccion a la base
+$arrDBConn=parseDSN(generarDSNSistema('asteriskuser', 'elxpbx'));
+
+load_default_timezone();
+
+// Parse command-line options
+$opt = Console_Getopt::getopt($argv, '', array(
+    'send',     // If specified, run sent fax behavior
+    'recv',     // If specified, run received fax behavior
+    //'debug',    // Enable debug messages on fax log database
+));
+if (PEAR::isError($opt)) error_exit($opt->getMessage()."\n");
+try {
+    foreach ($opt[0] as $option) switch ($option[0]) {
+        case '--send':
+            exit(action_faxSentEvent($opt) ? 0 : 1);
+        case '--recv':
+            exit(action_faxRecvEvent($opt) ? 0 : 1);
+    }
+} catch (PDOException $e) {
+    error_exit('FATAL: unable to read or update fax database - '.$e->getMessage()."\n");
+}
+error_exit("No action specified (--send,--recv)\n");
+
+function error_exit($sMsg, $errorcode = 1)
+{
+    fwrite(STDERR, $sMsg);
+    exit($errorcode);
+}
+
+function wlog($message) {
+    $date=date("YMd_His");
+    file_put_contents("/var/log/elastixfax.log","$date - $message\n",FILE_APPEND);
+}
+
+function wlog_exit($message){
+    wlog($message);
+    exit(1);
+}
+
+
+/* These are the assumptions on execution of the notification for a sent fax:
+ * - The entire program runs as user uucp of group uucp.
+ * - Initial working directory is HYLAFAX_SPOOLDIR
+ * - In addition to the --send parameter, there are three additional parameters.
+ *   These parameters are: the fax completion file (doneq/qNNN), the fax status
+ *   ('done', 'failed'), and a timestamp (currently unused). The fax completion
+ *   file is a path relative to HYLAFAX_SPOOLDIR.   
+ */
+function action_faxSentEvent($opt)
+{
+    global $arrDBConn;
+	if (count($opt[1]) < 2)
+        wlog_exit("ERR: invoke with --send doneq/qNN [done|failed]\n");
+
+    // Open database for log messages and configuration
+    $conn = new PDO($arrDBConn["dsn"],$arrDBConn["user"],$arrDBConn["passwd"]);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Load and parse the fax properties file
+    $sFaxPropertiesPath = HYLAFAX_SPOOLDIR.'/'.$opt[1][0];
+    if (!file_exists($sFaxPropertiesPath))
+        wlog_exit("ERR: Fax properties file not found: $sFaxPropertiesPath");
+    $faxinfo = array('properties' => array(), 'files' => array());
+    foreach (file($sFaxPropertiesPath) as $s) {
+    	$regs = NULL;
+        $s = trim($s);
+        if ($s[0] == '!') {
+        	// File component for fax - format in index 0, relative path in index 3
+            // !postscript:0::docq/doc17.ps
+            $faxinfo['files'][] = explode(':', substr($s, 1));
+        } elseif (preg_match('/^(\w+):(.*)$/', $s, $regs)) {
+        	// Property of fax job
+            $faxinfo['properties'][$regs[1]] = $regs[2];
+        }
+    }
+    
+    //por el modemdev usado para enviar el fax determinamos la organizacion
+    commonFaxProcessing($conn, $faxinfo, 'out', $opt[1][1]);
+    wlog('INFO : '.sprintf('Logged SENT fax through %s with commid %s number %s sender %s status %s',
+        $faxinfo['properties']['modem'], $faxinfo['properties']['commid'],
+        $faxinfo['properties']['number'], $faxinfo['properties']['sender'],
+        $opt[1][1]));
+
+    $conn = NULL;
+    return TRUE;
+}
+
+/* These are the assumptions on execution of the notification for a received fax:
+ * - The entire program runs as user uucp of group uucp.
+ * - In addition to the --recv parameter, there are six additional parameters.
+ *   - TIFF file for the received fax
+ *   - Modem device for received fax
+ *   - Comm ID for the received fax
+ *   - Error message, if any, for the received job
+ *   - Number for Caller ID for the incoming call --> company number
+ *   - Name of the Caller ID for the incoming call --> company name
+ */
+function action_faxRecvEvent($opt)
+{
+    global $arrDBConn;
+    if (count($opt[1]) < 6)
+        wlog_exit("ERR: invoke with --recv tifffile modemdevice commid errormessage CIDNumber CIDName\n");
+
+    // Open database for log messages and configuration
+    $conn = new PDO($arrDBConn["dsn"],$arrDBConn["user"],$arrDBConn["passwd"]);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Run faxinfo on the tifffile to fetch basic information on the fax
+    // Synthetize a faxinfo structure for use with commonFaxProcessing()
+    /*
+    recvq/fax000000003.tif (ftp://elastix.palosanto.com:4559/recvq/fax000000003.tif):
+              Sender: 
+               Pages: 1
+             Quality: Normal
+                Size: ISO A4
+            Received: 2007:06:11 16:30:20
+     Time To Receive: 0:38
+         Signal Rate: 9600 bit/s
+         Data Format: 2-D MR
+       Error Correct: No
+             CallID1: 
+             CallID2: 
+         Received On: ttyIAX1
+              CommID: 000000003 (ftp://elastix.palosanto.com:4559/log/c000000003)
+    */
+    $faxinfo = array(
+        'properties'    =>  array(
+            'modem'     =>  $opt[1][1],
+            'commid'    =>  $opt[1][2],
+            'status'    =>  $opt[1][3],
+            'number'    =>  $opt[1][4],
+            'sender'    =>  $opt[1][5],
+            'mailaddr'  =>  NULL,
+        ),
+        'files'         =>  array(
+            array('tiff', 0, NULL, $opt[1][0]),
+        ),
+    );
+    $output = $retval = NULL;
+    exec('/usr/sbin/faxinfo -n '.escapeshellarg($opt[1][0]), $output, $retval);
+    if ($retval != 0) wlog_exit(
+        "Failed to run: /usr/sbin/faxinfo -n \n".
+        "Return value: $retval\n".
+        "Command output:\n".
+        implode("\n", $output));
+    foreach ($output as $s) {
+    	$regs = NULL;
+        if (preg_match('/^(\w+):\s*(.*)$/', trim($s), $regs)) {
+        	switch ($regs[1]) {
+        	case 'Sender':
+                $sender = trim($regs[2]);
+                if ($sender == '' || 
+                    stripos($sender, 'unknown') !== FALSE || 
+                    stripos($sender, 'unspecified') !== FALSE)
+                    $sender = 'XXXXXXX';
+                if (empty($faxinfo['properties']['sender']))
+                    $faxinfo['properties']['sender'] = $sender;
+                if (empty($faxinfo['properties']['number']))
+                    $faxinfo['properties']['number'] = preg_replace ('/\W/', '', $sender);
+                break;
+            // The following properties are available but unused (for now)
+            case 'Pages':
+            case 'Received':
+            case 'Page':
+            default:
+                break;
+        	}
+        }
+    }
+    
+    commonFaxProcessing($conn, $faxinfo, 'in', $opt[1][3] != '' ? 'failed' : 'done');
+    wlog('INFO : '.sprintf('Logged RECEIVED fax through %s with commid %s number %s sender %s status %s',
+        $faxinfo['properties']['modem'], $faxinfo['properties']['commid'],
+        $faxinfo['properties']['number'], $faxinfo['properties']['sender'],
+        $opt[1][3] != '' ? 'failed' : 'done'));
+
+    $conn = NULL;
+    return TRUE;
+}
+
+// Common functionality shared by sent/received fax processing
+function commonFaxProcessing($conn, $faxinfo, $sDirection, $status)
+{
+    $sRepresentativeName = basename($faxinfo['files'][0][3]);
+    $regs = NULL;
+    if (preg_match('/^(.*)\.(\w+)$/', $sRepresentativeName, $regs))
+        $sRepresentativeName = $regs[1].'.pdf';
+    
+    //modem
+    $sModemDevice=$faxinfo['properties']['modem'];
+    if (!preg_match('/^ttyIAX([[:alnum:]]+)$/', $sModemDevice, $regs)){
+        //invalid format from devid
+        wlog_exit("(internal) Failed to extract dev_id from $sModemDevice");
+    }
+    
+    $dev_id=$regs[1];
+    //domain
+    $domain=getDomain($conn,$dev_id);
+    if($domain==false){
+        wlog("Couldn't be determinated domain from $sModemDevice");
+        wlog_exit("Abort Process");
+    }
+    
+    //user
+    //en caso de no encontrarse el usuario dueño del fax se setea este campo con ''
+    $idUser=getModemOwer($conn,$dev_id,$domain);
+    // Create required folder for PDF of processed fax
+    $sDestDir = createFaxDirectory($domain, $sDirection, 
+        $faxinfo['properties']['number'], $faxinfo['properties']['commid']);
+    $sFaxesDir = ELASTIX_FAXDIR.'/'.$sDestDir;
+
+    // Convert all of the component files into PDF
+    $pdflist = array();
+    foreach ($faxinfo['files'] as $k => $fileinfo) {
+        $sFileFormat = $fileinfo[0];
+        $sSourcePath = HYLAFAX_SPOOLDIR.'/'.$fileinfo[3];
+        $sDestPath = $sFaxesDir.'/'."fax$k.pdf";
+        if (!file_exists($sSourcePath))
+            wlog_exit('Component file not found in spool dir: '.$fileinfo[3]);
+        
+        switch ($sFileFormat) {
+            case 'post':
+            case 'postscript':
+                // Normalize PostScript, then convert to PDF
+                $sTempPath = dirname($sSourcePath).'/'.basename($sSourcePath).'.ps2';
+                invokeCommand(
+                    '/usr/bin/eps2eps '.escapeshellarg($sSourcePath).' '.escapeshellarg($sTempPath));
+                invokeCommand(
+                    '/usr/bin/ps2pdfwr '.escapeshellarg($sTempPath).' '.escapeshellarg($sDestPath));
+                if (!unlink($sTempPath))
+                    wlog('WARN : Failed to remove temporary file: '.$sTempPath);
+                $pdflist[] = $sDestPath;
+                break;
+            case 'tiff':
+                // Convert from TIFF to PDF
+                invokeCommand(
+                    '/usr/bin/tiff2pdf -o '.escapeshellarg($sDestPath).' '.escapeshellarg($sSourcePath));
+                $pdflist[] = $sDestPath;
+                break;
+            case 'pdf':
+                // Simple file copy
+                if (!copy($sSourcePath, $sDestPath))
+                    wlog_exit("Failed to copy PDF: ");
+                $pdflist[] = $sDestPath;
+                break;
+            default:
+                // Unimplemented source component type
+                wlog("WARN : Unimplemented component type $sFileFormat for {$fileinfo[3]}");
+                break;
+        }
+        
+        /* Do not unlink tiff on incoming fax - avantfax may be chained to this
+         * script, and it needs to look at the script too. */
+        if ($sDirection == 'out' && !unlink($sSourcePath)) 
+            wlog('WARN : Failed to remove fax component: '.$fileinfo[3]);
+    }
+    
+    $sDestPath = $sFaxesDir.'/fax.pdf';
+    if (count($pdflist) > 1) {
+        // Combine all of the PDF files in one big PDF for output
+        invokeCommand(
+            '/usr/bin/gs '.implode(' ', array_map(
+                'escapeshellarg', 
+                array_merge(
+                    array('-q', '-dNOPAUSE', '-dBATCH', '-sDEVICE=pdfwrite',
+                        '-dCompatibilityLevel=1.4', '-sPAPERSIZE=a4', '-dSAFER',
+                        '-sOutputFile='.$sDestPath, '-f'),
+                    $pdflist))));
+        if (count($pdflist) != count(array_filter(array_map('unlink', $pdflist))))
+            wlog('WARN : Failed to remove all temporar PDF files');
+    } elseif (count($pdflist) == 1) {
+        // Rename cannot fail due to filesystem boundaries - same directory
+        if (!rename($pdflist[0], $sDestPath))
+            wlog_exit('Failed to rename file: '.$pdflist[0]);
+    } else {
+    	// This should not happen
+        wlog_exit('No files found in supported formats');
+    }
+    
+    // Required since reception might leave file as 0600
+    chmod($sDestPath, 0644);
+    
+    insertFaxRecord($conn,
+        $sRepresentativeName,
+        $faxinfo['properties']['modem'],
+        $idUser,
+        $faxinfo['properties']['commid'],
+        $status, // done|failed
+        $faxinfo['properties']['status'],
+        $faxinfo['properties']['sender'],
+        $faxinfo['properties']['number'],
+        $sDirection,
+        $sDestDir);
+    
+    // Send email with attached fax
+    $emailList = array();
+    $sDestinationEmail = readNotificationEmail($conn, $dev_id);
+    if (!is_null($sDestinationEmail)) $emailList[] = $sDestinationEmail;
+    
+    if (isset($faxinfo['properties']['mailaddr']) && !empty($faxinfo['properties']['mailaddr'])) {
+        $sDestinationEmail = $faxinfo['properties']['mailaddr'];
+        foreach (array('/@localhost$/', '/@localhost.localdomain/', '/@127.0.0.1/') as $regexp) {
+            if (!is_null($sDestinationEmail) && preg_match($regexp, $sDestinationEmail))
+                $sDestinationEmail = NULL;
+        }
+        if (!is_null($sDestinationEmail)) $emailList[] = $sDestinationEmail;
+    }    
+    foreach ($emailList as $sDestinationEmail) {
+        sendEmailFax($conn, $dev_id, $domain, $sRepresentativeName, $sDestinationEmail,
+            $faxinfo['properties']['sender'], $faxinfo['properties']['number'],
+            "$sDestDir/fax.pdf", $status, $faxinfo['properties']['status']);
+    }
+    if (count($emailList) <= 0) {
+        wlog('WARN : No notification emails were available for this job');
+    }
+}
+
+function getDomain($db_object,$dev_id){
+    $sql="select organization_domain from fax WHERE dev_id=?";
+    $sth = $db_object->prepare($sql);
+    $sth->execute(array($dev_id));
+    $result = $sth->fetch(PDO::FETCH_NUM);
+    if(count($result)>0){
+        return $result[0];
+    }else
+        return false;
+}
+
+function getModemOwer($db_object,$dev_id,$domain)
+{
+    //obtenemos el id de la organizacion 
+    $sql= "select u.id from fax f join acl_user u ON f.exten=u.fax_extension JOIN acl_group g ON u.id_group=g.id where f.dev_id=? and f.organization_domain=? and g.id_organization=(SELECT id from organization where domain=?)";
+    $sth = $db_object->prepare($sql);
+    $sth->execute(array($dev_id,$domain,$domain));
+    $result = $sth->fetch(PDO::FETCH_NUM);
+    if(count($result)>0){
+        return $result[0];
+    }else{
+        //no se pudo determinar el usuario dueño del dev_id
+        return '';
+    }
+}
+
+/**
+ * Create the destination directory for a fax document based on a number of
+ * fax parameters.
+ * 
+ * @param   domain      $domain   Organization domain to which ModemDev that is sending fax belong
+ * @param   string      $type   One of 'in' or 'out'
+ * @param   string      $number Number that sent or received the fax
+ * @param   string      $commID Identification number of the fax job
+ * 
+ * @return  string      Newly created directory relative to ELASTIX_FAXDIR
+ */
+function createFaxDirectory($domain, $type, $number, $commID)
+{
+    // Check whether base directory is writable. Expected 0775 asterisk.uucp
+    $sDestDir = "$domain/".(($type == 'in') ? 'recvd' : 'sent');
+    if (!is_writable(ELASTIX_FAXDIR."/".$sDestDir)) 
+        wlog_exit("Directory not writable: $sDestDir");
+
+    // Build path with system date
+    $curdate = getdate();
+    $sDestDir .= '/'.implode('/', array($curdate['year'], $curdate['mon'], $curdate['mday'], $number, $commID));
+    if (!is_dir(ELASTIX_FAXDIR.'/'.$sDestDir)) {
+        $oldmask = umask(0);
+        $r = mkdir(ELASTIX_FAXDIR.'/'.$sDestDir, 0777, TRUE);
+        umask($oldmask);
+        if (!$r) wlog_exit("Failed to create document path: $sDestDir");
+    }
+    return $sDestDir;
+}
+
+// Helper function to run a command and exit with logging if unsuccessful.
+function invokeCommand($command)
+{
+    $output = $retval = NULL;
+    exec("$command 2>&1", $output, $retval);
+    if ($retval != 0) wlog_exit(
+        "Failed to run: $command\n".
+        "Return value: $retval\n".
+        "Command output:\n".
+        implode("\n", $output));
+}
+
+/**
+ * Procedure to insert a fax record into the database.
+ * 
+ * @param   resource    $conn                   Database connection
+ * @param   string      $sRepresentativeName    Document name to show on interface
+ * @param   string      $sModemDevice           Device name (e.g. ttyIAX1)
+ * @param   integer     $idUser                 Id user to which fax belong
+ * @param   string      $idComm                 Communication ID
+ * @param   string      $sStatus                Status as reported by Hylafax
+ * @param   string      $sErrorMsg              Error message from operation
+ * @param   string      $sCompanyName           Company name for fax job
+ * @param   string      $sCompanyNumber         Company number for fax job
+ * @param   string      $sDirection             One of 'in' or 'out'
+ * @param   string      $sFaxDir                Location of 'fax.pdf' relative to ELASTIX_FAXDIR
+ * 
+ * @return  void
+ */
+function insertFaxRecord($conn, $sRepresentativeName, $sModemDevice, $idUser,
+    $idComm, $sStatus, $sErrorMsg, $sCompanyName, $sCompanyNumber, $sDirection,
+    $sFaxDir)
+{
+    // Actually insert the fax record
+	$sqlInsertFax = <<<INSERT_FAX
+INSERT INTO fax_docs (pdf_file, modemdev, commID, status, errormsg, 
+    company_name, company_fax, id_user, date, type, faxpath)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+INSERT_FAX;
+    $sth = $conn->prepare($sqlInsertFax);
+    $sth->execute(array($sRepresentativeName, $sModemDevice, $idComm, $sStatus,
+        $sErrorMsg, $sCompanyName, $sCompanyNumber, $idUser,
+        date('Y-m-d H:i:s'), $sDirection, $sFaxDir));
+}
+
+/** 
+ * Fetch a notification e-mail from the modem device ID
+ *
+ * @param   string      $idModemDevice          Database ID for fax TTY.
+ * 
+ * @return  string  E-Mail address for notification, or NULL 
+ */
+function readNotificationEmail($conn, $devId)
+{
+    // Read destination email for notification
+    $sth = $conn->prepare('SELECT notify_email FROM fax WHERE dev_id = ?');
+    $sth->execute(array($devId));
+    $tuple = $sth->fetch(PDO::FETCH_ASSOC);
+    $sth->closeCursor();
+    return isset($tuple['notify_email']) ? $tuple['notify_email'] : NULL;
+}
+
+/**
+ * Procedure to send an email with a sent/received fax.
+ * 
+ * @param   resource    $conn                   Database connection
+ * @param   string      $sRepresentativeName    Document name to show on interface
+ * @param   string      $sDestinationEmail      Destination email
+ * @param   string      $sCompanyName           Company name for fax job
+ * @param   string      $sCompanyNumber         Company number for fax job
+ * @param   string      $sPdfPath               Path to fax PDF relative to ELASTIX_FAXDIR
+ * 
+ * @return void
+ */
+function sendEmailFax($conn, $dev_id, $domain, $sRepresentativeName, $sDestinationEmail, $sCompanyName,
+    $sCompanyNumber, $sPdfPath, $status, $errmsg)
+{
+	// Read configured values for fax email template
+    $emailInfo = array(
+        'remite'    =>  'fax@faxelastix.com',
+        'remitente' =>  'Fax Elastix',
+        'subject'   =>  'Fax '.$sRepresentativeName,
+        'content'   =>  "Fax $sRepresentativeName of $sCompanyName - $sCompanyNumber",
+    );
+    $replaceStrings = array(
+        array('{NAME_PDF}',             basename($sRepresentativeName, '.pdf')),
+        array('{FAX_CID_NAME}',    $sCompanyName),
+        array('{FAX_CID_NUMBER}',  $sCompanyNumber),
+        array('{JOB_STATUS}',           ($status == 'done') ? $status : "$status: $errmsg"),
+    );
+    $sql  = "SELECT fax_content,fax_subject from fax where dev_id=?";
+    $sth = $conn->prepare($sql);
+    $sth->execute(array($dev_id));
+    while ($tuple = $sth->fetch(PDO::FETCH_ASSOC)) {
+        $emailInfo['content']=$tuple['fax_content'];
+        $emailInfo['subject']=$tuple['fax_subject'];
+    }
+    
+    foreach ($replaceStrings as $replace) {
+        $emailInfo['subject'] = utf8_decode(str_replace($replace[0], $replace[1], $emailInfo['subject']));
+        $emailInfo['content'] = utf8_decode(str_replace($replace[0], $replace[1], $emailInfo['content']));
+    }
+    
+    //obtenemos de la propiedades de la organizacion : remite and remitente
+    $sql  = "SELECT value,property from organization_properties where property IN ('fax_remite','fax_remitente') and id_organization=(SELECT id FROM organization WHERE domain=?)";
+    $sth = $conn->prepare($sql);
+    $sth->execute(array($domain));
+    while ($tuple = $sth->fetch(PDO::FETCH_ASSOC)) {
+        if($tuple['property']=='fax_remite')
+            $emailInfo['remite']=utf8_decode($tuple['value']);
+        else
+            $emailInfo['remitente']=utf8_decode($tuple['value']);
+    }
+    
+    // Send mail...
+    require_once('libs/phpmailer/class.phpmailer.php');
+    $mail = new PHPMailer();
+    $mail->From = $emailInfo['remite'];
+    $mail->FromName = $emailInfo['remitente'];
+    $mail->AddAddress($sDestinationEmail);
+    $mail->WordWrap = 50;                                 // set word wrap to 50 characters
+    $mail->AddAttachment(ELASTIX_FAXDIR.'/'.$sPdfPath);
+    $mail->IsHTML(false);                                  // set email format to TEXT
+        
+    $mail->Subject = $emailInfo['subject'];
+    $mail->Body    = $emailInfo['content'];
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    
+    if (!$mail->Send())
+        dblog_exit('Failed to send email: '.$emailInfo['subject']);
+}
+
+function parseDSN($dsn){
+    //$dsn => databasemotor://username:password@hostspec/database
+    //mysql => mysql://username:password@hostspec/database
+    //squlite => sqlite:///database
+    $database=$username=$password=$hostspec=$dbname=false;
+    //get the technology
+    if(($pos = strpos($dsn, '://')) !== false) {
+        $database = substr($dsn, 0, $pos);
+        $dsn = substr($dsn, $pos + 3);
+    } else {
+        return array("dsn"=>$dsn,"user"=>$username,"passwd"=>$password);
+    }
+    //username y password en caso de haberlos
+    if (($at = strrpos($dsn,'@')) !== false) {
+        $str = substr($dsn, 0, $at);
+        $dsn = substr($dsn, $at + 1);
+        if (($pos = strpos($str, ':')) !== false) {
+            $username = rawurldecode(substr($str, 0, $pos));
+            $password = rawurldecode(substr($str, $pos + 1));
+        } else {
+            $username = rawurldecode($str);
+        }
+    }
+    //hostspec 
+    if (strpos($dsn, '/') !== false) {
+        list($hostspec, $dbname) = explode('/', $dsn, 2);
+    }   
+    if($database=="sqlite" || $database=="sqlite3"){
+        $dsn="sqlite:$dbname";
+    }elseif($database=="mysql"){
+        $dsn="$database:dbname=$dbname;host=$hostspec";
+    }
+    return array("dsn"=>$dsn,"user"=>$username,"passwd"=>$password);
+}
+?>

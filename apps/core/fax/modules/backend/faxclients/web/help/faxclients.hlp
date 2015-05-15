@@ -1,0 +1,21 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “Fax Clients” of the Menu “FAX” in Elastix lets us input the IPs that have permission to send faxes through Elastix.</p>
+
+<div><img src="../modules/{$node_id}/images/fax_clients.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>Proceed to input the IPs, one IP per line and click on the “Apply Changes” button.</p>
+
+<p>It is recommended that you input the IP 127.0.0.1 and localhost in the configuration because some processes might need to use them.</p>
+
+</body>
+</html>

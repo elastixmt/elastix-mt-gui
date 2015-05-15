@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<module>
+	<menu id="sec_ports" name="Define Ports" idParent="sec_firewall" type="module" link=""  order_no="2">
+		<permissions administrative="yes" organization_access="no" >
+			<actions>
+				<action name="access|define_port|edit_port|delete_port">
+					<groups>
+						<group id="1" name="superadmin"    desc="Super Admin"   />
+					</groups>
+				</action>
+			</actions>        
+		</permissions>  
+	</menu>
+	<version>	</version>
+	<description> 	</description>    
+</module>

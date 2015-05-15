@@ -1,0 +1,57 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify">El módulo Services/Network Ports permite crear, eliminar, observar o editar puertos. Estos puertos pueden ser de los siguientes protocolos: TCP, UDP, ICMP o IP.</p>
+        <div><img src="../modules/{$node_id}/images/sec_ports.png" border="0"></div>
+        <div>Figure 1</div>
+        <br />
+        <p align="Justify">Este módulo cuenta también con una opción de filtrado, por nombre o por protocolo.</p>
+        <br />
+        <div align="center"><img src="../modules/{$node_id}/images/new_Event4.png" border="0"></div>
+        <div>Figure 2</div>
+        <br />
+        <div align="center"><img src="../modules/{$node_id}/images/new_Event5.png" border="0"></div>
+        <div>Figure 3</div>
+        <br />
+        <p align="Justify">Si se desea crear un nuevo puerto debemos hacer click en el botón Define Port, luego de lo cual nos aparece un formulario para llenar los datos del nuevo puerto.</p>
+        <br />
+        <div align="center"><img src="../modules/{$node_id}/images/new_Event1.png" border="0"></div>
+        <div>Figure 4</div>
+        <br />
+        <p align="Justify">En la figura 4 se observa el caso de un formulario para un puerto con protocolo TCP que es el mismo formulario que para UDP. Pero hay dos formularios distintos que son para protocolos ICMP y para IP, que se muestran al seleccionar uno de estos protocolos, tal como se muestra en las figuras 5 y 6.</p>
+        <br />
+        <div align="center"><img src="../modules/{$node_id}/images/new_Event2.png" border="0"></div>
+        <div>Figure 5</div>
+        <br />
+        <div align="center"><img src="../modules/{$node_id}/images/new_Event3.png" border="0"></div>
+        <div>Figure 6</div>
+        <br />
+        <p align="Justify">Una vez llenado los datos damos click en save y los datos del puerto se guardarán en la base de datos.</p>
+        <br />
+        <p align="Justify">Si deseamos observar los datos de un puerto en especifico debemos dar click en el link que dice view junto al puerto.</p>
+        <br />
+        <div align="center"><img src="../modules/{$node_id}/images/new_Event6.png" border="0"></div>
+        <div>Figure 7</div>
+        <br />
+        <p align="Justify">Con esto nos aparece una pantalla con la siguiente vista:</p>
+        <br />
+        <div align="center"><img src="../modules/{$node_id}/images/new_Event7.png" border="0"></div>
+        <div>Figure 8</div>
+        <br />
+        <p align="Justify">Ahora si queremos editar los datos del puerto seleccionado, debemos hacer click en el botón Edit, con lo cual nos aparecerá un formulario como el de las figuras 4, 5 o 6 pero con los datos del puerto elegido y listos para ser editados.</p>
+        <br />
+        <div align="center"><img src="../modules/{$node_id}/images/new_Event8.png" border="0"></div>
+        <div>Figure 9</div>
+        <br />
+        <p align="Justify">Finalmente si deseamos eliminar los datos de un puerto del registro de la base de datos, debemos hacer click en el checkbox que se encuentra al lado izquierdo y luego damos click en Delete.</p>
+        <br />
+        <div align="center"><img src="../modules/{$node_id}/images/new_Event9.png" border="0"></div>
+        <div>Figure 10</div>
+        <br />
+        <br />
+    </body>
+</html>

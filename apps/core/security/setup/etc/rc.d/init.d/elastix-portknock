@@ -1,0 +1,99 @@
+#!/bin/sh
+#
+#   Script de inicio y finalización de un servicio de framework
+#   de demonio de Palosanto Solutions, compatible con
+#   sistema de inicio de servicios de RedHat/Fedora (chkconfig).
+#
+#   chkconfig: 2345 91 19
+#   description: Elastix Port Knocking
+#
+
+# Biblioteca de funciones de scripts
+if [ -f /etc/init.d/functions ] ; then
+	. /etc/init.d/functions
+elif [ -f /etc/rc.d/init.d/functions ] ; then
+	. /etc/rc.d/init.d/functions
+else
+	exit 0
+fi
+
+DAEMON=udp-portknock
+PROGRAMA="Elastix Port Knocking"
+USUARIO=root
+
+# Los siguientes parametros son normalmente derivados de los dos primeros
+SERVICE_LOCK="/var/lock/subsys/elastix-portknock"
+PIDFILE_SYSTEM="/var/run/$DAEMON.pid"
+
+start() {
+    echo -n $"Starting $PROGRAMA: "
+	for row in `sqlite3 /var/www/db/iptables.db 'SELECT eth_in, udp_port FROM portknock_eth'` ; do 
+		echo $row | awk -F '|' '{ system ( "/usr/sbin/udp-portknock -i " $1 " -p " $2 " -s /usr/bin/elastix-portknock-validate") }' ; 
+	done
+    RETVAL=$?
+    if [ $RETVAL = 0 ] ; then
+        touch $SERVICE_LOCK
+        success
+    else
+    	failure
+    fi
+    echo
+    return $RETVAL
+}
+
+stop () {
+    echo -n $"Stopping $PROGRAMA: "
+    killall $DAEMON
+    RETVAL=$?
+    if [ $RETVAL = 0 ] ; then
+        rm -f $SERVICE_LOCK
+        rm -f $PIDFILE_SYSTEM
+        success
+    else
+    	failure
+    fi
+    echo
+    return $RETVAL
+}
+
+restart() {
+    stop
+    start
+}
+
+case $1 in
+	start)
+		start
+	;;
+	stop)
+		stop
+	;;
+	restart)
+		restart
+	;;
+	condrestart)
+		[ -f $SERVICE_LOCK ] && restart || :
+	;;
+	reload)
+		echo -n $"Reloading $PROGRAMA: "
+		config
+		killproc $DAEMON -HUP
+		RETVAL=$?
+		echo
+		if [ $RETVAL -ne 0 ]
+		then
+			# Rebuild ppds.dat file if the daemon wasn't
+			# there to do it.
+			$DAEMON --ppdsdat
+		fi
+	;;
+	status)
+		status $DAEMON
+	;;
+	*)
+
+	echo $"Uso: $prog {start|stop|restart|condrestart|reload|status}"
+	exit 1
+esac
+
+exit $RETVAL

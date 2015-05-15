@@ -1,0 +1,420 @@
+<html>
+<head></head>
+<link rel="stylesheet" href="docstyles.css" />
+<body bgcolor="#FFE394">
+<br /><br />
+<center>
+<div class="classDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Class xml_domit_rss_elementindexer</td>
+					</tr>
+					<tr>
+						<td class="regular">Provides indexing functionality to RSS classes.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>isPublic? </b>no<br /><b>isAbstract? </b>yes</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Inheritance tree: </b></p><p><center><br /><a href="xml_domit_rss_base.html">xml_domit_rss_base</a><br /><span class="branch">|</span><br /><a href="xml_domit_rss_elementindexer.html">xml_domit_rss_elementindexer</a></center></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Known subclasses: </b></p><p><a href="xml_domit_rss_collection.html">xml_domit_rss_collection</a>, <a href="xml_domit_rss_base_document.html">xml_domit_rss_base_document</a>, <a href="xml_domit_rss_simpleelement.html">xml_domit_rss_simpleelement</a>, <a href="xml_domit_rss_channel.html">xml_domit_rss_channel</a>, <a href="xml_domit_rss_item.html">xml_domit_rss_item</a>, <a href="xml_domit_rss_category.html">xml_domit_rss_category</a>, <a href="xml_domit_rss_image.html">xml_domit_rss_image</a>, <a href="xml_domit_rss_textinput.html">xml_domit_rss_textinput</a>, <a href="xml_domit_rss_cloud.html">xml_domit_rss_cloud</a>, <a href="xml_domit_rss_enclosure.html">xml_domit_rss_enclosure</a>, <a href="xml_domit_rss_guid.html">xml_domit_rss_guid</a>, <a href="xml_domit_rss_sourcexml_domit_rss_channel_lite.html">xml_domit_rss_sourcexml_domit_rss_channel_lite</a>, <a href="xml_domit_rss_item_lite.html">xml_domit_rss_item_lite</a></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Source file: </b>xml_domit_rss_shared.php</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="constructorDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Constructor</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicConstantsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Constants</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateConstantsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Constants</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicFieldsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Fields</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateFieldsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Fields</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_indexer</td>
+					</tr>
+					<tr>
+						<td class="regular">A name-based index to RSS elements.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b><a href="Array.html">Array</a></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_numericalIndexer</td>
+					</tr>
+					<tr>
+						<td class="regular">A numerical index to RSS elements.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b><a href="Array.html">Array</a></p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicMethodsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Methods</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">isCollection</td>
+					</tr>
+					<tr>
+						<td class="regular">Indicates whether the requested element is actually a collection of elements of the same type.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">isCollection($elementName)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">elementName</span> - The name of the requested element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if the requested element is actually a collection of elements of the same type.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Indicates whether the requested element is actually a collection of elements of the same type.</p><p><span class="code">$collection = $channelElement-&amp;gt;isCollection('dc:creator');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">isNode</td>
+					</tr>
+					<tr>
+						<td class="regular">Indicates whether the requested element is a single DOMIT! node.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">isNode($elementName)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">elementName</span> - The name of the requested element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if the requested element is a single DOMIT! node.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Indicates whether the requested element is a single DOMIT! node.</p><p><span class="code">$isnode = $channelElement-&amp;gt;isNode('dc:creator');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">isCustomRSSElement</td>
+					</tr>
+					<tr>
+						<td class="regular">Indicates whether the requested element is a single DOMIT! node (alias for isNode).</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">isCustomRSSElement($elementName)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">elementName</span> - The name of the requested element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if the requested element is a single DOMIT! node.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Indicates whether the requested element is a single DOMIT! node.</p><p><span class="code">$isCustomRSSElement = $channelElement-&amp;gt;isCustomRSSElement('dc:creator');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getElementList</td>
+					</tr>
+					<tr>
+						<td class="regular">Gets a named list of existing elements.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getElementList()</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p><a href="Array.html">Array</a> - A named list of existing elements</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Gets a list of elements contained in the current RSS document.</p><p><span class="code">$rssdoc-&amp;gt;getElementList();</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">hasElement</td>
+					</tr>
+					<tr>
+						<td class="regular">Indicates whether a particular element exists as a child of the current element.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">hasElement($elementName)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">elementName</span> - The name of the requested element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if an element with the specified name exists.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Indicates whether an element named &quot;title&quot; exists in the RSS document.</p><p><span class="code">$doesElementExist = $rssdoc-&amp;gt;hasElement('title');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getElementText</td>
+					</tr>
+					<tr>
+						<td class="regular">Gets the text of the specified element.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getElementText($elementName)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">elementName</span> - The name of the requested element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>String - The element text, or an empty string.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Gets the text of the child element named 'dc:creator'.</p><p><span class="code">$elementText = $someElement-&amp;gt;getElementText('dc:creator');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getElementTextAt</td>
+					</tr>
+					<tr>
+						<td class="regular">Gets the text of the element at the specified index.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getElementTextAt($index)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>int <span class="parameter">index</span> - The index of the requested element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>String - The element text, or an empty string.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Gets the text of the third child element.</p><p><span class="code">$elementText = $someElement-&amp;gt;getElementTextAt(2);</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getElement</td>
+					</tr>
+					<tr>
+						<td class="regular">Gets a reference to a child element with the specified name.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">&amp;getElement($elementName)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">elementName</span> - The name of the requested element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>Object - A reference to a child element with the specified name.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Gets a reference to the width subelement of an image element.</p><p><span class="code">$widthElement =&amp; $imageElement-&amp;gt;getElement('width');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getElementAt</td>
+					</tr>
+					<tr>
+						<td class="regular">Gets a reference to a child element at the specified index.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">&amp;getElementAt($index)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>int <span class="parameter">index</span> - The index of the requested element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>Object - A reference to a child element at the specified index.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Gets a reference to the third child element.</p><p><span class="code">$thirdElement =&amp; $imageElement-&amp;gt;getElementAt(2);</span></p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateMethodsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Methods</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">_init</td>
+					</tr>
+					<tr>
+						<td class="regular">Performs initialization of an RSS element.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">_init()</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">addIndexedElement</td>
+					</tr>
+					<tr>
+						<td class="regular">Adds a custom element (one not defined by the RSS specs, e..g., dc:creator) to the indexer.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">addIndexedElement(&amp;$node)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">node</span> - A DOMIT! node representing the custom element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">_getElementText</td>
+					</tr>
+					<tr>
+						<td class="regular">Gets the text of the specified element.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">_getElementText($index, &amp;$myArray)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">index</span> - The name or numerical index of the requested element.</p>
+<p>array <span class="parameter">myArray</span> - The indexing array from which to extract the reference.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>String - The element text, or an empty string.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">indexNumerically</td>
+					</tr>
+					<tr>
+						<td class="regular">Populates an integer-based index for elements if one isn't already present.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">indexNumerically()</span></p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<br />
+<p class="docblurb">Documentation generated by <b>ClassyDoc</b>, using the <b>DOMIT!</b> and <b>SAXY</b> parsers.<br />
+Please visit <a href="http://www.engageinteractive.com" target="_child">Engage Interactive</a> to download free copies.</p>
+<br />
+</center>
+</body>
+</html>

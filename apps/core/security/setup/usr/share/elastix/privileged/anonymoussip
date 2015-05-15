@@ -1,0 +1,89 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: anonymoussip.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+require_once 'Console/Getopt.php';
+
+// Parse command-line options
+$opt = Console_Getopt::getopt($argv, '', array(
+    'enable',       // set allowguest=yes explicitly
+    'disable',      // set allowguest=no explicitly
+    'conddisable',  // add allowguest=no if allowguest is not set, else noop
+));
+if (PEAR::isError($opt)) error_exit($opt->getMessage()."\n");
+//validateOptions($opt);
+foreach ($opt[0] as $option) switch ($option[0]) {
+case '--enable':
+    exit(action_enableAnonymous($opt, TRUE, TRUE) ? 0 : 1);
+case '--disable':
+    exit(action_enableAnonymous($opt, FALSE, TRUE) ? 0 : 1);
+case '--conddisable':
+    exit(action_enableAnonymous($opt, FALSE, FALSE) ? 0 : 1);
+}
+error_exit("No action specified (--enable or --disable or --conddisable)\n");
+
+function error_exit($sMsg, $errorcode = 1)
+{
+    fwrite(STDERR, $sMsg);
+    exit($errorcode);
+}
+
+function action_enableAnonymous($opt, $bEnable, $bExplicitSet)
+{
+	$lineas = array();
+    $bEncontrado = FALSE;   // was allowguest found?
+    $bValorPrevio = TRUE;   // previous value?
+
+    if(file_exists('/etc/asterisk/sip_general_custom.conf')) {
+      foreach (file('/etc/asterisk/sip_general_custom.conf') as $sLinea) {
+    	$regs = NULL;
+        if (preg_match('/^allowguest\s*=\s*(\S+)$/', trim($sLinea), $regs)) {
+    		$bEncontrado = TRUE;
+            $bValorPrevio = in_array(strtolower($regs[1]), array('yes', '1', 'true'));
+            $sLinea = "allowguest=".($bEnable ? 'yes' : 'no')."\n";
+    	}
+        $lineas[] = $sLinea;
+      }
+    }
+    if ($bValorPrevio == $bEnable) return TRUE;
+    if ($bEncontrado && !$bExplicitSet) return TRUE;
+    if (!$bEncontrado) $lineas[] = "allowguest=".($bEnable ? 'yes' : 'no')."\n";
+    if (FALSE === file_put_contents('/etc/asterisk/sip_general_custom.conf', $lineas))
+        return FALSE;
+    
+    $output = $retval = NULL;
+    exec("/sbin/service asterisk status", $flag, $status);
+    if($status==0){
+        exec('/sbin/service asterisk reload > /dev/null 2>&1', $output, $retval);
+        return ($retval == 0);
+    }else
+        return true;
+
+}
+?>

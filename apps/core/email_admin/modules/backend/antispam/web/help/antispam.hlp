@@ -1,0 +1,58 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+<p align="Justify">The option <span style="font-style: italic;">"Antispam"</span> from <span style="font-style: italic;">"Email"</span> allow configure the level of acceptation of emails that are not <span style="font-style: italic;">"Spam"</span>. <b style="font-style: italic;">(Figure 1)</b></p>
+<br/>
+<div align="center"><img src="../modules/{$node_id}/images/antispam.png" border="0"></div>
+<div align="center" style="font-weight: bolder; font-style: italic;">Figura 1</div><br/><br/>
+
+<p align="Justify">To activate Antispam is necessary the <span style="font-style: italic;">"Spamassassin"</span> service is turned on. The option <span style="font-style: italic;">"status"</span> allow turn on or turn off the service. <b style="font-style: italic;">(Figure 2)</b></p>
+<br/>
+<div align="center"><img src="../modules/{$node_id}/images/antispam1.png" border="0"></div>
+<div align="center"><img src="../modules/{$node_id}/images/antispam2.png" border="0"></div>
+<div align="center" style="font-weight: bolder; font-style: italic;">Figura 2</div><br/><br/>
+
+<p align="Justify">To mark the level of catch Spams only moving the slider to the desired level. <b style="font-style: italic;">(Figure 3)</b></p>
+<br/>
+<div align="center"><img src="../modules/{$node_id}/images/antispam3.png" border="0"></div>
+<div align="center" style="font-weight: bolder; font-style: italic;">Figura 3</div><br/><br/>
+
+<p align="Justify">The antispam politics to configure are:</p>
+<ul>
+    <li>
+        <span><b>Mark Subject:</b></span><br />
+        <ul>
+            <li>
+                Mark the Subject of email by the value of text Field. <b style="font-style: italic;">(Figure 4)</b>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <span><b>Spam Capture:</b></span> 
+        <ul>
+            <li>
+                Activate <span style="font-style: italic;">"Sieve"</span> service to send all Spam to the <span style="font-style: italic;">"Spam folder"</span> per each email account.
+            </li>
+            <li>
+                Activate action to remove Spams per email account and remove older emails given a specific time. <b style="font-style: italic;">(Figure 5)</b><br /> The option are: <br />
+                <ul>
+                    <li><b>Delete Spam for more than one week: </b>Allow remove all Spam from "Spam" folder where the emails already had one week in that folder. This process is done all days.</li>
+                    <li><b>Delete Spam for more than two week: </b>Allow remove all Spam from "Spam" folder where the emails already had two weeks in that folder. This process is done all days.</li>
+                    <li><b>Delete Spam for more than one month: </b>Allow remove all Spam from "Spam" folder where the emails already had one month in that folder. This process is done all days.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<br/>
+<div align="center"><img src="../modules/{$node_id}/images/antispam4.png" border="0"></div>
+<div align="center" style="font-weight: bolder; font-style: italic;">Figura 4</div><br/><br/>
+
+<div align="center"><img src="../modules/{$node_id}/images/antispam5.png" border="0"></div>
+<div align="center" style="font-weight: bolder; font-style: italic;">Figura 5</div><br/><br/>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.4-1                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2008-08-25 05:08:01 jvega jvega@palosanto.com Exp $
+  $Id: en.lang,v 1.1 2013-12-18 12:48:01 achuto armando@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Picture" => "Imagen",
+"Ext / Phone" => "Extensión / Teléfono",
+"Name" => "Nombre",
+"Call" => "Llamar",
+"Transfer" => "Transferencia:",
+"Type Contact" => "Tipo de Contacto:",
+"Contact Type:" => "Tipo de Contacto",
+"First Name: " => "Primer Nombre:",
+"Last Name:" => "Apellido:",
+"Work's Phone Number:" => "Número Telefonico de Trabajo:",
+"Cell Phone Number (SMS):" => "Número Telefónico Celular:",
+"Home Phone Number:" => "Número Telefónico de Casa:",
+"FAX Number 1:" => "Número Fax 1:",
+"FAX Number 2:" => "Número Fax 2:",
+"Province:" => "Provincia:",
+"City:" => "Ciudad:",
+"Address:" => "Dirección:",
+"Company:" => "Compañia:",
+"Contact person in your Company:" => "Contacto de Persona en tu compañia:",
+"Contact person's current position:" => "Contacto de Persona en posición similar:",
+"Notes:" => "Notas:",
+"Picture:" => "Imagen",
+"Private" => "Privado",
+"Public" => "Público",
+"Internal" => "Internos",
+"External" => "Externos",
+"Phone Directory" => "Directorio Telefónico",
+"Filter" => "Filtro",
+"Are you sure you wish to delete the contact." => "Esta seguro que desea borrar este contacto",
+"The call couldn't be realized" => "La llamada No Puede Realizarse",
+"The transfer couldn't be realized, maybe you don't have any conversation now." => "La transferencia no puede ser realizada, puede que no tengas alguna conversacion ahora",
+"New Contact" => "Nuevo Contacto",
+"Contact Data already exists" => "Datos de contactos ya existen"
+);
+?>

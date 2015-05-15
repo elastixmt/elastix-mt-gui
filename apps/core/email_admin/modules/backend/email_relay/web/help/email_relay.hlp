@@ -1,0 +1,17 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>By default, the email server doesn’t receive emails for accounts that are not found in the domains. The purpose of this is to prevent the server from being used for spam applications or trash and to prevent the unnecessary utilization of system resources. But there are some cases where it is necessary to activate this option for certain networks, such as, the internal network of a company. This way, the users can use the email server in Elastix to send emails to destinations that are outside of the domain of the system. In the option “Relay” it is specified the networks in which Elastix allows you to connect and use the server to send emails. The networks should be inputted as IP/MASCARA. For example: 192.168.1.0/24.</p>
+
+<div><img src="../modules/{$node_id}/images/email_relay.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+</body>
+</html>

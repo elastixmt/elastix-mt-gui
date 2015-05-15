@@ -1,0 +1,164 @@
+Formato de comunicación para demonio ayudante de instalación de paquetes (preliminar)
+
+El demonio ayudante de instalación es un programa en PHP que corre como root y que establece un control sobre el comando yum. El concepto de transacción de yum se exporta al protocolo, y establece que una transacción puede tener cero o más paquetes, los cuales son, paquetes para instalar, para actualizar, o para remover. La transacción se puede alterar agregando o quitando paquetes, y luego se confirma su ejecución, o se cancela. El objetivo del demonio es el de establecer un mecanismo por el cual el comando yum se pueda ejecutar y realizar acciones luego de que el servicio web ha terminado de enviar la página, y para poder obtener reportes sobre el progreso de la instalación de cada uno de los paquetes. Aunque el demonio puede instalar cualquier paquete que esté disponible en cualquier repositorio configurado, el caso de uso es el de la página de addons de Elastix 2.0.
+
+Para establecer comunicación con el programa, el cliente (la página web) tiene que abrir un socket al puerto 20004 (por ahora fijo, se planea configurable) en localhost. Al establecerse la conexión, el cliente recibe de inmediato un REPORTE DE ESTADO, y luego el programa queda listo para aceptar comandos.
+Los comandos definidos hasta ahora son:
+       status 
+       add nombredepaquete( nombrepaquete2 ...)
+       testadd nombredepaquete( nombrepaquete2 ...)
+       remove nombredepaquete( nombredepaquete2 ...)
+       clear
+       confirm
+       update nombredepaquete( nombredepaquete2)
+       cancel
+       quit
+       exit
+       testadd
+       testupdate
+       yumoutput
+       yumerror
+       getcustom
+       setcustom
+       addconfirm
+       updateconfirm
+       removeconfirm
+
+Tanto el comando como el nombre de paquete (si es requerido) son sensibles a mayúsculas y minúsculas.
+
+Comando 'status':
+Envía un REPORTE DE ESTADO al cliente. Este reporte sigue el mismo format que el reporte que se envía al iniciar una nueva conexión con el demonio. El REPORTE DE ESTADO tiene el siguiente formato:
+
+status NOMBRE_STATUS
+action NOMBRE_ACCION
+package ACCION_PAQUETE NOMBRE_PAQUETE LONGITUD_TOTAL LONGITUD_DESCARGADA ESTADO_PAQUETE
+...
+errmsg TEXTO_MENSAJE
+...
+warnmsg TEXTO_MENSAJE
+end status
+
+El campo NOMBRE_STATUS puede ser uno de los siguientes identificadores: 
+idle	El demonio puede recibir comandos para alterar la transacción
+busy	El demonio está ocupado y rechazará cualquier comando, a excepción de 'cancel' en la acción de descarga, lo cual parará la descarga
+error	Ha ocurrido un error que impide que se proceda con la operación. Se debe de usar el comando clear para resetear la transacción
+
+El campo NOMBRE_ACCION puede ser uno de los siguientes identificadores:
+none		No hay transacción activa ni paquetes para instalar o modificar. Esta acción aparece en status idle.
+confirm		Se espera que se confirme o limpie la transacción con los paquetes reportados. Esta acción aparece en status idle.
+reporefresh El programa yum está descargando la lista de paquetes disponibles desde los repos. Esta acción aparece en status busy.
+depsolving	El programa yum está resolviendo dependencias, lo cual puede agregar paquetes adicionales a la transacción. Esta acción aparece en status busy.
+downloading	El programa yum está descargando los paquetes de la transacción. Esta acción aparece en status busy.
+applying	El programa yum está aplicando los cambios indicados por la transacción. Esta acción aparece en status busy.
+cancelling  El programa yum ha recibido la orden de cancelar la operación. Esta acción aparece en status busy.
+checkinstalled El programa yum está verificando si un conjunto de paquetes está instalado. Esta acción aparece en status busy.
+
+
+El campo ACCION_PAQUETE puede ser uno de los siguientes identificadores: install update remove
+NOMBRE_PAQUETE indica el nombre del paquete involucrado en la transacción.
+LONGITUD_TOTAL y LONGITUD_DESCARGADA indican el tamaño del paquete en bytes, o un solo guión (-) si la información no se puede determinar pero se puede continuar sin ella.
+EL campo ESTADO_PAQUETE puede ser uno de los siguientes identificadores: 
+waiting		Esperando la confirmación con acción confirm, o si todavía no se ha descargado en una transacción en curso.
+downloading	Actualmente en proceso de ser descargado.
+downloaded	Ya terminó de descargarse y se espera a que otros paquetes se terminen de descargar.
+installing	Actualmente en proceso de instalación o de actualización.
+installed	Ya instalado en el sistema.
+removing	Actualmente en proceso de ser removido del sistema.
+removed		Ya removido del sistema.
+
+La línea package puede aparecer cero o más veces en el reporte de estado. Lo mismo ocurre con la línea errmsg o warnmsg. Las líneas errmsg sólo se presentan en el status error. Las líneas warnmsg pueden aparecer en cualquier estado, y no necesariamente indican que ocurrió un problema. Las líneas errmsg y warnmsg pueden aparecer juntas en cualquier orden de aparición.
+
+Comando 'add':
+Agrega un paquete a la transacción en curso para ser instalado, iniciándola si no estaba ya iniciada. Se requiere uno o más parámetros que son los nombres de los paquetes a agregar. Este comando sólo se puede indicar en el estado idle. Luego de este comando, el programa pasa por las acciones reporefresh y depsolving en estado busy, hasta parar en el estado idle con acción confirm. Si no se provee paquete alguno, el programa contesta:
+ERR No packages
+y la transacción sigue sin cambios. Si el estado no es válido, el programa contesta:
+ERR Invalid status
+Si el programa no puede iniciar el shell de yum, el programa contesta:
+ERR Unable to start Yum Shell
+Con al menos un paquete, el programa contesta:
+OK Processing
+y el cliente tiene que preguntar regularmente con el comando status para averiguar el estado del demonio ayudante.
+
+Comando 'testadd':
+Este comando recibe una lista de paquetes a instalar, y verifica si todas las dependencias pueden resolverse. A diferencia del comando 'add', este comando vuelve al estado idle y action none al terminar de generar la lista de dependencias, en lugar de action confirm. En otros aspectos es idéntico al comando 'add'.
+
+Comando 'check':
+Verifica si la lista de paquetes que se le especifica están instalados. Si no se provee paquete alguno, el programa contesta:
+ERR No packages
+y la transacción sigue sin cambios. Si el estado no es válido, el programa contesta:
+ERR Invalid status
+Si el programa no puede iniciar el shell de yum, el programa contesta:
+ERR Unable to start Yum Shell
+Con al menos un paquete, el programa contesta:
+OK Processing
+y el cliente tiene que preguntar regularmente con el comando status para averiguar el estado del demonio ayudante.
+
+Comando 'remove':
+Agrega un paquete a la transacción en curso para ser removido, iniciándola si no estaba ya iniciada. Se requiere uno o más parámetros que son los nombres de los paquetes a remover. Este comando sólo se puede indicar en el estado idle. Luego de este comando, el programa pasa por las acciones reporefresh y depsolving en estado busy, hasta parar en el estado idle con acción confirm. Si no se provee paquete alguno, el programa contesta:
+ERR No packages
+y la transacción sigue sin cambios. Si el estado no es válido, el programa contesta:
+ERR Invalid status
+Con al menos un paquete, el programa contesta:
+OK Processing
+y el cliente tiene que preguntar regularmente con el comando status para averiguar el estado del demonio ayudante.
+
+Comando 'clear':
+Cancela la transacción en curso que no haya sido todavía iniciada. Se requiere de este comando si ocurrió un error en la transacción al hacer resolución de dependencias (es decir, status es error), antes de proceder con otras operaciones. Si el demonio está en estado busy, contesta:
+ERR Invalid status
+de otro modo contesta
+OK
+
+Comando 'confirm':
+Manda a confirmar que se procede con la transacción indicada por el comando status. Este comando sólo es válido en estado idle y acción confirm. Si no está en el status adecuado, el programa contesta:
+ERR Invalid status
+De otro modo, contesta
+OK Starting transaction...
+
+Comando 'update':
+Agrega un paquete a la transacción para ser actualizado, iniciándola si no estaba ya iniciada. Se requiere uno o más parámetros que son los nombres de los paquetes a remover. Este comando sólo se puede indicar en el estado idle. Luego de este comando, el programa pasa por las acciones reporefresh y depsolving en estado busy, hasta parar en el estado idle con acción confirm. Si no se provee paquete alguno, el programa contesta:
+ERR No packages
+y la transacción sigue sin cambios. Si el estado no es válido, el programa contesta:
+ERR Invalid status
+Si el programa no puede iniciar el shell de yum, el programa contesta:
+ERR Unable to start Yum Shell
+Con al menos un paquete, el programa contesta:
+OK Processing
+y el cliente tiene que preguntar regularmente con el comando status para averiguar el estado del demonio ayudante. 
+ATENCION: Puede ocurrir que no haya actualizaciones disponibles para el paquete elegido. Entonces la salida del comando status tendrá un warnmsg indicado que no hay actualizaciones, y la transacción NO INCLUIRÁ el paquete.
+
+Comando 'testupdate':
+Verifica que los paquetes indicados pueden actualizarse, pero a diferencia de 'update', termina en el estado idle y action none. En otros aspectos es idéntico al comando 'update'.
+
+Comando 'cancel':
+Cancela la descarga de los paquetes que se han mandado a instalar con el comando confirm. Este comando sólo es válido en el estado busy acción downloading. Si el estado es idle, contestará
+ERR Nothing to cancel
+Si el estado es busy y distinto de downloading, contestará
+ERR Cannot cancel
+De otro modo, contestará
+OK Cancelled
+
+Comando 'exit':
+Comando 'quit':
+Finaliza la sesión del cliente con el demonio ayudante. Cualquier transacción que se haya resuelto o empezado a realizar sigue en progreso luego de que se ha terminado la conexión. 
+
+Comando 'yumoutput':
+Visualiza una copia de la salida estándar de YUM para la transacción en curso, o para la última transacción terminada.
+
+Comando 'yumerror':
+Visualiza una copia de los mensajes de errores YUM para la transacción en curso, o para la última transacción terminada.
+
+Comando 'setcustom':
+Permite almacenar un texto arbitrario que representa un estado compartido. Este comando está destinado para uso interno del módulo de Addons. El texto almacenado es inmediatamente visible a todas las demás conexiones con el comando 'getcustom', y persiste hasta finalizar el programa.
+
+Comando 'getcustom':
+Permite recuperar un texto previamente almacenado con 'setcustom'. Este comando está destinado para uso interno del módulo de Addons.
+
+Comando 'addconfirm':
+Este comando es idéntico al comando 'add', excepto que en caso de éxito, luego de llegar al estado 'confirm', continúa inmediatamente a descargar e instalar los paquetes en la transacción, sin esperar al comando 'confirm'.
+
+Comando 'updateconfirm':
+Este comando es idéntico al comando 'update', excepto que en caso de éxito, luego de llegar al estado 'confirm', continúa inmediatamente a descargar e instalar los paquetes en la transacción, sin esperar al comando 'confirm'.
+
+Comando 'removeconfirm':
+Este comando es idéntico al comando 'remove', excepto que en caso de éxito, luego de llegar al estado 'confirm', continúa inmediatamente a descargar e instalar los paquetes en la transacción, sin esperar al comando 'confirm'.
+

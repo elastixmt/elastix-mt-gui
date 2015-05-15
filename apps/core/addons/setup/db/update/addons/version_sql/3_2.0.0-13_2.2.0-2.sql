@@ -1,0 +1,3 @@
+BEGIN TRANSACTION;
+ALTER TABLE action_tmp ADD COLUMN init_time varchar(20);
+COMMIT;

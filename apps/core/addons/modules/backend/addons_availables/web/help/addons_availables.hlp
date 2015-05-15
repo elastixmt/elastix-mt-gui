@@ -1,0 +1,103 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p align="Justify">The Addons module was developed so that users can install or buy (for commercial addons) new modules created either by the Elastix Project Team or by others.</p>
+
+<p align="Justify">Using this module is pretty simple, when entering it, the list of available packages that the user can install or buy will load.</p>
+
+<div><img src="../modules/{$node_id}/images/addons1.png" border="0"></div>
+<div>Figure 1</div><br/>
+<br />
+
+<p>Once the loading is finished, the list of available packages will be shown.</p>
+
+<div><img src="../modules/{$node_id}/images/addons2.png" border="0"></div>
+<div>Figure 2</div>
+<br />
+
+<p align="Justify" style="background-color:yellow;">In case of a transaction in progress, a progress dialog of that transaction will be shown.</p>
+
+<p align="Justify">You can only install one package at a time, ie you have to wait for the first installation to complete in order to be able to start the next. This is because the yum process is used for the installation of the packages.</p>
+
+<h2>Addons Filtering</h2>
+
+<p align="Justify">At the moment this module has the following filters available:</p>
+
+<p align="Justify">&nbsp;&nbsp;&nbsp;1. “Filter by” drop-down menu: the filtering options available in this menu are:</p>
+<ul>
+<li>Avalaible.- Returns all available addons.</li>
+<div><img src="../modules/{$node_id}/images/addons2.png" border="0"></div>
+<div>Figure 3</div>
+<br />
+
+<li>Installed.- Returns all addons that are currently installed on the server.</li>
+<div><img src="../modules/{$node_id}/images/addons3.png" border="0"></div>
+<div>Figure 4</div>
+<br />
+
+<li>Purchased.- Returns all commercial addons that have been purchased (in case there are no purchased addons yet, the following message will be displayed)</li>
+<div><img src="../modules/{$node_id}/images/addons4.png" border="0"></div>
+<div>Figure 5</div>
+<br />
+
+<li>Update Available.- Returns all addons that are installed on the server and have a new version available for update.</li>
+<div><img src="../modules/{$node_id}/images/addons5.png" border="0"></div>
+<div>Figure 6</div>
+</ul>
+<br />
+
+<p align="Justify">&nbsp;&nbsp;&nbsp;2. “Name” textbox:  here you can search all addons that contain the string entered in the textbox, to execute the search you can click on the magnifying glass icon or press enter.</p>
+<div><img src="../modules/{$node_id}/images/addons6.png" border="0"></div>
+<div>Figure 7</div>
+<br />
+
+<h2>Pages</h2>
+<p align="Justify">To go to another page you just have to click on the buttons on the page control section.</p>
+<div><img src="../modules/{$node_id}/images/addons7.png" border="0"></div>
+<div>Figure 8</div>
+<br />
+
+<h2>More information about an addon</h2>
+<p align="Justify">If you want more information about a particular addon, you must click on the "More info ...", this will open another tab with the page providing more information.</p>
+<div><img src="../modules/{$node_id}/images/addons8.png" border="0"></div>
+<div>Figure 9</div>
+<br />
+
+<h2>Actions</h2>
+<p align="Justify">Basically you can do 5 actions, each associated with its own button:</p>
+<p align="Justify">&nbsp;&nbsp;&nbsp;&nbsp;<b>1. INSTALL .-</b> Pressing this button will install the corresponding addon.</p>
+<div><img src="../modules/{$node_id}/images/addons9.png" border="0"></div>
+<div>Figure 10</div>
+<br />
+
+<p align="Justify">&nbsp;&nbsp;&nbsp;&nbsp;A transaction in progress can also be canceled by clicking the "X" on the progress window.</p>
+<div><img src="../modules/{$node_id}/images/addons10.png" border="0"></div>
+<div>Figure 11</div>
+<br />
+
+<p align="Justify">&nbsp;&nbsp;&nbsp;&nbsp;<b>2. UPDATE .-</b> Pressing this button will perform an update of a previously installed addon.</p>
+<p align="Justify">&nbsp;&nbsp;&nbsp;&nbsp;<b>3. UNINSTALL .-</b> Pressing this button will uninstall the selected addon.</p>
+<div><img src="../modules/{$node_id}/images/addons11.png" border="0"></div>
+<div>Figure 12</div>
+<br />
+
+<p align="Justify">&nbsp;&nbsp;&nbsp;&nbsp;<b>4. TRIAL .-</b> This button installs the trial version of a commercial addon.</p>
+<p align="Justify">&nbsp;&nbsp;&nbsp;&nbsp;<b>5. BUY .-</b> This button is for purchasing commercial addons. The process internally checks if there are no dependency problems, if none exist, the elastix-key is checked, if the process finds that the server is not registered yet, the Elastix Server Registration Form window will be displayed.</p>
+<div><img src="../modules/{$node_id}/images/addons12.png" border="0"></div>
+<div>Figure 13</div>
+<br />
+
+<div><img src="../modules/{$node_id}/images/addons13.png" border="0"></div>
+<div>Figure 14</div>
+<br />
+
+<p align="Justify">Once the registration form is filled, the browser is redirected to store.palosanto.com to allow the user to proceed with the purchase of the addon.</p>
+
+</body>
+</html>

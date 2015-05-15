@@ -1,0 +1,172 @@
+<html>
+<head><script type="text/javascript" src="domitrss_functions.js"></script></head>
+<link rel="stylesheet" href="docstyles.css" />
+<body bgcolor="#FFE394">
+<br /><br />
+<center>
+<div class="tutorial">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader"><script type="text/javascript">document.write(getTutorialTitle());</script></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">
+							<center>
+							<script type="text/javascript">
+								document.write(generateMenu(5));
+							</script>						
+						</center></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">Instantiating a DOMIT! RSS Document</td>
+					</tr>
+					<tr>
+						<td class="regular">
+						
+						<p>There are two ways to instantiate a <b>DOMIT! RSS</b> document:</p>
+						
+						<p><b><u>Instantiation and Parsing in a Single Line</u></b></p>
+						
+						<p>In a single line of code, it is possible to both instantiate a <b>DOMIT! RSS</b> document and parse an RSS feed.</p>  
+						
+						<p>This abbreviated form is achieved by passing three parameters to the constructor: the feed url, (and optionally) the cache directory and expiry time:</p>
+					
+<p><pre><span class="code">
+//instantiate and parse RSS document
+$rssdoc =&amp; new xml_domit_rss_document('http://www.somesite.com/rss.xml', 
+							'./', 3600);
+</pre></span></p>
+
+<p>A <b>DOMIT! RSS Lite</b> document can be instantiated in the same way:</p>
+					
+<p><pre><span class="code">
+//instantiate rss lite document
+$rssdoc =&amp; new xml_domit_rss_document_lite('http://www.somesite.com/rss.xml', 
+							'./', 3600);
+</pre></span></p>
+
+				<p><b><u>Instantiation and Parsing as Separate Actions</u></b></p>
+				
+				<p>A <b>DOMIT! RSS</b> document can also be instantiated without immediately parsing an RSS feed. This approach allows you to set additional <b>DOMIT! RSS</b> properties, such as which caching system to use, or to parse an RSS string instead of an url.</p>
+				
+				<p>To instantiate a <b>DOMIT! RSS</b> document without immediately parsing a feed, simply call the constructor without any parameters:</p>
+				
+<p><pre><span class="code">
+//instantiate an RSS document without parsing
+$rssdoc =&amp; new xml_domit_rss_document();
+</pre></span></p>
+
+				<p>At this point, other parameters can be set for <b>DOMIT! RSS</b>. Parsing can then be performed using the <span class="code">loadRSS</span> method:</p>
+				
+<p><pre><span class="code">
+$rssdoc =&amp; new xml_domit_rss_document();
+
+//...set some DOMIT! RSS properties...
+
+$rssdoc->loadRSS('http://www.somesite.com/rss.xml');
+</pre></span></p>
+
+<p><b><u>setConnection</u></b></p>
+
+<p>The <span class="code">setConnection</span> method allows you to manually set the parameters of the http connection when a file is accessed remotely.</p>
+
+<p>For example:</p>
+
+<p>
+<pre class="code">
+$rssdoc-&gt;setConnection('http://www.engageinteractive.com', '80');
+</pre></p>
+
+<p><b><u>setAuthorization</u></b></p>
+
+<p>If basic HTTP authorization is required for the connection, the <span class="code">setAuthorization</span> method allows you
+to specify a user name and password:</p>
+
+<p>
+<pre class="code">
+$rssdoc-&gt;setAuthorization('johndoe', 'xyzzy');
+</pre></p>
+
+<p><b><u>setProxyConnection</u></b></p>
+
+<p>The <span class="code">setProxyConnection</span> method allows you to manually set the parameters of a proxy http connection:</p>
+
+<p>
+<pre class="code">
+$rssdoc-&gt;setProxyConnection('http://www.myProxy.com', '8080');
+</pre></p>
+
+<p><b><u>setProxyAuthorization</u></b></p>
+
+<p>If basic HTTP authorization is required for the proxy connection, the <span class="code">setProxyAuthorization</span> method allows you
+to specify a user name and password:</p>
+
+<p>
+<pre class="code">
+$rssdoc-&gt;setProxyAuthorization('johndoe', 'xyzzy');
+</pre></p>
+
+
+				<p><b><u>Substituting PEAR:Cache_Lite for php_text_cache</u></b></p>
+				
+				<p>If you have the popular PEAR caching library <a href="http://pear.php.net/package/Cache_Lite" target="_child">Cache_Lite</a> installed on your web server, you may prefer to use it instead of the default <b>DOMIT! RSS</b> caching system, <b>php_text_cache</b></p>
+				
+				<p>if so, then the method <span class="code">useCacheLite</span> can be called to swap <b>php_text_cache</b> for <b>Cache Lite</b>.</p>
+				
+				<p>It is called with four parameters: </p>
+				
+				<p><ul>
+					<li><p><i>doUseCacheLite</i> - True to use Cache Lite</p></li>
+					<li><p><i>pathToLibrary</i> - The absolute or relative path to the Cache Lite include file, e.g., './cache/Lite.php'</p></li>
+					<li><p><i>cacheDir</i> - The directory in which cache file are to be stored</p></li>
+					<li><p><i>cacheTime</i> - The expiry time in seconds of the cache</p></li>
+				</ul></p>
+				
+				<p>For example:</p>
+				
+<p><pre><span class="code">
+$rssdoc =&amp; new xml_domit_rss_document();
+
+$rssdoc->useCacheLite(true, './cache/Lite.php', './tmp/', 1800);
+
+$rssdoc->loadRSS('http://www.somesite.com/rss.xml');
+</pre></span></p>
+
+				<p><b><u>Parsing an RSS String instead of an Url</u></b></p>
+				
+				<p>You have the option of parsing an RSS string instead of an url with <b>DOMIT! RSS</b>. This is done with the <span class="code">parseRSS</span> method:</p>
+
+<p><pre><span class="code">
+$rssdoc =&amp; new xml_domit_rss_document();
+
+$rssdoc->parseRSS('&lt;rss version="0.92"&gt;...rss xml...&lt;/rss&gt;');
+</pre></span></p>
+
+				</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">
+							<center>
+							<script type="text/javascript">
+								document.write(generateMenu(5));
+							</script>						
+						</center></td>
+					</tr>
+
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<br />
+<p class="docblurb">Documentation generated by <b>ClassyDoc</b>, using the <b>DOMIT!</b> and <b>SAXY</b> parsers.<br />
+Please visit <a href="http://www.engageinteractive.com/opensource.html" target="_child">Engage Interactive</a> to download free copies.</p>
+<br />
+</center>
+</body>
+</html>

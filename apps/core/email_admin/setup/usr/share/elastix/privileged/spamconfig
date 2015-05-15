@@ -1,0 +1,464 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: emailaccount.php,v 1.1 2012/03/21 11:32:00 rocio Exp $*/
+
+require_once 'Console/Getopt.php';
+
+// Ugly - should not depend on anything under /var/www/html
+$elxPath="/usr/share/elastix";
+ini_set('include_path',"$elxPath:".ini_get('include_path'));
+
+$opt = Console_Getopt::getopt($argv, '', array(
+    'getdeleteperiod',  // Dump spam delete period
+    'setlevelheader',   // Set required hits level and header rewrite
+    'requiredhits=',    // Number of required hits
+    'headersubject=',   // String to add to rewritten header
+    'enablespamfilter', // Enable spam filter
+    'disablespamfilter',// Disable spam filter
+    'deleteperiod=',    // Set new spam delete period when enabling spam filter
+    'refreshspamfilter',// Refresh spam filter scripts for newly created users
+));
+
+if (PEAR::isError($opt)) error_exit($opt->getMessage()."\n");
+
+foreach ($opt[0] as $option) switch ($option[0]) {
+    case '--getdeleteperiod':
+        exit(action_getdeleteperiod($opt) ? 0 : 1);
+    case '--setlevelheader':
+        exit(action_setlevelheader($opt) ? 0 : 1);
+    case '--enablespamfilter':
+        exit(action_enablespamfilter($opt) ? 0 : 1);
+    case '--refreshspamfilter':
+        exit(action_refreshspamfilter($opt) ? 0 : 1);
+    case '--disablespamfilter':
+        exit(action_disablespamfilter($opt) ? 0 : 1);
+}
+
+
+error_exit("No action specified (--getdeleteperiod,--setlevelheader,--enablespamfilter,--disablespamfilter,--refreshspamfilter)\n");
+
+function error_exit($sMsg, $errorcode = 1)
+{
+    fwrite(STDERR, $sMsg);
+    exit($errorcode);
+}
+
+function loadCyrusPassword()
+{
+    global $CYRUS;
+    
+    if (is_null($CYRUS)) {
+        $CYRUS = array(
+            'HOST'  =>  'localhost',
+            'PORT'  =>  143,
+            'ADMIN' =>  'cyrus',
+            'PASS'  =>  'palosanto',
+        );
+        foreach (file('/etc/elastix.conf') as $s) {
+            $regs = NULL;
+            if (preg_match('/^cyrususerpwd\s*=\s*(.+)/', trim($s), $regs)) {
+                $CYRUS['PASS'] = $regs[1];
+            }
+        }
+    }
+}
+
+/* Implementation of dump spam delete configuration. The file checkSpamFolder.cron
+ * contains a reference to deleteSpam.php with a parameter encoding the number
+ * of days to keep spam. If the cronfile does not exist, the spam delete is
+ * disabled, else the day period is returned. */
+function action_getdeleteperiod($opt)
+{
+	$sCronFile = '/etc/cron.d/checkSpamFolder.cron';
+    if (!is_file($sCronFile)) {
+        print "0\n";
+		return TRUE;
+	}
+    foreach (file($sCronFile) as $s) {
+    	$regs = NULL;
+        if (preg_match('/deleteSpam.php\s+(\d+)/', $s, $regs)) {
+    		// Found delete period
+            print $regs[1]."\n";
+            return TRUE;
+    	}
+    }
+    
+    fwrite(STDERR, "ERR: invalid or corrupted checkSpamFolder.cron\n");
+    return FALSE;
+}
+
+/* Implementation of Set required hits value and header rewrite string. The file
+ * /etc/mail/spamassassin/local.cf is modified to reflect the values. */
+function action_setlevelheader($opt)
+{
+    $iNumHits = NULL;
+    $sSpamSubject = NULL;
+
+    foreach ($opt[0] as $option) switch ($option[0]) {
+        case '--requiredhits':
+            $iNumHits = $option[1];
+            break;
+        case '--headersubject':
+            $sSpamSubject = $option[1];
+            break;
+    }    
+    if (is_null($iNumHits)) {
+        error_exit("ERR: --setlevelheader: no number of hits specified.\n");
+    }
+    if (!ctype_digit($iNumHits)) {
+        error_exit("ERR: --setlevelheader: invalid number of hits, expected integer.\n");
+    }
+    if (is_null($sSpamSubject)) {
+        error_exit("ERR: --setlevelheader: no spam subject specified.\n");
+    }
+    
+	$sLocalFile = '/etc/mail/spamassassin/local.cf';
+    $lines = file($sLocalFile);
+    if (!is_array($lines)) return FALSE;
+    foreach (array_keys($lines) as $i) {
+    	if (preg_match('/^\s*required_hits\s+\d+/', $lines[$i]))
+            $lines[$i] = "required_hits $iNumHits\n";
+        if (preg_match('/^\s*rewrite_header\s+Subject\s+/', $lines[$i]))
+            $lines[$i] = "rewrite_header Subject $sSpamSubject\n";
+    }
+    return (file_put_contents($sLocalFile, $lines) !== FALSE);
+}
+
+/* Implementation of enable spam filter. The file master.cf needs to be checked
+ * to verify the spamfilter service is enabled.  */
+function action_enablespamfilter($opt)
+{
+    $iDeletePeriod = NULL;
+    foreach ($opt[0] as $option) switch ($option[0]) {
+        case '--deleteperiod':
+            $iDeletePeriod = $option[1];
+            break;
+    }
+    if (!is_null($iDeletePeriod) && !ctype_digit($iDeletePeriod)) {
+    	error_exit("ERR: --enablespamfilter: invalid delete period, expected integer.\n");
+    }
+    
+    // Enable or disable SIEVE scripts
+    _enable_sieve($iDeletePeriod);
+
+	$sMasterFile = '/etc/postfix/master.cf';
+    $lines = file($sMasterFile);
+    if (!is_array($lines)) return FALSE;
+    $iPosSmtp = NULL; $iPosSpam = NULL;
+    $iPosSmtpPartial = NULL;
+    $bValidSmtp = FALSE; $bValidSpam = FALSE;
+    foreach (array_keys($lines) as $i) {
+        if (!$bValidSpam && preg_match('|spamfilter\s+unix\s+-\s+n\s+n\s+-\s+-\s+pipe|', $lines[$i])) {
+            $iPosSpam = $i;
+        } elseif (!$bValidSpam && !is_null($iPosSpam) && $iPosSpam + 1 == $i && 
+            preg_match('|\s+flags=Rq\s+user=spamfilter\s+argv=/usr/local/bin/spamfilter.sh\s+-f\s+\${sender}\s+--\s+\${recipient}|', $lines[$i])) {
+            $bValidSpam = TRUE;
+        } elseif (!$bValidSmtp && preg_match('/smtp\s+inet\s+n\s+-\s+n\s+-\s+-\s+smtpd/', $lines[$i])) {
+            $iPosSmtpPartial = $iPosSmtp = $i;
+        } elseif (!$bValidSmtp && !is_null($iPosSmtp) && $iPosSmtp + 1 == $i &&
+            preg_match('|\s+-o\s+content_filter=spamfilter:dummy|', $lines[$i])) {
+        	$bValidSmtp = TRUE;
+        } else {
+        	if (!$bValidSmtp) $iPosSmtp = NULL;
+            if (!$bValidSpam) $iPosSpam = NULL;
+        }
+    }
+    //fprintf(STDERR, "DEBUG: after parse bValidSpam=$bValidSpam iPosSpam=$iPosSpam bValidSmtp=$bValidSmtp iPosSmtp=$iPosSmtp iPosSmtpPartial=$iPosSmtpPartial\n");
+    
+    if (!$bValidSmtp && !is_null($iPosSmtpPartial) && is_null($iPosSmtp)) {
+    	$lines[$iPosSmtpPartial] = 
+            "smtp      inet  n       -       n       -       -       smtpd\n".
+            "  -o content_filter=spamfilter:dummy\n";
+    }
+    if (!$bValidSpam) {
+    	$lines[] = 
+            "#\n".
+            "#Add by Elastix\n".
+            "#\n".
+             "spamfilter unix -       n       n       -       -       pipe\n".
+             "  flags=Rq user=spamfilter argv=/usr/local/bin/spamfilter.sh -f \${sender} -- \${recipient}\n";
+    }    
+    if (file_put_contents($sMasterFile, $lines) === FALSE) {
+        fwrite(STDERR, "ERR: Could not make the configuration file\n");
+        return FALSE;
+    }
+    
+    $retval = NULL;
+    system('/sbin/service spamassassin restart', $retval);
+    if ($retval != 0) {
+        fwrite(STDERR, "ERR: Could not start the service antispam\n");
+        return FALSE;
+    }
+    
+    system('/sbin/chkconfig --level 2345 spamassassin on');
+    return TRUE;
+}
+
+// Disable spam filter if active
+function action_disablespamfilter($opt)
+{
+    $retval = NULL;
+    system('/sbin/service spamassassin stop', $retval);
+    if ($retval != 0) {
+        fwrite(STDERR, "ERR: Could not stop the service antispam\n");
+        return FALSE;
+    }
+    
+    system('/sbin/chkconfig --level 2345 spamassassin off');
+    return TRUE;
+}
+
+function action_refreshspamfilter($opt)
+{
+    _toggleAntispamScripts(TRUE);
+    return TRUE;
+}
+
+function _enable_sieve($iDeletePeriod)
+{
+    if (!is_null($iDeletePeriod)) {
+        // Enable cronjob for removal of old spam messages
+    	$sContentCron = <<<CRON_JOB
+55 23 * * *  root /usr/bin/php -q /var/www/elastixdir/scripts/checkSpamFolder.php
+59 23 * * *  root /usr/bin/php -q /var/www/elastixdir/scripts/deleteSpam.php $iDeletePeriod
+CRON_JOB;
+        if  (FALSE === file_put_contents('/etc/cron.d/checkSpamFolder.cron', $sContentCron)) {
+            error_exit("ERR: failed to write cronjob\n");
+        }
+    } else {
+        // Disable cronjob for removal of old spam messages
+        if (file_exists('/etc/cron.d/checkSpamFolder.cron') && 
+            !unlink('/etc/cron.d/checkSpamFolder.cron')) {
+            error_exit("ERR: failed to remove cronjob\n");
+        }
+    }
+
+    _toggleAntispamScripts(!is_null($iDeletePeriod));
+}
+
+function _toggleAntispamScripts($bEnable)
+{
+    global $CYRUS;
+    
+    // Load all accounts and passwords - we need this list several times later
+    $userInfoList = array();
+    try {
+        require_once('libs/misc.lib.php');
+        $arrDBConn=parseDSN(generarDSNSistema("asteriskuser","elxpbx"));
+        $conn = new PDO($arrDBConn["dsn"],$arrDBConn["user"],$arrDBConn["passwd"]);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $sqlEmailInfo = <<<EMAIL_INFO
+SELECT u.username, v.email_subject, v.end_date, v.email_body FROM acl_user u
+LEFT JOIN vacations v ON u.id = v.id_user 
+EMAIL_INFO;
+        foreach ($conn->query($sqlEmailInfo) as $row) {
+        	$userInfoList[$row['username']] = array(
+                'subject'   =>  $row['email_subject'],
+                'end_date'  =>  $row['end_date'],
+                'body'      =>  $row['email_body'],
+            );
+        }
+    } catch (PDOException $e) {
+    	error_exit("ERR: failed to read account information - ".$e->getMessage()."\n");
+    }
+
+    // Connect to IMAP before doing anything else
+    loadCyrusPassword();
+    require_once('libs/cyradm.php');
+    $cyr_conn = new cyradm;
+    if (!$cyr_conn->imap_login()) {
+        error_exit("ERR: failed to login to IMAP\n");
+    }
+    
+    $regexpUsuario =  '/^[a-z0-9]+([\._\-]?[a-z0-9]+[_\-]?)*@[a-z0-9]+([\._\-]?[a-z0-9]+)*(\.[a-z0-9]{2,6})+$/';
+    // Check all accounts for a spam folder and create it if it does not exist
+    foreach ($userInfoList as $email => $emailInfo) {
+        if(preg_match($regexpUsuario, $email)){
+            // This assumes $email is a proper username@domain string
+            list($sUsername, $sDomain) = explode('@', $email);
+            $sSpamDomainFolder = 'Spam@'.str_replace('.', '/', $sDomain);
+            $bSpamFound = FALSE;
+            foreach ($cyr_conn->GetFolders("*{$sUsername}*") as $sFolder) {
+                if (strpos($sFolder, $sSpamDomainFolder)) {
+                    $bSpamFound = TRUE;
+                }
+            }
+            if (!$bSpamFound) {
+                // No spam folder, proceed to create
+                if (!$cyr_conn->createmb("user/{$sUsername}/Spam@{$sDomain}")) {
+                    fwrite(STDERR, 'ERR: Error creating Spam folder: '.$cyr_conn->getMessage()."\n");
+                } 
+            }
+        }
+    }    
+    
+    // Write antispam scripts to sieve configuration
+    require_once('apps/antispam/libs/sieve-php.lib.php');
+    $sVacationName = 'vacations.sieve';
+    $sAntispamName = 'scriptTest.sieve';
+    $sAntispamScript = _getContentAntispamScript();
+    foreach ($userInfoList as $email => $emailInfo) {
+        if(preg_match($regexpUsuario, $email)){
+            $sieve = new sieve('localhost', 4190, 'cyrus', $CYRUS['PASS'], $email);
+            if (!$sieve->sieve_login()) {
+                fwrite(STDERR, "WARN: failed to login to sieve using admin password!\n");
+                break;
+            }
+            
+            // Check for vacation script
+            $sieve->sieve_listscripts();
+            if (isset($sieve->response) && isset($sieve->response['ACTIVE']) && 
+                $sieve->response['ACTIVE'] == $sVacationName && !empty($emailInfo['subject'])) {
+                // Active vacation script
+                $vacationScript=($bEnable 
+                        ? str_replace(
+                            'require "fileinto";',
+                            'require ["fileinto","vacation"];',
+                            $sAntispamScript)
+                        : 'require ["fileinto","vacation"];'
+                    ).
+                    "\n".
+                    _getContentVacationScript(
+                        $emailInfo['subject'],
+                        str_replace('{END_DATE}', $emailInfo['end_date'], $emailInfo['body']));
+                $r = $sieve->sieve_sendscript($sVacationName,$vacationScript);             
+                if (!$r) fwrite(STDERR, "WARN: failed to upload patched vacation script for $email\n");
+                $r = $sieve->sieve_setactivescript($sVacationName);
+                if (!$r) fwrite(STDERR, "WARN: failed to activate vacation script for $email\n");
+                if ($bEnable) {
+                    $r = $sieve->sieve_sendscript($sAntispamName, $sAntispamScript);
+                    if (!$r) fwrite(STDERR, "WARN: failed to upload antispam script for $email\n");
+                }
+            } else {
+                // There is no active vacation script
+                if ($bEnable) {
+                    $r = $sieve->sieve_sendscript($sAntispamName, $sAntispamScript);
+                    if (!$r) fwrite(STDERR, "WARN: failed to upload antispam script for $email\n");
+                    $r = $sieve->sieve_setactivescript($sAntispamName);
+                    if (!$r) fwrite(STDERR, "WARN: failed to activate antispam script for $email\n");
+                }
+            }
+            if (!$bEnable) {
+                $r = $sieve->sieve_deletescript($sAntispamName);
+                if (!$r) fwrite(STDERR, "WARN: failed to delete antispam script for $email\n");
+            }
+            
+            
+            $sieve->sieve_logout();
+        }
+    }
+}
+
+function _getContentAntispamScript()
+{
+    $script = <<<SCRIPT
+require "fileinto";
+if exists "X-Spam-Flag" {
+    if header :is "X-Spam-Flag" "YES" {
+        fileinto "Spam";
+        stop;
+    }
+}
+if exists "X-Spam-Status" {
+    if header :contains "X-Spam-Status" "Yes," {
+        fileinto "Spam";
+        stop;
+    }
+}
+SCRIPT;
+    return $script;
+}
+
+function _getContentVacationScript($subject, $body)
+{
+    $script = <<<SCRIPT
+
+ vacation
+        # Reply at most once a day to a same sender
+        :days 1
+
+        # Currently, encode subject, so you can't use
+        # Non-English characters in subject field.
+        # The easiest way is let your webmail do that.
+        :subject "$subject"
+
+        # Use 'mime' parameter to compose utf-8 message, you can use
+        # Non-English characters in mail body.
+        :mime
+"MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+$body
+";
+
+SCRIPT;
+        return $script;
+}
+
+function parseDSN($dsn){
+    //$dsn => databasemotor://username:password@hostspec/database
+    //mysql => mysql://username:password@hostspec/database
+    //squlite => sqlite:///database
+    $database=$username=$password=$hostspec=$dbname=false;
+    //get the technology
+    if(($pos = strpos($dsn, '://')) !== false) {
+        $database = substr($dsn, 0, $pos);
+        $dsn = substr($dsn, $pos + 3);
+    } else {
+        return array("dsn"=>$dsn,"user"=>$username,"passwd"=>$password);
+    }
+     
+    //username y password en caso de haberlos
+    if (($at = strrpos($dsn,'@')) !== false) {
+        $str = substr($dsn, 0, $at);
+        $dsn = substr($dsn, $at + 1);
+        if (($pos = strpos($str, ':')) !== false) {
+            $username = rawurldecode(substr($str, 0, $pos));
+            $password = rawurldecode(substr($str, $pos + 1));
+        } else {
+            $username = rawurldecode($str);
+        }
+    }
+    
+    //hostspec 
+    if (strpos($dsn, '/') !== false) {
+        list($hostspec, $dbname) = explode('/', $dsn, 2);
+    }
+        
+    if($database=="sqlite" || $database=="sqlite3"){
+        $dsn="sqlite:$dbname";
+    }elseif($database=="mysql"){
+        $dsn="$database:dbname=$dbname;host=$hostspec";
+    }
+    
+    return array("dsn"=>$dsn,"user"=>$username,"passwd"=>$password);
+}
+?>

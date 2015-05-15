@@ -1,0 +1,80 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: fwconfig.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+
+/*
+ * Este programa se debe invocar regularmente desde un crontab de root. Se 
+ * consultan las tablas de portknock en iptables.db, y se eliminan las reglas
+ * con antiguedad mayor a 1 día. Si al menos una regla fue eliminada, se manda
+ * a recargar el firewall.
+ * 
+ * TODO: ¿debe implementarse configuración del tiempo de expiración de regla?
+ */
+load_default_timezone();
+
+try {
+    $db = new PDO('sqlite:/var/www/db/iptables.db');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sDateYesterday = date('Y-m-d H:i:s', strtotime('-1 day'));
+    $sth = $db->prepare('DELETE FROM portknock_user_current_rule WHERE rule_start < ?');
+    $sth->execute(array($sDateYesterday));
+    if ($sth->rowCount() > 0) {
+    	// Al menos una regla fue eliminada
+        $retval = NULL;
+        system('/usr/share/elastix/privileged/fwconfig --load', $retval);
+        if ($retval) {
+            fputs(STDERR, "FATAL: fwconfig --load failed! (retval=$retval)\n");
+        }
+        exit($retval);
+    }
+    exit(0);
+} catch (PDOException $e) {
+    fputs(STDERR, "FATAL: unable to query rules - ".$e->getMessage()."\n");
+    exit(1);
+}
+
+
+function load_default_timezone()
+{
+    $sDefaultTimezone = @date_default_timezone_get();
+    if ($sDefaultTimezone == 'UTC') {
+        $sDefaultTimezone = 'America/New_York';
+        if (file_exists('/etc/sysconfig/clock')) {
+            foreach (file('/etc/sysconfig/clock') as $s) {
+                $regs = NULL;
+                if (preg_match('/^ZONE\s*=\s*"(.+)"/', $s, $regs)) {
+                    $sDefaultTimezone = $regs[1];
+                }
+            }
+        }
+    }
+    date_default_timezone_set($sDefaultTimezone);
+}
+?>

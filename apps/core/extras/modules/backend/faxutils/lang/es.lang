@@ -1,0 +1,42 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.4.0-9                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2013-08-12 08:08:53 Jose Briones jbriones@elastix.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Fax Utilities" => "Utilidades de Fax",
+"Manufacturer Description" => "Descripción del Fabricante <i>(traducido)</i>",
+"Manufacturer" => "Fabricante",
+"Download Link" => "Enlace de Descarga",
+
+"jhylafax_software_description" => "JHylafax es un frontend de Hylafax escrito en Java. Puede ser instalado en Windows, Linux y MacOS.",
+"jhylafax_manufacturer_description" => "Es un cliente Java desarrollado bajo la licencia GPL para el servidor de fax HylaFAX. JHylaFAX está puramente escrito en Java y corre en cualquier plataforma Java 6.0. Es un programa ligero, se pone en marcha rápidamente y cuenta con una interfaz de usuario elegante.",
+
+"winprint_software_description" => "Winprint HylaFAX es una utilidad creada para enviar faxes desde cualquier máquina Windows a través de un servidor HylaFAX.",
+"winprint_manufacturer_description" => "Winprint HylaFAX es un monitor de impresion para Windows diseñado para enviar su salida directamente a un servidor HylaFAX. Una vez instalado usted puede imprimir a un servidor HylaFAX desde cualquier aplicación, y aparecerá una simple caja de diálogo, permitiendole ingresar el número de Fax de destino. La intención de este programa no pretende ser lujoso ni abarcar todas las posibilidades, sino ser una manera fácil y rápida de enviar faxes desde cualquier aplicación Windows.",
+);
+?>

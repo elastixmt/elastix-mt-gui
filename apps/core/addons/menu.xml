@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <menulist>
+    <menuitem menuid="addons"            desc="Addons"       parent=""       module="no"  link="" order="10"></menuitem>
+    <menuitem menuid="addons_availables" desc="Addons"       parent="addons" module="yes" link="" order="1">
+      <permissions>
+        <group id="1" name="administrator" desc="total access"></group>
+      </permissions>
+    </menuitem>
+  </menulist>
+</module>

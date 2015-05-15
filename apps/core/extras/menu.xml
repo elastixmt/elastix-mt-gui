@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <menulist>
+	<!--Temporalmente esto se va hace aqui para los menus de extras e IM-->
+	<menuitem menuid="extras"             desc="Extras"             parent=""           module="no" link=""                                     order="9"></menuitem>
+	<menuitem menuid="vtigercrm"          desc="vTigerCRM"          parent="extras"     module="no" link="vtigercrm"                            order="1">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+	<menuitem menuid="downloads"          desc="Downloads"          parent="extras"     module="no" link=""                                     order="3">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+	<menuitem menuid="sphones"            desc="Softphones"         parent="downloads"  module="yes" link=""          order="31">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+	<menuitem menuid="faxutils"           desc="Fax Utilities"      parent="downloads"  module="yes" link=""          order="32">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+	<menuitem menuid="instantmessaging"   desc="Instant Messaging"  parent="downloads"  module="yes" link=""          order="33">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+  </menulist>
+</module>

@@ -1,0 +1,255 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: emailaccount.php,v 1.1 2012/03/21 11:32:00 rocio Exp $*/
+
+require_once 'Console/Getopt.php';
+
+// Ugly - should not depend on anything under /var/www/html
+$elxPath="/usr/share/elastix";
+ini_set('include_path',"$elxPath:".ini_get('include_path'));
+
+$opt = Console_Getopt::getopt($argv, '', array(
+    'enableremote', // Enable remote SMPT if set
+    'relay=',       // Relay host for SMTP, required if --enableremote
+    'port=',        // TCP port for relay host, optional, default 25
+    'user=',        // Username for authentication
+    'pass=',        // Password for authentication
+    'tls',          // If set, enable TLS authentication
+));
+
+if (PEAR::isError($opt)) error_exit($opt->getMessage()."\n");
+
+exit(action_enableremotesmtp($opt) ? 0 : 1);
+
+function error_exit($sMsg, $errorcode = 1)
+{
+    fwrite(STDERR, $sMsg);
+    exit($errorcode);
+}
+
+function action_enableremotesmtp($opt)
+{
+    $bSuccess = FALSE;
+    
+    // Default values for parameters
+	$bEnableRemote = FALSE;
+    $sRelay = NULL;
+    $iPort = 25;
+    $sUser = NULL;
+    $sPass = NULL;
+    $bTLS = FALSE;
+
+    foreach ($opt[0] as $option) switch ($option[0]) {
+        case '--enableremote':
+            $bEnableRemote = TRUE;
+            break;
+        case '--relay':
+            $sRelay = $option[1];
+            break;
+        case '--port':
+            $iPort = $option[1];
+            break;
+        case '--user':
+            $sUser = $option[1];
+            break;
+        case '--pass':
+            $sPass = $option[1];
+            break;
+        case '--tls':
+            $bTLS = TRUE;
+            break;
+    }
+    if (!$bEnableRemote) {
+        $sUser = $sPass = NULL;
+        $iPort =  25;
+    }
+    if ($bEnableRemote) {
+    	if (is_null($sRelay)) error_exit("ERR: --enableremote requires --relay\n");
+        if (!ctype_digit("$iPort")) error_exit("ERR: --enableremote requires numeric --port\n");
+        if (is_null($sUser) != is_null($sPass)) error_exit("ERR: --user and --pass must be specified together\n");
+    }
+
+    try {
+        require_once('libs/misc.lib.php');
+        $arrDBConn=parseDSN(generarDSNSistema("asteriskuser","elxpbx"));
+        $conn = new PDO($arrDBConn["dsn"],$arrDBConn["user"],$arrDBConn["passwd"]);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->beginTransaction();
+        
+        // Save properties with backward-compatible names
+        $properties = array(
+            'relayhost'         =>  $sRelay,
+            'port'              =>  $iPort,
+            'user'              =>  $sUser,
+            'password'          =>  $sPass,
+            'status'            =>  $bEnableRemote ? 'on' : 'off',
+            'autentification'   =>  $bTLS ? 'on' : 'off',
+        );
+        $conn->exec('DELETE FROM email_relay');
+        $sth = $conn->prepare('INSERT INTO email_relay (name, value) VALUES (?, ?)');
+        foreach ($properties as $k => $v) {
+        	$sth->execute(array($k, $v));
+        }
+
+        // Build list of properties to replace in /etc/postfix/main.cf
+        $properties = array(
+            'relayhost'                     =>  '',
+            'smtp_sasl_auth_enable'         =>  'no',
+            'smtp_sasl_password_maps'       =>  '',
+            'smtp_sasl_security_options'    =>  'noplaintext, noanonymous',
+            'broken_sasl_auth_clients'      =>  'yes',
+            'smtpd_tls_auth_only'           =>  'no',
+            'smtp_use_tls'                  =>  'no',
+            'smtp_tls_note_starttls_offer'  =>  'no',
+            'smtpd_tls_loglevel'            =>  '0',
+            'smtpd_tls_received_header'     =>  'no',
+            'tls_random_source'             =>  '',
+            'smtp_tls_CAfile'               =>  '',
+        );
+        $sasldata = '';
+        
+        // Change properties as required by options
+        if ($bEnableRemote) {
+        	$properties['relayhost'] = $sRelay.':'.$iPort;
+        }
+        if (!is_null($sUser) && !is_null($sPass)) {
+            $properties['broken_sasl_auth_clients'] = 'no';
+            $properties['smtpd_tls_loglevel'] = '2';
+            
+            if ($bEnableRemote) {
+            	$properties['smtp_sasl_auth_enable'] = 'yes';
+                $properties['smtp_sasl_password_maps'] = 'hash:/etc/postfix/sasl/passwd';
+                $properties['smtp_sasl_security_options'] = '';
+                $properties['broken_sasl_auth_clients'] = 'yes';
+            }
+            if ($bTLS) {
+            	if ($bEnableRemote) {
+            		$properties['smtp_use_tls'] = 'yes';
+                    $properties['smtp_tls_note_starttls_offer'] = 'yes';
+                    $properties['smtp_tls_CAfile'] = '/etc/postfix/tls/tlscer.crt';
+                    $properties['smtpd_tls_received_header'] = 'yes';
+                    $properties['tls_random_source'] = 'dev:/dev/urandom';
+                    $properties['smtp_sasl_security_options'] = 'noanonymous';
+            	} else {
+            		$properties['smtpd_tls_loglevel'] = '0';
+                    $properties['smtp_sasl_security_options'] = '';
+            	}
+                
+                // Create a certificate
+                system('/usr/sbin/postfix reload');
+                if (!is_file('/etc/postfix/tls/tlscer.crt')) {
+                    if (!is_dir('/etc/postfix/tls')) mkdir('/etc/postfix/tls');
+                    system('/etc/pki/tls/certs/make-dummy-cert /etc/postfix/tls/tlscer.crt');
+                }
+            }
+            $sasldata = "$sRelay:$iPort $sUser:$sPass";            
+        }
+        
+        // Write SASL credentials
+        if (!is_dir('/etc/postfix/sasl')) mkdir('/etc/postfix/sasl');
+        file_put_contents('/etc/postfix/sasl/passwd', $sasldata);
+        system('/usr/sbin/postmap hash:/etc/postfix/sasl/passwd');
+        unlink('/etc/postfix/sasl/passwd');
+        
+        // Write updated properties to /etc/postfix/main.cf
+        $sConfigFile = '/etc/postfix/main.cf'; 
+        $lines = file($sConfigFile);
+        if (!is_array($lines)) {
+            $conn->rollBack();
+        	exit_error("ERR: failed to read $sConfigFile\n");
+        }
+        for ($i = 0; $i < count($lines); $i++) {
+        	$regs = NULL;
+            if (preg_match('/^(\w+)\s*=\s*.*/', $lines[$i], $regs)) {
+                if (isset($properties[$regs[1]])) {
+            		$lines[$i] = $regs[1].' = '.$properties[$regs[1]]."\n";
+                    unset($properties[$regs[1]]);
+            	}
+            }
+        }
+        foreach ($properties as $k => $v) $lines[] = "$k = $v\n";
+        if (file_put_contents($sConfigFile, $lines) === FALSE) {
+            $conn->rollBack();
+            exit_error("ERR: failed to write $sConfigFile\n");
+        }
+
+    	$conn->commit();
+        $bSuccess = TRUE;
+    } catch (PDOException $e) {
+        $conn->rollBack();
+    	error_exit("ERR: failed to update remote SMTP information in database - ".$e->getMessage()."\n");
+    }
+    
+    if ($bSuccess) {
+    	system('/sbin/service saslauthd restart');
+        system('/sbin/service postfix restart');
+    }
+    return $bSuccess;
+}
+
+function parseDSN($dsn){
+    //$dsn => databasemotor://username:password@hostspec/database
+    //mysql => mysql://username:password@hostspec/database
+    //squlite => sqlite:///database
+    $database=$username=$password=$hostspec=$dbname=false;
+    //get the technology
+    if(($pos = strpos($dsn, '://')) !== false) {
+        $database = substr($dsn, 0, $pos);
+        $dsn = substr($dsn, $pos + 3);
+    } else {
+        return array("dsn"=>$dsn,"user"=>$username,"passwd"=>$password);
+    }
+     
+    //username y password en caso de haberlos
+    if (($at = strrpos($dsn,'@')) !== false) {
+        $str = substr($dsn, 0, $at);
+        $dsn = substr($dsn, $at + 1);
+        if (($pos = strpos($str, ':')) !== false) {
+            $username = rawurldecode(substr($str, 0, $pos));
+            $password = rawurldecode(substr($str, $pos + 1));
+        } else {
+            $username = rawurldecode($str);
+        }
+    }
+    
+    //hostspec 
+    if (strpos($dsn, '/') !== false) {
+        list($hostspec, $dbname) = explode('/', $dsn, 2);
+    }
+        
+    if($database=="squlite" || $database=="squlite3"){
+        $dsn="squlite:$dbname";
+    }elseif($database=="mysql"){
+        $dsn="$database:dbname=$dbname;host=$hostspec";
+    }
+    
+    return array("dsn"=>$dsn,"user"=>$username,"passwd"=>$password);
+}
+?>

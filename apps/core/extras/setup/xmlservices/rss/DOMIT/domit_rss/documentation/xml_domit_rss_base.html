@@ -1,0 +1,320 @@
+<html>
+<head></head>
+<link rel="stylesheet" href="docstyles.css" />
+<body bgcolor="#FFE394">
+<br /><br />
+<center>
+<div class="classDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Class xml_domit_rss_base</td>
+					</tr>
+					<tr>
+						<td class="regular">The base class of all DOMIT! RSS objects.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>isPublic? </b>no<br /><b>isAbstract? </b>yes</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Inheritance tree: </b></p><p><center><a href="xml_domit_rss_base.html">xml_domit_rss_base</a> (top level class)</center></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Known subclasses: </b></p><p><a href="xml_domit_rss_elementindexer.html">xml_domit_rss_elementindexer</a></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Source file: </b>xml_domit_rss_shared.php</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="constructorDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Constructor</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicConstantsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Constants</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateConstantsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Constants</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicFieldsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Fields</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateFieldsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Fields</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">node</td>
+					</tr>
+					<tr>
+						<td class="regular">A reference to the DOMIT! node underlying the DOMIT! RSS element.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b><a href="DOMIT_Node.html">DOMIT_Node</a></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">rssDefinedElements</td>
+					</tr>
+					<tr>
+						<td class="regular">A list of valid RSS defined child elements.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>array</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicMethodsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Methods</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">hasAttribute</td>
+					</tr>
+					<tr>
+						<td class="regular">Checks whether the named attribute exists.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">hasAttribute($attr)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">attr</span> - The attribute name.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if the attribute exists.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Tests whether the named attribute exists.</p><p><span class="code">$doesTitleExist = $someRSSElement-&amp;gt;hasAttribute('title');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">isRSSDefined</td>
+					</tr>
+					<tr>
+						<td class="regular">Tests whether the named element is predefined by the RSS spec.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">isRSSDefined($elementName)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">attr</span> - The element name.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if the element is predefined by the RSS spec.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Tests whether the named element is predefined by the RSS spec.</p><p><span class="code">$isRSS = $channelElement-&amp;gt;isRSSDefined('title');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">isSimpleRSSElement</td>
+					</tr>
+					<tr>
+						<td class="regular">Tests whether the named element has a single child text node.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">isSimpleRSSElement($elementName)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">attr</span> - The element name.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if the named element has a single child text node.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Tests whether the named element has a single child text node.</p><p><span class="code">$isSimple = $channelElement-&amp;gt;isSimpleRSSElement('copyright');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">toString</td>
+					</tr>
+					<tr>
+						<td class="regular">Generates an unformatted (single line, no whitespace) string representation of the rss element or document and all children.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">toString($htmlSafe = false, $subEntities=false)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>boolean <span class="parameter">htmlSafe</span> - If true, returns an html formatted representation of the string.</p>
+<p>boolean <span class="parameter">subEntities</span> - True if illegal xml characters in text nodes and attributes should be converted to entities.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>String - An unformatted (single line, no whitespace) string representation of the document and all children.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>An unformatted string representation of the rss document will be printed here:</p><p><span class="code">echo $myRSSDoc-&amp;gt;toString(true);</span></p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateMethodsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Methods</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getNode</td>
+					</tr>
+					<tr>
+						<td class="regular">Retrieves the underlying DOMIT! node underlying the DOMIT! RSS element.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getNode()</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p><a href="DOMIT_Node.html">DOMIT_Node</a> - The underlying DOMIT node.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Gets the underlying DOMIT node.</p><p><span class="code">$domitNode =&amp; $someRSSElement-&amp;gt;getNode();</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getAttribute</td>
+					</tr>
+					<tr>
+						<td class="regular">Retrieves the text of the named attribute, checking first if the attribute exists.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getAttribute($attr)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">attr</span> - The attribute name.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>String - The attribute value, or an empty string.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">toNormalizedString</td>
+					</tr>
+					<tr>
+						<td class="regular">Returns a readable representation of the current rss document or element.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">toNormalizedString ($subEntities=false, $definedEntities)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>boolean <span class="parameter">subEntities</span> - True if entity substitution is to be performed.</p>
+<p><a href="Array.html">Array</a> <span class="parameter">definedEntities</span> - A user defined translation table of entities and their replacement values.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>String - A readable representation of the current rss document or element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>A formatted string representation of the rss document will be printed here:</p><p><span class="code">echo $myRSSDoc-&amp;gt;toNormalizedString(true);</span></p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<br />
+<p class="docblurb">Documentation generated by <b>ClassyDoc</b>, using the <b>DOMIT!</b> and <b>SAXY</b> parsers.<br />
+Please visit <a href="http://www.engageinteractive.com" target="_child">Engage Interactive</a> to download free copies.</p>
+<br />
+</center>
+</body>
+</html>

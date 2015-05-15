@@ -1,0 +1,452 @@
+.neo-addons-header-row-select {
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	height:20px;
+}
+.neo-addons-row {
+	position:relative;
+	left: 0px;
+	padding: 5px 12px 12px 16px;
+	min-height: 105px;
+	border-bottom: 1px solid #ccc;
+}
+.neo-addons-row-moreinfo {
+	position:absolute;
+	right:0px;
+	bottom:0px;
+	width:100px;
+	height:20px;
+	background-color:#ddd;
+	padding:0px 0px 0px 8px;
+	-moz-border-radius: 3px 0px 0px 0px;
+	-webkit-border-radius: 3px 0px 0px 0px;
+	border-radius: 3px 0px 0px 0px;
+	border-top: 1px solid #aaa;
+	border-left: 1px solid #aaa;
+	cursor: pointer;
+	
+}
+.neo-addons-header-row {
+	position:relative;
+	height:30px;
+	padding: 0px 8px 10px 0px;
+	margin-top:8px;
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	/* background-image: -moz-linear-gradient(center top , #f0f0f0, #cccccc);*/
+	background: url(../images/addons_header_row_bg.png) repeat-x top;
+}
+.neo-addons-header-row-filter {
+	position:relative;
+	display:inline-block;
+	height:30px;
+	float:left;
+	padding:10px 10px 0px 10px;
+	border-right: 1px solid #aaa;
+}
+.neo-addons-header-row-navigation {
+	position:relative;
+	display:inline-block;
+	height:28px;
+	float:right;
+	padding:12px 5px 0px 10px;
+	border-left: 1px solid #aaa;
+	text-align:center;
+	vertical-align:absolute-middle;
+}
+.neo-addons-row-title {
+	position:relative;
+	font: 16px Verdana, Arial,Helvetica,sans-serif;
+	color: #3377aa;
+}
+.neo-addons-row-desc {
+	position:relative;
+	margin: 16px 0px 0px 0px;
+	width: 950px;
+	text-align: justify;
+}
+
+.neo-addons-row-location {
+    width: 873px;
+    text-align: justify;
+    padding-left:77px
+}
+
+.neo-addons-row-note {
+    width: 873px;
+    text-align: justify;
+    padding-left:77px;
+}
+
+.neo-addons-row-author{
+	font-weight: bold;
+}
+
+.neo-addons-row-icon img {
+	position:relative;
+	width:60px;
+	height:60px;
+	margin: 16px 15px 0px 0px;
+	float:left;
+	display:inline-block;
+	border: 1px solid #999;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	overflow:hidden;
+	-moz-box-shadow: 2px 2px 2px #ccc; 
+	-webkit-box-shadow: 2px 2px 2px #ccc; 
+	box-shadow: 2px 2px 2px #ccc; 
+}
+.neo-addons-row-button {
+	position:absolute;
+	right:13px;
+	top:8px;
+}
+.neo-addons-row-button-install-left {
+	position:relative;
+	width:88px;
+	height:21px;
+	-moz-border-radius: 6px 0px 0px 6px;
+	-webkit-border-radius: 6px 0px 0px 6px;
+	border-radius: 6px 0px 0px 6px;
+	background-color:#4D90FE;
+	border: 1px solid #3079ED;
+	/* background-image: -moz-linear-gradient(center top , #4D90FE, #4787ED); */
+	background:url(../images/addons_row_button_bg.png) repeat-x top #4D90FE;
+	padding:5px 0px 0px 5px;
+	margin:0px 0px 0px 0px;
+	font: 12px Verdana, Arial,Helvetica,sans-serif;
+	color:#FFF;
+	text-align:center;
+	text-shadow: 1px 1px #559;
+	display:inline-block;
+	float:left;
+	cursor:pointer;
+}
+.neo-addons-row-button-install-right {
+	position:relative;
+	width:28px;
+	height:22px;
+	-moz-border-radius: 0px 6px 6px 0px;
+	-webkit-border-radius: 0px 6px 6px 0px;
+	border-radius: 0px 6px 6px 0px;
+	background-color:#4D90FE;
+	border: 1px solid #3079ED;
+	border-left: 1px solid #5099FF;
+	/* background-image: -moz-linear-gradient(center top , #4D90FE, #4787ED); */
+	background:url(../images/addons_row_button_bg.png) repeat-x top #4D90FE;
+	color:#FFF;
+	padding:4px 0px 0px 0px;
+	margin:0px 0px 0px 0px;
+	text-align:center;
+	display:inline-block;
+	float:left;
+	cursor:pointer;
+}
+.neo-addons-row-button-buy-left {
+	position:relative;
+	width:88px;
+	height:21px;
+	-moz-border-radius: 6px 0px 0px 6px;
+	-webkit-border-radius: 6px 0px 0px 6px;
+	border-radius: 6px 0px 0px 6px;
+	background-color:#48b917;
+	border: 1px solid #339900;
+	/* background-image: -moz-linear-gradient(center top , #48b917, #339900); */
+	background:url(../images/addons_row_button_bg.png) repeat-x top #48b917;
+	padding:5px 0px 0px 5px;
+	margin:0px 0px 0px 0px;
+	font: 12px Verdana, Arial,Helvetica,sans-serif;
+	color:#FFF;
+	text-align:center;
+	text-shadow: 1px 1px #559;
+	display:inline-block;
+	float:left;
+	cursor:pointer;
+	margin-left: 10px;
+}
+.neo-addons-row-button-buy-right {
+	position:relative;
+	width:28px;
+	height:22px;
+	-moz-border-radius: 0px 6px 6px 0px;
+	-webkit-border-radius: 0px 6px 6px 0px;
+	border-radius: 0px 6px 6px 0px;
+	background-color:#48b917;
+	border: 1px solid #339900;
+	border-left: 1px solid #66cc33;
+	/* background-image: -moz-linear-gradient(center top , #48b917, #339900); */
+	background:url(../images/addons_row_button_bg.png) repeat-x top #48b917;
+	color:#FFF;
+	padding:4px 0px 0px 0px;
+	margin:0px 0px 0px 0px;
+	text-align:center;
+	display:inline-block;
+	float:left;
+	cursor:pointer;
+}
+.neo-addons-row-button-uninstall-left {
+	position:relative;
+	width:88px;
+	height:21px;
+	-moz-border-radius: 6px 0px 0px 6px;
+	-webkit-border-radius: 6px 0px 0px 6px;
+	border-radius: 6px 0px 0px 6px;
+	background-color:#cc0000;
+	border: 1px solid #990000;
+	/* background-image: -moz-linear-gradient(center top , #cc0000, #990000); */
+	background:url(../images/addons_row_button_bg.png) repeat-x top #cc0000;
+	padding:5px 0px 0px 5px;
+	margin:0px 0px 0px 0px;
+	font: 12px Verdana, Arial,Helvetica,sans-serif;
+	color:#FFF;
+	text-align:center;
+	text-shadow: 1px 1px #559;
+	display:inline-block;
+	float:left;
+	cursor:pointer;
+	margin-left: 10px;
+}
+.neo-addons-row-button-uninstall-right {
+	position:relative;
+	width:28px;
+	height:22px;
+	-moz-border-radius: 0px 6px 6px 0px;
+	-webkit-border-radius: 0px 6px 6px 0px;
+	border-radius: 0px 6px 6px 0px;
+	background-color:#cc0000;
+	border: 1px solid #990000;
+	border-left: 1px solid #dd3333;
+	/* background-image: -moz-linear-gradient(center top , #cc0000, #990000); */
+	background:url(../images/addons_row_button_bg.png) repeat-x top #cc0000;
+	color:#FFF;
+	padding:4px 0px 0px 0px;
+	margin:0px 0px 0px 0px;
+	text-align:center;
+	display:inline-block;
+	float:left;
+	cursor:pointer;
+}
+.neo-addons-row-button-trial-left {
+	position:relative;
+	width:88px;
+	height:21px;
+	-moz-border-radius: 6px 0px 0px 6px;
+	-webkit-border-radius: 6px 0px 0px 6px;
+	border-radius: 6px 0px 0px 6px;
+	background-color:#a0a0a0;
+	border: 1px solid #666666;
+	/* background-image: -moz-linear-gradient(center top , #a0a0a0, #666666); */
+	background:url(../images/addons_row_button_bg.png) repeat-x top #a0a0a0;
+	padding:5px 0px 0px 5px;
+	margin:0px 0px 0px 0px;
+	font: 12px Verdana, Arial,Helvetica,sans-serif;
+	color:#FFF;
+	text-align:center;
+	text-shadow: 1px 1px #559;
+	display:inline-block;
+	float:left;
+	cursor:pointer;
+}
+.neo-addons-row-button-trial-right {
+	position:relative;
+	width:28px;
+	height:22px;
+	-moz-border-radius: 0px 6px 6px 0px;
+	-webkit-border-radius: 0px 6px 6px 0px;
+	border-radius: 0px 6px 6px 0px;
+	background-color:#a0a0a0;
+	border: 1px solid #666666;
+	border-left: 1px solid #a0a0a0;
+	/* background-image: -moz-linear-gradient(center top , #a0a0a0, #666666); */
+	background:url(../images/addons_row_button_bg.png) repeat-x top #a0a0a0;
+	color:#FFF;
+	padding:4px 0px 0px 0px;
+	margin:0px 0px 0px 0px;
+	text-align:center;
+	display:inline-block;
+	float:left;
+	cursor:pointer;
+}
+
+div.neo-module-content {
+    margin-top:-3px;
+    padding:3px 0 10px 0;
+    overflow:hidden;
+    -moz-border-radius: 0px 10px 10px 10px;
+    -webkit-border-radius: 0px 10px 10px 10px;
+    border-radius: 0px 10px 10px 10px;
+        background-color:#f0f0f0;
+    border: 1px solid #999;
+}
+
+/* MODAL */
+.neo-modal-blockmask {
+    position:absolute;
+    z-index:10100;
+    background-color:#000;
+    top:0px;
+    left:0px;
+    display:none;
+}
+.neo-modal-box {
+    position:fixed;
+    width:440px;
+    height:150px;
+    z-index:10200;
+    padding:20px 25px 20px 25px;
+    display:none;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    background:url(../../../images/modalbox_bg.png) top left repeat-x #fff;
+    top: 50%;
+    left: 45%;
+}
+
+/* PROGRESS BAR */
+.neo-progress-bar-label {
+    margin:0px;
+    font: 12px Verdana, Arial,Helvetica,sans-serif;
+    color: #555;
+    text-shadow: rgba(255,255,255, 0.45) 0 1px 0px;
+}
+.neo-progress-bar-percentage {
+    position:relative;
+    margin-top:28px;
+    height:20px;
+    left:0px;
+    top:0px;
+    font: 12px Verdana, Arial,Helvetica,sans-serif;
+    color: #444;
+    text-shadow: rgba(255,255,255, 0.65) 0 1px 0px;
+}
+.neo-progress-bar-percentage-tag {
+    position:absolute;
+    padding:0px 3px 0px 3px;
+    right:-10px;
+    height:20px;
+    background-color:#f4f9c6;
+    border:1px solid #d4d9a6;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+}
+.neo-progress-bar {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    height: 20px;
+    padding-right: 2px;
+    background-color: #abb2bc;
+    border-radius: 35px;
+    -moz-border-radius: 35px;
+    -webkit-border-radius: 35px;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #b6bcc6), color-stop(1, #9da5b0));
+    background: -moz-linear-gradient(#9da5b0 0%, #b6bcc6 100%);
+    -webkit-box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.5), 0px 1px 0px 0px #FFF;
+    -moz-box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.5), 0px 1px 0px 0px #FFF;
+    box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.5), 0px 1px 0px 0px #FFF;
+}        
+
+.neo-progress-bar-progress {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    height: 18px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-background-size: 44px 44px;
+    background-color: #094cd0;
+    background: -webkit-gradient(linear, 0 0, 44 44,
+        color-stop(0.00, rgba(255,255,255,0.17)),
+        color-stop(0.25, rgba(255,255,255,0.17)),
+        color-stop(0.26, rgba(255,255,255,0)),
+        color-stop(0.50, rgba(255,255,255,0)),
+        color-stop(0.51, rgba(255,255,255,0.17)),
+        color-stop(0.75, rgba(255,255,255,0.17)),
+        color-stop(0.76, rgba(255,255,255,0)),
+        color-stop(1.00, rgba(255,255,255,0))
+    ), -webkit-gradient(linear, left bottom, left top, color-stop(0, #0966cc), color-stop(1, #0988ee));
+    background: -moz-repeating-linear-gradient(top left -30deg,
+        rgba(255,255,255,0.17),
+        rgba(255,255,255,0.17) 15px,
+        rgba(255,255,255,0) 15px,
+        rgba(255,255,255,0) 30px
+    ), -moz-linear-gradient(#66aaff 0%, #0988ee 100%); 
+    -webkit-box-shadow: inset 0px 1px 0px 0px #09aaff, inset 0px -1px 1px #0966cc;
+    -moz-box-shadow: inset 0px 1px 0px 0px #09aaff, inset 0px -1px 1px #0966cc;
+    box-shadow: inset 0px 1px 0px 0px #09aaff, inset 0px -1px 1px #0966cc;
+    border: 1px solid #0966dd;
+    -webkit-animation: animate-stripes 2s linear infinite;
+}
+.neo-progress-bar-title {
+    position: absolute;
+    top:0px;
+    left:0px;
+    padding:10px 0px 0px 0px;
+    width:100%;
+    text-align:center;
+    text-shadow: rgba(255,255,255, 0.3) 0 1px 0px;
+    font: 13px Verdana, Arial,Helvetica,sans-serif;
+    color: #333;
+}
+.neo-progress-bar-close {
+    position: absolute;
+    top:12px;
+    right:10px;
+    width:18px;
+    height:15px;
+    background:url(../../../images/bookmarks_equis.png) no-repeat;
+    cursor: pointer;
+}
+
+/* ESTILO PARA TOOLTIP INFOR*/
+a.tooltipInfo {
+    position: relative; /* es la posicion normal */
+    text-decoration: none ; /* forzar sin subrayado */
+}
+
+div.tooltipInfo:hover {
+    z-index:998; /* va a estar por encima de todo */
+}
+
+div.tooltipInfo span {
+    display: none; /* el elemento va a estar oculto */
+    z-index:6000;
+}
+
+div.tooltipInfo:hover span{
+    display: block; /* se fuerza a mostrar el bloque */
+    position: absolute; /* se fuerza a que se ubique en un lugar de la pantalla */
+    text-align: justify;
+    top:-10px;
+    left: -220px;
+    width:200px; /* el ancho por defecto que va a tener */
+    height:auto;
+    max-height: 145px;
+    padding:10px; /* la separacion entre el contenido y los bordes */
+    background-color: #FFF; /* el color de fondo por defecto */
+    border: 1px solid gray;
+
+    -moz-border-radius:12px;
+    -webkit-border-radius:12px;
+    border-radius:12px;
+    -moz-box-shadow: 2px 2px 3px gray;
+    -webkit-box-shadow: 2px 2px 3px gray;
+    box-shadow: 2px 2px 3px gray;
+
+    text-shadow: none;
+    font: 11px Verdana,Arial,Helvetica,sans-serif;
+    color: #000;
+    overflow-y: auto;
+}
+
+.upgrade_info{
+    margin-left: -20px;
+    margin-right: 5px;
+    line-height: 15px;
+}

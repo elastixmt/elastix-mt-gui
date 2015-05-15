@@ -1,0 +1,59 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.4-1                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2008-08-25 05:08:01 jvega jvega@palosanto.com Exp $ 
+  $Id: en.lang,v 1.1 2014-05-02 10:24:05 achuto achuto@elastix.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"MF_faxextension" => "Muestra tu numero de extension",
+"MF_device" => "Muestra el codigo de dispositivo",
+"MF_status" => "Muestra el estado actual",
+"MF_cidname" => "Muestra el nombre que tiene el CID",
+"MF_cidnumber" => "Muestra el numero que tiene asignado el CID",
+"MF_countrycode" => "Muestra el codigo de pais",
+"MF_areacode" => "Muestra el codigo de area",
+"MF_faxsubject" => "Define el tema del fax",
+"MF_faxcontent" => "Define el contenido del fax",
+"Fax Extension:" => "Extensión de Fax",
+"Device:" => "Dispositivo",
+"Status:" => "Estado",
+"CID NAME:" => "Nombre CID",
+"CID Number:" => "Número CID",
+"Country Code:" => "Código de País",
+"Area Code:" => "Código de Area",
+"Fax email settings" => "Configuración de email de Fax",
+"Fax Subject:" => "Tema de Fax",
+"Fax content:" => "Contenido de Fax",
+"Destination fax numbers is empty" => "Número destinatario de fax esta vacio",
+"Text to send is empty" => "Texto a enviar esta vacio",
+"Error uploading your file" => "Error mientras se subia el archivo",
+"File Upload" => "Subir Archivo",
+"Fax Device to use:" => "Dispositivo de Fax de usar",
+"Destination fax numbers:" => "Números destinatarios de Fax",
+
+);
+?>

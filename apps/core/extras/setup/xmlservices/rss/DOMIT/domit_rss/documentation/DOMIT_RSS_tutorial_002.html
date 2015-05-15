@@ -1,0 +1,175 @@
+<html>
+<head><script type="text/javascript" src="domitrss_functions.js"></script></head>
+<link rel="stylesheet" href="docstyles.css" />
+<body bgcolor="#FFE394">
+<br /><br />
+<center>
+<div class="tutorial">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader"><script type="text/javascript">document.write(getTutorialTitle());</script></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">
+							<center>
+							<script type="text/javascript">
+								document.write(generateMenu(2));
+							</script>						
+						</center></td>
+					</tr>
+
+					<tr>
+						<td class="subsectionHeader">The RSS Format</td>
+					</tr>
+					<tr>
+						<td class="regular">
+						
+						<p><b><u>Root Element</u></b></p>
+						
+						<p>The exact format of an RSS feed varies from version to version. Most have a root node named <b>&apos;rss&apos;</b> containing an attribute named <b>&apos;version&apos;</b>:</p>
+						
+<p><pre><span class="code">
+&lt;rss version="0.91"&gt;
+	...
+&lt;/rss&gt;
+</span></pre>
+</p>
+
+					<p>Some use an alternate format named RDF (Resource Definition Language):</p>
+					
+<p><pre><span class="code">
+&lt;rdf:RDF 
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns="http://purl.org/rss/1.0/"&gt;
+	...
+&lt;/rdf:RDF&gt; 
+</span></pre>
+</p>
+
+					<p><b><u>Channel Element</u></b></p>
+
+					<p>The root node typically contains a single child node named <b>'channel'</b>. A channel is the basic unit of an RSS feed. It is the container for a collection of articles</b>:</p>
+					
+<p><pre><span class="code">
+&lt;rss version="0.91"&gt;
+	&lt;channel&gt;
+		...
+	&lt;/channel&gt;
+&lt;/rss&gt;
+</span></pre>
+</p>
+
+					<p>A channel node is required to have at least three child elements: </p>
+					
+					<p><ul>
+					<li><b>title</b> - the name of the channel</li>
+					<li><b>link</b> - a link to the channel contents</li>
+					<li><b>description</b> - a short description of the channel contents</li>
+					</ul></p>
+					
+<p><pre><span class="code">
+&lt;rss version="0.91"&gt;
+	&lt;channel&gt;
+		&lt;title&gt;BBC News | Technology | UK Edition&lt;/title&gt;
+		&lt;link&gt;http://news.bbc.co.uk/go/click/rss/0.91/public/-/1/hi/technology/default.stm&lt;/link&gt;
+		&lt;description&gt;Updated every minute of every day - 
+		FOR PERSONAL USE ONLY&lt;/description&gt;
+	&lt;/channel&gt;
+&lt;/rss&gt;
+</span></pre>
+</p>
+
+					<p>A number of optional channel elements can be included, such as <b>'language'</b> and <b>'copyright'</b>.</p>
+					
+<p><pre><span class="code">
+&lt;rss version="0.91"&gt;
+	&lt;channel&gt;
+		&lt;title&gt;BBC News | Technology | UK Edition&lt;/title&gt;
+		&lt;link&gt;http://news.bbc.co.uk/go/click/rss/0.91/public/-/1/hi/technology/default.stm&lt;/link&gt;
+		&lt;description&gt;Updated every minute of every day - 
+		FOR PERSONAL USE ONLY&lt;/description&gt;
+		&lt;language&gt;en-us&lt;/language&gt;
+		&lt;copyright&gt;BBC News 2004&lt;/copyright&gt;
+	&lt;/channel&gt;
+&lt;/rss&gt;
+</span></pre>
+</p>
+					
+					<p><b><u>Item Element</u></b></p>
+
+					<p>A channel also includes a collection of <b>'item'</b> elements. Items can be either children or siblings of a channel.</p> 
+					
+					<p>Each item describes a single unit of syndicated content:</p>
+					
+<p><pre><span class="code">
+&lt;rss version="0.91"&gt;
+	&lt;channel&gt;
+		&lt;title&gt;BBC News | Technology | UK Edition&lt;/title&gt;
+		&lt;link&gt;http://news.bbc.co.uk/go/click/rss/0.91/public/-/1/hi/technology/default.stm&lt;/link&gt;
+		&lt;description&gt;Updated every minute of every day - 
+		FOR PERSONAL USE ONLY&lt;/description&gt;
+	&lt;/channel&gt;
+	&lt;item&gt;
+		...
+	&lt;/item&gt;
+	&lt;item&gt;
+		...
+	&lt;/item&gt;
+&lt;/rss&gt;
+</span></pre>
+</p>
+					
+					<p>An item element must contain at least one <b>'title'</b> or <b>'description'</b> element. It is most common, however, to see <b>'title'</b>, <b>'link'</b>, and <b>'description'</b>.</p>
+					
+<p><pre><span class="code">
+&lt;rss version="0.91"&gt;
+	&lt;channel&gt;
+		&lt;title&gt;BBC News | Technology | UK Edition&lt;/title&gt;
+		&lt;link&gt;http://news.bbc.co.uk/go/click/rss/0.91/public/-/1/hi/technology/default.stm&lt;/link&gt;
+		&lt;description&gt;Updated every minute of every day - 
+		FOR PERSONAL USE ONLY&lt;/description&gt;
+	&lt;/channel&gt;
+	&lt;item&gt;
+		&lt;title&gt;UK military denies ban on iPods&lt;/title&gt;
+		&lt;description&gt;The MOD has denied reports that it has banned Apple's iPod 
+		due to fears it could be used to steal files.&lt;/description&gt;
+		&lt;link&gt;http://news.bbc.co.uk/go/click/rss/0.91/public/-/1/hi/technology/3891421.stm&lt;/link&gt;
+	&lt;/item&gt;
+	&lt;item&gt;
+		&lt;title&gt;Windows update hits a new delay&lt;/title&gt;
+		&lt;description&gt;A major update to the Windows XP operating system will be 
+		available from August, later than expected.&lt;/description&gt;
+		&lt;link&gt;http://news.bbc.co.uk/go/click/rss/0.91/public/-/1/hi/technology/3889353.stm&lt;/link&gt;
+	&lt;/item&gt;
+&lt;/rss&gt;
+</span></pre>
+</p>
+					
+					</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">
+							<center>
+							<script type="text/javascript">
+								document.write(generateMenu(0));
+							</script>						
+						</center></td>
+					</tr>
+
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<br />
+<p class="docblurb">Documentation generated by <b>ClassyDoc</b>, using the <b>DOMIT!</b> and <b>SAXY</b> parsers.<br />
+Please visit <a href="http://www.engageinteractive.com/opensource.html" target="_child">Engage Interactive</a> to download free copies.</p>
+<br />
+</center>
+</body>
+</html>

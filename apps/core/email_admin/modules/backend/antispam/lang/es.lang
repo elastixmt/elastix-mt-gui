@@ -1,0 +1,71 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+   Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.3                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on "AS IS"     |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Bruno Macias                                           |
+  | Email: bmacias@palosanto.com                                         |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.7 2008/02/18 09:49:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Antispam" => "Antispam",
+"Spam Level" => "Nivel de Spam",
+"Enabled" => "Habilitado",
+"Disabled" => "Deshabilitado",
+"Commad failed, try activate spam filter" => "Comando falló al intentar activar el fitro de spam",
+"Failed activate spam filter" => "Fallo de activación del filtro de spam",
+"Commad failed, try change thoroughness level" => "Comando falló al intentar cambiar el nivel de rigurosidad",
+"Failed change thoroughness level and header" => "Fallo al cambiar el nivel de rigurosidad y el encabezado",
+"Failed disactivate spam filter" => "Fallo al desactivar el filtro de spam",
+"Commad failed, try disactivate spam filter" => "Comando fallo al intentar desactivar el filtro de spam",
+"Status" => "Estado",
+"Save" => "Guardar",
+"Error" => "Error",
+"Legend" => "<i>En nivel 1 se atrapará más spam, pero se incrementará la probabilidad de falsos positivos.<br>Un nivel de 10 atrapará menos spam, pero también decrecerá la probabilidad de falsos positivos.</i>",
+"Message" => "Mensaje",
+"Successfully Activated Service Antispam" => "Servicio Antispam activado exitosamente",
+"Successfully Desactivated Service Antispam" => "Servicio Antispam desactivado exitosamente",
+"Antispam service is already activated" => "El Servicio Antispam ya se encuentra activado",
+"Antispam service is already desactivated" => "El servicio antispam ya se encuentra desactivado",
+"Could not give permissions to files" => "No se le pudo dar los permisos a los archivos",
+"Could not make the configuration file" => "No se pudo realizar la configuración del archivo",
+"Could not start the service antispam" => "No se pudo iniciar el servicio antispam",
+"Could not stop the service antispam" => "No se pudo parar el servicio antispam",
+"Rewrite Header" => "Reescribir Encabezado",
+"The command failed when attempting to change the header" => "El comando falló al intentar cambiar el encabezado",
+"Level" => "Nivel",
+"Politics" => "Política",
+"Spam Capture" => "Capturar Spam",
+"Mark Subject" => "Marcar Asunto",
+"Empty Spam Folders" => "Vaciar Carpetas de Spam",
+"Delete Spam for more than one week" => "Eliminar el spam anterior a una semana",
+"Delete Spam for more than two week" => "Eliminar el spam anterior a dos semanas",
+"Delete Spam for more than one month" => "Eliminar el spam anterior a un mes",
+"mail_status" => "Enciende/Apaga el Antispam",
+"mail_level" => "Define el nivel de antispam",
+"mail_politics" => "Define acciones en caso de capturas de spam"
+);
+?>

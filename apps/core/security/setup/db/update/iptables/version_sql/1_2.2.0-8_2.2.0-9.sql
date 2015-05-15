@@ -1,0 +1,4 @@
+BEGIN TRANSACTION;
+UPDATE port SET name='RTP' WHERE id=12 AND details='10000:20000' AND name='SIP';
+UPDATE port SET name='IAX2' WHERE id=14 AND details='4569' AND name='IAX';
+COMMIT;

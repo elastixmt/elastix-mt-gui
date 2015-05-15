@@ -1,0 +1,53 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>La opción Calendar permite crear y modificar eventos tales como recordatorios que se pueden organizar por día, semana o mes.</p>
+
+<div><img src="../modules/{$node_id}/images/calendar.png" border="0"></div>
+<div>Figure 1</div>
+<br />
+<p>Cada evento puede ser creado y modificado de la manera mas facil en tan solo un par de clicks.</p>
+<br />
+<p>Por ejemplo si se quiere crear un nuevo evento:</p>
+<div align="center"><img src="../modules/{$node_id}/images/newEvent1.png" border="0"></div>
+<div align="center">Figure 2</div>
+<br />
+<div align="center"><img src="../modules/{$node_id}/images/newEvent2.png" border="0"></div>
+<div align="center">Figure 3</div>
+<br />
+<div align="center"><img src="../modules/{$node_id}/images/newEvent3.png" border="0"></div>
+<div align="center">Figure 4</div>
+<br />
+<div align="center"><img src="../modules/{$node_id}/images/newEvent4.png" border="0"></div>
+<div align="center">Figure 5</div>
+<br />
+<p>Si necesita actualizar un evento existente se puede acceder al evento o hacer uso del mouse tan solo alargado hacia el tiempo deseao:</p>
+<p><b>Usando el Mouse</b></p>
+<div align="center"><img src="../modules/{$node_id}/images/monthEvent.png" border="0"></div>
+<div align="center">Figure 6</div>
+<br />
+<div align="center"><img src="../modules/{$node_id}/images/weekShow.png" border="0"></div>
+<div align="center">Figure 7</div>
+<br />
+<div align="center"><img src="../modules/{$node_id}/images/dayShow.png" border="0"></div>
+<div align="center">Figure 8</div>
+<br />
+<p><b>Dando click en el evento</b></p>
+<div align="center"><img src="../modules/{$node_id}/images/updateEvent1.png" border="0"></div>
+<div align="center">Figure 9</div>
+<br />
+<div align="center"><img src="../modules/{$node_id}/images/updateEvent2.png" border="0"></div>
+<div align="center">Figure 10</div>
+<br />
+<div align="center"><img src="../modules/{$node_id}/images/updateEvent3.png" border="0"></div>
+<div align="center">Figure 11</div>
+<br />
+<br />
+</body>
+</html>
+

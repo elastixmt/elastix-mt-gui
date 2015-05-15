@@ -1,0 +1,750 @@
+<html>
+<head></head>
+<link rel="stylesheet" href="docstyles.css" />
+<body bgcolor="#FFE394">
+<br /><br />
+<center>
+<div class="classDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Class xml_domit_rss_base_document</td>
+					</tr>
+					<tr>
+						<td class="regular">A base class for DOMIT!RSS and DOMIT! RSS Lite documents</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>isPublic? </b>no<br /><b>isAbstract? </b>yes</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Inheritance tree: </b></p><p><center><br /><a href="xml_domit_rss_base.html">xml_domit_rss_base</a><br /><span class="branch">|</span><br /><a href="xml_domit_rss_elementindexer.html">xml_domit_rss_elementindexer</a><br /><span class="branch">|</span><br /><a href="xml_domit_rss_base_document.html">xml_domit_rss_base_document</a></center></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Known subclasses: </b></p><p><a href="xml_domit_rss_document.html">xml_domit_rss_document</a>, <a href="xml_domit_rss_document_lite.html">xml_domit_rss_document_lite</a></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Source file: </b>xml_domit_rss_shared.php</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="constructorDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Constructor</td>
+					</tr>
+					<tr>
+						<td class="regular">Instantiates a new xml_domit_rss_base_document. </td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">xml_domit_rss_base_document($url = '', $cacheDir = './', $cacheTime = 3600)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>isPublic? </b>no</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicConstantsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Constants</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateConstantsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Constants</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_CHANNEL</td>
+					</tr>
+					<tr>
+						<td class="regular">channel constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>channel</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_ITEM</td>
+					</tr>
+					<tr>
+						<td class="regular">item constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>item</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_TITLE</td>
+					</tr>
+					<tr>
+						<td class="regular">title constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>title</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_LINK</td>
+					</tr>
+					<tr>
+						<td class="regular">link constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>link</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_DESCRIPTION</td>
+					</tr>
+					<tr>
+						<td class="regular">channel constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>description</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ATTR_VERSION</td>
+					</tr>
+					<tr>
+						<td class="regular">channel constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>version</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ARRAY_ITEMS</td>
+					</tr>
+					<tr>
+						<td class="regular">name of array containing list of existing RSS items</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>items</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ARRAY_CHANNELS</td>
+					</tr>
+					<tr>
+						<td class="regular">name of array containing list of existing RSS channels</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>channels</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ARRAY_CATEGORIES</td>
+					</tr>
+					<tr>
+						<td class="regular">name of array containing list of existing RSS categories</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>categories</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicFieldsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Fields</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateFieldsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Fields</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">domit_rss_items</td>
+					</tr>
+					<tr>
+						<td class="regular">An array of item elements (only present in some RSS formats).</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b><a href="Array.html">Array</a></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">domit_rss_channels</td>
+					</tr>
+					<tr>
+						<td class="regular">An array of existing channel elements.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b><a href="Array.html">Array</a></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">domit_rss_categories</td>
+					</tr>
+					<tr>
+						<td class="regular">An array of existing category elements.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b><a href="Array.html">Array</a></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">cache</td>
+					</tr>
+					<tr>
+						<td class="regular">A reference to the file caching object.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>Object</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">useCacheLite</td>
+					</tr>
+					<tr>
+						<td class="regular">True if PEAR:Cache_Lite is to be used instead of php_text_cache.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>boolean</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">parser</td>
+					</tr>
+					<tr>
+						<td class="regular">The name of the current parser - either 'DOMIT_RSS' or 'DOMIT_RSS_LITE'.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b><a href="string.html">string</a></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">httpConnection</td>
+					</tr>
+					<tr>
+						<td class="regular">A reference to a http connection or proxy, if one is required.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b><a href="object.html">object</a></p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicMethodsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Methods</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">setConnection</td>
+					</tr>
+					<tr>
+						<td class="regular">Specifies the parametersof the http conection used to obtain the xml data.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">setConnection($host, $path = '/', $port = 80, $timeout = 0, $user = null, $password = null)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">host</span> - The ip address or domain name of the connection.</p>
+<p>String <span class="parameter">path</span> - The path of the connection.</p>
+<p>int <span class="parameter">port</span> - The port that the connection is listening on.</p>
+<p>int <span class="parameter">timeout</span> - The timeout value for the connection.</p>
+<p>String <span class="parameter">user</span> - The user name, if authentication is required.</p>
+<p>String <span class="parameter">password</span> - The password, if authentication is required.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>A manual HTTP connection is specified:</p><p><span class="code">$rssdoc-&gt;setConnection('http://www.engageinteractive.com');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">setAuthorization</td>
+					</tr>
+					<tr>
+						<td class="regular">Specifies basic authentication for an http connection.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">setAuthorization($user, $password)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">user</span> - The user name.</p>
+<p>String <span class="parameter">password</span> - The password.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Authorization is specified for the HTTP connection:</p><p><span class="code">$rssdoc-&gt;setAuthorization('johndoe', 'xyzzy');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">setProxyConnection</td>
+					</tr>
+					<tr>
+						<td class="regular">Specifies the parameters of the http conection used to obtain the xml data.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">setProxyConnection($host, $path = '/', $port = 80, $timeout = 0, $user = null, $password = null)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">host</span> - The ip address or domain name of the connection.</p>
+<p>String <span class="parameter">path</span> - The path of the connection.</p>
+<p>int <span class="parameter">port</span> - The port that the connection is listening on.</p>
+<p>int <span class="parameter">timeout</span> - The timeout value for the connection.</p>
+<p>String <span class="parameter">user</span> - The user name, if authentication is required.</p>
+<p>String <span class="parameter">password</span> - The password, if authentication is required.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>A HTTP proxy connection is specified:</p><p><span class="code">$rssdoc-&gt;setProxyConnection('http://www.engageinteractive.com');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">setProxyAuthorization</td>
+					</tr>
+					<tr>
+						<td class="regular">Specifies basic authentication for an http connection.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">setProxyAuthorization($user, $password)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">user</span> - The user name.</p>
+<p>String <span class="parameter">password</span> - The password.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Authorization is specified for the HTTP connection:</p><p><span class="code">$rssdoc-&gt;setProxyAuthorization('johndoe', 'xyzzy');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">parsedBy</td>
+					</tr>
+					<tr>
+						<td class="regular">Returns the name of the parser.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">parsedBy()</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p><a href="string.html">string</a> - Either 'DOMIT_RSS' or 'DOMIT_RSS_LITE'.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">useCacheLite</td>
+					</tr>
+					<tr>
+						<td class="regular">Substitutes PEAR::Cache_Lite for the default php_text_cache.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">useCacheLite($doUseCacheLite, $pathToLibrary = './Lite.php', $cacheDir = './', $cacheTime = 3600)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>boolean <span class="parameter">doUseCacheLite</span> - True if Cache Lite is to be used.</p>
+<p>String <span class="parameter">pathToLibrary</span> - Absolute or relative path to the Cache Lite library.</p>
+<p>String <span class="parameter">cacheDir</span> - Directory for cache files.</p>
+<p>int <span class="parameter">cacheTime</span> - Expiration time for a cache file.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Cache Lite is used.</p><p><span class="code">$rssdoc-&amp;gt;useCacheLite(true, './cache/Lite.php', 'tmp/', 1800);</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">loadRSS</td>
+					</tr>
+					<tr>
+						<td class="regular">Loads and parses the RSS at the specified url.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">loadRSS($url)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">url</span> - The url for the RSS data.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if parsing is successful.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Load and parse an RSS feed.</p><p><span class="code">$rssdoc-&amp;gt;loadRSS('http://www.somefeed.com/somefeed.rss');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">parseRSS</td>
+					</tr>
+					<tr>
+						<td class="regular">Parses the RSS text provided.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">parseRSS($rssText)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">rssText</span> - The RSS text.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if parsing is successful.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Parse some RSS text.</p><p><span class="code">$rssdoc-&amp;gt;parseRSS('&amp;lt;rss version=&quot;0.91&quot;&amp;gt;...&amp;lt;/rss&amp;gt;');</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getDocument</td>
+					</tr>
+					<tr>
+						<td class="regular">Gets a reference to the underlying DOM document.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">&amp;getDocument()</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>Object - A reference to the underlying DOM document.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>The underlying DOM document is returned.</p><p><span class="code">$xmldoc = $rssdoc-&amp;gt;getDocument();</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getNode</td>
+					</tr>
+					<tr>
+						<td class="regular">Gets a reference to the root DOM element.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">&amp;getNode()</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>Object - A reference to the root DOM element.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>The underlying root DOM element is returned.</p><p><span class="code">$docElement = $rssdoc-&amp;gt;getNode();</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getRSSVersion</td>
+					</tr>
+					<tr>
+						<td class="regular">Returns the version of RSS used to format the data.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getRSSVersion()</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>String - The version of RSS used to format the data .</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Returns the version of RSS used to format the data.</p><p><span class="code">$version = $rssdoc-&amp;gt;getRSSVersion();</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getChannelCount</td>
+					</tr>
+					<tr>
+						<td class="regular">Returns the number of channels in the document.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getChannelCount()</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>int - The number of channels in the document.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Returns the number of channels in the document.</p><p><span class="code">$numChannels = $rssdoc-&amp;gt;getChannelCount();</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getChannel</td>
+					</tr>
+					<tr>
+						<td class="regular">Returns a reference to the channel located at the specified index.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">&amp;getChannel($index)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>Object - A reference to the channel located at the specified index.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Example: </b>
+</p><p>Returns the first channel.</p><p><span class="code">$firstChannel = $rssdoc-&amp;gt;getChannel(0);</span></p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateMethodsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Methods</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">createDocument</td>
+					</tr>
+					<tr>
+						<td class="regular">Creates an empty DOMIT! document to contain the RSS nodes.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">createDocument()</span></p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">createDefaultCache</td>
+					</tr>
+					<tr>
+						<td class="regular">Instantiates a default cache (php_text_cache).</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">createDefaultCache($cacheDir = './', $cacheTime = 3600)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">cacheDir</span> - Directory for cache files.</p>
+<p>int <span class="parameter">cacheTime</span> - Expiration time for a cache file.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getDataFromCache</td>
+					</tr>
+					<tr>
+						<td class="regular">Retrieves the RSS data from the url/cache file.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getDataFromCache($url)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">url</span> - The url for the RSS data.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>String - The RSS data.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">parseRSSData</td>
+					</tr>
+					<tr>
+						<td class="regular">Parses the RSS data provided.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">parseRSSData($rssText)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">rssText</span> - The RSS data.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if parsing is successful.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">loadRSSData</td>
+					</tr>
+					<tr>
+						<td class="regular">Retrieves the RSS data from the url/cache file and parses it.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">loadRSSData($url)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">url</span> - The url for the RSS data.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if parsing is successful.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getTextFromFile</td>
+					</tr>
+					<tr>
+						<td class="regular">Get text from an url or file.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getTextFromFile($filename)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">filename</span> - The url or file path.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>String - The text contained in the file, or an empty string.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getDataFromFile</td>
+					</tr>
+					<tr>
+						<td class="regular">Retrieves binary or text data from the specified file.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">&amp;getDataFromFile($filename, $readAttributes)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">filename</span> - The file path.</p>
+<p>String <span class="parameter">readAttributes</span> - The attributes for the read operation ('r' or 'rb').</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>String - The text or binary data contained in the file.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">fromFile</td>
+					</tr>
+					<tr>
+						<td class="regular">Reads in RSS text from a file and parses it.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">&amp;fromFile($filename)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">filename</span> - The file path.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if parsing is successful.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">fromString</td>
+					</tr>
+					<tr>
+						<td class="regular">Reads in RSS text from a string and parses it.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">&amp;fromString($rssText)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Parameters:</b></p>
+<p>String <span class="parameter">rssText</span> - The RSS text.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>boolean - True if parsing is successful.</p>
+</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">handleChannelElementsEmbedded</td>
+					</tr>
+					<tr>
+						<td class="regular">Forces channel elements that are external to a channel to be referenced as subelements of that channel.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">handleChannelElementsEmbedded()</span></p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<br />
+<p class="docblurb">Documentation generated by <b>ClassyDoc</b>, using the <b>DOMIT!</b> and <b>SAXY</b> parsers.<br />
+Please visit <a href="http://www.engageinteractive.com" target="_child">Engage Interactive</a> to download free copies.</p>
+<br />
+</center>
+</body>
+</html>

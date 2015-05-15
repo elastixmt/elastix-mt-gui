@@ -1,0 +1,173 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version: 2.0                                           |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by:Dannarz                                             |
+  | Email: sesshomarurin7@palosanto.com                                                       |
+  +----------------------------------------------------------------------+
+  $Id: fr.lang, October 25, 2010, 5:39 pm kleber andres loayza Exp $ */
+global $arrLangModule;
+$arrLangModule=array(  
+"Calendar" => "Calendrier",
+"Monday" => "Lundi",
+"Tuesday" => "Mardi",
+"Wednesday" => "Mercredi",
+"Thursday" => "Jeudi",
+"Friday" => "Vendredi",
+"Saturday" => "Samedi",
+"Sunday" => "Dimanche",
+"Add Event" => "Ajouter un événement",
+"Search" => "Rechercher",
+"January" => "Janvier",
+"February" => "Février",
+"March" => "Mars",
+"April" => "Avril",
+"May_" => "Mai",
+"June" => "Juin",
+"July" => "Juillet",
+"August" => "Août",
+"September" => "Septembre",
+"October" => "Octobre",
+"November" => "Novembre",
+"December" => "Décembre",
+"Year" => "Anné",
+"Month" => "Mois",
+"Event" => "Événement",
+"Date" => "Date",
+"To" => "au",
+"It repeat" => "Répétition",
+"Description" => "Description",
+"Asterisk Call Me" => "Mon extension",
+"Phone_Call_Alert" => "Alerte par appel tél&eacutephonique",
+"Call to" => "Appeller le",
+"Recording" => "Enregistrement",
+"Hour" => "Heure",
+"Hour_ini" => "à",
+"Hour_end" => "à",
+"Here" => "Ici",
+"Day" => "Jour",
+"Week" => "Semaine",
+"Error get Data" => "Erreur pour obtenir les donné",
+"notification" => "Notifier",
+"notification_email" => "Emails &agrave notifier",
+"error_date" => "La valeur de la date initiale doit être plus grande que la dernière date",
+"error_eventName" => "Le nom du champ doit �tre rempli",
+"insert_successful" => "Le nouvel événement a été créé",
+"update_successful" => "L'événement a été actualisé",
+"delete_successful" => "L'événement a été effacé",
+"error_insert" => "L'événement n'a pas été créé. S'il vous plaît réessayez",
+"error_update" => "L'événement n'a pas été actualisé. S'il vous plaît réessayez",
+"error_delete" => "L'événement n'a pas été effacé. S'il vous plaît réessayez",
+"add_phone" => "Pour ajouter un n° de téléphone du carnet d'adresse, cliquer ",
+"error_ext" => "L'utilisateur n'a pas d'extension d'affecté. Créer une extension dans <a href='?menu=userlist'>Lite des utilisateurs</a>",
+"error_call_to" => "S'il vous plaît remplissez le champ <b><i>Appeler le</i></b>",
+"user_list" => "Lite des utilisateurs",
+"email_no_valid" => "Email non valide. \nEx: \"name\" <dd@example.com>, \"name2\" <ff@example.com>",
+"call_to_error" => "S'il vous plaît remplissez correctement le n° pour appeler",
+"error_notification_emails" => "S'il vous plaît remplissez les courriers électronique pour notifier l'événement",
+"error_description" => "S'il vous plaît remplissez la desciption de événement.",
+"error_title" => "Erreur d'extension",
+"No_Repeat" => "Aucune répétition",
+"Each_Week" => "Chaque semaine",
+"Each_Month" => "Chaque mois",
+"Delete" => "Effacer",
+"New_Event" => "Nouvel événement ",
+"Change_Event" => "événement Changé",
+"Delete_Event" => "événement Annulé",
+"time" => "Heure",
+"error_hour" => "L'heure de fin doit �tre plus grande que l'heure de d�but",
+"Start_date" => "Du",
+"End_date" => "Au",
+"new_recording" => "Pour créer un nouvel enregistrement cliquer <a href='?menu=recordings'>ici</a>",
+"Edit Event" => "Editer un événement ",
+"View Event" => "Voir un événement ",
+"Date_event" => "Date de l'événement ",
+"Hour_event" => "Heure de l'événement ",
+"Call_alert" => "Alerte par appel téléphonique",
+"repeat" => "Répétez chaque",
+"Su" => "Di",
+"Mo" => "Lu",
+"Tu" => "Ma",
+"We" => "Me",
+"Th" => "Je",
+"Fr" => "Ve",
+"Sa" => "Sa",
+"Months" => "Mois",
+"Weeks" => "Semaine(s)",
+"error_repeat" => "S'il vous plaît, choisissez le jour de la répétition",
+"Notification_Alert" => "Alerte de Notification",
+"Email" => "E-mail",
+"Contact" => "Contact",
+"Export_Calendar" => "Exporter le Calendrier",
+"error_recording" => "Please add text to speech",
+"Organizer" => "Organizer",
+"Confirm_event" => "Confirmer l'événement",
+"Confirm" => "Confirmer",
+"footer" => "Elastix est sous licence GPL par PaloSanto Solutions. 2006 - 2010",
+"May" => "May",
+"Can not create called file" => "Can not create called file",
+"share_calendar" => "Share Calendar",
+"other_calendar" => "Others Calendars",
+"ical" => "(Format iCal)",
+"enter_emails" => "Enter the Emails",
+"Send" => "Send",
+"error_email" => "Please some emails are incorrect",
+"Sharing_Calendar" => "Sharing Calendar",
+"User" => "Usuario",
+"Password" => "Contraseña",
+"Description_share" => "wants to share his activity calendar with you. Please confirm if you wish accept it.",
+"Accept" => "Accept",
+"message_send" => "The notification has been sent",
+"accept_calendar" => "Accept Calendar",
+"View_Event" => "View Event",
+"logout" => "Logout",
+"login" => "Login",
+"active_foneCall" => "Enable Reminder",
+"Name" => "Name",
+"Download" => "Download",
+"Here" => "Here",
+"ReminderTime" => "Reminder",
+"lblbefore" => "min before",
+"Loading" => "Loading",
+"error_Noevent" => "Event does not exits or event is not allowed to your user",
+"START_TYPE" => "Start to type",
+"notification_event" => "Event Notification",
+"invitation_event" => "You have been invited to participate in this event",
+"noResponseNotification" => "This is a notice and should not answered",
+"copyrightNotification" => "Elastix is licensed under GPL by PaloSanto Solutions",
+"Color" => "Color",
+"Dear User" => "Dear User",
+"Create New Event" => "Create New Event",
+"Text to Speech" => "Text to Speech",
+"Search in Address Book" => "Search in Address Book",
+"Listen" => "Listen",
+"Festival is not up" => "The Festival (text-to-speech) service is not running. To activate it please go to <a href='?menu=festival'>PBX->Tools->Festival</a>",
+"Click here to listen" => "Click here to listen",
+"Deleting" => "Deleting",
+"Sending Request" => "Sending Request",
+"Download ical calendar" => "Download ical calendar",
+);
+?>

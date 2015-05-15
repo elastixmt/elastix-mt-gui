@@ -1,0 +1,43 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"main.cf file was updated successfully but when restarting the mail service failed" => "Se modificó el archivo main.cf para incluir el nuevo dominio, pero al reiniciar el servidor de correo ha ocurrido un error",
+"Relay" => "Relay",
+"message about email relay" => "Estas redes son las que tienen permitido enviar correo a dominios externos, vía SMTP, <br>a través del Elastix.<br><br>Por ejemplo, para permitir RELAY desde el propio Elastix se debe ingresar 127.0.0.1/32.<br>",
+"Networks which can RELAY" => "Redes que pueden hacer RELAY",
+"Could not read the relay configuration." => "No se pudo leer la configuración de relay.",
+"No network entered, you must keep at least the net 127.0.0.1/32" => "No se introdujo ninguna red. Usted debería mantener al menos la red 127.0.0.1/32",
+"Configuration updated successfully" => "Configuración actualizada correctamente",
+"Write error when writing the new configuration." => "Error de escritura al escribir nueva configuración",
+"Network" => "Red",
+"Error" => "Error",
+"Message" => "Mensaje",
+);
+?>

@@ -1,0 +1,17 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p>The option "Instant Messaging" of the menu "Downloads" allows downloading SPARK which is an Instant Messaging client optimized for businesses and organizations. It features built-in support for group chat, telephony integration, and strong security. It also offers a great end-user experience with features like in-line spell checking, group chat room bookmarks, and tabbed conversations.</p>
+
+        <div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_instant_messaging.png" border="0" />
+        <p>Figure 1</p></div>
+        <br />
+
+        <p>To download the IM client, click on the Download Link.</p>
+
+    </body>
+</html>

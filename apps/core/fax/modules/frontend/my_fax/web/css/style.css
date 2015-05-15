@@ -1,0 +1,20 @@
+.row{
+    margin-top: 7px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+input[type="text"]{
+width: 175px !important;
+display:inline;
+}
+
+.subtitle p{
+color: #E35332;
+font-size: 17px;
+font-weight: bold;
+}
+
+.name-label{
+font-weight: bold;
+}

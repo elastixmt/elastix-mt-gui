@@ -1,0 +1,5 @@
+#!/bin/sh
+# se borraran las imagenes temporales que fueron subidas a traves de la ventana de agregar contacto
+# y que no fue completada la operación como ecitosa.
+
+find /var/www/elastixdir/contacts_images/ -type f -name "tmp_contact_*" -exec rm -rf {} \; >/dev/null 2>&1

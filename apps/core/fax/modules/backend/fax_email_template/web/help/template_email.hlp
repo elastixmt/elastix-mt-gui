@@ -1,0 +1,41 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>La opción “Plantilla de Correo” nos permite editar los parámetros de configuración para el envío de faxes al correo.</p>
+
+<div><img src="../modules/{$node_id}/images/template_email.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>Para editar los parámetros de envío de correo de click sobre el botón “Editar Parámtros”. Los campos que usted puede editar son:</p>
+
+<table class="inline">
+    <tr>
+        <td> Fax Remite </td><td> E-mail de quien remite el fax. </td>
+    </tr>
+    <tr>
+
+        <td> Fax Remitente </td><td> Nombre de quien pertenece el e-mail en el Fax Remite. </td>
+    </tr>
+    <tr>
+        <td> Fax Asunto </td><td> Asunto por el cual se envía el fax, por defecto se asume el Nombre del PDF.<br /><br />
+"NAME_PDF" Etiqueta que será reemplazada por el fax que se ha creado con extensión pdf.<br /><br />
+Nota: Si usted elimina esta etiqueta no se escribirá en el fax el nombre del pdf. </td>
+
+    </tr>
+    <tr>
+        <td> Fax Contenido </td><td> Detalles sobre el fax, por defecto se asume el Nombre de la Compañía, Número de la Compañía y Nombre del PDF.<br /><br />
+"COMPANY_NAME_FROM" Etiqueta que será reemplazada por el nombre la compañía que envía el fax.<br /><br />
+"COMPANY_NUMBER_FROM" Etiqueta que será reemplazada por el teléfono de la compañía que envía el fax.<br /><br />
+"NAME_PDF" Etiqueta que será reemplazada por el fax que se ha creado con extensión pdf.<br /><br />
+Nota: Si usted elimina alguna de estas etiquetas no se escribirá en el fax los datos pertenecientes a las mismas. </td>
+
+    </tr>
+</table>
+</body>
+</html>

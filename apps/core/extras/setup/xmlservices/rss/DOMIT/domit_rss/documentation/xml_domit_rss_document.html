@@ -1,0 +1,600 @@
+<html>
+<head></head>
+<link rel="stylesheet" href="docstyles.css" />
+<body bgcolor="#FFE394">
+<br /><br />
+<center>
+<div class="classDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Class xml_domit_rss_document</td>
+					</tr>
+					<tr>
+						<td class="regular">The base DOMIT! RSS document class.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>isPublic? </b>yes<br /><b>isAbstract? </b>no</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Inheritance tree: </b></p><p><center><br /><a href="xml_domit_rss_base.html">xml_domit_rss_base</a><br /><span class="branch">|</span><br /><a href="xml_domit_rss_elementindexer.html">xml_domit_rss_elementindexer</a><br /><span class="branch">|</span><br /><a href="xml_domit_rss_base_document.html">xml_domit_rss_base_document</a><br /><span class="branch">|</span><br /><a href="xml_domit_rss_document.html">xml_domit_rss_document</a></center></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Known subclasses: </b></p><p>None</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Source file: </b>xml_domit_rss.php</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="constructorDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Constructor</td>
+					</tr>
+					<tr>
+						<td class="regular">Instantiates a new xml_domit_rss_document. User can define the url of the RSS feed, cache time, and cache expiration.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">xml_domit_rss_document($url = '', $cacheDir = './', $cacheTime = 3600)</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>isPublic? </b>yes</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicConstantsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Constants</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateConstantsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Constants</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_VERSION</td>
+					</tr>
+					<tr>
+						<td class="regular">Current version of DOMIT! RSS</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>int</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>0.1</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_LANGUAGE</td>
+					</tr>
+					<tr>
+						<td class="regular">language constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>language</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_COPYRIGHT</td>
+					</tr>
+					<tr>
+						<td class="regular">copyright constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>copyright</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_MANAGINGEDITOR</td>
+					</tr>
+					<tr>
+						<td class="regular">managingEditor constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>managingeditor</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_WEBMASTER</td>
+					</tr>
+					<tr>
+						<td class="regular">webmaster constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>webmaster</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_PUBDATE</td>
+					</tr>
+					<tr>
+						<td class="regular">pubDate constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>pubdate</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_LASTBUILDDATE</td>
+					</tr>
+					<tr>
+						<td class="regular">lastBuildDate constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>lastbuilddate</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_CATEGORY</td>
+					</tr>
+					<tr>
+						<td class="regular">category constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>category</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_GENERATOR</td>
+					</tr>
+					<tr>
+						<td class="regular">generator constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>generator</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_DOCS</td>
+					</tr>
+					<tr>
+						<td class="regular">docs constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>docs</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_CLOUD</td>
+					</tr>
+					<tr>
+						<td class="regular">cloud constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>cloud</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_TTL</td>
+					</tr>
+					<tr>
+						<td class="regular">ttl constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>ttl</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_IMAGE</td>
+					</tr>
+					<tr>
+						<td class="regular">image constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>image</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_RATING</td>
+					</tr>
+					<tr>
+						<td class="regular">rating constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>rating</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_TEXTINPUT</td>
+					</tr>
+					<tr>
+						<td class="regular">textinput constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>textinput</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_SKIPHOURS</td>
+					</tr>
+					<tr>
+						<td class="regular">skiphours constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>skiphours</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_SKIPDAYS</td>
+					</tr>
+					<tr>
+						<td class="regular">skipdays constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>skipdays</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_URL</td>
+					</tr>
+					<tr>
+						<td class="regular">url constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>url</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_WIDTH</td>
+					</tr>
+					<tr>
+						<td class="regular">width constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>width</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_HEIGHT</td>
+					</tr>
+					<tr>
+						<td class="regular">height constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>height</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_GUID</td>
+					</tr>
+					<tr>
+						<td class="regular">guid constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>guid</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_ENCLOSURE</td>
+					</tr>
+					<tr>
+						<td class="regular">enclosure constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>enclosure</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_COMMENTS</td>
+					</tr>
+					<tr>
+						<td class="regular">comments constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>comments</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_SOURCE</td>
+					</tr>
+					<tr>
+						<td class="regular">source constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>source</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_NAME</td>
+					</tr>
+					<tr>
+						<td class="regular">name constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>name</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ELEMENT_AUTHOR</td>
+					</tr>
+					<tr>
+						<td class="regular">author constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>author</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ATTR_DOMAIN</td>
+					</tr>
+					<tr>
+						<td class="regular">domain constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>domain</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ATTR_PORT</td>
+					</tr>
+					<tr>
+						<td class="regular">port constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>port</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ATTR_PATH</td>
+					</tr>
+					<tr>
+						<td class="regular">name constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b><a href="path.html">path</a></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>name</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ATTR_REGISTERPROCEDURE</td>
+					</tr>
+					<tr>
+						<td class="regular">registerProcedure constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>registerprocedure</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ATTR_PROTOCOL</td>
+					</tr>
+					<tr>
+						<td class="regular">protocol constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>protocol</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ATTR_URL</td>
+					</tr>
+					<tr>
+						<td class="regular">url constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>url</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ATTR_LENGTH</td>
+					</tr>
+					<tr>
+						<td class="regular">length constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>length</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ATTR_TYPE</td>
+					</tr>
+					<tr>
+						<td class="regular">type constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>type</p></td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">DOMIT_RSS_ATTR_ISPERMALINK</td>
+					</tr>
+					<tr>
+						<td class="regular">isPermaLink constant</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Type: </b>String</p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Value: </b>ispermalink</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicFieldsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Fields</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateFieldsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Fields</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="publicMethodsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Public Methods</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">getVersion</td>
+					</tr>
+					<tr>
+						<td class="regular">Returns the current version of DOMIT! RSS.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">getVersion()</span></p></td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Returns:</b></p>
+<p>int - The current version of DOMIT! RSS.</p>
+</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<br /><br /><br />
+<div class="privateMethodsDescription">
+	<table class="outer" border="0" cellspacing="0" cellpadding="0" width="440" bgcolor="#000000">
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="1" cellpadding="8">
+					<tr>
+						<td class="sectionHeader">Private Methods</td>
+					</tr>
+					<tr>
+						<td class="subsectionHeader">_init</td>
+					</tr>
+					<tr>
+						<td class="regular">Performs initialization of the RSS document.</td>
+					</tr>
+					<tr>
+						<td class="regular"><p><b>Signature: </b><span class="code">_init()</span></p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<br />
+<p class="docblurb">Documentation generated by <b>ClassyDoc</b>, using the <b>DOMIT!</b> and <b>SAXY</b> parsers.<br />
+Please visit <a href="http://www.engageinteractive.com" target="_child">Engage Interactive</a> to download free copies.</p>
+<br />
+</center>
+</body>
+</html>

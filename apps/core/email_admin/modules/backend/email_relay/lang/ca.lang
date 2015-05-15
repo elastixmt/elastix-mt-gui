@@ -1,0 +1,51 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  |                                                                      |
+  | Translate bye:  Jaume Ponsa - Sistemes i Xarxes Informatiques Calidae|
+  |        (Caldes de Montbui, Barcelona)                                |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: ca.lang,v 1.5 2008/02/17 11:45:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"main.cf file was updated successfully but when restarting the mail service failed" => "S'ha modificat l'arxiu main.cf per incloure el nou domini, pero al reiniciar el servidor de correu s'ha produit un error",
+"Relay" => "Relay",
+"message about email relay" => "Aquestes xarxes son les que tenen permès enviar correu a dominis externs, mitjançant SMTP, <br>a traves de l'Elastix.
+S'ha de posar una xarxa per línea i cada xarxa ha de tenir el format<br> <b>IP/MASCARA.</b><br>
+Per exemple, per permetre RELAY des del propi Elastix s'ha de posar 127.0.0.1/32.<br>
+Es recomenable mantenir la xarxa 127.0.0.1/32 a la configuració <br>
+ja que poden haber-hi processos que la necessitin pel correcte funcionament.",
+"Networks which can RELAY" => "Xarxes que poden fer RELAY",
+"Could not read the relay configuration." => "No s'ha pogut llegir la configuració de relay.",
+"No network entered, you must keep at least the net 127.0.0.1/32" => "No s'ha introduit cap xarxa. Vostè haurà de tenir al menys la xarxa 127.0.0.1/32",
+"Configuration updated successfully" => "Configuració actualitzada correctament",
+"Write error when writing the new configuration." => "Error d'escritura a l'escriure la nova configuració",
+"Network" => "Xarxa",
+"Error" => "Error",
+"Message" => "Missatge",
+);
+?>

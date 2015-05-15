@@ -1,0 +1,46 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+ Codificacion: UTF-8
+ +----------------------------------------------------------------------+
+ | Elastix version 1.0 |
+ | http://www.elastix.org |
+ +----------------------------------------------------------------------+
+ | Copyright (c) 2006 Palosanto Solutions S. A. |
+ +----------------------------------------------------------------------+
+ | Cdla. Nueva Kennedy Calle E 222 y 9na. Este |
+ | Telfs. 2283-268, 2294-440, 2284-356 |
+ | Guayaquil - Ecuador |
+ | http://www.palosanto.com |
+ +----------------------------------------------------------------------+
+ | The contents of this file are subject to the General Public License |
+ | (GPL) Version 2 (the "License"); you may not use this file except in |
+ | compliance with the License. You may obtain a copy of the License at |
+ | http://www.opensource.org/licenses/gpl-license.php |
+ | |
+ | Software distributed under the License is distributed on an "AS IS" |
+ | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See |
+ | the License for the specific language governing rights and |
+ | limitations under the License. |
+ +----------------------------------------------------------------------+
+ | The Original Code is: Elastix Open Source. |
+ | The Initial Developer of the Original Code is PaloSanto Solutions |
+ | |
+ | Translate bye: Tomoaki Tanaka  |
+ | ganymean@gmail.com |
+ +----------------------------------------------------------------------+
+ $Id: ja.lang,v 1.6 2008/05/18 20:00:00 ganymean Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Fax Clients" => "Faxクライアント",
+"Clients allowed to send faxes" => "FAX送信可能なFAXクライアント一覧",
+"No IP entered, you must keep at least the IP 127.0.0.1" => "IPアドレスが未入力です。127.0.0.1は必ず設定してください",
+"These IPs are allowed to send faxes through Elastix.  You must insert one IP per row.  We recommend keeping localhost and 127.0.0.1  in the configuration because some processes could need them." => "ElastixからFAX送信可能なIPアドレスを入力してください。<br>
+FAX送信可能なIPアドレスを１行ずつ入力してください。<br>Elastix自身からのFAX送信を許可するために、<b>127.0.0.1</b>は必ず設定してください。",
+"Could not read the clients configuration." => "FAXクライアントの情報を読み込めませんでした",
+"IP" => "IPアドレス",
+"Error" => "エラー",
+"Message" => "メッセージ",
+"Configuration updated successfully" => "メール中継の設定が完了しました",
+"Write error when writing the new configuration." => "メール中継情報の保存中にエラーが発生しました",
+);
+?>

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Este script se encarga de agregar los campos state y first_time en la tabla filter en caso de que no existan, esto sólo se hace para versiones menores a 2.2.0-1
+
+version=$1
+pathModule=$2
+$pathModule/setup/compareVersion "$version" "2.2.0-1"
+if [ "$?" == "9" ]; then
+	sqlite3 /var/www/db/iptables.db 'select state from filter' > /dev/null 2>&1
+	if [ "$?" -ne "0" ]; then
+		sqlite3 /var/www/db/iptables.db 'alter table filter add column state varchar(50)'
+	fi
+	sqlite3 /var/www/db/iptables.db 'select first_time from tmp_execute' > /dev/null 2>&1
+	if [ "$?" -ne "0" ]; then
+		sqlite3 /var/www/db/iptables.db 'alter table tmp_execute add column first_time integer'
+	fi
+fi

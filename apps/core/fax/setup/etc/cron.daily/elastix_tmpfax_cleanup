@@ -1,0 +1,6 @@
+#!/bin/sh
+# se borraran todos los archivos que tengan mas de un dia de antiguedad
+# estos temporales son archivos que se crean al momento de adjuntar un archivo para enviarlo a traves de
+# la ventana popup de  send fax.
+
+find /var/www/elastixdir/tmpfaxdocs/ -mtime +1 -type f -exec rm -rf {} \; >/dev/null 2>&1

@@ -1,0 +1,19 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/v/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “Fax Master” of the Menu “FAX” in Elastix lets us input the email address of the administrator of the Fax, and this email will receive notifications of the messages received, errors and other activities of the Fax Server.</p>
+
+<div><img src="../modules/{$node_id}/images/fax_master.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>Proceed to input the email of the administrator of the fax and click on the “Apply Changes” button.</p>
+
+</body>
+</html>

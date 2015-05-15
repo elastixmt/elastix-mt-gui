@@ -1,0 +1,33 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “Fax Visor” of the Menu “Fax” in Elastix lets us view a list with details of the faxes received.</p>
+
+<div><img src="../modules/{$node_id}/images/fax_visor.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>Besides this, we have the option to download the fax in PDF format, by clicking on the desired file in the list of faxes received.</p>
+
+<p>The report will change depending on the values of the filter:</p>
+
+<table class="inline">
+  <tr>
+    <td>Company Name</td><td>Name of the company that is sending the fax.</td>
+  </tr>
+  <tr>
+    <td>Company Fax</td><td>Number of the Fax of the company that is sending the fax.</td>
+  </tr>
+  <tr>
+    <td>Fax Date</td><td>Sent date of fax.</td>
+  </tr>
+</table>
+
+</body>
+</html>

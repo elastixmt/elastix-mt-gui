@@ -1,0 +1,43 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p align="Justify">El objetivo de este módulo es la creación de listas de correo utilizando mailman. Es necesario tener al menos un dominio creado en el módulo Email->Domains para poder usar éste módulo.</p>
+	<p align="Justify">Al entrar al módulo aparece una grilla que muestra las listas que hayan sido creadas en este módulo, teniendo como filtro el dominio de la lista.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event1.png" border="0"></div>
+        <div>Figure 1</div>
+        <br />
+	<p align="Justify">Para crear una nueva lista se debe dar click en el botón "Nueva Lista de Correo" con lo cual nos aparecerá un formulario. En caso de no existir la lista mailman (es obligación tenerla creada para que el servicio mailman funcione) aparecerá un formulario también para la configuración del administrador de mailman.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event2.png" border="0"></div>
+        <div>Figure 2</div>
+	<br />
+	<p align="Justify">En el campo Email mailman admin debe ingresar la dirección de correo del administrador de mailman y en el campo Password mailman se debe ingresar la contraseña que tendrá mailman (Se enviará un correo al administrador con la clave que ingresó).</p>
+	<p align="Justify">En caso de que ya exista la lista mailman entonces sólo aparecerá el formulario pertinente a la creación de la nueva lista.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event3.png" border="0"></div>
+        <div>Figure 3</div>
+        <br />
+	<p align="Justify">Se debe seleccionar el dominio que tendrá la lista (creados en el módulo Email->Domains como ya se mencionó previamente). El nombre de la lista sólo puede contener caracteres alfanuméricos y los caracteres especiales _-.(guión bajo, guión y punto) además no pueden haber dos listas con el mismo nombre sin importar que tengan dominios diferentes. En el campo Email admin list se debe ingresar el correo del administrador de esa lista, y por último los campos de contraseña y confirmación serán para la contraseña de la nueva lista. Finalmente damos click en el botón Guardar, quedando de esta manera creada la lista.</p>
+        <br />
+	<p align="Justify">Si se desea añadir miembros a una lista se debe dar click al link "Add Members" correspondiente a la lista a la cual se le desean agregar miembros. De esta manera aparecerá un área de texto para ingresar los correos de los miembros. Cada correo debe ser ingresado línea a línea (separados por enters), también se puede asociar un nombre al correo (máximo dos nombres con dos apellidos) con el siguiente formato: <b>Nombre Apellido &lt;usuario@dominio.com&gt;</b></p>
+	<p align="Justify">Una vez ingresados todos los correos de los nuevos miembros, damos click en el botón "Add" para agregar dichos miembros.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event4.png" border="0"></div>
+        <div>Figure 4</div>
+        <br />
+	<p align="Justify">En caso de que se quiera remover miembros de una lista, se debe hacer click en el link "Remove members" correspondiente a la lista en cuestión. De esta manera aparecerá un área de texto para ingresar los correos de los miembros a ser removidos. Cada correo debe ser ingresadi línea a línea (separados por enters).</b></p>
+	<p align="Justify">Una vez ingresados todos los correos de los miembros a remover, damos click en el botón "Remove" para remover dichos miembros.</p>
+        <div><img src="../modules/{$node_id}/images/new_Event5.png" border="0"></div>
+        <div>Figure 5</div>
+        <br />
+	<p align="Justify">Si se desea ver los miembros que pertenecen a una lista se debe hacer click en el link del nombre de la lista o en el link "View members" de la lista en cuestión. Con esto nos aparecerá una grilla con todos los miembros pertenecientes a una lista, pudiendo filtrar por nombre o por correo y luego dando click en el botón show. Para regresar al reporte de las listas se debe dar click en el botón "Return".</p>
+        <div><img src="../modules/{$node_id}/images/new_Event6.png" border="0"></div>
+        <div>Figure 6</div>
+        <br />
+	<p align="Justify">Para eliminar listas debemos seleccionar el checkbox correspondiente a las listas que se vayan a eliminar, luego de esto damos click en el boton "Delete".</p>
+        <div><img src="../modules/{$node_id}/images/new_Event7.png" border="0"></div>
+        <div>Figure 7</div>
+        <br />
+    </body>
+</html>

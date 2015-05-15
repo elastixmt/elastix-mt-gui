@@ -1,0 +1,73 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0.2                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.2 2010-12-10 03:09:33 Alberto Santos asantos@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Port- Service" => "Puerto - Servicios",
+"Ports" => "Puertos",
+"Port" => "Puerto",
+"Option" => "Opción",
+"Name" => "Nombre",
+"Protocol" => "Protocolo",
+"Port(s)" => "Puerto(s)",
+"Delete" => "Eliminar",
+"View" => "Ver",
+"Edit" => "Editar",
+"New Port" => "Nuevo",
+"Comment" => "Comentario",
+"Save correctly" => "Guardado Correctamente",
+"Delete correctly" => "Borrado correctamente",
+"Update correctly" => "Actualizado correctamente",
+"Details" => "Detalles",
+"Message" => "Mensaje",
+"Error" => "Error",
+"Are you sure you wish to delete the port(s)." => "Está seguro que desea eliminar el(los) puerto(s).",
+"Filter by" => "Filtrar por",
+"Name" => "Nombre",
+"Define Ports" => "Definir Puertos",
+"Define Port" => "Definir Puerto",
+"Edit Port" => "Editar Puerto",
+"View Port" => "Observar Puerto",
+"Protocol Number" => "Número de Protocolo",
+"Type" => "Tipo",
+"Code" => "Código",
+"This port had already been defined" => "Este puerto ya había sido definido",
+"The name and the port can not be empty fields" => "El nombre y el puerto no pueden ser campos vacíos",
+"The name, type and code can not be empty fields" => "El nombre, tipo y código no pueden ser campos vacíos",
+"The name and the protocol number can not be empty fields" => "El nombre y el número de protocolo no pueden ser campos vacíos",
+"The following fields contain errors" => "Los siguientes campos contienen errores",
+"Validation Error" => "Error de Validación",
+"Port used in a firewall rule" => "Puerto usado en una regla del firewall",
+"You have to delete the rule related in order to delete this port" => "Usted tiene que eliminar la regla relacionada para poder eliminar este puerto",
+"Some rules could be deactivated due to these changes, please check the firewall rules" => "Algunas reglas pudieron ser desactivadas debido a estos cambios, por favor revise las reglas del corta fuegos",
+"SDP_name" => "Define un nombre para el puerto",
+"SDP_protocol" => "Selecciona el tipo de protocola que tu utilizas",
+"SDP_port" => "Escribe un numero de puerto",
+"SDP_comment" => "Escribe un comentario corto acerca de este puerto"
+);
+?>

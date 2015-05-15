@@ -1,0 +1,31 @@
+.fielform  {
+    border-color:#9C9C9C;
+    border-width:thin;
+    color:black;
+    font-family:Verdana,Arial,Helvetica,sans-serif;
+    font-size:12px;
+    height:auto;
+    position:relative;
+    width:303px;
+}
+.sombreado {
+    /*background:none repeat scroll 0 0 white;*/
+    width:22px;
+    font-size:14pt;
+    color:#E35332;
+    float:left;
+    text-align:right;
+}
+.mensajeStatus{
+    margin-left: 5px;
+	margin-top: 2px;
+    /*border: 1px solid #AAA;*/
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    padding-left:10px;
+	padding-right:10px;
+    height:20px;
+    padding-top:2px;
+	width:150px;
+}

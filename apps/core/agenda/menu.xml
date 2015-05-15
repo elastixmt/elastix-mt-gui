@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <menulist>
+    <menuitem menuid="agenda"       desc="Agenda"       parent=""       module="no"  link="" order="2"></menuitem>
+    <menuitem menuid="calendar"     desc="Calendar"     parent="agenda" module="yes" link="" order="1">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+            <group id="2" name="Operator" desc="Operator"></group>
+            <group id="3" name="extension" desc="extension user"></group>
+        </permissions>
+    </menuitem>
+    <menuitem menuid="address_book" desc="Address Book" parent="agenda" module="yes" link="" order="2">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+            <group id="2" name="Operator" desc="Operator"></group>
+            <group id="3" name="extension" desc="extension user"></group>
+        </permissions>
+    </menuitem>
+  </menulist>
+</module>

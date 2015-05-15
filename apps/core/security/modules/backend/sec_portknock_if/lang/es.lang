@@ -1,0 +1,57 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0.2                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: paloSantoPortKnockUsers.class.php,v 1.1 2010-12-13 03:09:33  Exp $ */
+
+global $arrLangModule;
+$arrLangModule = array(
+'PortKnock Protected Interfaces' => 'Interfases Protegidas por Portknock',
+'Interface' => 'Interfaz',
+'Protection' => 'Protección',
+'Port to Knock' => 'Puerto a tocar',
+'Authorizations' => 'Autorizaciones',
+'Are you sure you wish to unprotect the interface?' => '¿Está usted seguro de que desea desproteger la interfaz?',
+'Unprotect interface' => 'Desproteger interfaz',
+'ERROR' => 'ERROR',
+'Inactive' => 'Inactiva',
+'Active' => 'Activa',
+'Enable Protection' => 'Activar protección',
+'View authorizations' => 'Ver autorizaciones',
+'Port' => 'Puerto',
+'Port must be in range 0-65535' => 'Puerto debe estar en el rango 0-65535',
+'Invalid interface' => 'Interfaz inválida',
+'Assign Knocking Port' => 'Asignar puerto a tocar',
+'PortKnock Interface Authorizations' => 'Autorizaciones de portknocking sobre interfaz',
+'IP' => 'IP',
+'User' => 'Usuario',
+'Ports' => 'Puerto',
+'Since' => 'Desde',
+'Are you sure you wish to revoke this authorization?' => '¿Está usted seguro de que desea revocar esta autorización?',
+'Revoke authorization' => 'Revocar autorización',
+'Failed to restart portknock service' => 'Fallo al reiniciar servicio de portknock',
+);
+?>

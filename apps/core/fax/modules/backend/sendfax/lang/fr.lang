@@ -1,0 +1,52 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version: 2.0                                           |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by:Dannarz                                             |
+  | Email: sesshomarurin7@palosanto.com                                                       |
+  +----------------------------------------------------------------------+
+  $Id: fr.lang, October 25, 2010, 5:39 pm kleber andres loayza Exp $ */
+global $arrLangModule;
+$arrLangModule=array(  
+"Send Fax" => "Emettre un Fax",
+"Destination fax numbers" => "N° Fax destinataire",
+"Fax Device to use" => "Fax à utiliser",
+"Text to FAX" => "Texte",
+"Send" => "Emettre",
+"Select the files to FAX" => "Selectionner le fichier pour le Fax",
+"File Upload" => "Fichier à émettre",
+"Text Information" => "Information Texte",
+"Select a Fax Device" => "Selectionner un équipement Fax",
+"File to upload is empty" => "Le fichier à transmettre est vide!",
+"Text to send is empty" => "Le texte à émettre est vide",
+"Please, select a valid Fax Device" => "Sélectionner un équipement Fax valide.",
+"Wrong type of file" => "Wrong type of file",
+"Types of files" => "Types of files supported: ",
+"Fax has been sent correctly" => "Fax has been sent correctly",
+"Notification Sucessfull" => "Notification Sucessfull",
+
+);
+?>

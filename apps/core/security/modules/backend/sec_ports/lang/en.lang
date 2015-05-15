@@ -1,0 +1,73 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0.2                                               |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.2 2010-12-10 03:09:33 Alberto Santos asantos@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Port- Service" => "Port- Service",
+"Ports" => "Ports",
+"Port" => "Port",
+"Option" => "Option",
+"Name" => "Name",
+"Protocol" => "Protocol",
+"Port(s)" => "Port(s)",
+"Delete" => "Delete",
+"View" => "View",
+"Edit" => "Edit",
+"New Port" => "New Port",
+"Comment" => "Comment",
+"Save correctly" => "Save correctly",
+"Delete correctly" => "Delete correctly",
+"Update correctly" => "Update correctly",
+"Details" => "Details",
+"Message" => "Message",
+"Error" => "Error",
+"Are you sure you wish to delete the port(s)." => "Are you sure you wish to delete the port(s).",
+"Filter by" => "Filter by",
+"Name" => "Name",
+"Define Ports" => "Define Ports",
+"Define Port" => "Define Port",
+"Edit Port" => "Edit Port",
+"View Port" => "View Port",
+"Protocol Number" => "Protocol Number",
+"Type" => "Type",
+"Code" => "Code",
+"This port had already been defined" => "This port had already been defined",
+"The name and the port can not be empty fields" => "The name and the port can not be empty fields",
+"The name, type and code can not be empty fields" => "The name, type and code can not be empty fields",
+"The name and the protocol number can not be empty fields" => "The name and the protocol number can not be empty fields",
+"The following fields contain errors" => "The following fields contain errors",
+"Validation Error" => "Validation Error",
+"Port used in a firewall rule" => "Port used in a firewall rule",
+"You have to delete the rule related in order to delete this port" => "You have to delete the rule related in order to delete this port",
+"Some rules could be deactivated due to these changes, please check the firewall rules" => "Some rules could be deactivated due to these changes, please check the firewall rules",
+"SDP_name" => "Defines a port name",
+"SDP_protocol" => "select the type of protocol that you use",
+"SDP_port" => "Defines a port number",
+"SDP_comment" => "Write a short information about this port"
+);
+?>

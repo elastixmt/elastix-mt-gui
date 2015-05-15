@@ -1,0 +1,50 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+ Codificacion: UTF-8
+ +----------------------------------------------------------------------+
+ | Elastix version 1.0 |
+ | http://www.elastix.org |
+ +----------------------------------------------------------------------+
+ | Copyright (c) 2006 Palosanto Solutions S. A. |
+ +----------------------------------------------------------------------+
+ | Cdla. Nueva Kennedy Calle E 222 y 9na. Este |
+ | Telfs. 2283-268, 2294-440, 2284-356 |
+ | Guayaquil - Ecuador |
+ | http://www.palosanto.com |
+ +----------------------------------------------------------------------+
+ | The contents of this file are subject to the General Public License |
+ | (GPL) Version 2 (the "License"); you may not use this file except in |
+ | compliance with the License. You may obtain a copy of the License at |
+ | http://www.opensource.org/licenses/gpl-license.php |
+ | |
+ | Software distributed under the License is distributed on an "AS IS" |
+ | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See |
+ | the License for the specific language governing rights and |
+ | limitations under the License. |
+ +----------------------------------------------------------------------+
+ | The Original Code is: Elastix Open Source. |
+ | The Initial Developer of the Original Code is PaloSanto Solutions |
+ | |
+ | Translate bye: Tomoaki Tanaka  |
+ | ganymean@gmail.com |
+ +----------------------------------------------------------------------+
+ $Id: ja.lang,v 1.6 2008/05/18 20:00:00 ganymean Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"main.cf file was updated successfully but when restarting the mail service failed" => "main.cfの更新に成功しましたが、メールサービスのリスタートに失敗しました",
+"Relay" => "メール中継",
+"message about email relay" => "メール中継可能なネットワークを設定すると、SMTPプロトコルを使用して
+Elastixからメールを外部に送信できます。<br>メール中継を許可するネットワークを
+<b>IPアドレス/ネットマスク</b>形式で1行ずつ設定してください。<br>一例として、Elastix自身からのメール中継を許可するために、
+<b>127.0.0.1/32</b>は必ず設定してください。
+<br>メール中継について十分な知識も持ち合わせていないその他の設定は行わないでください。",
+"Networks which can RELAY" => "メール中継を許可するネットワーク",
+"Could not read the relay configuration." => "メール中継設定情報を読み込めません",
+"No network entered, you must keep at least the net 127.0.0.1/32" => "メール中継を許可するネットワークが入力されていません。<b>127.0.0.1/32</b>は必ず入力してください。",
+"Configuration updated successfully" => "メール中継の設定が完了しました",
+"Write error when writing the new configuration." => "メール中継情報の保存中にエラーが発生しました",
+"Network" => "ネットワーク",
+"Error" => "エラー",
+"Message" => "メッセージ",
+);
+?>
