@@ -1,6 +1,6 @@
-%define modname pbx 
+%define modname pbx
 
-Summary: Elastix Module PBX 
+Summary: Elastix Module PBX
 Name:    elastix-%{modname}
 Version: 3.0.0
 Release: 13
@@ -63,7 +63,7 @@ do
 						mv $bdir/modules/$FOLDER0/$FOLDER1/$FOLFI $RPM_BUILD_ROOT/usr/share/elastix/apps/$FOLDER1/
 					fi
 				done
-				case "$FOLDER0" in 
+				case "$FOLDER0" in
 					frontend)
 						mkdir -p $RPM_BUILD_ROOT/var/www/html/web/apps/$FOLDER1/
 						if [ -d $bdir/modules/$FOLDER0/$FOLDER1/web/ ]; then
@@ -74,7 +74,7 @@ do
 						mkdir -p $RPM_BUILD_ROOT/var/www/html/admin/web/apps/$FOLDER1/
 						if [ -d $bdir/modules/$FOLDER0/$FOLDER1/web/ ]; then
 							mv $bdir/modules/$FOLDER0/$FOLDER1/web/* $RPM_BUILD_ROOT/var/www/html/admin/web/apps/$FOLDER1/
-						fi	
+						fi
 					;;
 				esac
 		done
@@ -228,11 +228,11 @@ service mysqld status &>/dev/null
 res=$?
 if [ $res -eq 0 ]; then
 	#service is up
-	elastix-menumerge $pathModule/setup/infomodules	
+	elastix-menumerge $pathModule/setup/infomodules
 else
-	#copio el contenido de infomodules a una carpeta para su posterior ejecucion		
+	#copio el contenido de infomodules a una carpeta para su posterior ejecucion
 	if [ "$(ls -A $pathModule/setup/infomodules)" != "" ]; then
-		mkdir -p /var/spool/elastix-infomodulesxml/%{name}-%{version}-%{release}/infomodules		
+		mkdir -p /var/spool/elastix-infomodulesxml/%{name}-%{version}-%{release}/infomodules
 		mv $pathModule/setup/infomodules/* /var/spool/elastix-infomodulesxml/%{name}-%{version}-%{release}/infomodules
 	fi
 fi
@@ -376,6 +376,10 @@ fi
 /etc/cron.daily/asterisk_cleanup
 
 %changelog
+* Tue Jun 30 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
+- FIXED: PBX: expand table columns containing an organization code. Part of fix
+  for Elastix bug #2110.
+
 * Mon Dec  8 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: Extensions: fix use of uninitialized variable for CID in extension
   creation.
@@ -388,7 +392,7 @@ fi
   SVN Rev[6799]
 
 * Thu Dec  4 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
-- FIXED: Other Destinations: disallow newlines as part of description OR 
+- FIXED: Other Destinations: disallow newlines as part of description OR
   extension. Part of fix for Elastix bug #2063.
   SVN Rev[6798]
 - FIXED: Shortcut Apps: disallow newlines as part of app name OR extension. Part
@@ -412,7 +416,7 @@ fi
 * Mon Dec  1 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: RingGroup: filter out remainders of DOS-type newlines in textareas that
   get written into the dialplan. Fixes Elastix bug #1875.
-  SVN Rev[6780] 
+  SVN Rev[6780]
 
 * Fri Nov 21 2014 Luis Abarca <labarca@palosanto.com> 3.0.0-13
 - CHANGED: pbx - Build/elastix-pbx.spec: Update specfile with latest
@@ -433,7 +437,7 @@ fi
   SVN history. Bump Release in specfile.
   SVN Rev[6765]
 
-* Mon Oct 27 2014 Luis Abarca <labarca@palosanto.com> 
+* Mon Oct 27 2014 Luis Abarca <labarca@palosanto.com>
 - ADDED: trunk - core/pbx-libs_scripts: Making the proper statements about
   creation of dialplans based on FreePBX code in the header of files.
   SVN Rev[6763]
@@ -447,11 +451,11 @@ fi
 - CHANGED: restrict allowed protocols for SIP accounts to udp.
   SVN Rev[6709]
 
-* Thu Aug 28 2014 Alex Villacís Lasso <a_villacis@palosanto.com> 
+* Thu Aug 28 2014 Alex Villacís Lasso <a_villacis@palosanto.com>
 - CHANGED: Revert commits 6705 through 6707. This needs to be done another way.
   SVN Rev[6708]
 
-* Wed Aug 27 2014 Alex Villacís Lasso <a_villacis@palosanto.com> 
+* Wed Aug 27 2014 Alex Villacís Lasso <a_villacis@palosanto.com>
 - CHANGED: kamailio: remove use of rtpproxy, as it does not work correctly with
   WebRTC.
   SVN Rev[6705]
@@ -485,8 +489,8 @@ fi
 
 * Mon Aug  4 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - CHANGED: kamailio: some phones require the 200 OK from a BLF subscription to
-  arrive before the NOTIFY for the first update of said subscription. Since 
-  Kamailio is multiprocess, each packet may be handled by two different 
+  arrive before the NOTIFY for the first update of said subscription. Since
+  Kamailio is multiprocess, each packet may be handled by two different
   processes, and get sent out of order. Fix this by remembering the Call-ID
   header value for the SUBSCRIBE and dropping NOTIFY packets until the reply to
   the SUBSCRIBE has been transmitted.
@@ -494,7 +498,7 @@ fi
 
 * Fri Aug  1 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - CHANGED: kamailio: do not mangle To header when routing a BLF SUBSCRIBE to
-  asterisk, since the mangled header is then used as an XML attribute in 
+  asterisk, since the mangled header is then used as an XML attribute in
   subsequent NOTIFY packets, which breaks BLF in some phones.
   SVN Rev[6670]
 
@@ -515,20 +519,20 @@ fi
   SVN Rev[6664]
 
 * Mon Jul 14 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
-- CHANGED: kamailio: Disable topology hiding for now - does not work correctly 
-  with NOTIFY routing for BLF. Route SUBSCRIBE(Event==message-summary) to 
-  asterisk for correct voicemail operation. Disable MSRP authentication, as 
+- CHANGED: kamailio: Disable topology hiding for now - does not work correctly
+  with NOTIFY routing for BLF. Route SUBSCRIBE(Event==message-summary) to
+  asterisk for correct voicemail operation. Disable MSRP authentication, as
   Kamailio authentication functions are unsuitable for it.
   SVN Rev[6663]
 
 * Mon Jun 30 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - CHANGED: queues: introduce field queue_member.member_order and modify keys to
-  include this field. This hack force MySQL to use member_order as a sort 
+  include this field. This hack force MySQL to use member_order as a sort
   parameter for the realtime query used in queue loads. This is part of a fix
   for undefined ordering of queue members that messes up linear strategy.
   SVN Rev[6661]
 
-* Thu Jun 26 2014 Alex Villacís Lasso <a_villacis@palosanto.com> 
+* Thu Jun 26 2014 Alex Villacís Lasso <a_villacis@palosanto.com>
 - CHANGED: kamailio: WIP in MSRP routing
   SVN Rev[6660]
 
@@ -539,18 +543,18 @@ fi
   SVN Rev[6659]
 
 * Mon Jun 23 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
-- CHANGED: kamailio: merge processing for ordinary NAT and websocket into a 
-  single code block, to avoid calling both add_contact_alias() and 
+- CHANGED: kamailio: merge processing for ordinary NAT and websocket into a
+  single code block, to avoid calling both add_contact_alias() and
   set_contact_alias() on the same websocket request.
   SVN Rev[6658]
 
 * Fri Jun 20 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - CHANGED: kamailio: TOASTERISK routing should handle the case where auth_check
-  function allowed through a credential with username USERNAME@DOMAIN and 
+  function allowed through a credential with username USERNAME@DOMAIN and
   IP realm, and use appropriate segments for domain mangling.
   SVN Rev[6657]
 
-* Mon Jun 16 2014 Bruno Macias <bmacias@palosanto.com> 
+* Mon Jun 16 2014 Bruno Macias <bmacias@palosanto.com>
 - UPDATED: module extesions, Updated sort.
   SVN Rev[6651]
 
@@ -560,7 +564,7 @@ fi
   SVN Rev[6650]
 
 * Thu Jun 12 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
-- CHANGED: kamailio: use LOG_LOCAL6 for logging of messages in Kamailio 
+- CHANGED: kamailio: use LOG_LOCAL6 for logging of messages in Kamailio
   configuration. This change, in addition to suitable logrotate/rsyslog
   configuration, is required to move log messages to a separate file.
   SVN Rev[6647]
@@ -585,7 +589,7 @@ fi
   SVN Rev[6637]
 
 * Tue May 27 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
-- CHANGED: kamailio: separate selection of required rtpproxy from actual 
+- CHANGED: kamailio: separate selection of required rtpproxy from actual
   application of selection. This allows consolidation of the same choosing logic
   for both rtpproxy and gateway detection. Comment out unused forwarding block.
   Do not handle SUBSCRIBE "Dialog" events, and instead route them to Asterisk,
@@ -606,47 +610,47 @@ fi
 * Fri May 02 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: kamailio: add P-Asserted-Identity header to INVITE for the scenario of
   incoming calls with IP authentication. This restores the Caller-ID that was
-  overwritten in the From header in an attempt to force asterisk to recognize 
+  overwritten in the From header in an attempt to force asterisk to recognize
   the incoming trunk without an authentication username/password. In order for
   this to work, the trunk MUST be configured with trustrpid=yes in the asterisk
   side.
   SVN Rev[6620]
 
-* Fri May 02 2014 Bruno Macias <bmacias@palosanto.com> 
+* Fri May 02 2014 Bruno Macias <bmacias@palosanto.com>
 - UPDATED: languages modules were updated.
   SVN Rev[6619]
 
-* Wed Apr 30 2014 Bruno Macias <bmacias@palosanto.com> 
+* Wed Apr 30 2014 Bruno Macias <bmacias@palosanto.com>
 - FIXED: app pbx, Option zero on module ivr now is accepted.
   SVN Rev[6614]
 
 * Wed Apr 30 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: kamailio: specify default registration timeout value to match asterisk
   default. This fixes issue with Aastra phones not specifying a registration
-  timeout, and then asterisk revokes registration while kamailio keeps it 
+  timeout, and then asterisk revokes registration while kamailio keeps it
   active.
   SVN Rev[6613]
 
-* Tue Apr 29 2014 Luis Abarca <labarca@palosanto.com> 
+* Tue Apr 29 2014 Luis Abarca <labarca@palosanto.com>
 - ADDED: pbx - Build/elastix-pbx.spec: Some requirements were added in order to
   correct some overwritten files.
   SVN Rev[6612]
 
-* Mon Apr 28 2014 Bruno Macias <bmacias@palosanto.com> 
+* Mon Apr 28 2014 Bruno Macias <bmacias@palosanto.com>
 - FIXED: apps pbx, privileged/asteriskconfig created main dir not exists on
   /var/spool/asterisk.
   SVN Rev[6611]
 
-* Mon Apr 28 2014 Bruno Macias <bmacias@palosanto.com> 
+* Mon Apr 28 2014 Bruno Macias <bmacias@palosanto.com>
 - FIXED: apps pbx, kamailio database now is created/
   SVN Rev[6610]
 
-* Mon Apr 28 2014 Bruno Macias <bmacias@palosanto.com> 
+* Mon Apr 28 2014 Bruno Macias <bmacias@palosanto.com>
 - FIXED: module reports, database asteriskcdrdv wasn't creating. SQLs files
   names were changed in folder db/install/asteriskcdrdb
   SVN Rev[6609]
 
-* Fri Apr 25 2014 Bruno Macias <bmacias@palosanto.com> 
+* Fri Apr 25 2014 Bruno Macias <bmacias@palosanto.com>
 - UPDATED: framework, paloSantoPBX.class, updated SQL.
   SVN Rev[6606]
 
@@ -660,28 +664,28 @@ fi
   SVN history. Bump Release in specfile.
   SVN Rev[6600]
 
-* Wed Apr 23 2014 Alex Villacís Lasso <a_villacis@palosanto.com> 
+* Wed Apr 23 2014 Alex Villacís Lasso <a_villacis@palosanto.com>
 - FIXED: elastix-pbx: fix RPM requires specification for kamailio-unixodbc
   SVN Rev[6598]
 
-* Wed Apr 23 2014 Alex Villacís Lasso <a_villacis@palosanto.com> 
+* Wed Apr 23 2014 Alex Villacís Lasso <a_villacis@palosanto.com>
 - FIXED: elastix-pbx: fix RPM file specification for kamailio
   SVN Rev[6597]
 
-* Tue Apr 22 2014 Bruno Macias <bmacias@palosanto.com> 
+* Tue Apr 22 2014 Bruno Macias <bmacias@palosanto.com>
 - FIXED: module trunk, table trunk_organization now have a new column, SQL
   expression was changed.
   SVN Rev[6596]
 
-* Tue Apr 22 2014 Bruno Macias <bmacias@palosanto.com> 
+* Tue Apr 22 2014 Bruno Macias <bmacias@palosanto.com>
 - CHANGED: module ANI, column ani_prefix now is varchar.
   SVN Rev[6595]
 
-* Tue Apr 22 2014 Bruno Macias <bmacias@palosanto.com> 
+* Tue Apr 22 2014 Bruno Macias <bmacias@palosanto.com>
 - UPDATED: module ani, updated language en and es.
   SVN Rev[6594]
 
-* Tue Apr 22 2014 Bruno Macias <bmacias@palosanto.com> 
+* Tue Apr 22 2014 Bruno Macias <bmacias@palosanto.com>
   NEW: module ANI, new module ANI.
   SVN Rev[6593]
 
@@ -698,7 +702,7 @@ fi
   SVN Rev[6585]
 - CHANGED: kamailio: update SQL to change default websocket WSS port for Kamailio
   SVN Rev[6584]
-- CHANGED: kamailio: add SSL support for SIP and websockets in Kamailio 
+- CHANGED: kamailio: add SSL support for SIP and websockets in Kamailio
   configuration files.
   SVN Rev[6583]
 
@@ -712,23 +716,23 @@ fi
   SVN Rev[6581]
 
 * Mon Mar 31 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
-- CHANGED: kamailio: fix architecture directory to ensure kamailio modules are 
+- CHANGED: kamailio: fix architecture directory to ensure kamailio modules are
   loaded properly.
   SVN Rev[6565]
 
 * Wed Mar 26 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
-- CHANGED: kamailio: guard against missing authuser by requiring all external 
+- CHANGED: kamailio: guard against missing authuser by requiring all external
   SIP requests to be authenticated, not just REGISTER. This prevents an INVITE
   from an unregistered client from being routed without authentication.
   SVN Rev[6560]
 
 * Thu Mar 20 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - CHANGED: Trunks: delegate transformation of form fields into SQL fields to the
-  relevant voip objects (paloSIP and paloIAX) instead of reimplementing the 
+  relevant voip objects (paloSIP and paloIAX) instead of reimplementing the
   transformation. This makes use of the _getFieldValuesSQL() method made public
   by a previous commit. The purpose of this delegation is to reuse the password
   mapping (secret->sippasswd, name->kamailioname) for Kamailio. Map SIP property
- 'sippasswd' into 'secret' on property read, in order for it to be preserved 
+ 'sippasswd' into 'secret' on property read, in order for it to be preserved
   across updates. Some minimal code cleanup.
   SVN Rev[6554]
 
@@ -742,7 +746,7 @@ fi
 - CHANGED: kamailio: expand elxpbx.subscriber view to allow authentication for
   incoming SIP trunks. Create a table for global domains/IP addresses.
   SVN Rev[6549]
-- CHANGED: kamailio: relax check that enforced From: username to match 
+- CHANGED: kamailio: relax check that enforced From: username to match
   authentication username, in order to allow incoming SIP trunks to work.
   SVN Rev[6548]
 - CHANGED: kamailio: relax checks that prevent rtpproxy from being negotiated
@@ -766,7 +770,7 @@ fi
   SVN Rev[6533]
 
 * Tue Mar 11 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
-- CHANGED: add schema and grant for Kamailio database. Add Requires. Add 
+- CHANGED: add schema and grant for Kamailio database. Add Requires. Add
   Kamailio configuration file.
   SVN Rev[6530]
 - CHANGED: disable queue logging to /var/log/asterisk/queue_log, and enable it
@@ -788,7 +792,7 @@ fi
 * Fri Mar 07 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - CHANGED: sip.conf: restrict Asterisk to listen on localhost only for SIP.
   SVN Rev[6504]
-- CHANGED: Start of Kamailio integration into Elastix. Create column 
+- CHANGED: Start of Kamailio integration into Elastix. Create column
   sip.sippasswd on database elxpbx. All instances of MD5 hashing in elastix-pbx
   are reverted to plaintext passwords written to sippasswd.
   SVN Rev[6503]
@@ -801,8 +805,8 @@ fi
 - ADDED: asterisk.elastix: added cdr.conf for the sole purpose of disabling
   flat-file CDR accounting. Part of fix for Elastix bug #1871.
   SVN Rev[6499]
-- CHANGED: asterisk.elastix: modified configuration files as follows: 
-  res_odbc.conf: all passwords removed, now relies on passwords in 
+- CHANGED: asterisk.elastix: modified configuration files as follows:
+  res_odbc.conf: all passwords removed, now relies on passwords in
   /etc/odbc.ini, and added new section asteriskcdrdb.
   cdr_mysql.conf: removed.
   cdr_adaptive_odbc.conf: added. References asteriskcdrdb from res_odbc.conf.
@@ -810,15 +814,15 @@ fi
   and #1886).
   Part of changes required for addressing Elastix bug #1872.
   SVN Rev[6498]
- 
-- CHANGED: MOH: switch the MOH directory from mohmp3 to moh (the Asterisk 
+
+- CHANGED: MOH: switch the MOH directory from mohmp3 to moh (the Asterisk
   default). Update all code accordingly.
   SVN Rev[6494]
 
 * Mon Feb 10 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: Extension Batch: re-enable account password strength check which was
   disabled without explanation on last rewrite
-  SVN Rev[6469] 
+  SVN Rev[6469]
 
 * Thu Jan 23 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: Festival: introduce check for systemd-style status report in order to
@@ -842,445 +846,445 @@ fi
   SVN Rev[6353]
 
 * Fri Jan 03 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
-- CHANGED: Festival: update jquery.ibutton.js to 1.0.03, fix potential 
+- CHANGED: Festival: update jquery.ibutton.js to 1.0.03, fix potential
   incompatibilities with jQuery 1.9+
   SVN Rev[6329]
 
-* Wed Dec 18 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Dec 18 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Frameworks/Apps: translations Settings options (spanish)
   SVN Rev[6304]
 
-* Fri Dec 13 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Dec 13 2013 Rocio Mera <rmera@palosanto.com>
 CHANGED : TRUNK - APPS/Pbx: The error manager was moved to general folder.
   SVN Rev[6282]
 
-* Thu Dec 12 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Dec 12 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - APPS/PBX: Was made change in elxpbx sql schema in table im.
   Was added constraint 'FOREIGN KEY (device) REFERENCES sip(name) ON DELETE
   CASCADE'
   SVN Rev[6276]
 
-* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in alert message reload (spanish)
   SVN Rev[6273]
 
-* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in alert message reload (spanish)
   SVN Rev[6272]
 
-* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in alert message reload (spanish)
   SVN Rev[6271]
 
-* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Time conditions-> error message
   (spanish)
   SVN Rev[6270]
 
-* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in PBX configuration-> Device help
   (spanish)
   SVN Rev[6269]
 
-* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 10 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in PBX configuration-> Device
   (spanish)
   SVN Rev[6268]
 
-* Wed Dec 04 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Dec 04 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in General Settings Admin menu option
   (spanish)
   SVN Rev[6256]
 
-* Wed Dec 04 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Dec 04 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Frameworks/Apps: translation in Ring Group filters (spanish)
   SVN Rev[6255]
 
-* Wed Dec 04 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Dec 04 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Frameworks/Apps: translation in trunks filters (spanish)
   SVN Rev[6254]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Monitoring filters (spanish)
   SVN Rev[6242]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Conference filters (spanish)
   SVN Rev[6241]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Recordings (spanish)
   SVN Rev[6239]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Music On Hold (spanish)
   SVN Rev[6237]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in General Settings (spanish)
   SVN Rev[6236]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in General Settings Admin yes/no
   (spanish)
   SVN Rev[6234]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Ring Group options (spanish)
   SVN Rev[6233]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Queues options (spanish)
   SVN Rev[6232]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Extensions options (spanish)
   SVN Rev[6231]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in IVR options (spanish)
   SVN Rev[6230]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Inbound Route options (spanish)
   SVN Rev[6229]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Outbound Route options (spanish)
   SVN Rev[6228]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in DID options (spanish)
   SVN Rev[6227]
 
-* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Dec 03 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Trunks (spanish)
   SVN Rev[6226]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in General Settings->sip settings
   (spanish)
   SVN Rev[6225]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in General Settings (spanish)
   SVN Rev[6224]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
-- CHANGED: TRUNK - PBX/Apps: translation in General Settings Admin options 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
+- CHANGED: TRUNK - PBX/Apps: translation in General Settings Admin options
   (spanish)
   SVN Rev[6223]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Time Conditions options (spanish)
   SVN Rev[6222]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Ring Group select options (spanish)
   SVN Rev[6221]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Queues select opctions (spanish)
   SVN Rev[6220]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Queues (spanish)
   SVN Rev[6218]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Extensions options (spanish)
   SVN Rev[6217]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Inbound Route Title (spanish)
   SVN Rev[6216]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Inbound Route module (spanish)
   SVN Rev[6215]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation filters search Outbound Route
   (spanish)
   SVN Rev[6214]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation filters search did (spanish)
   SVN Rev[6213]
 
-* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Dec 02 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation filters for trunks in column (spanish)
   SVN Rev[6212]
 
-* Fri Nov 29 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Nov 29 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation General Configurations Adm: Voicemail
   Settings (spanish)
   SVN Rev[6211]
 
-* Fri Nov 29 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Nov 29 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation General Configurations Adm: IAX
   Settings (spanish)
   SVN Rev[6210]
 
-* Fri Nov 29 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Nov 29 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation General Configurations Adm: General
   Settings and SIP Settings (spanish)
   SVN Rev[6209]
 
-* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: translation in Features Code Title (spanish)
   SVN Rev[6208]
 
-* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in File Editor label (spanish)
   SVN Rev[6201]
 
-* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in Monitoring column name (spanish)
   SVN Rev[6200]
 
-* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - APPS/PBX: Was made changes in sql file of elxpbx database to
   fix some bugs
   SVN Rev[6199]
 
-* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - APPS/PBX: Was made changes in sql file of elxpbx database to
   fix some bugs
   SVN Rev[6198]
 
-* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in Conference Labels (spanish)
   SVN Rev[6197]
 
-* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in Recording Labels (spanish)
   SVN Rev[6195]
 
-* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in Music On Hold Labels (spanish)
   SVN Rev[6194]
 
-* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in Extensions label - title (spanish)
   SVN Rev[6192]
 
-* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 28 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in Outbound Route labels(spanish)
   SVN Rev[6191]
 
-* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in General Settings Admin labels
   filters (spanish)
   SVN Rev[6190]
 
-* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - APPS/PBX: Was made change in schema elxpbx to set defautl
   value in field host = 'dynamic' in tables sip_settings, iax_settings , sip,
   iax
   SVN Rev[6189]
 
-* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in Queues labels filters (spanish)
   SVN Rev[6187]
 
-* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - APPS/PBX: Was changed file extensions_general to add context
   im-sip
   SVN Rev[6186]
 
-* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in Extensions labels filters (spanish)
   SVN Rev[6183]
 
-* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in IVR labels filters (spanish)
   SVN Rev[6182]
 
-* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in Inbound Route labels filters
   (spanish)
   SVN Rev[6181]
 
-* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: translation in Outbound Route labels filters
   (spanish)
   SVN Rev[6180]
 
-* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/Email: translation in Did labels filters (spanish)
   SVN Rev[6179]
 
-* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Nov 27 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/Email: translation in Trunks labels filters (spanish)
   SVN Rev[6178]
 
-* Tue Nov 26 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Nov 26 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language translation add in Time Conditions
   labels(spanish)
   SVN Rev[6163]
 
-* Tue Nov 26 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Nov 26 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language translation add in Ring labels(spanish)
   SVN Rev[6162]
 
-* Tue Nov 26 2013 Rocio Mera <rmera@palosanto.com> 
-- CHANGED: TRUNK - PBX/Apps: language translation add in extensions 
+* Tue Nov 26 2013 Rocio Mera <rmera@palosanto.com>
+- CHANGED: TRUNK - PBX/Apps: language translation add in extensions
   labels(spanish)
   SVN Rev[6161]
 
-* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language translation add in Text to wav
   labels(spanish)
   SVN Rev[6156]
 
-* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language translation add in General Settings
   labels(spanish)
   SVN Rev[6155]
 
-* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language translation add in features code
   labels(spanish)
   SVN Rev[6153]
 
-* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language translation add in IVR menu (spanish)
   SVN Rev[6152]
 
-* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language translation add in trunks (spanish)
   SVN Rev[6151]
 
-* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 25 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language translation add in DID (spanish)
   SVN Rev[6150]
 
-* Fri Nov 22 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Nov 22 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language help add in did (english - spanish)
   SVN Rev[6147]
 
-* Thu Nov 21 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 21 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language help add in festival (english - spanish)
   SVN Rev[6141]
 
-* Thu Nov 21 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 21 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language help add in text to wav (english -
   spanish)
   SVN Rev[6140]
 
-* Thu Nov 21 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 21 2013 Rocio Mera <rmera@palosanto.com>
 - MOVED: TRUNK - Apps/PBX: Was moved file elxpbx/update/3_3.0.0-3_3.0.0-4.sql
   from wrong path to elxpbx/update/version_sql/3_3.0.0-3_3.0.0-4.sql
   SVN Rev[6137]
 
-* Wed Nov 20 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Nov 20 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - PBX/Apps: language help add in general setting (english -
   spanish)
   SVN Rev[6136]
 
-* Tue Nov 19 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Nov 19 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in Conference (english -
   spanish)
   SVN Rev[6130]
 
-* Tue Nov 19 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Nov 19 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in Music On Hold (english -
   spanish)
   SVN Rev[6129]
 
-* Tue Nov 19 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Nov 19 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in Features Code (english -
   spanish)
   SVN Rev[6128]
 
-* Tue Nov 19 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Nov 19 2013 Luis Abarca <labarca@palosanto.com>
 - FIXED: build - *.spec: An error in the logic of the code was unintentionally
   placed when saving the elastix's spec files.
   SVN Rev[6125]
 
-* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in Recordings (english -
   spanish)
   SVN Rev[6123]
 
-* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in Time Conditions (english -
   spanish)
   SVN Rev[6122]
 
-* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in Ring Groups (english -
   spanish)
   SVN Rev[6121]
 
-* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in queues (english - spanish)
   SVN Rev[6120]
 
-* Mon Nov 18 2013 Luis Abarca <labarca@palosanto.com> 
+* Mon Nov 18 2013 Luis Abarca <labarca@palosanto.com>
 - FIXED: build - *.spec: An extra character was unintentionally placed when
   saving the elastix's spec files.
   SVN Rev[6116]
 
-* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in extension (english - spanish)
   SVN Rev[6115]
 
-* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 18 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add IVR (english - spanish)
   SVN Rev[6113]
 
-* Fri Nov 15 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Nov 15 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in trunks (spanish)
   SVN Rev[6108]
 
-* Fri Nov 15 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Nov 15 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in inbound_route (spanish -
   english)
   SVN Rev[6107]
 
-* Fri Nov 15 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Nov 15 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in outbound_route (spanish -
   english)
   SVN Rev[6106]
 
-* Fri Nov 15 2013 Luis Abarca <labarca@palosanto.com> 
+* Fri Nov 15 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: build - *.spec: Update specfiles with the new form of use
   elastix-menumerge for each elastix module.
   SVN Rev[6104]
 
-* Fri Nov 15 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Nov 15 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in did (spanish - english)
   SVN Rev[6103]
 
-* Fri Nov 15 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Nov 15 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: language help add in trunks (spanish - english)
   SVN Rev[6102]
 
-* Thu Nov 14 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Nov 14 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK -APPS/PBX: Was made change in module extensions to incorporate
   changes that was needed to by the creation of a extra peer to chat for users
   SVN Rev[6096]
 
-* Thu Nov 14 2013 Rocio Mera <rmera@palosanto.com> 
-- CHANGED: TRUNK - Apps/PBX: Was added in elxpbx schemas tables http_ast and 
+* Thu Nov 14 2013 Rocio Mera <rmera@palosanto.com>
+- CHANGED: TRUNK - Apps/PBX: Was added in elxpbx schemas tables http_ast and
   elx_chat_config that are used in elastix_chat. Also was fixed wrong sql
   sentence
   SVN Rev[6091]
 
-* Mon Nov 11 2013 Luis Abarca <labarca@palosanto.com> 
+* Mon Nov 11 2013 Luis Abarca <labarca@palosanto.com>
 - FIXED: pbx - Build/elastix-pbx.spec: The menu.xml file and the
   extensions_override_elastix.conf file are no used anymore in Elastix MTE.
   SVN Rev[6078]
 
-* Tue Nov 05 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Nov 05 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: Was modified module my_extension in order to
   manage errors in the fields forms, to display error in field form is used
   tooltip bootstrap plugin.
   SVN Rev[6063]
 
-* Mon Nov 04 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Nov 04 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Trunk -APPS/PBX: Was made changes in module extensions to delete
   option that permited edit secret in extensions that belong to a user. Also
   added new parameters to config.
@@ -1288,12 +1292,12 @@ CHANGED : TRUNK - APPS/Pbx: The error manager was moved to general folder.
   is used to add support to web socket
   SVN Rev[6059]
 
-* Thu Oct 31 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Oct 31 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Apps/PBX: Were modified variables of error message to global
   variables for to use in others modules.
   SVN Rev[6046]
 
-* Thu Oct 24 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Oct 24 2013 Rocio Mera <rmera@palosanto.com>
   Delete: TRUNK - Apps/PBX: Was removed libraries bootstrap because it belong
   now to elastix framework
   SVN Rev[6036]
@@ -1304,27 +1308,27 @@ CHANGED : TRUNK - APPS/Pbx: The error manager was moved to general folder.
   Configurator.
   SVN Rev[6030]
 
-* Wed Oct 16 2013 Alex Villacís Lasso <a_villacis@palosanto.com> 
+* Wed Oct 16 2013 Alex Villacís Lasso <a_villacis@palosanto.com>
 - CHANGED: Inbound Route: fix typo
   SVN Rev[6017]
 
-* Tue Oct 15 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Oct 15 2013 Rocio Mera <rmera@palosanto.com>
 - DELETE: TRUNK - Apps/PBX: Module my_extension, Was deleted jquery-ui.css file
   because already exist inside common files
   SVN Rev[6012]
 
-* Tue Oct 15 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Oct 15 2013 Rocio Mera <rmera@palosanto.com>
 - ADDED: TRUNK - Apps/PBX: Was added module my_extension to /pbx/apps/frontend.
   this module display user extension configuration and allow set voicemail,
   call forward and don't disturb parameters
   SVN Rev[6011]
 
-* Mon Oct 07 2013 Luis Abarca <labarca@palosanto.com> 
+* Mon Oct 07 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: build - *.spec: Update specfile with some corrections correspondig
   to the way of remove tabs in the framework for each elastix module.
   SVN Rev[5994]
 
-* Mon Oct 07 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Oct 07 2013 Rocio Mera <rmera@palosanto.com>
 - ADDED: Trunk - Framework,Apps: Was added to framework/setup/infomodules xml
   files mysettings.xml and home.xml. This files create menu to frontend
   interface. Was also added xml menu files to apps/core/pbx,
@@ -1332,26 +1336,26 @@ CHANGED : TRUNK - APPS/Pbx: The error manager was moved to general folder.
   interface
   SVN Rev[5992]
 
-* Mon Sep 30 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Sep 30 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Trunk - Apps/PBX: Was fixed file infomodules pbxconfig. Bad order_no
   field
   SVN Rev[5962]
 
-* Mon Sep 30 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Sep 30 2013 Rocio Mera <rmera@palosanto.com>
 - DELETED: Tunk - Apps/PBX: Was deleted file menu.xml. This file was divided in
   a set of files that are stored in setup/infomodules
 - ADDED: Tunk - Apps/PBX: Was added directory infomodules. This directory store
   a xml files that are used to create elastix resources
   SVN Rev[5959]
 
-* Wed Sep 25 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Sep 25 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Trunk - Framework: Was made change in file db.info in database
   elxpbx. Was added attribute prefix
 - CHANGED: Trunk - Apps: Was made change in file db.info to elxpbx in module
   pbx, fax and email_admin
   SVN Rev[5950]
 
-* Wed Sep 25 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Sep 25 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Trunk - Additional: Was made change in script elastix-dbprocess. If
   dbprocess fail it save the sql script that fail is saved with the name
   prefix_dbname_action in case that prefix attribute is set in db.info file. If
@@ -1364,43 +1368,43 @@ CHANGED : TRUNK - APPS/Pbx: The error manager was moved to general folder.
   pbx, fax and email_admin
   SVN Rev[5949]
 
-* Wed Sep 25 2013 Rocio Mera <rmera@palosanto.com> 
+* Wed Sep 25 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Trunk - Apps: Was made change in module faxviewer to solve bug when
   there is not fax to show. Was made change in module trunk, general_settings
   and extensions to solve minor bugs
   SVN Rev[5948]
 
-* Wed Sep 25 2013 Luis Abarca <labarca@palosanto.com> 
+* Wed Sep 25 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: build - *.spec: Update specfile with some corrections correspondig
   to the way of identify and distribute folders to the '/usr/share/elastix/'
   path and '/var/www/html/' path.
   SVN Rev[5945]
 
-* Tue Sep 24 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Sep 24 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - APPS: Was made change in module general_settings to delete
   parameter useragent
   SVN Rev[5942]
 
-* Tue Sep 24 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Sep 24 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Trunk - Apps: Was made changes im module trunk, extension,
   time_group in order to solve some minors bugs
 - CHANGED: Trunk - APPS: Was made change in lib paloSantoCDR in order to
   resolve bug related with filter param
   SVN Rev[5941]
 
-* Mon Sep 23 2013 Rocio Mera <rmera@palosanto.com> 
+* Mon Sep 23 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Trunk - Apps: Was made changes in db.info in apps pbx, email_admin
   and fax. Was setting to elxpbx databases the param ingore_backup=yes in order
   to the elastix-dbprocess does not made a backup of this database and delete
   the database elxpbx. The framework create elxpbx database
   SVN Rev[5926]
 
-* Fri Sep 20 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Sep 20 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - Framework: Was fixed duplicate entry in tables sip and
   sip_settings
   SVN Rev[5925]
 
-* Fri Sep 20 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Sep 20 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: TRUNK - APPS/PBX: Was made changes in module extensions, trunk,
   general_settings, general_settings_admin to update parameters that can be
   configured in sip and iax device
@@ -1415,17 +1419,17 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   where the filter accept any text
   SVN Rev[5922]
 
-* Thu Sep 19 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Sep 19 2013 Luis Abarca <labarca@palosanto.com>
 - REMOVED: pbx - scripts,users_images: These folders must be provided by the
   email_admin module.
   SVN Rev[5903]
 
-* Thu Sep 19 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Sep 19 2013 Luis Abarca <labarca@palosanto.com>
 - REMOVED: pbx - setup/elastixdir/faxdocs: This folder must be provided by the
   fax module.
   SVN Rev[5902]
 
-* Tue Sep 17 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Sep 17 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Trunk - APPS/PBX: Was made changes in modules  monitoring,
   asterisk_cli, file_editor, text_to_wav  to adapt this module to the new
   permissions schemas and to the directory restructuration
@@ -1437,110 +1441,110 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   solve a bug that existed in dialplan generation
   SVN Rev[5893]
 
-* Thu Sep 12 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Sep 12 2013 Rocio Mera <rmera@palosanto.com>
 - ADDED: TRUNK - APPS/PBX: Was added to pbx/modules/backend module that was
   delted in commit 5877. This module has been adapted to work with the new
   group permission schema. In addition some bugs have been fixed
   SVN Rev[5878]
 
-* Thu Sep 12 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Sep 12 2013 Rocio Mera <rmera@palosanto.com>
 - DELETED: TRUNK - APPS/PBX: Was temporaly removed some modules from pbx to be
   replaced with a new implementation
   SVN Rev[5877]
 
-* Wed Sep 11 2013 Luis Abarca <labarca@palosanto.com> 
+* Wed Sep 11 2013 Luis Abarca <labarca@palosanto.com>
 - ADDED: pbx - setup/infomodules.xml/: Within this folder are placed the new
   xml files that will be in charge of creating the menus for each module.
   SVN Rev[5865]
 
-* Wed Sep 11 2013 Luis Abarca <labarca@palosanto.com> 
+* Wed Sep 11 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: pbx - modules: The modules were relocated under the new scheme that
   differentiates administrator modules and end user modules .
   SVN Rev[5864]
 
-* Fri Aug 23 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Aug 23 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Trunk - Apps/PBX: Was made changes in modules features_code and
   general_settings to quit restriction in function that set the default general
   settings and features code
   SVN Rev[5803]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/festival: code upgrade
   SVN Rev[5753]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/text_to_wav: code upgrade
   SVN Rev[5752]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/file_editor: code upgrade
   SVN Rev[5751]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/asterisk_cli: code upgrade
   SVN Rev[5750]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/extensions_batch: code upgrade
   SVN Rev[5749]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/recordings: code upgrade
   SVN Rev[5748]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/musiconhold: code upgrade
   SVN Rev[5747]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/time_conditions: code upgrade
   SVN Rev[5746]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/ring_group: code upgrade
   SVN Rev[5745]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/time_group: code upgrade
   SVN Rev[5744]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/general_settings: code upgrade
   SVN Rev[5743]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/features_code: code upgrade
   SVN Rev[5742]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/queues: code upgrade
   SVN Rev[5741]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/ivr: code upgrade
   SVN Rev[5740]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/inbound_route: code upgrade
   SVN Rev[5739]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/outbound_route: code upgrade
   SVN Rev[5738]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/extensions: code upgrade
   SVN Rev[5737]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/general_settings_admin: code upgrade
   SVN Rev[5735]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/did: code upgrade
   SVN Rev[5734]
 
-* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com> 
+* Tue Aug 13 2013 Daniel Paez <dpaez@palosanto.com>
 - CHANGED: APPS - core/pbx/modules/trunks: code upgrade
   SVN Rev[5732]
 
@@ -1550,15 +1554,15 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[5479]
 
 * Mon Jul 22 2013 Alex Villacis Lasso <a_villacis@palosanto.com>
-- FIXED: Extensions Batch: fix invalid SQL query that gets executed when an 
+- FIXED: Extensions Batch: fix invalid SQL query that gets executed when an
   extension requires a direct DID.
   SVN Rev[5387]
 
-* Wed Jul 17 2013 Luis Abarca <labarca@palosanto.com> 
+* Wed Jul 17 2013 Luis Abarca <labarca@palosanto.com>
 - ADDED: pbx - JS: Restored JS files missing in this module.
   SVN Rev[5339]
 
-* Wed Jul 17 2013 Luis Abarca <labarca@palosanto.com> 
+* Wed Jul 17 2013 Luis Abarca <labarca@palosanto.com>
 - ADDED: pbx - CSS: Restored CSS files missing in this module.
   SVN Rev[5338]
 
@@ -1566,285 +1570,285 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 - CHANGED: phpagi-asmanager.php: revert SVN commit 4252. This is not the proper
   place to run load_default_timezone(). The proper place is the script including
   this library.
-  SVN Rev[5332] 
+  SVN Rev[5332]
 - DELETED: Asterisk CLI: remove unused folder i18n
-  SVN Rev[5319]  
+  SVN Rev[5319]
 
-* Fri Jul 05 2013 Alex Villacís Lasso <a_villacis@palosanto.com> 
+* Fri Jul 05 2013 Alex Villacís Lasso <a_villacis@palosanto.com>
 - FIXED: General Settings: fix syntax errors.
   SVN Rev[5303]
 
-* Fri Jul 05 2013 Rocio Mera <rmera@palosanto.com> 
+* Fri Jul 05 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGES: APPS - PBX: Was made changes in modules did features_code
   general_settings to add elastix restructuration directory. Also was made
   changes in privaliged script asteriskconfig
   SVN Rev[5299]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - voicemail/: It was corrected a configuration in the web
   folder.
   SVN Rev[5265]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - trunks/: It was corrected a configuration in the web folder.
   SVN Rev[5264]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - time_group/: It was corrected a configuration in the web
   folder.
   SVN Rev[5263]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - time_conditions/: It was corrected a configuration in the
   web folder.
   SVN Rev[5262]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - text_to_wav/: It was corrected a configuration in the web
   folder.
   SVN Rev[5261]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - ring_group/: It was corrected a configuration in the web
   folder.
   SVN Rev[5260]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - recordings/: It was corrected a configuration in the web
   folder.
   SVN Rev[5259]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - queues/: It was corrected a configuration in the web folder.
   SVN Rev[5258]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - outbound_route/: It was corrected a configuration in the web
   folder.
   SVN Rev[5257]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - musiconhold/: It was corrected a configuration in the web
   folder.
   SVN Rev[5256]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - monitoring/: It was corrected a configuration in the web
   folder.
   SVN Rev[5255]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - ivr/: It was corrected a configuration in the web folder.
   SVN Rev[5254]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - inbound_route/: It was corrected a configuration in the web
   folder.
   SVN Rev[5253]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - general_settings_admin/: It was corrected a configuration in
   the web folder.
   SVN Rev[5252]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - general_settings/: It was corrected a configuration in the
   web folder.
   SVN Rev[5251]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - file_editor/: It was corrected a configuration in the web
   folder.
   SVN Rev[5250]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - festival/: It was corrected a configuration in the web
   folder.
   SVN Rev[5249]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - features_code/: It was corrected a configuration in the web
   folder.
   SVN Rev[5248]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - extensions_batch/: It was corrected a configuration in the
   web folder.
   SVN Rev[5247]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - extensions/: It was corrected a configuration in the web
   folder.
   SVN Rev[5246]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - endpoints_batch/: It was corrected a configuration in the
   web folder.
   SVN Rev[5245]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - endpoint_configurator/: It was corrected a configuration in
   the web folder.
   SVN Rev[5244]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - did/: It was corrected a configuration in the web folder.
   SVN Rev[5243]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - control_panel/: It was corrected a configuration in the web
   folder.
   SVN Rev[5242]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - conference/: It was corrected a configuration in the web
   folder.
   SVN Rev[5241]
 
-* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com> 
+* Thu Jul 04 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - asterisk_cli/: It was corrected a configuration in the web
   folder.
   SVN Rev[5240]
 
 * Thu Jul 04 2013 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: Endpoint Configurator: rename SQL file for update which was incorrectly
-  named. This will prevent the update from being applied twice when updating 
+  named. This will prevent the update from being applied twice when updating
   from 2.4.0-1 to versions later than 2.4.0-7. Partially fixes Elastix bug #1618.
   SVN Rev[5213]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - voicemail/: The svn repository for module voicemail in trunk
   (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5178]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - trunks/: The svn repository for module trunks in trunk (Elx
   3) was restructured in order to accomplish a new schema.
   SVN Rev[5177]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - time_group/: The svn repository for module time_group in
   trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5176]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - time_conditions/: The svn repository for module
   time_conditions in trunk (Elx 3) was restructured in order to accomplish a
   new schema.
   SVN Rev[5175]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - text_to_wav/: The svn repository for module text_to_wav in
   trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5174]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - ring_group/: The svn repository for module ring_group in
   trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5173]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - recordings/: The svn repository for module recordings in
   trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5172]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - queues/: The svn repository for module queues in trunk (Elx
   3) was restructured in order to accomplish a new schema.
   SVN Rev[5171]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - outbound_route/: The svn repository for module
   outbound_route in trunk (Elx 3) was restructured in order to accomplish a new
   schema.
   SVN Rev[5170]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - musiconhold/: The svn repository for module musiconhold in
   trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5169]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - monitoring/: The svn repository for module monitoring in
   trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5168]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - ivr/: The svn repository for module ivr in trunk (Elx 3) was
   restructured in order to accomplish a new schema.
   SVN Rev[5167]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - inbound_route/: The svn repository for module inbound_route
   in trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5166]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - general_settings_admin/: The svn repository for module
   general_settings_admin in trunk (Elx 3) was restructured in order to
   accomplish a new schema.
   SVN Rev[5165]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - general_settings/: The svn repository for module
   general_settings in trunk (Elx 3) was restructured in order to accomplish a
   new schema.
   SVN Rev[5164]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - file_editor/: The svn repository for module file_editor in
   trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5163]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - festival/: The svn repository for module festival in trunk
   (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5162]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - features_code/: The svn repository for module features_code
   in trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5161]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - extensions_batch/: The svn repository for module
   extensions_batch in trunk (Elx 3) was restructured in order to accomplish a
   new schema.
   SVN Rev[5160]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - extensions/: The svn repository for module extensions in
   trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5159]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - endpoints_batch/: The svn repository for module
   endpoints_batch in trunk (Elx 3) was restructured in order to accomplish a
   new schema.
   SVN Rev[5158]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - endpoint_configurator/: The svn repository for module
   endpoint_configurator in trunk (Elx 3) was restructured in order to
   accomplish a new schema.
   SVN Rev[5157]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - did/: The svn repository for module did in trunk (Elx 3) was
   restructured in order to accomplish a new schema.
   SVN Rev[5156]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - control_panel/: The svn repository for module control_panel
   in trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5155]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - conference/: The svn repository for module conference in
   trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5154]
 
-* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com> 
+* Tue Jul 02 2013 Luis Abarca <labarca@palosanto.com>
 - CHANGED: trunk - asterisk_cli/: The svn repository for module asterisk_cli in
   trunk (Elx 3) was restructured in order to accomplish a new schema.
   SVN Rev[5153]
@@ -1858,7 +1862,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 - FIXED: General Settings: fix trivial syntax error.
   SVN Rev[5115]
 
-* Thu Jun 20 2013 Rocio Mera <rmera@palosanto.com> 
+* Thu Jun 20 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Trunk - Apps: Was made chanes in elxpbx databse schema. This
   database contain data from pbx and now is integrated with framework database.
 - CHANGED: Trunk - Apps: Was made change in privileged script asteriskconfig,
@@ -1878,17 +1882,17 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   in session at construction of PaloSantoFileEndPoint.
   SVN Rev[5107]
 
-* Thu Jun 13 2013 Alberto Santos <asantos@palosanto.com> 
+* Thu Jun 13 2013 Alberto Santos <asantos@palosanto.com>
 - FIXED: script hangup.agi. Fixed a missplaced code at line 89. Also changed
   the method to call the scripts.
   SVN Rev[5095]
 
-* Wed Jun 12 2013 Jose Briones <jbriones@palosanto.com> 
+* Wed Jun 12 2013 Jose Briones <jbriones@palosanto.com>
 - ADDED: Added new file of sql commands for the new phone Grandstream GXP2200
   in endpoint database.
   SVN Rev[5090]
 
-* Wed Jun 12 2013 Jose Briones <jbriones@palosanto.com> 
+* Wed Jun 12 2013 Jose Briones <jbriones@palosanto.com>
 - UPDATE: Module endpoint_configurator, Support for GXP2200 was added, and
   support for GXV3140 was improved.
   SVN Rev[5088]
@@ -1900,7 +1904,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 
 * Tue Jun 04 2013 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: Endpoint Configurator: search of extension given IP can falsely match
-  another IP of which the target IP is a prefix. Fixed. Fixes part of Elastix 
+  another IP of which the target IP is a prefix. Fixed. Fixes part of Elastix
   bug #1570.
   SVN Rev[5052]
 
@@ -1920,7 +1924,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[4999]
 - FIXED: Batch of Endpoints: remove unnecessary and risky copy of uploaded file.
   Pointed out by Fortify report.
-  SVN Rev[4998] 
+  SVN Rev[4998]
 
 * Tue May 21 2013 Alex Villacis Lasso <a_villacis@palosanto.com>
 - CHANGED: Asterisk CLI: rewrite to use escapeshellarg properly instead of
@@ -1952,14 +1956,14 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 - FIXED: Conference: validate several conference parameters before building AMI
   requests with them. Fixes Elastix bug #1551.
   SVN Rev[4915]
-- CHANGED: pbx - Build/elastix-pbx.spec: Was added in the post section the 
+- CHANGED: pbx - Build/elastix-pbx.spec: Was added in the post section the
   creation of file /etc/asterisk/vm_general_custom.conf.
 
 * Mon May 06 2013 Alex Villacis Lasso <a_villacis@palosanto.com>
-- FIXED: Voicemail: check that voicemail password is numeric before writing 
+- FIXED: Voicemail: check that voicemail password is numeric before writing
   configuration. Fixes Elastix bug #1547.
   SVN Rev[4886]
-- FIXED: Voicemail: check that specified extension belongs to user before 
+- FIXED: Voicemail: check that specified extension belongs to user before
   deleting voicemail. Fixes Elastix bug #1546.
   SVN Rev[4885]
 
@@ -1986,7 +1990,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN history. Changed version and release in specfile.
   SVN Rev[4807]
 
-* Tue Apr 09 2013 Rocio Mera <rmera@palosanto.com> 
+* Tue Apr 09 2013 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Apps - PBX: Was updated spec file in order to set appropiate
   permission to file odbc.ini that was added in commit 4802.
   SVN Rev[4803]
@@ -2027,13 +2031,13 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[4784]
 
 * Thu Mar 14 2013 Alex Villacis Lasso <a_villacis@palosanto.com>
-- FIXED: Batch of Extensions: the keywords that encode the recording options 
+- FIXED: Batch of Extensions: the keywords that encode the recording options
   must be written to the database with capital first letter. Fixes rest of
-  Elastix bug #1435. 
+  Elastix bug #1435.
   SVN Rev[4755]
 
 * Thu Mar 14 2013 Alex Villacis Lasso <a_villacis@palosanto.com>
-- FIXED: Batch of Extensions: relax extension secret validation to match the 
+- FIXED: Batch of Extensions: relax extension secret validation to match the
   validations performed by the FreePBX javascript checks. Fixes part of Elastix
   bug #1435.
   SVN Rev[4754]
@@ -2258,7 +2262,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[4512]
 
 * Tue Dec 11 2012 Alex Villacis Lasso <a_villacis@palosanto.com>
-- FIXED: Batch of Extensions: if individual extensions list a blank context, 
+- FIXED: Batch of Extensions: if individual extensions list a blank context,
   assume from-internal. Fixes Elastix bug #854.
   SVN Rev[4509]
 
@@ -2298,7 +2302,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   stream the output of text2wave directly without creating a downloadable file
   in a web directory. This removes one requirement for a web directory that is
   both readable and writable by the httpd user.
-  SVN Rev[4486] 
+  SVN Rev[4486]
 
 * Fri Nov 30 2012 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Framework - DB/elastix: Was deleted permission to superadmin to
@@ -2453,14 +2457,14 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[4363]
 
 * Wed Oct 17 2012 Alex Villacis Lasso <a_villacis@palosanto.com>
-- Framework,Modules: remove temporary file preversion_MODULE.info under 
+- Framework,Modules: remove temporary file preversion_MODULE.info under
   /usr/share/elastix/module_installer/MODULE_VERSION/ which otherwise prevents
-  proper cleanup of /usr/share/elastix/module_installer/MODULE_VERSION/ on 
+  proper cleanup of /usr/share/elastix/module_installer/MODULE_VERSION/ on
   RPM update. Part of the fix for Elastix bug #1398.
 - Framework,Modules: switch as many files and directories as possible under
-  /var/www/html to root.root instead of asterisk.asterisk. Partial fix for 
+  /var/www/html to root.root instead of asterisk.asterisk. Partial fix for
   Elastix bug #1399.
-- Framework,Modules: clean up specfiles by removing directories under 
+- Framework,Modules: clean up specfiles by removing directories under
   /usr/share/elastix/module_installer/MODULE_VERSION/setup/ that wind up empty
   because all of their files get moved to other places.
 - Endpoint Configurator: install new configurator properly instead of leaving
@@ -2468,9 +2472,9 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[4347]
 
 * Mon Oct 15 2012 Alex Villacis Lasso <a_villacis@palosanto.com>
-- CHANGED: Endpoint Configurator: allow listmacip to be interrupted via a 
+- CHANGED: Endpoint Configurator: allow listmacip to be interrupted via a
   signal in order to implement cancellation of runaway network scans.
-  SVN Rev[4341] 
+  SVN Rev[4341]
 
 * Fri Sep 28 2012 Rocio Mera <rmera@palosanto.com>
 - CHANGED: Apps - PBX: Was assigned A DID to call incoming from analog channels
@@ -2744,7 +2748,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   file extensions_override_elastix.conf. This agi intends to be an
   intermediary between addons scripts that needs information about a
   call as soon as it is hang up. This addons_scripts must be in path
-  /usr/local/elastix/addons_scripts 
+  /usr/local/elastix/addons_scripts
   SVN Rev[4114]
 - CHANGED: Module Batch of Extensions: By downloading the csv file
   batch of Extensions reflects the Record Incoming and Record Outgoing
@@ -2793,7 +2797,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   This new utility runs from /usr/bin/elastix-endpoint-configure. The program
   aims to introduce a new architecture for endpoint configuration, with better
   encapsulation of vendor-specific operations, and with an emphasis on parallel
-  configuration of multiple endpoints for speed. The ultimate goal is to enable 
+  configuration of multiple endpoints for speed. The ultimate goal is to enable
   the quick configuration of hundreds of phones at once.
   SVN Rev[4075]
 
@@ -2802,12 +2806,12 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   MAC range taken from http://www.base64online.com/mac_address.php?mac=00:0B:EA
 
 * Tue Jul 17 2012 Alex Villacis Lasso <a_villacis@palosanto.com>
-- FIXED: Endpoint Configurator: for Cisco phones, syncinfo.xml must contain 
+- FIXED: Endpoint Configurator: for Cisco phones, syncinfo.xml must contain
   <SYNCINFO> and </SYNCINFO> tags, else Cisco phone will not reboot.
   SVN Rev[4065]
 
 * Tue Jul 03 2012 Alex Villacis Lasso <a_villacis@palosanto.com>
-- FIXED: Endpoint Batch: Properly figure out network mask for local network 
+- FIXED: Endpoint Batch: Properly figure out network mask for local network
   instead of hardcoding a /24 network mask. SVN Rev[4037]
 
 * Fri Jun 29 2012 Luis Abarca <labarca@palosanto.com> 2.3.0-12
@@ -2826,9 +2830,9 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 * Thu Jun 28 2012 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: Endpoint Configurator: Remove stray print_r.
   SVN Rev[4018]
-  
+
 * Wed Jun 27 2012 German Macas <gmacas@palosanto.com>
-- CHANGED : modules - endpoint_configurator: Add function and sql statement to 
+- CHANGED : modules - endpoint_configurator: Add function and sql statement to
   set the new model Yealink VP530 from Endpoint Configurator.
   SVN Rev[4014]
 
@@ -2849,22 +2853,22 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[4009]
 
 * Tue Jun 12 2012 Alex Villacis Lasso <a_villacis@palosanto.com>
-- FIXED: Endpoint Configurator: Properly figure out network mask for local 
+- FIXED: Endpoint Configurator: Properly figure out network mask for local
   network instead of hardcoding a /24 network mask. SVN Rev[3993]
 - FIXED: Endpoint Configurator: Relax pattern matching in listmacip script to
   account for differences in output format in nmap from CentOS to Fedora 17.
   SVN Rev[3992]
 - FIXED: Endpoint Configurator: Use ip addr show instead of ifconfig to get
-  size of network mask for endpoint scan. Required for compatibility with 
+  size of network mask for endpoint scan. Required for compatibility with
   Fedora 17.
   SVN Rev[3989]
 
 * Mon Jun 11 2012 Sergio Broncano <sbroncano@palosanto.com>
-- ADD: MODULE endpoints_batch, Parent menu is created second level called "Endpoints". 
-  with their respective classification Batch of Extensions, Endpoint Configurator become 
-  the third-level menu, menu is also added a third level called Batch Enpoints enabling 
-  mass configuration enpoints so fast, taking as input: subnet where the endpoints are 
-  connected and a file (. csv) file that contains configuration parameters such as 
+- ADD: MODULE endpoints_batch, Parent menu is created second level called "Endpoints".
+  with their respective classification Batch of Extensions, Endpoint Configurator become
+  the third-level menu, menu is also added a third level called Batch Enpoints enabling
+  mass configuration enpoints so fast, taking as input: subnet where the endpoints are
+  connected and a file (. csv) file that contains configuration parameters such as
   (Vendor, Model, MAC, Ext, IP, Mask, GW, DNS1, DNS2, Bridge, Time Zone).
   SVN Rev[3985]
 
@@ -2873,14 +2877,14 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[3971]
 
 * Tue Jun 05 2012 Alex Villacis Lasso <a_villacis@palosanto.com>
-- FIXED: installer.php: stop leaving temporary file /tmp/trunk_dump.sql around 
+- FIXED: installer.php: stop leaving temporary file /tmp/trunk_dump.sql around
   after install or update.
 - FIXED: installer.php: stop leaving temporary file /var/www/db/trunk-pbx.db
   around on most install/update scenarios.
-  SVN Rev[3959] 
+  SVN Rev[3959]
 
 * Mon Jun 04 2012 Alex Villacis Lasso <a_villacis@palosanto.com> 2.3.0-10
-- FIXED: Changed specfile so that several files are explicitly set as 
+- FIXED: Changed specfile so that several files are explicitly set as
   executable. Fixes Elastix bugs #1291, #1292.
 
 * Fri Jun 01 2012 Alex Villacis Lasso <a_villacis@palosanto.com>
@@ -2889,16 +2893,16 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 - CHANGED: Use ASTSPOOLDIR instead of hardcoded /var/spool/asterisk.
 
 * Mon May 28 2012 Sergio Broncano <sbroncano@palosanto.com> 2.3.0-9
-- CHANGED: MODULES - PBX/EXTENSION_BATCH: The following fields were added 
-  callgroup, pickupgroup, disallow, allow, deny, permit, Record Incoming, 
-  Outgoing Record in extensiones.csv file to upload and download. 
+- CHANGED: MODULES - PBX/EXTENSION_BATCH: The following fields were added
+  callgroup, pickupgroup, disallow, allow, deny, permit, Record Incoming,
+  Outgoing Record in extensiones.csv file to upload and download.
   SVN Rev[3940]
 
 * Mon May 07 2012 Rocio Mera <rmera@palosanto.com> 2.3.0-8
 - UPDATED: UPDATED in specfile to release 8
 
 * Thu May 03 2012 Alex Villacis Lasso <a_villacis@palosanto.com>
-- FIXED: Conference: Check the context variable MEETME_ACTUAL_RECORDINGFILE 
+- FIXED: Conference: Check the context variable MEETME_ACTUAL_RECORDINGFILE
   alongside MEETME_RECORDINGFILE in order to decide whether a MeetMe recording
   exists. Before this check, CBMySQL conferences end up marking a recording as
   available in Monitoring report when no recording actually exists.
@@ -2952,7 +2956,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   CentOS and 'COLUMN' in Fedora. Query needs to explicitly set the column name
   and perform conversion to the expected format.
   SVN Rev[3806]
-- FIXED: modules - SQLs DB: se quita SQL redundante de alter table y nuevos 
+- FIXED: modules - SQLs DB: se quita SQL redundante de alter table y nuevos
   registros, esto causaba un error leve en la instalación de el/los modulos.
   SVN Rev[3797]
 
@@ -3028,12 +3032,12 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 
 * Wed Feb 1 2012 Rocio Mera <rmera@palosanto.com> 2.2.0-26
 - CHANGED: In spec file, changed prereq elastix-framework >= 2.2.0-30
-- CHANGED: file index.php to fixed the problem with the paged 
+- CHANGED: file index.php to fixed the problem with the paged
   to show callers of conference. SVN Rev[3623].
 - CHANGED: file index.php to fixed the problem with the paged
   SVN Rev[3620].
 - CHANGED: file index.php to fixed the problem with the paged.
-  SVN Rev[3617]. SVN Rev[3616]. SVN Rev[3610]. 
+  SVN Rev[3617]. SVN Rev[3616]. SVN Rev[3610].
 
 * Mon Jan 30 2012 Alberto Santos <asantos@palosanto.com> 2.2.0-25
 - CHANGED: In spec file, changed prereq elastix-framework >= 2.2.0-29
@@ -3043,19 +3047,19 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 * Sat Jan 28 2012 Rocio Mera <rmera@palosanto.com> 2.2.0-24
 - CHANGED: In spec file, changed prereq elastix-framework >= 2.2.0-28
 - CHANGED: Added support for the new grid design. SVN Rev[3576].
-- CHANGED: modules - images: icon image title was changed on some 
+- CHANGED: modules - images: icon image title was changed on some
   modules. SVN Rev[3572].
-- CHANGED: modules - trunk/core/pbx/modules/monitoring/index.php: 
-  Se modifico los archivos index.php para corregir problema con 
+- CHANGED: modules - trunk/core/pbx/modules/monitoring/index.php:
+  Se modifico los archivos index.php para corregir problema con
   botondeleted. SVN Rev[3570]. SVN Rev[3568].
 - CHANGED: modules - icons: Se cambio de algunos módulos los iconos
   que los representaba. SVN Rev[3563].
-- CHANGED: modules - * : Cambios en ciertos mòdulos que usan grilla 
-  para mostrar ciertas opciones fuera del filtro, esto debido al 
+- CHANGED: modules - * : Cambios en ciertos mòdulos que usan grilla
+  para mostrar ciertas opciones fuera del filtro, esto debido al
   diseño del nuevo filtro. SVN Rev[3549].
 - CHANGED: Modules - PBX: Added support for the new grid layout.
   SVN Rev[3548].
-- UPDATED: modules - *.tpl: Se elimino en los archivos .tpl de 
+- UPDATED: modules - *.tpl: Se elimino en los archivos .tpl de
   ciertos módulos que tenian una tabla demás en su diseño de filtro
   que formaba parte de la grilla. SVN Rev[3541].
 
@@ -3109,13 +3113,13 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 
 * Tue Dec 20 2011 Eduardo Cueva <ecueva@palosanto.com> 2.2.0-19
 - CHANGED: In spec file, changed prereq to elastix-framework >= 2.2.0-23
-- FIXED: When export a csv file extensions, not export well voicemails fields, 
-  the problem was because the path was not sent to find if the extension had 
+- FIXED: When export a csv file extensions, not export well voicemails fields,
+  the problem was because the path was not sent to find if the extension had
   a voicemail active.. SVN Rev[3458]
 
 * Thu Dec 08 2011 Eduardo Cueva <ecueva@palosanto.com> 2.2.0-18
 - CHANGED: In spec file, changed prereq to elastix-framework >= 2.2.0-21
-- FIXED: Festival: Use 'pidof' instead of 'service festival status' 
+- FIXED: Festival: Use 'pidof' instead of 'service festival status'
   to work around https://bugzilla.redhat.com/show_bug.cgi?id=684881
   SVN Rev[3431]
 
@@ -3174,17 +3178,17 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 
 * Wed Nov 23 2011 Alberto Santos <asantos@palosanto.com> 2.2.0-16
 - CHANGED: In spec file, changed prereq elastix >= 2.2.0-17
-- FIXED: module voicemail, wrong concatenation of variable 
+- FIXED: module voicemail, wrong concatenation of variable
   $contenidoModulo, consecuence of this the filter is showed twice
   SVN Rev[3353]
 
 * Tue Nov 22 2011 Eduardo Cueva <ecueva@palosanto.com> 2.2.0-15
 - CHANGED: In spec file, changed prereq elastix >= 2.2.0-15
 - FIXED: Voicemail: remove nested <form> tag. SVN Rev[3270]
-- CHANGED: module endpoint_configurator, extensions showed 
-  in field "Current Extension" are unregistered when the 
+- CHANGED: module endpoint_configurator, extensions showed
+  in field "Current Extension" are unregistered when the
   button set is pressed. SVN Rev[3267]
-- CHANGED: module endpoint_configurator, changed width and 
+- CHANGED: module endpoint_configurator, changed width and
   align in input for discovering endpoints. SVN Rev[3263]
 
 * Tue Nov 01 2011 Alberto Santos <asantos@palosanto.com> 2.2.0-14
@@ -3230,7 +3234,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[3147]
 
 * Mon Oct 17 2011 Eduardo Cueva <ecueva@palosanto.com> 2.2.0-11
-- CHANGED: module endpoint_configurator, when a patton does not 
+- CHANGED: module endpoint_configurator, when a patton does not
   have 2 ethernet ports, the WAN options are not displayed.
   SVN Rev[3087]
 - CHANGED: module recordings, added information. SVN Rev[3082]
@@ -3268,10 +3272,10 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 - ADDED: module endpoint_configurator, added the option for
   patton configuration
   SVN Rev[2985]
-- ADDED: added script sql for database endpoint, it creates 
+- ADDED: added script sql for database endpoint, it creates
   a new table called settings_by_country and added the vendor Patton
   SVN Rev[2984]
-- CHANGED: Conference: add new method required for verification 
+- CHANGED: Conference: add new method required for verification
   of date range. Part of fix for Elastix bug #937.
   SVN Rev[2983]
 - FIXED: Embedded FreePBX: include jquery.toggleval if available,
@@ -3281,7 +3285,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   with nested draggables, as detailed in http://bugs.jqueryui.com/ticket/4333.
   Applied workaround suggested in bug report.
   SVN Rev[2980]
-- FIXED: Elastix Operator Panel: fix incorrect regular expression 
+- FIXED: Elastix Operator Panel: fix incorrect regular expression
   that missed extension names with dashes.
   SVN Rev[2979]
 - CHANGED: Elastix Operator Panel: remove comment and trailing comma
@@ -3306,7 +3310,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[2959]
 - FIXED: module recordings, variable $pDB and $filename were not defined
   SVN Rev[2957]
-- CHANGED: module recordings, database address_book.db is not 
+- CHANGED: module recordings, database address_book.db is not
   used. Deleted any relation with that database
   SVN Rev[2954]
 
@@ -3342,7 +3346,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 * Fri Aug 26 2011 Alberto Santos <asantos@palosanto.com> 2.2.0-3
 - CHANGED: In spec file, changed prereq elastix >= 2.2.0-2
 - ADDED: In spec file, added prereq elastix-system >= 2.2.0-5
-- CHANGED: PBX: Return a diagnostic message instead of exiting 
+- CHANGED: PBX: Return a diagnostic message instead of exiting
   when some FreePBX issue disables all modules.
   SVN Rev[2910]
 - CHANGED: installer.php, the trunks created in voipprovider
@@ -3362,7 +3366,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 
 * Tue Aug 02 2011 Alberto Santos <asantos@palosanto.com> 2.2.0-1
 - ADDED: In Spec file added requires festival >= 1.95
-- FIXED: module festival, informative message was not displayed. 
+- FIXED: module festival, informative message was not displayed.
   The error was fixed and now it is displayed
   SVN Rev[2863]
 
@@ -3370,28 +3374,28 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 * Fri Jul 29 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-28
 - CHANGED: in spec file changed prereq elastix >= 2.0.4-30
 - ADDED: pbx setup/db, sql script to add iax support. SVN Rev[2842]
-- ADDED: pbx setub, added the script that searchs for patton 
+- ADDED: pbx setub, added the script that searchs for patton
   devices. SVN Rev[2841]
-- ADDED: module endpoint_configurator, added support iax 
+- ADDED: module endpoint_configurator, added support iax
   (on phones that support it), also added support to smartnodes.
   SVN Rev[2840]
-- FIXED: extensions_override_elastix.conf, when the audio file 
+- FIXED: extensions_override_elastix.conf, when the audio file
   is not created the field userfield is set empty in the database
   SVN Rev[2821]
-- FIXED: module monitoring, when user is not admin the filter 
+- FIXED: module monitoring, when user is not admin the filter
   options dissapear. Now those options remains with any user.
   SVN Rev[2820]
-- CHANGED: module festival, the button save was eliminated, now 
+- CHANGED: module festival, the button save was eliminated, now
   when user press on or off automatically make the action. SVN Rev[2798]
-- CHANGED: module voicemail, changed message when user does not 
+- CHANGED: module voicemail, changed message when user does not
   have an extension associated. SVN Rev[2794]
-- CHANGED: module monitoring, changed message when a user does 
+- CHANGED: module monitoring, changed message when a user does
   not have an extension associated. SVN Rev[2793]
-- CHANGED: module voicemail, when the user does not have an 
+- CHANGED: module voicemail, when the user does not have an
   extension associated, a link appear to assign one extension.
   SVN Rev[2790]
-- CHANGED: module monitoring, The link here 
-  (when a user does not have an extension) now open a new window to 
+- CHANGED: module monitoring, The link here
+  (when a user does not have an extension) now open a new window to
   edit the extension of the user logged in. SVN Rev[2788]
 - ADDED: module extensions_batch, added iax2 support. SVN Rev[2774]
 
@@ -3400,23 +3404,23 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   is started that is the maximum time delay. SVN Rev[2764]
 
 * Mon Jun 13 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-26
-- CHANGED: In spec file change prereq freepbx >= 2.8.1-1 and 
+- CHANGED: In spec file change prereq freepbx >= 2.8.1-1 and
   elastix >= 2.0.4-24
-- CHANGED: Modules - Trunk: The ereg function was replaced by the 
-  preg_match function due to that the ereg function was deprecated 
+- CHANGED: Modules - Trunk: The ereg function was replaced by the
+  preg_match function due to that the ereg function was deprecated
   since PHP 5.3.0. SVN Rev[2688]
-- FIXED: module festival, wrong informative message the file 
-  modified is /usr/share/festival/festival.scm and not 
+- FIXED: module festival, wrong informative message the file
+  modified is /usr/share/festival/festival.scm and not
   /usr/share/elastix/elastix.scm. SVN Rev[2669]
-- CHANGED: The split function of these modules was replaced by the 
-  explode function due to that the split function was deprecated 
+- CHANGED: The split function of these modules was replaced by the
+  explode function due to that the split function was deprecated
   since PHP 5.3.0. SVN Rev[2650]
 
 * Wed May 18 2011 Alberto Santos <asantos@palosanto.com> 2.0.4-25
 - CHANGED: change prereq of freePBX to 2.8.0-3
 
 * Wed May 18 2011 Alberto Santos <asantos@palosanto.com> 2.0.4-24
-- CHANGED: module pbxadmin, library contentFreePBX.php updated with 
+- CHANGED: module pbxadmin, library contentFreePBX.php updated with
   the last code in pbxadmin
   SVN Rev[2646]
 - CHANGED: module pbxadmin, created a library that gets the content
@@ -3453,11 +3457,11 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[2626]
 
 * Thu May 05 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-22
-- FIXED:    module pbxadmin, IVR did not displayed extensions, 
-  conferences, trunks, etc. Now that information is displayed 
+- FIXED:    module pbxadmin, IVR did not displayed extensions,
+  conferences, trunks, etc. Now that information is displayed
   according to the option selected in the combo box. SVN Rev[2620]
-- CHANGED:  PBX - monitoring: Changed  value of 
-  $arrConfModule['module_name'] = 'monitoring2' to 
+- CHANGED:  PBX - monitoring: Changed  value of
+  $arrConfModule['module_name'] = 'monitoring2' to
   $arrConfModule['module_name'] = 'monitoring' in default.conf.php
   SVN Rev[2591]
 
@@ -3491,85 +3495,85 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 - CHANGED: In Spec file, moved the files festival and sip_notify_custom_elastix.conf
 
 * Wed Apr 13 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-20
-- FIXED: pbx - extension_batch: Removed download_csv.php, this file 
-  was removed in commit 1550 but this file was put in this package 
+- FIXED: pbx - extension_batch: Removed download_csv.php, this file
+  was removed in commit 1550 but this file was put in this package
   by error in the rpm version 2.0.4-19.
-- ADDED: module endpoint_configurator, added the vendor LG-ERICSSON 
+- ADDED: module endpoint_configurator, added the vendor LG-ERICSSON
   and the model IP8802A. SVN Rev[2536][2537]
-- CHANGED: module endpoint_configurator, changed model names for 
+- CHANGED: module endpoint_configurator, changed model names for
   phones Yealink. SVN Rev[2527][2529][2530]
-- ADDED: module endpoint_configurator, added support for 
+- ADDED: module endpoint_configurator, added support for
   phones Yealink models T20, T22, T26 and T28. SVN Rev[2518][2519]
 
 * Tue Apr 04 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-19
-- FIXED: module voipprovider, undefined data was set to the 
-  combo box. Added a validation for default values in case of 
+- FIXED: module voipprovider, undefined data was set to the
+  combo box. Added a validation for default values in case of
   an undefined data. SVN Rev[2507]
 
 * Mon Apr 04 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-18
-- FIXED: module control_panel, when the area is empty, a box 
+- FIXED: module control_panel, when the area is empty, a box
   can not be dropped. Now it can. SVN Rev[2498]
 
 * Thu Mar 31 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-17
-- FIXED: Error to install databases of sqlite in "process of 
-  installation" because in spec file when mysql is down this 
-  event is sending to "first-boot" but only mysql scripts and 
+- FIXED: Error to install databases of sqlite in "process of
+  installation" because in spec file when mysql is down this
+  event is sending to "first-boot" but only mysql scripts and
   not sqlite.
 
 * Thu Mar 31 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-16
-- FIXED: Module Conference, database meetme, bad defintion sql 
+- FIXED: Module Conference, database meetme, bad defintion sql
   script was fixed. SVN Rev[2477]
 
 * Tue Mar 29 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-15
-- ADDED: module voicemail, added a new validation in case the 
+- ADDED: module voicemail, added a new validation in case the
   path file does not exist when writing the file voicemail.conf.
   SVN Rev[2469]
 
 * Thu Mar 03 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-14
-- CHANGED: module voipprovider, now the provider net2phone is 
+- CHANGED: module voipprovider, now the provider net2phone is
   the first in the list of providers. SVN Rev[2391]
-- ADDED:  file .sql to create a new column called orden in the 
-  table provider of the database trunk.db also the orden field 
+- ADDED:  file .sql to create a new column called orden in the
+  table provider of the database trunk.db also the orden field
   was set for each provider. SVN Rev[2390]
 
 * Tue Mar 01 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-13
 - CHANGED: in Spec file change prereq elastix>=2.0.4-10
-- ADDED: module control_panel, added a loading image until all 
-  the boxes are loaded, also the info window was reduced. 
+- ADDED: module control_panel, added a loading image until all
+  the boxes are loaded, also the info window was reduced.
   SVN Rev[2385]
-- CHANGED: module voipprovider, voipprovider now insert the 
-  data in the database of freepbx and automatically reload 
+- CHANGED: module voipprovider, voipprovider now insert the
+  data in the database of freepbx and automatically reload
   asterisk files. SVN Rev[2384]
-- ADDED: database trunk, added a column called id_trunk in 
+- ADDED: database trunk, added a column called id_trunk in
   table provider_account. SVN Rev[2382]
-- FIXED: module voipprovider, the edit mode did not show the 
+- FIXED: module voipprovider, the edit mode did not show the
   data of the account. Now the data is showed. SVN REV[2380]
-- FIXED: module voipprovider, fixed the problem of moving down 
-  the peer settings options when the width of the browser is 
+- FIXED: module voipprovider, fixed the problem of moving down
+  the peer settings options when the width of the browser is
   smaller. SVN Rev[2378]
-- ADDED: module file_editor, added a new button called 
-  "Reload Asterisk" that applies the command module reload to 
+- ADDED: module file_editor, added a new button called
+  "Reload Asterisk" that applies the command module reload to
   asterisk. SVN Rev[2376]
-- CHANGED: module endpoint_configurator, added a message when 
+- CHANGED: module endpoint_configurator, added a message when
   the files are configurated. SVN Rev[2373]
-- CHANGED: module enpoint_configurator, changed the field status 
-  to current extension which shows the extension to which is 
+- CHANGED: module enpoint_configurator, changed the field status
+  to current extension which shows the extension to which is
   registered the phone. SVN Rev[2371]
-- FIXED:   Error to try to renove database meetme, change action 
+- FIXED:   Error to try to renove database meetme, change action
   "drop table meetme" to "drop database meetme". SVN Rev[2365]
-- CHANGED: module voipprovider, added a checkbox called advanced 
-  that when is checked displays the PEER Setting options. 
+- CHANGED: module voipprovider, added a checkbox called advanced
+  that when is checked displays the PEER Setting options.
   SVN Rev[2358]
-- ADDED: module endpoint_configurator, added the configuration 
-  for the vendor AudioCodes with models 310HD and 320HD. 
+- ADDED: module endpoint_configurator, added the configuration
+  for the vendor AudioCodes with models 310HD and 320HD.
   SVN Rev[2356]
-- FIXED: module control_panel, the extensions on the area 1,2 
-  and 3 didnt show the status also when you call to a conference 
-  or a number that is not an extension the call destiny didn't 
+- FIXED: module control_panel, the extensions on the area 1,2
+  and 3 didnt show the status also when you call to a conference
+  or a number that is not an extension the call destiny didn't
   display. All those problems were fixed. SVN Rev[2355]
-- FIXED:  PBX - control Panel: Error in script.sql to update 
-  control panel to the next version, The error was the script 
-  try to update a table rate but it did not exit and the correct 
+- FIXED:  PBX - control Panel: Error in script.sql to update
+  control panel to the next version, The error was the script
+  try to update a table rate but it did not exit and the correct
   table was area. SVN Rev[2344]
 
 * Mon Feb 07 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-12
@@ -3578,34 +3582,34 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 * Mon Feb 07 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-11
 - CHANGED:   In Spec add lines to support install or update
   proccess by script.sql.
-- DELETED:   Databases sqlite were removed to use the new format 
-  to sql script for administer process install, update and delete. 
-  In Installer.php remove all instances of .db but the logic to 
+- DELETED:   Databases sqlite were removed to use the new format
+  to sql script for administer process install, update and delete.
+  In Installer.php remove all instances of .db but the logic to
   update the old versions of trunk.db is there. SVN Rev[2333]
-- ADD:  PBX - setup: New schema organization to get better 
+- ADD:  PBX - setup: New schema organization to get better
   performance to databases sqlite and mysql. SVN Rev[2328]
 - CHANGED: Module conference, meetme database was merged, now
   sql script is 1_schema.sql. SVN Rev[2317]
 
 * Thu Feb 03 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-10
-- CHANGED:  menu.xml to support new tag "permissions" where has 
-  all permissions of group per module and new attribute "desc" 
-  into tag  "group" for add a description of group. 
+- CHANGED:  menu.xml to support new tag "permissions" where has
+  all permissions of group per module and new attribute "desc"
+  into tag  "group" for add a description of group.
   SVN Rev[2294][2299]
 - CHANGED: module endpoint_configurator, eliminated a print_r.
   SVN Rev[2290]
-- ADDED:    database endpoint, added model GXV3175 in the table 
+- ADDED:    database endpoint, added model GXV3175 in the table
   model. SVN Rev[2287]
-- ADDED:    module endpoint_configurator, added model GXV3175. 
+- ADDED:    module endpoint_configurator, added model GXV3175.
   SVN REV[2286]
-- ADDED:    database control_panel_design.db, added a new area, 
-  parking lots, and added a new column for the color of each 
+- ADDED:    database control_panel_design.db, added a new area,
+  parking lots, and added a new column for the color of each
   area. SVN Rev[2257]
-- CHANGED:  module control_panel, new area for parking lots the 
-  boxes are generated in the client side and the time counting 
+- CHANGED:  module control_panel, new area for parking lots the
+  boxes are generated in the client side and the time counting
   for the calls are made also in the client side. SVN Rev[2256]
-- ADD:      database control_panel_design, added new data in 
-  the tabla area for the conferences and the SIP/IAX Trunks. 
+- ADD:      database control_panel_design, added new data in
+  the tabla area for the conferences and the SIP/IAX Trunks.
   SVN Rev[2237]
 
 * Thu Jan 13 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-9
@@ -3615,32 +3619,32 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 * Wed Jan 05 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-8
 - UPDATED: Module VoIP Provider, Update codecs of Vozelia
   provider. SVN Rev[2220]
-- ADDED: database endpoint, added the model AT 620R in the 
+- ADDED: database endpoint, added the model AT 620R in the
   table model. SVN Rev[2219]
-- ADDED: module endpoint_configuration, added a new model of 
+- ADDED: module endpoint_configuration, added a new model of
   phone for the vendor ATCOM. SVN Rev[2218]
 
 * Wed Jan 05 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-7
 - NEW: Module VoIP Provider, New provider Vozelia. SVN Rev[2215]
 - FIXED: PBX: Hangup macro now tests if MixMon filename actually
-  exists, and clears CDR(userfield) if file is missing (as is 
-  the case for NOANSWER call status). Fixes Elastix bug #422. 
+  exists, and clears CDR(userfield) if file is missing (as is
+  the case for NOANSWER call status). Fixes Elastix bug #422.
   SVN Rev[2209]
 - CHANGED: PBX: add comments to extension macros for readability
   SVN Rev[2209]
-- FIXED: Monitoring: Do NOT delete CDR from database when 
-  deleting audio file. Instead, update CDR to have audio:deleted 
-  as its audio file. Also update index.php to cope with this 
+- FIXED: Monitoring: Do NOT delete CDR from database when
+  deleting audio file. Instead, update CDR to have audio:deleted
+  as its audio file. Also update index.php to cope with this
   change. SVN Rev[2206]
-- CHANGED: Monitoring: do not complain if recording does not 
+- CHANGED: Monitoring: do not complain if recording does not
   exist when deleting it. SVN Rev[2205]
-- FIXED: Monitoring: do not reset filter with bogus values at 
-  recording removal time. This allows user to realize that 
-  recording has indeed been removed when displaying date ranges 
+- FIXED: Monitoring: do not reset filter with bogus values at
+  recording removal time. This allows user to realize that
+  recording has indeed been removed when displaying date ranges
   other than current day. SVN Rev[2204]
 
 * Mon Jan 03 2011 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-6
-- UPDATED: Module VoIP Provider, Provider Net2phone codecs 
+- UPDATED: Module VoIP Provider, Provider Net2phone codecs
   updated attributes. SVN Rev[2201]
 
 * Thu Dec 30 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-5
@@ -3650,12 +3654,12 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   phone GXV3140. SVN Rev[2197]
 
 * Thu Dec 30 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-4
-- CHANGED: module endpoint_configurator, new parameters for the 
-  configuration of the phones grandstream and renamed the names 
+- CHANGED: module endpoint_configurator, new parameters for the
+  configuration of the phones grandstream and renamed the names
   of the files with the configuration. SVN Rev[2187]
-- CHANGED: database endpoint, four new models were inserted. 
+- CHANGED: database endpoint, four new models were inserted.
   SVN Rev[2186]
-- CHANGED: Module VoIP Provider, change ip 208.74.169.86, for 
+- CHANGED: Module VoIP Provider, change ip 208.74.169.86, for
   gateway.circuitid.com of provider CircuitID. SVN Rev[2180]
 
 * Tue Dec 28 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-3
@@ -3664,83 +3668,83 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
    of PBX. SVN Rev[2167]
 
 * Mon Dec 27 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-2
-- CHANGED: In Spec file add new prereq elastix-my_extension to 
+- CHANGED: In Spec file add new prereq elastix-my_extension to
   remove the old instance of myextension of elastix-pbx
-- FIXED: In Database Voip Provider appear a warning after to 
-  install, this warning appear in the moment to read the old 
+- FIXED: In Database Voip Provider appear a warning after to
+  install, this warning appear in the moment to read the old
   database to replace during a update. SVN Rev[2159]
 
 * Mon Dec 20 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.4-1
-- CHANGED: Add tftpboot, openfire, ftp and vsftp in spec file as 
+- CHANGED: Add tftpboot, openfire, ftp and vsftp in spec file as
   part of process install and post. This configurations were in
   elastix.spec
 - NEW:     Module VoIP Provider, new provider CircuitID was added.
   SVN Rev[2120]
-- DELETED:  Module myextension of PBX wax remove and moved to 
+- DELETED:  Module myextension of PBX wax remove and moved to
   new main menu called My Extension. SVN Rev[2113]
-- NEW:     New files of vsftpd, xinetd.d folders and 
-  vsftpd.user_list file in setup/etc in modules/trunk/pbx/, now 
+- NEW:     New files of vsftpd, xinetd.d folders and
+  vsftpd.user_list file in setup/etc in modules/trunk/pbx/, now
   the spec of elastix.pbx use and required these services
   SVN Rev[2109]
-- NEW:     Tftpboot in setup of pbx was added from trunk, it is 
+- NEW:     Tftpboot in setup of pbx was added from trunk, it is
   for get a better organization. SVN Rev[2106]
-- CHANGED: Module endpoint configurator, DTMF in phones atcom, 
+- CHANGED: Module endpoint configurator, DTMF in phones atcom,
   are configurated to send on rfc2833. SVN Rev[2093]
 
 * Mon Dec 06 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-42
 - CHANGED: Add new Prereq freePBX in spec file
-- FIXED:  Quit menu=module_name as parameters to send for ajax to 
+- FIXED:  Quit menu=module_name as parameters to send for ajax to
   identify the menu to get data. This change was done in javascript
   in voipProvider module. SVN Rev[2042]
 - CHANGED:    Module monitoring, to export data from reports the
   output contain text html if the report to export has any styles
   or html elements as part of grid. The solution was changing the
-  data to export only if the request is export so, the data(array) 
-  can be returned without html elements only the data from 
+  data to export only if the request is export so, the data(array)
+  can be returned without html elements only the data from
   database, it is in paloSantoGrid.class.php in commit 2024.
   SVN Rev[2034]
-- CHANGED:    Module VOIP Provider was changed and new functionality 
-  were done, for example the creation of new account and custom 
+- CHANGED:    Module VOIP Provider was changed and new functionality
+  were done, for example the creation of new account and custom
   accounts. SVN Rev[2025]
 - FIXED: Module monitoring, variable $file no found in commit 2011.
   SVN Rev[2016]
 - CHANGED: massive search and replace of HTML encodings with the
   actual characters. SVN Rev[2002]
-- FIXED:   Conference: detect Asterisk version on the fly to 
-  decide whether to use a pipe or a comma to separate arguments 
+- FIXED:   Conference: detect Asterisk version on the fly to
+  decide whether to use a pipe or a comma to separate arguments
   for an Asterisk application. Fixes Elastix bug #578. SVN Rev[1998]
-- FIXED:   Conference: properly escape HTML characteres to prevent 
+- FIXED:   Conference: properly escape HTML characteres to prevent
   XSS in grid display of conferences. SVN Rev[1992]
-- CHANGED: stop assigning template variable "url" directly, and 
+- CHANGED: stop assigning template variable "url" directly, and
   remove nested <form> tag. The modules with those changes are:
-  Conference SVN Rev[1992], Voicemail SVN Rev[1990], 
+  Conference SVN Rev[1992], Voicemail SVN Rev[1990],
   Endpoint Configurator SVN Rev[1984]
-- FIXED: Voicemail: emit proper 404 HTTP header when denying 
+- FIXED: Voicemail: emit proper 404 HTTP header when denying
   access to a recording. SVN Rev[1990]
 - CHANGED: Voicemail: synchronize index.php between Elastix 1.6
   and Elastix 2. SVN Rev[1987]
-- FIXED: File Editor: complete rewrite. This rewrite achieves 
+- FIXED: File Editor: complete rewrite. This rewrite achieves
   the following:
          Add proper license header to module file
-         Improve readability of code by splitting file listing 
+         Improve readability of code by splitting file listing
            and file editing into separate procedures
-         Remove opportunities for XSS in file list navigation 
+         Remove opportunities for XSS in file list navigation
            (ongoing fix for Elastix bug #572)
          Remove opportunities for XSS in file content viewing.
-         Remove possible opportunity for arbitrary command 
+         Remove possible opportunity for arbitrary command
            execution due to nonvalidated exec()
-         Fix unintended introduction of DOS line separators when 
+         Fix unintended introduction of DOS line separators when
            saving files.
-         Remove nested <form> tags as grid library already 
+         Remove nested <form> tags as grid library already
            introduces them.
   SVN Rev[1983]
 
 * Fri Nov 26 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-41
-- FIXED:  Monitoring module, the problem was that the recordings 
-  of the queues "the audio file" if it was created but not saved 
-  the information in the database. For the solution 
-  extensions_override_freepbx.conf file was modified to add the 
-  information stored in database at the time of the hangup, and 
+- FIXED:  Monitoring module, the problem was that the recordings
+  of the queues "the audio file" if it was created but not saved
+  the information in the database. For the solution
+  extensions_override_freepbx.conf file was modified to add the
+  information stored in database at the time of the hangup, and
   the respective changes in Monitoring Module. SVN Rev[2011]
 
 * Mon Nov 15 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-40
@@ -3753,18 +3757,18 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 - FIXED: make module aware of url-as-array in paloSantoGrid.
      Split up URL construction into an array.
      Assign the URL array as a member of the $arrGrid structure.
-     Remove <form> tags from the filter HTML template fetch. They are 
-      not required, since the template already includes a proper <form> 
+     Remove <form> tags from the filter HTML template fetch. They are
+      not required, since the template already includes a proper <form>
       tag enclosing the grid.
-     Part of fix for Elastix bug #572. Requires commits 1901 and 1902 
+     Part of fix for Elastix bug #572. Requires commits 1901 and 1902
       in order to work properly.
   SVN Rev[1915]
-- FIXED: Problem with changing the page, when searching and want to move 
-  from page to page the search pattern is lost, also did not show the 
-  correct amount of the results, related bug [# 564] of bugs.elastix.org. 
-  Also had the problem that in the link of the page showing all the names 
-  of the files as parameters of GET request. The solution was to change 
-  the way to build the url. Also the way to change the filter to obtain 
+- FIXED: Problem with changing the page, when searching and want to move
+  from page to page the search pattern is lost, also did not show the
+  correct amount of the results, related bug [# 564] of bugs.elastix.org.
+  Also had the problem that in the link of the page showing all the names
+  of the files as parameters of GET request. The solution was to change
+  the way to build the url. Also the way to change the filter to obtain
   data for both GET and POST. SVN Rev[1904]
 
 * Fri Nov 05 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-38
@@ -3780,9 +3784,9 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   but asterisk never is reloaded. Changes in SPEC
 
 * Fri Oct 29 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-36
-- FIXED:  File migartionFileMontor.php was not work fine. 
+- FIXED:  File migartionFileMontor.php was not work fine.
   Some monitoring audio files were not written SVN Rev[1877]
-- FIXED:  Fixed bug where users cannot listen the audios in 
+- FIXED:  Fixed bug where users cannot listen the audios in
   monitoring. [#563].SVN Rev[1875]
 
 * Thu Oct 28 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-35
@@ -3794,38 +3798,38 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
   SVN Rev[1868]
 
 * Wed Oct 27 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-33
-- CHANGED: Spec file was change. New file migrationFilesMonitor.php, it 
-  was removed from elastix.spec and now it part of the source of 
+- CHANGED: Spec file was change. New file migrationFilesMonitor.php, it
+  was removed from elastix.spec and now it part of the source of
   elastix-pbx. SVN Rev[1866]
 
 * Wed Oct 27 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-32
 - CHANGED: Updated the Bulgarian language elastix. SVN Rev[1857]
-- FIXED:  Batch Of Extensions Problems with Outbound CID and Inbound DID, 
-  they don't appear this fields in csv files to download. 
+- FIXED:  Batch Of Extensions Problems with Outbound CID and Inbound DID,
+  they don't appear this fields in csv files to download.
   More details in http://bugs.elastix.org/view.php?id=447. SVN Rev[1853]
 
 * Tue Oct 26 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-31
-- CHANGED: The Spec file valid if version and release are lower to 
+- CHANGED: The Spec file valid if version and release are lower to
   1.6.2-13 for doing migration of monitoring audio files. It is only for
   migration Elastix 1.6 to 2.0
 
 * Tue Oct 26 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-30
-- CHANGED: Move line elastix-menumerge at beginning the "%post" in spec file. 
+- CHANGED: Move line elastix-menumerge at beginning the "%post" in spec file.
   It is for the process to update.
 
 * Mon Oct 18 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-29
-- FIXED:   Fixed security bug with audio.php and popup.php where an user can be download 
+- FIXED:   Fixed security bug with audio.php and popup.php where an user can be download
   files system without authentication. See in http://bugs.elastix.org/view.php?id=552
   SVN Rev[1833]
 - CHNAGED: Language fr.lang was updated. SVN Rev[1825]
 - ADDED:   New lang file fa.lang. SVN Rev[1823]
-- FIXED:   It validates that the index of the callerid exist, if it don't 
+- FIXED:   It validates that the index of the callerid exist, if it don't
   exits the callerid is left. This fixes a problem that did not display the number of
-  participants at the conference when it is an outside call. 
+  participants at the conference when it is an outside call.
   Bug [#491]. Bug [#491] SVN Rev[1814]
 
 * Mon Sep 27 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-28
-- FIXED:    include character '/' in function isDialpatternChar where character / (match cid) not valid for dial pattern in outbound routes. SVN Rev[1754], Bug[#485] 
+- FIXED:    include character '/' in function isDialpatternChar where character / (match cid) not valid for dial pattern in outbound routes. SVN Rev[1754], Bug[#485]
 
 * Tue Sep 14 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-27
 - CHANGED: rework translation support so that it will work with untranslated English strings for new menu items. Rev[1734]
@@ -3836,7 +3840,7 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 - CHANGED: enforce sorting by IP on list of discovered endpoints. Rev[1732]
 
 * Mon Aug 23 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-26
-- REMOVE: Remove extensions_override_freepbx.conf in Sources for many macros as macro-record-enable and macro-hangupcall. 
+- REMOVE: Remove extensions_override_freepbx.conf in Sources for many macros as macro-record-enable and macro-hangupcall.
 
 * Mon Aug 23 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-25
 - FIXED: Fixed bug[#409] and change the Source extensions_override_freepbx.conf.
@@ -3870,13 +3874,13 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 
 * Fri Jul 23 2010 Bruno Macias <bmacias@palosanto.com> 2.0.0-17
 - CHANGED: Name module to Operator Panel.
-- CHANGED: String connection database to asteriskuser. 
+- CHANGED: String connection database to asteriskuser.
 
 * Thu Jul 01 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-16
 - FIXED:    Add line 'global $recordings_save_path' in pbxadmin module to obtain the path where upload audio files in recording [#346] bugs.elastix.org
 
 * Thu Jun 17 2010 Eduardo Cueva <ecueva@palosanto.com> 2.0.0-15
-- Change module extensions batch. Now the option download cvs is processing by index.php 
+- Change module extensions batch. Now the option download cvs is processing by index.php
 
 * Thu Apr 15 2010 Bruno Macias <bmacias@palosanto.com> 2.0.0-14
 - Change port 5061 to 5060 in file config vendor Cisco.cfg.php module endpoint configurator.
@@ -3887,10 +3891,10 @@ TRUNK - APPS: Search can be done using asterisk filter patterns in modules
 
 * Thu Mar 25 2010 Bruno Macias <bmacias@palosanto.com> 2.0.0-13
 - Re-write macro-record-enable for freePBX, this action is for module monitorin support new programming in based database asteriskcdrdb.
-- Module Monitoring was rewrited, improved behavoir in search audio files. 
+- Module Monitoring was rewrited, improved behavoir in search audio files.
 
 * Fri Mar 19 2010 Bruno Macias <bmacias@palosanto.com> 2.0.0-12
-- Defined Lang missed. 
+- Defined Lang missed.
 
 * Tue Mar 16 2010 Bruno Macias <bmacias@palosanto.com> 2.0.0-11
 - Defined number order menu.
