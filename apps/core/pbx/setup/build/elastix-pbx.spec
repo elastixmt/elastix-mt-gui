@@ -349,7 +349,9 @@ fi
 %defattr(-, asterisk, asterisk)
 /etc/asterisk/sip_notify_custom_elastix.conf
 /etc/asterisk.elastix/*
-/var/www/elastixdir/*
+/var/www/elastixdir/address_book_images
+/var/www/elastixdir/asteriskconf/generic_extensions.conf
+%config(noreplace) /var/www/elastixdir/asteriskconf/elastix_pbx.conf
 /var/lib/asterisk/*
 /var/lib/asterisk/agi-bin
 /var/lib/asterisk/agi-bin/*
@@ -377,6 +379,8 @@ fi
 
 %changelog
 * Tue Jun 30 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
+- FIXED: PBX: use %config(noreplace) for elastix_pbx.conf. Fixes Elastix bug
+  #2276.
 - FIXED: PBX: expand table columns containing an organization code. Part of fix
   for Elastix bug #2110.
 
