@@ -379,6 +379,9 @@ fi
 
 %changelog
 * Thu Jul  2 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
+- CHANGED: PBX: create empty file extensions_override_elastix.conf for custom
+  updates to Elastix contexts. Fixes Elastix bug #1915.
+  SVN Rev[7106]
 - FIXED: Time Conditions: rewrite incorrect priority decision on dialplan build.
   Fixes Elastix bug #1921.
   SVN Rev[7105]

@@ -719,12 +719,13 @@ function createExtensionDomainFile($domain,$code){
     $extAddFile="/etc/asterisk/organizations/$domain/extensions_additionals.conf";
     $extCusFile="/etc/asterisk/organizations/$domain/extensions_custom.conf";
     $extGlobalFile="/etc/asterisk/organizations/$domain/extensions_globals.conf";
+    $extOverridesFile="/etc/asterisk/organizations/$domain/extensions_override_elastix.conf";
     
     if(is_file($fsource)){
         if($handler=fopen($fsource,'r')){
             //archivos a los cuales se hace inclusion en el archivo extensions_domain.conf
             $content="";
-            foreach(array($extAddFile,$extCusFile,$extGlobalFile) as $file){
+            foreach(array($extAddFile,$extCusFile,$extGlobalFile,$extOverridesFile) as $file){
                 if(is_file($file)===false){
                     if(file_put_contents($file, $content)!==false){
                         changeFilePermission($file);
