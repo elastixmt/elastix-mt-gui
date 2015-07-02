@@ -379,6 +379,9 @@ fi
 
 %changelog
 * Thu Jul  2 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
+- FIXED: Time Conditions: rewrite incorrect priority decision on dialplan build.
+  Fixes Elastix bug #1921.
+  SVN Rev[7105]
 - FIXED: General Settings Admin: rewrite of SIP settings saving code to correct
   mistaken writing of localnetip value as localnetmask. Fixes Elastix bug #2274.
   SVN Rev[7104]

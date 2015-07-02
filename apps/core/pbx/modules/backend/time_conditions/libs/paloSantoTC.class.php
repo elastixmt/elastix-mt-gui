@@ -25,7 +25,7 @@
   | The Original Code is: Elastix Open Source.                           |
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  | Some functions within this class or script that implements an	     | 	
+  | Some functions within this class or script that implements an	     |
   | asterisk dialplan are based in FreePBX code.			             |
   | FreePBX® is a Registered Trademark of Schmooze Com, Inc.   		     |
   | http://www.freepbx.org - http://www.schmoozecom.com 		         |
@@ -35,7 +35,7 @@
     include_once "libs/paloSantoAsteriskConfig.class.php";
     include_once "libs/paloSantoPBX.class.php";
     global $arrConf;
-    
+
 class paloSantoTC extends paloAsteriskDB{
     protected $code;
     protected $domain;
@@ -43,7 +43,7 @@ class paloSantoTC extends paloAsteriskDB{
     function paloSantoTC(&$pDB,$domain)
     {
        parent::__construct($pDB);
-        
+
         if(!preg_match("/^(([[:alnum:]-]+)\.)+([[:alnum:]])+$/", $domain)){
             $this->errMsg="Invalid domain format";
         }else{
@@ -57,7 +57,7 @@ class paloSantoTC extends paloAsteriskDB{
             }
         }
     }
-    
+
     function setDomain($domain){
         if(!preg_match("/^(([[:alnum:]-]+)\.)+([[:alnum:]])+$/", $domain)){
             $this->errMsg="Invalid domain format";
@@ -71,11 +71,11 @@ class paloSantoTC extends paloAsteriskDB{
             }
         }
     }
-    
+
     function getDomain(){
         return $this->domain;
     }
-    
+
     function validateDomainPBX(){
         //validamos que la instancia de paloDevice que se esta usando haya sido creda correctamente
         if(is_null($this->code) || is_null($this->domain))
@@ -107,7 +107,7 @@ class paloSantoTC extends paloAsteriskDB{
             return $result[0];
     }
 
-    
+
     function getTCs($domain=null,$name=null,$limit=null,$offset=null){
         $where=array();
         $arrParam=null;
@@ -129,7 +129,7 @@ class paloSantoTC extends paloAsteriskDB{
             $arrParam[]=$limit;
             $arrParam[]=$offset;
         }
-        
+
         $result=$this->_DB->fetchTable($query,true,$arrParam);
         if($result===false){
             $this->errMsg=$this->_DB->errMsg;
@@ -148,7 +148,7 @@ class paloSantoTC extends paloAsteriskDB{
 
         $query="SELECT * from time_conditions where id=? and organization_domain=?";
         $result=$this->_DB->getFirstRowQuery($query,true,array($id,$this->domain));
-        
+
         if($result===false){
             $this->errMsg=$this->_DB->errMsg;
             return false;
@@ -157,7 +157,7 @@ class paloSantoTC extends paloAsteriskDB{
         }else
             return false;
     }
-    
+
     private function existTimeConditions($name){
         $query="SELECT 1 from time_conditions where name=? and organization_domain=?";
         $result=$this->_DB->getFirstRowQuery($query,false,array($name,$this->domain));
@@ -166,8 +166,8 @@ class paloSantoTC extends paloAsteriskDB{
             return true;
         }else
             return false;
-    } 
-    
+    }
+
     private function existTimeGroup($id){
         $query="SELECT 1 from time_group where id=? and organization_domain=?";
         $result=$this->_DB->getFirstRowQuery($query,false,array($id,$this->domain));
@@ -177,8 +177,8 @@ class paloSantoTC extends paloAsteriskDB{
             $this->errMsg=$this->_DB->errMsg;
             return false;
         }
-    } 
-    
+    }
+
     function getTimeGroup(){
         $tg=array("0"=>_tr("--Select one--"));
         $query="SELECT name,id from time_group where organization_domain=?";
@@ -190,17 +190,17 @@ class paloSantoTC extends paloAsteriskDB{
                 $tg[$value["id"]]=$value["name"];
             }
         }
-        return $tg; 
+        return $tg;
     }
-    
+
     function createNewTC($arrProp){
         if(!$this->validateDomainPBX()){
             $this->errMsg=_tr("Invalid Organization");
             return false;
         }
-    
+
         $query="INSERT into time_conditions (name,id_tg,goto_m,destination_m,goto_f,destination_f,organization_domain) values(?,?,?,?,?,?,?)";
-                
+
         if(empty($arrProp["name"])){
             $this->errMsg = _tr("Field Name can't be empty");
             return false;
@@ -209,12 +209,12 @@ class paloSantoTC extends paloAsteriskDB{
             $this->errMsg = _tr("Already exist a Time Conditions with the same name").$this->errMsg;
             return false;
         }
-        
+
         if($this->existTimeGroup($arrProp["id_tg"])==false){
             $this->errMsg = _tr("Selected Time Group doesn't exist").$this->errMsg;
             return false;
         }
-        
+
         //destination match
         if($this->validateDestine($this->domain,$arrProp["destination_m"])!=false){
             $dest_m=$arrProp["destination_m"];
@@ -224,7 +224,7 @@ class paloSantoTC extends paloAsteriskDB{
             $this->errMsg=_tr("Invalid destination if match");
             return false;
         }
-        
+
         //destination fail
         if($this->validateDestine($this->domain,$arrProp["destination_f"])!=false){
             $dest_f=$arrProp["destination_f"];
@@ -234,7 +234,7 @@ class paloSantoTC extends paloAsteriskDB{
             $this->errMsg=_tr("Invalid destination if fail");
             return false;
         }
-        
+
         //creamos el time_conditions
         $result=$this->executeQuery($query,array($arrProp["name"],$arrProp["id_tg"],$goto_m,$dest_m,$goto_f,$dest_f,$this->domain));
         if($result==false){
@@ -250,7 +250,7 @@ class paloSantoTC extends paloAsteriskDB{
             $this->errMsg=_tr("Time Conditions doens't exist. ").$this->errMsg;
             return false;
         }
-        
+
         if(empty($arrProp["name"])){
             $this->errMsg = _tr("Field Name can't be empty");
             return false;
@@ -261,13 +261,13 @@ class paloSantoTC extends paloAsteriskDB{
                 return false;
             }
         }
-        
+
         //time_group election
         if($this->existTimeGroup($arrProp["id_tg"])==false){
             $this->errMsg = _tr("Selected Time Group doesn't exist").$this->errMsg;
             return false;
         }
-        
+
         //destination match
         if($this->validateDestine($this->domain,$arrProp["destination_m"])!=false){
             $dest_m=$arrProp["destination_m"];
@@ -277,7 +277,7 @@ class paloSantoTC extends paloAsteriskDB{
             $this->errMsg=_tr("Invalid destination if match");
             return false;
         }
-        
+
         //destination fail
         if($this->validateDestine($this->domain,$arrProp["destination_f"])!=false){
             $dest_f=$arrProp["destination_f"];
@@ -287,7 +287,7 @@ class paloSantoTC extends paloAsteriskDB{
             $this->errMsg=_tr("Invalid destination if fail");
             return false;
         }
-        
+
         $query="UPDATE time_conditions set name=?,id_tg=?,goto_m=?,destination_m=?,goto_f=?,destination_f=? where id=?";
         if($this->executeQuery($query,array($arrProp["name"],$arrProp["id_tg"],$goto_m,$dest_m,$goto_f,$dest_f,$arrProp["id"]))==false){
             $this->errMsg=_tr("Time conditions can't be updated. ").$this->errMsg;
@@ -303,16 +303,16 @@ class paloSantoTC extends paloAsteriskDB{
             $this->errMsg=_tr("Time Conditions doens't exist. ").$this->errMsg;
             return false;
         }
-        
+
         $query="DELETE from time_conditions where id=?";
         if($this->executeQuery($query,array($id))==false){
             $this->errMsg=_tr("Time Conditions can't be deleted. ").$this->errMsg;
             return false;
         }else{
             return true;
-        } 
+        }
     }
-    
+
     private function getTimeGroupParameters($id_tg){
         $arrTg=array();
         $query="SELECT tg_hour,tg_day_w,tg_day_m,tg_month from tg_parameters join time_group on id=id_tg where id_tg=? and organization_domain=?";
@@ -326,16 +326,16 @@ class paloSantoTC extends paloAsteriskDB{
         }
         return $arrTg;
     }
-    
+
     function createDialplanTC(&$arrFromInt){
         if(is_null($this->code) || is_null($this->domain))
             return false;
-            
+
         $arrExt=array();
         $arrCon=array();
         $arrTC=$this->getTCs($this->domain);
         if($arrTC===false){
-            $this->errMsg=_tr("Error creating dialplan for time conditions. ").$this->errMsg; 
+            $this->errMsg=_tr("Error creating dialplan for time conditions. ").$this->errMsg;
             return false;
         }else{
             foreach($arrTC as $value){
@@ -346,17 +346,18 @@ class paloSantoTC extends paloAsteriskDB{
                 $goto_f=($goto_f==false || $goto_m=="return")?"return":$goto_f;
                 $arrTg=$this->getTimeGroupParameters($value["id_tg"]);
                 if(is_array($arrTg)){
-                    $i=0;
-                    foreach($arrTg AS $tg){
-                        $i=($i==0)?"1":"";
-                        $arrExt[]=new paloExtensions($exten,new ext_gotoiftime($tg,$goto_m),$i);
-                        $i++; 
+                    for ($i = 0; $i < count($arrTg); $i++) {
+                        $arrExt[] = new paloExtensions($exten,
+                            new ext_gotoiftime($tg, $goto_m),
+                            (($i > 0) ? 'n' : '1'));
                     }
-                    $arrExt[]=new paloExtensions($exten,new extension("Goto(".$goto_f.")"),$i);
+                    $arrExt[] = new paloExtensions($exten,
+                        new extension("Goto(".$goto_f.")"),
+                        (($i > 0) ? 'n' : '1'));
                 }
             }
             $arrExt[]=new paloExtensions("_X.",new extension("Return()"),"n","return");
-            
+
             if(count($arrTC)>0){
                 $context=new paloContexto($this->code,"timeconditions");
                 if($context===false){
