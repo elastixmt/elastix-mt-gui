@@ -378,11 +378,18 @@ fi
 /etc/cron.daily/asterisk_cleanup
 
 %changelog
+* Thu Jul  2 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
+- FIXED: General Settings Admin: rewrite of SIP settings saving code to correct
+  mistaken writing of localnetip value as localnetmask. Fixes Elastix bug #2274.
+  SVN Rev[7104]
+
 * Tue Jun 30 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: PBX: use %config(noreplace) for elastix_pbx.conf. Fixes Elastix bug
   #2276.
+  SVN Rev[7103]
 - FIXED: PBX: expand table columns containing an organization code. Part of fix
   for Elastix bug #2110.
+  SVN Rev[7102]
 
 * Mon Dec  8 2014 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: Extensions: fix use of uninitialized variable for CID in extension

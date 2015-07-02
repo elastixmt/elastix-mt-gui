@@ -44,11 +44,11 @@ include_once "libs/extensions.class.php";
 include_once "libs/misc.lib.php";
 
 class paloGeneralPBX extends paloAsteriskDB{
-    
+
     function paloGeneralPBX(&$pDB){
         parent::__construct($pDB);
     }
-    
+
     function getGeneralSettings(){
         $arrProp=array();
         foreach(array("sip","iax") as $tech){
@@ -66,7 +66,7 @@ class paloGeneralPBX extends paloAsteriskDB{
                 }
             }
         }
-        
+
         $query="SELECT * from voicemail_general";
         $arrRes=$this->_DB->getFirstRowQuery($query,true);
         if($arrRes===false){
@@ -80,7 +80,7 @@ class paloGeneralPBX extends paloAsteriskDB{
                 }
             }
         }
-        
+
         $query="SELECT variable,value from globals_settings where variable=? or variable=?";
         $arrRes=$this->_DB->fetchTable($query,true,array("LANGUAGE","ALLOW_CODEC"));
         if($arrRes===false){
@@ -96,7 +96,7 @@ class paloGeneralPBX extends paloAsteriskDB{
         }
         return $arrProp;
     }
-    
+
     function getNatLocalConfing(){
         $localNet=array("ip"=>"","mask"=>"");
         $query="SELECT property_name,property_val,cathegory from sip_general where cathegory=?";
@@ -117,21 +117,35 @@ class paloGeneralPBX extends paloAsteriskDB{
         }
         return $localNet;
     }
-        
-    function validateIP($variable){
-        if(!preg_match("/^([[:digit:]]{1,3})\.([[:digit:]]{1,3})\.([[:digit:]]{1,3})\.([[:digit:]]{1,3})$/",$variable, $arrReg)) {
+
+    private function validateIP($ip)
+    {
+        $regs = NULL;
+        if (!preg_match('/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/', $ip, $regs))
             return false;
-        } else {
-            if(($arrReg[1]<=255) and ($arrReg[1]>0) and ($arrReg[2]<=255) and ($arrReg[2]>=0) and
-                ($arrReg[3]<=255) and ($arrReg[3]>=0) and ($arrReg[4]<=255) and ($arrReg[4]>=0)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        for ($i = 1; $i <= 4; $i++) if ($regs[$i] > 255) return false;
+        return ($regs[1] > 0);
     }
-    
-    function validateHOST($value){
+
+    private function validateNetwork($ip, $mask)
+    {
+        $regs = NULL;
+        if (!$this->validateIP($ip)) return false;
+        if (!$this->validateIP($mask)) return false;
+        preg_match('/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/', $mask, $regs);
+        $b = FALSE;
+        for ($i = 1; $i <= 4; $i++) {
+            if ($regs[$i] == 255 && !$b) continue;
+            if ($regs[$i] != 0 && $b) return false;
+            if ($regs[$i] == 0 && $b) continue;
+            $b = TRUE;
+            if (!in_array($regs[$i], array(255, 254, 252, 248, 240, 224, 192, 128, 0)))
+                return false;
+        }
+        return true;
+    }
+
+    private function validateHost($value){
         $pieces = explode(".",$value);
         foreach($pieces as $piece)
         {
@@ -143,7 +157,7 @@ class paloGeneralPBX extends paloAsteriskDB{
         }
         return true;
     }
-    
+
     function setGeneralSettings($arrProp){
         if($this->setGlobalsGeneralSettings($arrProp["gen"])){
             //los codec permitidos para estas tecnologias
@@ -152,7 +166,7 @@ class paloGeneralPBX extends paloAsteriskDB{
         }else{
             return false;
         }
-        
+
         if(!$this->setSipGeneralSettings($arrProp["sip"]))
             return false;
         elseif(!$this->setIaxGeneralSettings($arrProp["iax"]))
@@ -160,8 +174,8 @@ class paloGeneralPBX extends paloAsteriskDB{
         else
             return $this->setVMGeneralSettings($arrProp["vm"]);
     }
-    
-    function setGlobalsGeneralSettings(&$arrProp){
+
+    private function setGlobalsGeneralSettings(&$arrProp){
         $gerror="<br/>Error: "._tr("General Settings").". ";
         //codec negotiation
         $listCodec=array();
@@ -189,7 +203,7 @@ class paloGeneralPBX extends paloAsteriskDB{
             }
         }
         $arrProp["ALLOW_CODEC"]=implode(",",$listCodec);
-        
+
         //settings that are common for sip, iax and voicemail technologies
         $query="UPDATE globals_settings set value=? where variable=?";
         foreach($arrProp as $key => $value){
@@ -202,71 +216,73 @@ class paloGeneralPBX extends paloAsteriskDB{
         }
         return true;
     }
-        
-    function setSipGeneralSettings($arrProp){
+
+    private function setSipGeneralSettings($arrProp)
+    {
         $etech="<br/>Error: "._tr("SIP Settings").". ";
         //actualizamos los parametros en la base
         $query="UPDATE sip_general set property_val=? where property_name=? and cathegory=?";
         foreach($arrProp as $key => $value){
-            if($key!="custom_name" && $key!="custom_val" && $key!="localnetip" && $key!="localnetmask"){
-                if($value=="" || $value=="noset"){
-                    $value=NULL;
-                }
-                if($this->_DB->genQuery($query,array($value,$key,"general"))==false){
-                    $this->errMsg=$etech.$this->_DB->errMsg;
-                    return false;
-                }
+            if (in_array($key, array('custom_name', 'custom_val', 'localnetip', 'localnetmask')))
+                continue;
+            if ($value == "" || $value == "noset"){
+                $value = NULL;
             }
-        }
-    
-        $qINSERT="INSERT INTO sip_general (property_name,property_val,cathegory) values(?,?,?)";
-        //nat parameters
-        if(!empty($arrProp["nat_type"])){
-            if($arrProp["nat_type"]!="static" && $arrProp["nat_type"]!="dynamic" && $arrProp["nat_type"]!="public"){
-                $this->errMsg=$etech."Invalid Field "._tr("Type Of Nat");
+            if (!$this->_DB->genQuery($query,array($value,$key,"general"))){
+                $this->errMsg=$etech.$this->_DB->errMsg;
                 return false;
             }
-        }else{
+        }
+
+        //nat parameters
+        if (empty($arrProp["nat_type"])) $arrProp["nat_type"] = 'noset';
+        if (!in_array($arrProp["nat_type"], array('static', 'dynamic', 'public'))) {
             $this->errMsg=$etech."Invalid Field "._tr("Type Of Nat");
             return false;
         }
-        
+
         //borramos los parametros de configuracion anterior de nat
         $query="DELETE from sip_general where cathegory=?";
-        if($this->_DB->genQuery($query,array("nat"))==false){
+        if (!$this->_DB->genQuery($query,array("nat"))) {
             $this->errMsg=$etech.$this->_DB->errMsg;
             return false;
         }
-        
-        if($arrProp["nat_type"]!="public"){
-            //validar que al menos haya una localnetwork vślida configurada
-            if(!isset($arrProp["localnetip"]) || !isset($arrProp["localnetmask"])){
-                $this->errMsg=$etech."You must set a valid Local Network [ip/mask]";
+
+        $qINSERT="INSERT INTO sip_general (property_name,property_val,cathegory) values(?,?,?)";
+        if ($arrProp["nat_type"]!="public") {
+            /* Validar contenidos de localnetip y localnetmask. Para nat_type distinto
+             * de "public", ambos elementos deben existir, ser arreglos, deben
+             * ser arreglos numéricos, no asociativos, deben tener ambos el mismo
+             * número de elementos, todos los elementos de localnetip deben ser
+             * IPs válidas de definición de red, y el elemento localnetmask
+             * correspondiente debe ser una máscara válida. */
+            if (!(isset($arrProp["localnetip"]) && isset($arrProp["localnetmask"]) &&
+                is_array($arrProp["localnetip"]) && is_array($arrProp["localnetmask"]) &&
+                count($arrProp["localnetip"]) > 0 && count($arrProp["localnetmask"]) > 0)) {
+                $this->errMsg = $etech."You must set a valid Local Network [ip/mask]";
+                return false;
+            } elseif (count($arrProp["localnetip"]) != count($arrProp["localnetmask"])) {
+                $this->errMsg = $etech."(internal) localnetip/localnetmask count mismatch";
                 return false;
             }
-            
-            //insertamos los nuevos valores de configuracion para la red local
-            $i=0;
-            foreach($arrProp["localnetip"] as $key => $value){
-                if(!($value=="" && $arrProp["localnetmask"][$key]=="")){
-                    if(!$this->validateIP($value) || !$this->validateIP($arrProp["localnetmask"][$key])){
-                        $this->errMsg=$etech."You must set a valid Local Network [ip/mask] ($value/".$arrProp["localnetmask"][$key].")";
-                        return false;
-                    }else{
-                        if(!$this->_DB->genQuery($qINSERT,array("localnetip_$i",$value,"nat")) || !$this->_DB->genQuery($qINSERT,array("localnetmask_$i",$value,"nat"))){
-                            $this->errMsg=$this->_DB->errMsg;
-                            return false;
-                        }
-                        $i++;
-                    }
+            for ($i = 0; $i < count($arrProp["localnetip"]); $i++) {
+                if (!(isset($arrProp["localnetip"][$i]) && isset($arrProp["localnetmask"][$i]))) {
+                    $this->errMsg = $etech."(internal) localnetip/localnetmask not numeric array";
+                    return false;
+                }
+                if (!$this->validateNetwork($arrProp["localnetip"][$i], $arrProp["localnetmask"][$i])) {
+                    $this->errMsg = $etech."You must set a valid Local Network [ip/mask] (".
+                        $arrProp["localnetip"][$i]."/".$arrProp["localnetmask"][$i].")";
+                    return false;
+                }
+                // FIXME: localnetip y localnetmask deben insertarse de forma contigua
+                if (!$this->_DB->genQuery($qINSERT,array("localnetip_$i", $arrProp["localnetip"][$i], "nat")) ||
+                    !$this->_DB->genQuery($qINSERT,array("localnetmask_$i", $arrProp["localnetmask"][$i], "nat"))){
+                    $this->errMsg = $this->_DB->errMsg;
+                    return false;
                 }
             }
-            if($i==0){
-                $this->errMsg=$etech."You must set a valid Local Network [ip/mask]";
-                return false;
-            }
-            
-            
+
             if($arrProp["nat_type"]=="static"){
                 $error=$etech."You must set a valid "._tr("Extern Addres");
                 if(empty($arrProp["externaddr"])){
@@ -302,20 +318,21 @@ class paloGeneralPBX extends paloAsteriskDB{
                     if($arrProp["externrefresh"]=="" || !ctype_digit($arrProp["externrefresh"])){
                         $arrProp["externrefresh"]="120";
                     }
-                    if(!$this->_DB->genQuery($qINSERT,array("externhost",$arrProp["externhost"],"nat")) || !$this->_DB->genQuery($qINSERT,array("externrefresh",$arrProp["externrefresh"],"nat"))){
+                    if (!$this->_DB->genQuery($qINSERT,array("externhost",$arrProp["externhost"],"nat")) ||
+                        !$this->_DB->genQuery($qINSERT,array("externrefresh",$arrProp["externrefresh"],"nat"))){
                         $this->errMsg=$etech.$this->_DB->errMsg;
                         return false;
                     }
                 }
             }
         }
-        
+
         //custom Parameters
         return $this->setCustomValues("sip",$arrProp);
     }
-    
-    
-    function setIaxGeneralSettings($arrProp){
+
+
+    private function setIaxGeneralSettings($arrProp){
         //actualizamos los parametros en la base
         $query="UPDATE iax_general set property_val=? where property_name=? and cathegory=?";
         foreach($arrProp as $key => $value){
@@ -329,12 +346,12 @@ class paloGeneralPBX extends paloAsteriskDB{
                 }
             }
         }
-        
+
         //custom Parameters
         return $this->setCustomValues("iax",$arrProp);
     }
-    
-    function setCustomValues($tech,$arrProp){
+
+    private function setCustomValues($tech,$arrProp){
         $qINSERT="INSERT INTO $tech"."_general (property_name,property_val,cathegory) values(?,?,?)";
         if(is_array($arrProp["custom_name"])){
             $error="<br/>Error: "._tr(strtoupper($tech)." Settings").". ";
@@ -344,7 +361,7 @@ class paloGeneralPBX extends paloAsteriskDB{
                 $this->errMsg=$error.$this->_DB->errMsg;
                 return false;
             }
-            
+
             //obtenemos los keys almacenados, los custom parameters no pueden ser igual a los que estan almacenados
             $query="SELECT property_name FROM $tech"."_general";
             $nameProp=$this->_DB->fetchTable($query);
@@ -356,7 +373,7 @@ class paloGeneralPBX extends paloAsteriskDB{
                     $arrKey[]=$item[0];
                 }
             }
-            
+
             foreach(array_keys($arrProp["custom_name"]) as $index){
                 if(!empty($arrProp["custom_name"][$index]) && isset($arrProp["custom_val"][$index])){
                     if($arrProp["custom_val"][$index]!=""){
@@ -373,11 +390,11 @@ class paloGeneralPBX extends paloAsteriskDB{
         }
         return true;
     }
-    
-    function setVMGeneralSettings($arrProp){
+
+    private function setVMGeneralSettings($arrProp){
         $arrQuery=array();
         $arrParam=array();
-        
+
         foreach($arrProp as $name => $value){
             if(!empty($name)){
                 if(isset($value)){
