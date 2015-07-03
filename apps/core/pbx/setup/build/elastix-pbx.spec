@@ -378,6 +378,10 @@ fi
 /etc/cron.daily/asterisk_cleanup
 
 %changelog
+* Fri Jul  3 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
+- FIXED: Time Conditions: remove extra parameter with undefined variable.
+  SVN Rev[7107]
+
 * Thu Jul  2 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
 - CHANGED: PBX: create empty file extensions_override_elastix.conf for custom
   updates to Elastix contexts. Fixes Elastix bug #1915.

@@ -34,7 +34,7 @@
 function _moduleContent(&$smarty, $module_name)
 {
     global $arrConf;
-    
+
      //folder path for custom templates
     $local_templates_dir=getWebDirModule($module_name);
 
@@ -43,10 +43,10 @@ function _moduleContent(&$smarty, $module_name)
 
     //user credentials
     global $arrCredentials;
-        
+
     $action = getAction();
     $content = "";
-    
+
 	switch($action){
         case "new_tc":
             $content = viewFormTC($smarty, $module_name, $local_templates_dir, $pDB, $arrConf, $arrCredentials);
@@ -89,11 +89,11 @@ function reportTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf, 
         $domain=$credentials['domain'];
     }
     $name=getParameter('name');
-    
+
     $url['menu']=$module_name;
     $url['organization']=$domain;
     $url['name']=$name; //name
-    
+
     $pTC = new paloSantoTC($pDB,$domain);
     $total=$pTC->getNumTC($domain,$name);
     $arrOrgz=array();
@@ -103,7 +103,7 @@ function reportTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf, 
             $arrOrgz[$value["domain"]]=$value["name"];
         }
     }
-    
+
     if($total===false){
         $error=$pTC->errMsg;
         $total=0;
@@ -123,8 +123,8 @@ function reportTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf, 
     $oGrid->setEnd($end);
     $oGrid->setTotal($total);
     $oGrid->setURL($url);
-     
-    $arrColum=array(); 
+
+    $arrColum=array();
     if($credentials['userlevel']=="superadmin"){
         $arrColum[]=_tr("Organization");
     }
@@ -133,7 +133,7 @@ function reportTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf, 
     $arrColum[]=_tr("Destination Match");
     $arrColum[]=_tr("Destination Fail");
     $oGrid->setColumns($arrColum);
-    
+
     $arrTC=array();
     $arrData = array();
     if($total!=0){
@@ -151,26 +151,26 @@ function reportTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf, 
             $arrTmp[] = $arrOrgz[$tc["organization_domain"]];
         }
         $arrTmp[] = "&nbsp;<a href='?menu=$module_name&action=view&id_tc=".$tc['id']."&organization={$tc["organization_domain"]}'>".htmlentities($tc['name'],ENT_QUOTES,"UTF-8")."</a>";
-        $arrTmp[] = htmlentities($tc["tg_name"],ENT_QUOTES,"UTF-8"); 
+        $arrTmp[] = htmlentities($tc["tg_name"],ENT_QUOTES,"UTF-8");
         $arrTmp[] = $tc["destination_m"];
         $arrTmp[] = $tc["destination_f"];
         $arrData[] = $arrTmp;
     }
-            
+
     if($pORGZ->getNumOrganization(array()) >= 1){
         if(in_array('create',$arrPermission)){
             if($credentials['userlevel']=='superadmin'){
                 $oGrid->addComboAction("organization_add",_tr("ADD Time Conditions"), array_slice($arrOrgz,1), $selected=null, "create_tc", $onchange_select=null);
             }else{
                 $oGrid->addNew("create_tc",_tr("ADD Time Conditions"));
-            }   
+            }
         }
         if($credentials['userlevel']=='superadmin'){
             $_POST["organization"]=$domain;
             $oGrid->addFilterControl(_tr("Filter applied ")._tr("Organization")." = ".$arrOrgz[$domain], $_POST, array("organization" => "all"),true);
         }
         $_POST["name"]=$name; // name
-        $oGrid->addFilterControl(_tr("Filter applied ")._tr("Time Condition Name")." = ".$name, $_POST, array("name" => "")); 
+        $oGrid->addFilterControl(_tr("Filter applied ")._tr("Time Condition Name")." = ".$name, $_POST, array("name" => ""));
         $arrFormElements = createFieldFilter($arrOrgz);
         $oFilterForm = new paloForm($smarty, $arrFormElements);
         $htmlFilter = $oFilterForm->fetchForm("$local_templates_dir/filter.tpl", "", $_POST);
@@ -184,7 +184,7 @@ function reportTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf, 
         $smarty->assign("mb_title", _tr("MESSAGE"));
         $smarty->assign("mb_message",$error);
     }
-    
+
     $contenidoModulo = $oGrid->fetchGrid(array(), $arrData);
     $mensaje=showMessageReload($module_name, $pDB, $credentials);
     $contenidoModulo = $mensaje.$contenidoModulo;
@@ -222,7 +222,7 @@ function showMessageReload($module_name, &$pDB, $credentials){
 function viewFormTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf, $credentials){
     global $arrPermission;
     $error = "";
-    
+
     $arrRG=array();
     $action = getParameter("action");
 
@@ -246,7 +246,7 @@ function viewFormTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf
                     $arrTC=$_POST;
             }
         }
-        
+
         if($error!=""){
             $smarty->assign("mb_title", _tr("ERROR"));
             $smarty->assign("mb_message",$error);
@@ -261,15 +261,15 @@ function viewFormTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf
         }else{
             $domain=$credentials['domain'];
         }
-        
+
         $pTC = new paloSantoTC($pDB,$domain);
         if(getParameter("create_tc")){
             $arrTC["goto_m"]="";
             $arrTC["goto_f"]="";
         }else
-            $arrTC=$_POST; 
+            $arrTC=$_POST;
     }
-    
+
     $goto=$pTC->getCategoryDefault($domain);
     if($goto===false)
         $goto=array();
@@ -285,12 +285,12 @@ function viewFormTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf
     }else if(getParameter("edit") || getParameter("save_edit")){
         $oForm->setEditMode();
     }
-    
+
     //permission
     $smarty->assign("EDIT_TC",in_array('edit',$arrPermission));
     $smarty->assign("CREATE_TC",in_array('create',$arrPermission));
     $smarty->assign("DEL_TC",in_array('delete',$arrPermission));
-    
+
     $smarty->assign("REQUIRED_FIELD", _tr("Required field"));
     $smarty->assign("CANCEL", _tr("Cancel"));
     $smarty->assign("OPTIONS", _tr("Options"));
@@ -306,7 +306,7 @@ function viewFormTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf
     $smarty->assign("ORGANIZATION",$domain);
     $smarty->assign("SETDESTINATION_M", _tr("Destination If Match"));
     $smarty->assign("SETDESTINATION_F", _tr("Destination If Fail"));
-    
+
     $htmlForm = $oForm->fetchForm("$local_templates_dir/new.tpl",_tr("TC Route"), $arrTC);
     $content = "<form  method='POST' style='margin-bottom:0;' action='?menu=$module_name'>".$htmlForm."</form>";
 
@@ -323,7 +323,7 @@ function saveNewTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf,
         $domain=$credentials['domain'];
     }
     $pTC = new paloSantoTC($pDB,$domain);
-    
+
     $goto=$pTC->getCategoryDefault($domain);
 
     //validations parameters
@@ -332,17 +332,17 @@ function saveNewTC($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf,
         $error=_tr("Field Name can not be empty.");
         $continue=false;
     }
-    
+
     if($pTC->validateDestine($domain,getParameter("destination_m"))==false){
         $error=_tr("You must select a destination if match");
         $continue=false;
     }
-    
+
     if($pTC->validateDestine($domain,getParameter("destination_f"))==false){
         $error=_tr("You must select a destination if fail");
         $continue=false;
     }
-            
+
     if($continue){
         //seteamos un arreglo con los parametros configurados
         $arrProp=array();
@@ -390,7 +390,7 @@ function saveEditTC($smarty, $module_name, $local_templates_dir, $pDB, $arrConf,
         $smarty->assign("mb_message",_tr("Invalid TC"));
         return reportTC($smarty, $module_name, $local_templates_dir, $pDB, $arrConf, $credentials);
     }
-    
+
     $domain=getParameter('organization'); //este parametro solo es selecionable cuando es el superadmin quien hace la accion
     if($credentials['userlevel']!='superadmin'){
         $domain=$credentials['domain'];
@@ -413,17 +413,17 @@ function saveEditTC($smarty, $module_name, $local_templates_dir, $pDB, $arrConf,
             $error=_tr("Field Name can not be empty.");
             $continue=false;
         }
-        
+
         if($pTC->validateDestine($domain,getParameter("destination_m"))==false){
             $error=_tr("You must select a destination if match");
             $continue=false;
         }
-        
+
         if($pTC->validateDestine($domain,getParameter("destination_f"))==false){
             $error=_tr("You must select a destination if fail");
             $continue=false;
         }
-        
+
         if($continue){
             //seteamos un arreglo con los parametros configurados
             $arrProp=array();
@@ -453,7 +453,7 @@ function saveEditTC($smarty, $module_name, $local_templates_dir, $pDB, $arrConf,
         $smarty->assign("mb_title", _tr("MESSAGE"));
         $smarty->assign("mb_message",_tr("TC has been edited successfully"));
         //mostramos el mensaje para crear los archivos de ocnfiguracion
-        $pAstConf=new paloSantoASteriskConfig($pDB,$pDB2);
+        $pAstConf=new paloSantoASteriskConfig($pDB);
         $pAstConf->setReloadDialplan($domain,true);
         $content = reportTC($smarty, $module_name, $local_templates_dir, $pDB, $arrConf, $credentials);
     }else{
@@ -480,7 +480,7 @@ function deleteTC($smarty, $module_name, $local_templates_dir, $pDB, $arrConf, $
     if($credentials['userlevel']!='superadmin'){
         $domain=$credentials['domain'];
     }
-    
+
     $pTC=new paloSantoTC($pDB,$domain);
     $pDB->beginTransaction();
     $success = $pTC->deleteTC($idTC);
@@ -507,7 +507,7 @@ function deleteTC($smarty, $module_name, $local_templates_dir, $pDB, $arrConf, $
 
 function createFieldForm($goto,$destination1,$destination2,$time_group)
 {
-    
+
     $arrFormElements = array("name"	=> array("LABEL"             => _tr('Name'),
                                                     "DESCRIPTION"            => _tr("Name"),
                                                     "REQUIRED"               => "yes",
@@ -528,30 +528,30 @@ function createFieldForm($goto,$destination1,$destination2,$time_group)
                                                     "INPUT_TYPE"             => "SELECT",
                                                     "INPUT_EXTRA_PARAM"      => $goto,
                                                     "VALIDATION_TYPE"        => "text",
-                                                    "VALIDATION_EXTRA_PARAM" => ""), 
+                                                    "VALIDATION_EXTRA_PARAM" => ""),
                              "destination_m"   => array("LABEL"             => _tr(""),
                                                     "DESCRIPTION"            => _tr("TC_destinem"),
                                                     "REQUIRED"               => "yes",
                                                     "INPUT_TYPE"             => "SELECT",
                                                     "INPUT_EXTRA_PARAM"      => $destination1,
                                                     "VALIDATION_TYPE"        => "text",
-                                                    "VALIDATION_EXTRA_PARAM" => ""), 
+                                                    "VALIDATION_EXTRA_PARAM" => ""),
                              "goto_f"   => array("LABEL"             => _tr("Destine"),
                                                     "DESCRIPTION"            => _tr("TC_destinef"),
                                                     "REQUIRED"               => "yes",
                                                     "INPUT_TYPE"             => "SELECT",
                                                     "INPUT_EXTRA_PARAM"      => $goto,
                                                     "VALIDATION_TYPE"        => "text",
-                                                    "VALIDATION_EXTRA_PARAM" => ""), 
+                                                    "VALIDATION_EXTRA_PARAM" => ""),
                              "destination_f"   => array("LABEL"             => _tr(""),
                                                     "DESCRIPTION"            => _tr("TC_destinef"),
                                                     "REQUIRED"               => "yes",
                                                     "INPUT_TYPE"             => "SELECT",
                                                     "INPUT_EXTRA_PARAM"      => $destination2,
                                                     "VALIDATION_TYPE"        => "text",
-                                                    "VALIDATION_EXTRA_PARAM" => ""),  
+                                                    "VALIDATION_EXTRA_PARAM" => ""),
     );
-	
+
 	return $arrFormElements;
 }
 
