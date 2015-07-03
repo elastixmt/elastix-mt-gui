@@ -399,6 +399,11 @@ rm -rf $RPM_BUILD_ROOT
 /var/lib/php/session-asterisk
 
 %changelog
+* Fri Jul  3 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
+- FIXED: Framework: add missing organization code for astdb update for call
+  waiting. Fixes Elastix bug #2012.
+  SVN Rev[7108]
+
 * Tue Jun 30 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
 - FIXED: Framework: expand table columns containing an organization code. Part
   of fix for Elastix bug #2110.
