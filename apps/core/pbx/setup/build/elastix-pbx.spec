@@ -379,6 +379,9 @@ fi
 
 %changelog
 * Fri Jul  3 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
+- FIXED: Trunks: allow asterisk as part of outbound dial prefix. Part of fix for
+  Elastix bug #2250.
+  SVN Rev[7109]
 - FIXED: Time Conditions: remove extra parameter with undefined variable.
   SVN Rev[7107]
 

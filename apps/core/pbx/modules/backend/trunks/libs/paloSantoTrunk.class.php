@@ -59,7 +59,7 @@ class paloSantoTrunk extends paloAsteriskDB{
         if(count($where)>0){
             $query .=" WHERE ".implode(" AND ",$where);
         }
-        
+
         $result=$this->_DB->getFirstRowQuery($query,false,$arrParam);
         if($result==false){
             $this->errMsg=$this->_DB->errMsg;
@@ -72,7 +72,7 @@ class paloSantoTrunk extends paloAsteriskDB{
     function getTrunks($domain=null,$tech=null,$status=null,$limit=null,$offset=null){
         $where=array();
         $arrParam=null;
-        
+
         $query="SELECT * from trunk";
         if(!empty($domain) && $domain!='all'){
             $where[]=" trunkid IN (SELECT trunkid FROM trunk_organization WHERE organization_domain=?)";
@@ -89,13 +89,13 @@ class paloSantoTrunk extends paloAsteriskDB{
         if(count($where)>0){
             $query .=" WHERE ".implode(" AND ",$where);
         }
-        
+
         if(isset($limit) && isset($offset)){
             $query .=" limit ? offset ?";
             $arrParam[]=$limit;
             $arrParam[]=$offset;
         }
-        
+
         $result=$this->_DB->fetchTable($query,true,$arrParam);
         if($result===false){
             $this->errMsg=$this->_DB->errMsg;
@@ -110,7 +110,7 @@ class paloSantoTrunk extends paloAsteriskDB{
 
         if($result==false)
             $this->errMsg=$this->errMsg;
-        return $result; 
+        return $result;
     }
 
     //debo devolver un arreglo que contengan los parametros del Trunk
@@ -121,10 +121,10 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg = _tr("Trunk ID must be numeric");
             return false;
         }
-        
-        $query  = "SELECT * from trunk where trunkid=?";        
+
+        $query  = "SELECT * from trunk where trunkid=?";
         $result = $this->_DB->getFirstRowQuery($query,true,array($id));
-        
+
         if($result===false){
             $this->errMsg=$this->_DB->errMsg;
             return false;
@@ -137,22 +137,22 @@ class paloSantoTrunk extends paloAsteriskDB{
             $arrTrunk["general_dialoutprefix"]=$result["dialoutprefix"];
             $arrTrunk["general_channelid"]    =$result["channelid"];
             $arrTrunk["general_disabled"]     =$result["disabled"];
-            $arrTrunk["registration_register"]=$result["string_register"]; 
+            $arrTrunk["registration_register"]=$result["string_register"];
             $arrTrunk["general_sec_call_time"]=$result["sec_call_time"];
-            
+
             $tech = ($arrTrunk["general_tech"]=="iax2")?"iax":$arrTrunk["general_tech"];
-            
+
             //obtenemos los detalles del peer si la truncal es de tipo sip o iax2
             if($tech=="sip" || $tech=="iax"){
                 list($name_peer,$name_user) = explode("|",$arrTrunk["general_channelid"]);
-                                
+
                 $query="SELECT * from $tech where name=?";
                 $result1=$this->_DB->getFirstRowQuery($query,true,array($name_peer));
                 if($result1==false){
                     $this->errMsg=_tr("Error getting peer details. ").$this->_DB->errMsg;
                     return false;
                 }
-                
+
                 if(!empty($name_user)){
                     $result2=$this->_DB->getFirstRowQuery($query,true,array($name_user));
                     if($result2==false){
@@ -160,16 +160,16 @@ class paloSantoTrunk extends paloAsteriskDB{
                         return false;
                     }
                 }
-                
+
                 // TODO: encapsular lectura de propiedades
                 if ($tech == 'sip') {
-                    /* Transformación necesaria porque Asterisk no debe de 
+                    /* Transformación necesaria porque Asterisk no debe de
                         * consultar secreto alguno en 'secret', y 'sippasswd'
-                        * contiene el verdadero secreto consultado por 
+                        * contiene el verdadero secreto consultado por
                         * Kamailio. */
                     $result1['secret'] = $result1['sippasswd'];
                     unset($result1['sippasswd']);
-                    
+
                     if(!empty($name_user)){
                         $result2['secret'] = $result2['sippasswd'];
                         unset($result2['sippasswd']);
@@ -177,19 +177,19 @@ class paloSantoTrunk extends paloAsteriskDB{
                 }
 
                 foreach($result1 as $k => $v)
-                    $arrTrunk["peer_{$k}"] = $v; 
-                    
-                if(!empty($name_user)){    
+                    $arrTrunk["peer_{$k}"] = $v;
+
+                if(!empty($name_user)){
                     foreach($result2 as $k => $v)
-                        $arrTrunk["user_{$k}"] = $v;               
+                        $arrTrunk["user_{$k}"] = $v;
                 }
                 else{
                     $arrUserDef = $this->getDefaultConfig($tech,"user",false);
                     foreach($arrUserDef as $k => $v)
-                        $arrTrunk[$k] = $v; 
+                        $arrTrunk[$k] = $v;
                 }
             }
-            
+
             $arrTrunk["general_select_orgs"]=array();
             //obtenemos las organizaciones asociadas a las truncal
             $query="SELECT organization_domain from trunk_organization where trunkid=?";
@@ -202,7 +202,7 @@ class paloSantoTrunk extends paloAsteriskDB{
                 foreach($result as $value)
                     $arrTrunk["general_select_orgs"][]=$value["organization_domain"];
             }
-            
+
             if($arrTrunk["general_sec_call_time"]=="yes"){
                 $arrSec=$this->getSecTimeASTDB($id);
                 foreach($arrSec as $key => $value){
@@ -241,11 +241,11 @@ class paloSantoTrunk extends paloAsteriskDB{
 
     function getDefaultConfig($tech, $prefix_attribute, $with_general=true){
         $arrTrunk=array();
-        if($with_general){            
+        if($with_general){
             $arrTrunk["general_sec_call_time"]="no";
             $arrTrunk["general_period_time"]="60";
         }
-        
+
         $arrTrunk["{$prefix_attribute}_type"]="friend";
         $arrTrunk["{$prefix_attribute}_qualify"]="yes";
         $arrTrunk["{$prefix_attribute}_context"]="from-pstn";
@@ -253,7 +253,7 @@ class paloSantoTrunk extends paloAsteriskDB{
         $arrTrunk["{$prefix_attribute}_allow"]="ulaw;alaw;gsm";
         $arrTrunk["{$prefix_attribute}_deny"]="0.0.0.0/0.0.0.0";
         $arrTrunk["{$prefix_attribute}_permit"]="0.0.0.0/0.0.0.0";
-        
+
         if($tech=="sip"){
             $arrTrunk["{$prefix_attribute}_insecure"]="port,invite";
             $arrTrunk["{$prefix_attribute}_host"]="dynamic";
@@ -281,7 +281,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg="Invalid technology";
             return true;
         }
-        
+
         if($tech=="sip" || $tech=="iax2" || $tech=="iax"){
             $msg=_tr("Peer Name can't be empty");
         }else{
@@ -292,7 +292,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg=$msg;
             return true;
         }
-        
+
         $exclude = "";
         $arrParm = array($tech,$name);
         if(isset($idTrunk)){
@@ -305,7 +305,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg=$this->_DB->errMsg;
             return true;
         }
-        
+
         return false;
     }
 
@@ -316,7 +316,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg="Invalid tech trunk";
             return false;
         }
-                
+
         //debe haberse seteado un nombre para la truncal
         if(!isset($arrGeneral["trunk_name"]) || $arrGeneral["trunk_name"]==""){
             $this->errMsg="Name of trunk can't be empty";
@@ -326,7 +326,7 @@ class paloSantoTrunk extends paloAsteriskDB{
         if(!isset($arrGeneral["outcid"])){
             $arrGeneral["outcid"]="";
         }
-        
+
         //caller id options
         if(!preg_match("/^(on|off|cnum|all)$/",$arrGeneral["keepcid"])){
             $this->errMsg="Invalid CID Options";
@@ -338,7 +338,7 @@ class paloSantoTrunk extends paloAsteriskDB{
                 return false;
             }
         }
-        
+
         //si existe un maximo numero de canales
         if($arrGeneral["max_chans"]!=""){
             if(!preg_match("/^[[:digit:]]+$/",$arrGeneral["max_chans"])){
@@ -351,12 +351,12 @@ class paloSantoTrunk extends paloAsteriskDB{
 
         //outbound dial prefix
         if($arrGeneral["dialout_prefix"]!==""){
-            if(!preg_match("/^[0-9w\\+#]+$/",$arrGeneral["dialout_prefix"])){
+            if(!preg_match("/^[0-9w\\+#*]+$/",$arrGeneral["dialout_prefix"])){
                 $this->errMsg="Invalid value field Outbound Dial Prefix";
                 return false;
             }
         }
-        
+
         if(!isset($arrAllProp['registration']["register"]))
             $arrGeneral["register"]="";
         else
@@ -384,7 +384,7 @@ class paloSantoTrunk extends paloAsteriskDB{
                 $this->errMsg=_tr("Already exist another $TYPE trunk with Peer Name. ").$this->errMsg;
                 return false;
             }
-            
+
             if(!empty($user_name)){
                 //no debe haber otra truncal con el mismo nombre de user
                 if($this->existTrunk($arrGeneral["tech"],$arrAllProp['user']["name"])==true){
@@ -392,12 +392,12 @@ class paloSantoTrunk extends paloAsteriskDB{
                     return false;
                 }
             }
-            
+
             if($this->createSipIaxTrunk($arrGeneral["tech"],$arrAllProp['peer'])==false){
                 $this->errMsg=_tr("Error when trying created $TYPE Peer. ").$this->errMsg;
                 return false;
             }
-            
+
             if(!empty($user_name)){
                 if($this->createSipIaxTrunk($arrGeneral["tech"],$arrAllProp['user'])==false){
                     $this->errMsg=_tr("Error when trying created $TYPE User. ").$this->errMsg;
@@ -405,7 +405,7 @@ class paloSantoTrunk extends paloAsteriskDB{
                 }
             }
         }
-        
+
         $query =
             'INSERT INTO trunk (name, tech, outcid, keepcid, maxchans, '.
                 'dialoutprefix, channelid, disabled, string_register) '.
@@ -414,7 +414,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             $arrGeneral["tech"], $arrGeneral["outcid"], $arrGeneral["keepcid"],
             $arrGeneral["max_chans"], $arrGeneral["dialout_prefix"],
             $arrGeneral["channelid"], $arrGeneral["disabled"], $arrGeneral["register"]));
-        
+
         if($exito==true){
             //si hay dialpatterns se los procesa
             $query="SELECT trunkid from trunk where tech=? and channelid=?";
@@ -428,7 +428,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg=_tr("Trunk could not be created .").$this->_DB->errMsg;
             return false;
         }
-        
+
         //guardamos las organizaciones relacionadas con la truncal
         if($this->trunkOrganization($trunkid,$arrGeneral["select_orgs"])==false){
             return false;
@@ -451,7 +451,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             if(!empty($value["domain"]))
                 $arrOrgz[$value["domain"]]=$value["domain"];
         }
-        
+
         $query="INSERT into trunk_organization(trunkid,organization_domain) values (?,?)";
         //obtenemos las oraganizacion seleccionadas
         $orgs=explode(",",$arrOrg);
@@ -478,7 +478,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg=_tr("Invalid technology");
             return false;
         }
-        
+
         //valido que no exista otro peer con el mismo nombre
         $query="SELECT name from $tech where name=?";
         $result=$this->_DB->getFirstRowQuery($query,false,array($arrProp["name"]));
@@ -486,27 +486,27 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg=_tr("Already exists a $tech peer with the same name .").$this->_DB->errMsg;
             return false;
         }
-        
+
         /* Los campos deny y permit pueden ser NULL para heredar los valores
          * globales de su respectiva tecnología. */
         foreach (array('deny', 'permit') as $k) {
             if (!$this->validateIP($arrProp[$k])) $arrProp[$k] = NULL;
         }
-        
+
         if(empty($arrProp['host'])){
             $arrProp['host']="dynamic";
         }
-        
+
         // TODO: encapsular correctamente la creación de una cuenta voip
         $sqlFields = $this->type->_getFieldValuesSQL($arrProp);
         $query =
             'INSERT INTO '.$tech.' ('.implode(', ', array_keys($sqlFields)).') '.
             'VALUES ('.implode(', ', array_fill(0, count($sqlFields), '?')).')';
         $arrValues = array_values($sqlFields);
-        
+
         if (!$this->executeQuery($query,$arrValues))
             return FALSE;
-        
+
         /* Si la troncal tiene IP y no tiene clave, las llamadas entrantes deben
          * validarse por IP */
         if ($tech == 'sip' && $arrProp['host'] != 'dynamic' && empty($arrProp['secret'])) {
@@ -515,7 +515,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             if (!$this->executeQuery($query, $arrValues))
                 return FALSE;
         }
-        
+
         return TRUE;
     }
 
@@ -526,12 +526,12 @@ class paloSantoTrunk extends paloAsteriskDB{
         $period_time=$arrProp["period_time"];
         $max_calls=$arrProp["maxcalls_time"];
 
-        $errorM="";    
+        $errorM="";
         if($set_security!="yes"){
             $set_security="no";
         }
         $family="TRUNK/$trunkid/COUNT_TIME";
-        
+
         $astMang=AsteriskManagerConnect($errorM);
         if($astMang==false){
             $this->errMsg=$errorM;
@@ -539,18 +539,18 @@ class paloSantoTrunk extends paloAsteriskDB{
         }else{
             //borramos todos los campos anteriores de la truncal
             $result=$astMang->database_delTree("TRUNK/$trunkid");
-            
+
             //campos usados dentro del plan de marcado, estos antes eran globales
             $tech=strtoupper($arrProp["tech"]);
             if($tech=="IAX") $tech = "IAX2";
-            
+
             if($tech=="SIP" || $tech=="IAX2")
                 list($peer_name,$user_name) = explode("|",$arrProp["channelid"]);
             else
                 list($peer_name,$user_name) = array($arrProp["channelid"],null);
-            
+
             $astMang->database_put("TRUNK/$trunkid","OUT","$tech/$peer_name");
-            
+
             $outcid="";
             if(isset($arrProp["outcid"])){
                 if($arrProp["outcid"]!=""){
@@ -558,20 +558,20 @@ class paloSantoTrunk extends paloAsteriskDB{
                     $astMang->database_put("TRUNK/$trunkid","OUTCID",$outcid);
                 }
             }
-            
+
             if(preg_match("/^[0-9]$/",$arrProp["max_chans"]))
                 $astMang->database_put("TRUNK/$trunkid","OUTMAXCHANS",$arrProp["max_chans"]);
-                
+
             $outprefix=isset($arrProp["dialout_prefix"])?$arrProp["dialout_prefix"]:"";
             $astMang->database_put("TRUNK/$trunkid","OUTPREFIX",$outprefix);
-            
+
             $disabled="off";
             if(isset($arrProp["disabled"])){
                 if($arrProp["disabled"]=="on")
                     $disabled="on";
             }
             $astMang->database_put("TRUNK/$trunkid","OUTDISABLE",$disabled);
-            
+
             $keepCid="off";
             if(isset($arrProp["keepcid"])){
                 switch($arrProp["keepcid"]){
@@ -587,16 +587,16 @@ class paloSantoTrunk extends paloAsteriskDB{
                 }
             }
             $astMang->database_put("TRUNK/$trunkid","OUTKEEPCID",$keepCid);
-            
+
             if($keepCid=="all")
                 $astMang->database_put("TRUNK/$trunkid","FORCEDOUTCID",$outcid);
-            
+
             $qPrefix="SELECT count(trunkid) from trunk_dialpatterns where trunkid=?";
             $trunkPrefix=$this->_DB->getFirstRowQuery($qPrefix,false,array($trunkid));
             if($trunkPrefix[0]!="0")
                 $astMang->database_put("TRUNK/$trunkid","PREFIX_TRUNK",$trunkPrefix[0]);
-            
-            
+
+
             //security max call by period of time
             if($set_security=="yes"){
                 if(!preg_match("/^[0-9]+$/",$max_calls)){
@@ -607,16 +607,16 @@ class paloSantoTrunk extends paloAsteriskDB{
                     $this->errMsg=_tr("Field 'Period of Time' can't be empty");
                     return false;
                 }
-                
+
                 //el periodo de tiempo se lo almacena en segundos
                 //period_time se lo recibe en minutos
                 if(ctype_digit($period_time)){
                     $period=$period_time*60;
                 }else
                     $period=3600;
-                    
+
                 $start_time = time();
-                $count=0;    
+                $count=0;
                 $astMang->database_put($family,"PERIOD",$period);
                 $astMang->database_put($family,"COUNT",0);
                 $astMang->database_put($family,"MAX",$max_calls);
@@ -625,9 +625,9 @@ class paloSantoTrunk extends paloAsteriskDB{
             }
             $astMang->disconnect();
         }
-        
+
         return $this->executeQuery("Update trunk set sec_call_time=? where trunkid=?",array($set_security,$trunkid));
-    } 
+    }
 
     function updateTrunkPBX($arrAllProp){
         $arrGeneral = $arrAllProp["general"];
@@ -639,12 +639,12 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg=_tr("Trunk dosen't exist");
             return false;
         }
-        
+
         $arrGeneral["tech"]=$result["tech"];
         if($arrGeneral["tech"]=="iax2") $arrGeneral["tech"]="iax";
         if($arrGeneral["tech"]=="sip" || $arrGeneral["tech"]=="iax")
             list($old_peer_name,$old_user_name) = explode("|",$result["channelid"]);
-        
+
         //debe haberse seteado un nombre para la truncal
         if(!isset($arrGeneral["trunk_name"]) || $arrGeneral["trunk_name"]==""){
             $this->errMsg="Name of trunk can't be empty";
@@ -656,18 +656,18 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg="Invalid CID Options";
             return false;
         }
-        
+
         if($arrGeneral["keepcid"]=="all"){
             if(empty($arrGeneral["outcid"])){
                 $this->errMsg="Field 'Outbound Caller ID' can't be empty";
                 return false;
             }
         }
-        
+
         if(empty($arrGeneral["outcid"])){
             $arrGeneral["outcid"]="";
         }
-        
+
         //si existe un maximo numero de canales
         if($arrGeneral["max_chans"]!=""){
             if(!preg_match("/^[[:digit:]]+$/",$arrGeneral["max_chans"])){
@@ -679,12 +679,12 @@ class paloSantoTrunk extends paloAsteriskDB{
         }
 
         if($arrGeneral["dialout_prefix"]!==""){
-            if(!preg_match("/^[0-9w\\+#]+$/",$arrGeneral["dialout_prefix"])){
+            if(!preg_match("/^[0-9w\\+#*]+$/",$arrGeneral["dialout_prefix"])){
                 $this->errMsg="Invalid value field Outbound Dial Prefix";
                 return false;
             }
         }
-        
+
         if(!isset($arrAllProp['registration']["register"]))
             $arrGeneral["register"]="";
         else
@@ -702,7 +702,7 @@ class paloSantoTrunk extends paloAsteriskDB{
                     return false;
                 }
             }
-            
+
             if($this->existTrunk($arrGeneral["tech"],$arrGeneral["channelid"],$idTrunk)==true){
                 $this->errMsg=_tr("Already Exist another {$arrGeneral["tech"]} trunk with the same $ttt. ").$this->errMsg;
                 return false;
@@ -712,18 +712,18 @@ class paloSantoTrunk extends paloAsteriskDB{
             $TYPE=strtoupper($arrGeneral["tech"]);
             $new_user_name = isset($arrAllProp['user']["name"])?$arrAllProp['user']["name"]:"";
             $arrGeneral["channelid"]=$arrAllProp['peer']["name"]."|".$new_user_name;
-            
+
             //no debe haber otra truncal con el mismo nombre de peer
             if($this->existTrunk($arrGeneral["tech"],$arrAllProp['peer']["name"],$idTrunk)==true){
                 $this->errMsg=_tr("Already exist another $TYPE trunk with Peer Name [{$arrAllProp['peer']["name"]}]. ").$this->errMsg;
                 return false;
             }
-            
+
             if($this->updateSipIaxTrunk($arrGeneral["tech"],$arrAllProp['peer'],$old_peer_name)==false){
                 $this->errMsg=_tr("Error when trying update $TYPE Peer. ").$this->errMsg;
                 return false;
             }
-                                   
+
             if(!empty($old_user_name) && empty($new_user_name)){ //user existio y ahora fue eliminado
                 $query="DELETE from {$arrGeneral["tech"]} where name=?";
                 if($this->_DB->genQuery($query,array($old_user_name))==false){
@@ -737,7 +737,7 @@ class paloSantoTrunk extends paloAsteriskDB{
                     $this->errMsg=_tr("Already exist another $TYPE trunk with User Name. ").$this->errMsg;
                     return false;
                 }
-                
+
                 if(empty($old_user_name)){ // no existia antes
                     if($this->createSipIaxTrunk($arrGeneral["tech"],$arrAllProp['user'])==false){
                         $this->errMsg=_tr("Error when trying created $TYPE User. ").$this->errMsg;
@@ -752,10 +752,10 @@ class paloSantoTrunk extends paloAsteriskDB{
                 }
             }
         }
-        
+
         $query="UPDATE trunk SET name=?,outcid=?,keepcid=?,maxchans=?,dialoutprefix=?,disabled=?,string_register=?,channelid=? where trunkid=?";
         $exito=$this->executeQuery($query,array($arrGeneral["trunk_name"],$arrGeneral["outcid"],$arrGeneral["keepcid"],$arrGeneral["max_chans"],$arrGeneral["dialout_prefix"],$arrGeneral["disabled"],$arrGeneral["register"],$arrGeneral["channelid"],$idTrunk));
-        
+
         if($exito==true){
             //si ahi dialpatterns se los procesa
             $resultDelete = $this->deleteDialPatterns($idTrunk);
@@ -769,14 +769,14 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg=_tr("Trunk could not be updated.").$this->_DB->errMsg;
             return false;
         }
-        
+
         //guardamos las organizaciones relacionadas con la truncal
         $query="DELETE from trunk_organization where trunkid=?";
         if($this->_DB->genQuery($query,array($idTrunk))==false){
             $this->errMsg .=_tr("Trunk couldn't be updated. ").$this->_DB->errMsg;
             return false;
         }
-        
+
         if($this->trunkOrganization($idTrunk,$arrGeneral["select_orgs"])==false){
             return false;
         }else{
@@ -788,7 +788,7 @@ class paloSantoTrunk extends paloAsteriskDB{
                 if($arrGeneral["tech"]=="sip" || $arrGeneral["tech"]=="iax2"){                            //TODO: esto debe hacerse en la clase
                     $this->prunePeer($arrAllProp['peer']["name"],$arrGeneral["tech"]);
                     $this->loadPeer($arrAllProp['peer']["name"],$arrGeneral["tech"]);
-                    
+
                     if(!empty($arrAllProp['user']["name"])){
                         $this->prunePeer($arrAllProp['user']["name"],$arrGeneral["tech"]);
                         $this->loadPeer($arrAllProp['user']["name"],$arrGeneral["tech"]);
@@ -809,7 +809,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg=_tr("Invalid technology");
             return false;
         }
-        
+
         //valido que exista el peer/user con el nombre para su actualizacion
         $query="SELECT name from $tech where name=?";
         $result=$this->_DB->getFirstRowQuery($query,false,array($oldname));
@@ -817,16 +817,16 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg=_tr("Peer trunk doesn't exist. ").$this->_DB->errMsg;
             return false;
         }
-        
+
         if(!(isset($arrProp["secret"]) && $arrProp["secret"]!=""))
             $arrProp["secret"]=null;
-        
+
         /* Los campos deny y permit pueden ser NULL para heredar los valores
          * globales de su respectiva tecnología. */
         foreach (array('deny', 'permit') as $k) {
             if (!$this->validateIP($arrProp[$k])) $arrProp[$k] = NULL;
         }
-        
+
         if(empty($arrProp['host'])){
             $arrProp['host']="dynamic";
         }
@@ -843,7 +843,7 @@ class paloSantoTrunk extends paloAsteriskDB{
                     array($result['host']));
             }
         }
-        
+
         // TODO: encapsular correctamente la actualización de una cuenta voip
         $sqlFields = $this->type->_getFieldValuesSQL($arrProp);
         $arrQuery = array();
@@ -851,12 +851,12 @@ class paloSantoTrunk extends paloAsteriskDB{
             $arrQuery[] = "$name = ?";
         $arrParam   = array_values($sqlFields);
         $arrParam[] = $oldname;
-        
+
         if(count($arrQuery)>0){
             $query ="Update $tech set ".implode(",",$arrQuery);
             $query .=" where name=?";
             if (!$this->executeQuery($query,$arrParam)) return FALSE;
-            
+
             if ($tech == 'sip') {
                 if (!isset($arrProp['host'])) $arrProp['host'] = $oldhost;
                 if ($tech == 'sip' && $arrProp['host'] != 'dynamic' && empty($arrProp['secret'])) {
@@ -875,7 +875,7 @@ class paloSantoTrunk extends paloAsteriskDB{
         $values=explode("/",$field);
         if(count($values)>2)
             return false;
-        foreach($values as $ip){    
+        foreach($values as $ip){
             if(!preg_match("/^([[:digit:]]{1,3})\.([[:digit:]]{1,3})\.([[:digit:]]{1,3})\.([[:digit:]]{1,3})$/",$ip, $arrReg)) {
                 return false;
             } else {
@@ -897,8 +897,8 @@ class paloSantoTrunk extends paloAsteriskDB{
             $seq = 0;
             $query="INSERT INTO trunk_dialpatterns (trunkid,match_pattern_prefix,match_pattern_pass,prepend_digits,seq) values (?,?,?,?,?)";
             foreach($arrDialPattern as $pattern){
-                $prepend = $pattern[3]; 
-                $prefix = $pattern[1]; 
+                $prepend = $pattern[3];
+                $prefix = $pattern[1];
                 $pattern = $pattern[2];
                 $seq++;
 
@@ -911,7 +911,7 @@ class paloSantoTrunk extends paloAsteriskDB{
                     }
                 }else
                     $prepend="";
-                    
+
                 if(isset($prefix)){
                     if(!preg_match("/^([XxZzNn[:digit:]]*(\[[0-9]+\-{1}[0-9]+\])*(\[[0-9]+\])*)+$/",$prefix)){
                         $this->errMsg .=_tr("Invalid dial pattern").". Prefix '$prefix'";
@@ -932,7 +932,7 @@ class paloSantoTrunk extends paloAsteriskDB{
 
                 if($prepend!="" || $prefix!="" || $pattern!="")
                     $result=$this->executeQuery($query,array($trunkid,$prefix,$pattern,$prepend,$seq));
-                
+
                 if($result==false)
                 break;
             }
@@ -946,21 +946,21 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg=_tr("Invalid Trunk. ");
             return false;
         }
-                
+
         $query="SELECT channelid,tech from trunk where trunkid=?";
         $result=$this->_DB->getFirstRowQuery($query,true,array($trunkid));
         if($result===false || count($result)==0){
             $this->errMsg=_tr("Trunk doesn't exist. ").$this->_DB->errMsg;
             return false;
         }
-        
+
         $resultDelete = $this->deleteDialPatterns($trunkid);
         //borramos el peer creado para la truncal en caso de que la tecnologia sea iax2 o sip
         if($result["tech"]=="iax2" || $result["tech"]=="sip"){
             $tech=$result["tech"];
             if($result["tech"]=="iax2")
                 $tech="iax";
-                
+
             list($peer,$user) = explode("|",$result["channelid"]);
 
             // Eliminar la dirección de la troncal en caso de cuenta SIP
@@ -973,13 +973,13 @@ class paloSantoTrunk extends paloAsteriskDB{
                         array($result['host']));
                 }
             }
-            
+
             $query="DELETE from $tech where name=?";
             if($this->_DB->genQuery($query,array($peer))==false){
                 $this->errMsg .=_tr("Peer couldn't be deleted. ").$this->_DB->errMsg;
                 return false;
             }
-            
+
             if(!empty($user)){
                 if($this->_DB->genQuery($query,array($user))==false){
                     $this->errMsg .=_tr("Peer couldn't be deleted. ").$this->_DB->errMsg;
@@ -987,24 +987,24 @@ class paloSantoTrunk extends paloAsteriskDB{
                 }
             }
         }
-        
+
         $query="DELETE from trunk_organization where trunkid=?";
         if($this->_DB->genQuery($query,array($trunkid))==false){
             $this->errMsg .=_tr("Trunk can't be deleted. ").$this->_DB->errMsg;
             return false;
         }
-        
+
         $query="DELETE from outbound_route_trunkpriority where trunk_id=?";
         if($this->_DB->genQuery($query,array($trunkid))==false){
             $this->errMsg .=_tr("Trunk can't be deleted. ").$this->_DB->errMsg;
             return false;
         }
-        
+
         if($this->deleteTrunkASTDB($trunkid)==false){
             $this->errMsg =_tr("Trunk can't be deleted. ").$this->errMsg;
             return false;
         }
-        
+
         $query="DELETE from trunk where trunkid=?";
         if(($this->executeQuery($query,array($trunkid)))&&($resultDelete==true)){
             return true;
@@ -1012,7 +1012,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg=_tr("Trunk can't be deleted. ").$this->errMsg;
             return false;
         }
-        
+
         return true;
     }
 
@@ -1044,29 +1044,29 @@ class paloSantoTrunk extends paloAsteriskDB{
             $this->errMsg = _tr("Invalid Trunk ID");
             return false;
         }
-        
+
         $query="SELECT channelid,sec_call_time from trunk where trunkid=?";
         $result=$this->_DB->getFirstRowQuery($query,true,array($id));
         if($result===false || count($result)==0){
             $this->errMsg=_tr("Trunk doesn't exist. ").$this->_DB->errMsg;
             return false;
         }
-        
+
         $action=($action=="on")?"on":"off";
-        
+
         //cambiamos en la base de datos el parametro disabled
         $query="Update trunk set disabled=? where trunkid=?";
         if($this->_DB->genQuery($query,array($action,$id))==false){
             $this->errMsg .=_tr("Trunk can't be enabled. ").$this->_DB->errMsg;
             return false;
         }
-        
+
         $astMang=AsteriskManagerConnect($errorM);
         if($astMang==false){
             $this->errMsg=$errorM;
             return false;
         }else{
-            if($action=="off"){ 
+            if($action=="off"){
                 //borro las propiedades dentro de la base ASTDB de asterisk
                 if($result["sec_call_time"]=="yes"){
                     $result=$astMang->database_del("TRUNK/$id/COUNT_TIME","BLOCK");
