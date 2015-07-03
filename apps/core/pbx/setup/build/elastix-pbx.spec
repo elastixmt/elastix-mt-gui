@@ -379,6 +379,9 @@ fi
 
 %changelog
 * Fri Jul  3 2015 Alex Villacis Lasso <a_villacis@palosanto.com>
+- FIXED: Trunks: use consistent name for key name of outbound dial prefix. Part
+  of fix for Elastix bug #2250.
+  SVN Rev[7110].
 - FIXED: Trunks: allow asterisk as part of outbound dial prefix. Part of fix for
   Elastix bug #2250.
   SVN Rev[7109]

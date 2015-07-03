@@ -134,7 +134,7 @@ class paloSantoTrunk extends paloAsteriskDB{
             $arrTrunk["general_outcid"]       =$result["outcid"];
             $arrTrunk["general_keepcid"]      =$result["keepcid"];
             $arrTrunk["general_maxchans"]     =$result["maxchans"];
-            $arrTrunk["general_dialoutprefix"]=$result["dialoutprefix"];
+            $arrTrunk["general_dialout_prefix"]=$result["dialoutprefix"];
             $arrTrunk["general_channelid"]    =$result["channelid"];
             $arrTrunk["general_disabled"]     =$result["disabled"];
             $arrTrunk["registration_register"]=$result["string_register"];
